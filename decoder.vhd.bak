@@ -1,0 +1,18 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+ENTITY DECODER IS
+	PORT(
+		A: IN std_logic_vector (3 downto 0);
+		S: OUT std_logic_vector (1 downto 0)
+	);
+END DECODER;
+
+ARCHITECTURE Behaviour OF DECODER IS
+BEGIN
+	Y(0) <= (A(0) AND NOT S) OR (B(0) AND S);
+	Y(1) <= (A(1) AND NOT S) OR (B(1) AND S);
+	Y(2) <= (A(2) AND NOT S) OR (B(2) AND S);
+	Y(3) <= (A(3) AND NOT S) OR (B(3) AND S);
+	
+END Behaviour;

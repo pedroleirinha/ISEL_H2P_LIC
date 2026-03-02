@@ -1,0 +1,15 @@
+|decoder
+A[0] <= A.DB_MAX_OUTPUT_PORT_TYPE
+A[1] <= A.DB_MAX_OUTPUT_PORT_TYPE
+A[2] <= A.DB_MAX_OUTPUT_PORT_TYPE
+A[3] <= A.DB_MAX_OUTPUT_PORT_TYPE
+S[0] => A.IN0
+S[0] => A.IN0
+S[0] => A.IN0
+S[0] => A.IN0
+S[1] => A.IN1
+S[1] => A.IN1
+S[1] => A.IN1
+S[1] => A.IN1
+
+
