@@ -1,0 +1,63 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity CounterDown_tb is
+end entity;
+
+architecture CounterDown_tb_arch of CounterDown_tb is
+
+	component CounterDown PORT(
+			clk_in, CE, CLEAR, PL: IN std_logic;
+			initial, step: IN std_logic_vector (3 downto 0);
+			Q: OUT std_logic_vector (3 downto 0);
+			Z: OUT std_logic
+		);
+	end component;
+
+	-- UUT signals
+	signal CLK_TB : std_logic := '0';
+	signal CLR_TB, CE_TB, PL_TB, Z_TB: std_logic;
+	signal COUNT_VALUE_TB, INITIAL_TB, STEP_TB : std_logic_vector(3 downto 0);
+
+	constant MCLK_PERIOD : time := 20 ns;
+	constant MCLK_HALF_PERIOD : time := MCLK_PERIOD / 2;
+	constant CLK_PERIOD : time := 20 ns;
+
+begin
+
+	CLK_TB <= not CLK_TB after MCLK_HALF_PERIOD;
+	UUT: CounterDown port map(	
+		clk_in 	=> CLK_TB, 
+		CLEAR 	=> CLR_TB, 
+		CE 		=> CE_TB, 
+		PL	 		=> PL_TB,
+		initial 		=> INITIAL_TB ,
+		step 		=> STEP_TB ,
+		Q 			=> COUNT_VALUE_TB ,
+		Z			=> Z_TB
+	);
+	
+stimulus: process 
+begin
+	INITIAL_TB <= "0101";
+	STEP_TB <= "1111";
+	CLR_TB <= '1';
+	CE_TB <= '0';
+	PL_TB <= '0';
+	wait for CLK_PERIOD;
+	CLR_TB <= '0';
+	PL_TB <= '1';
+	CE_TB <= '1';
+	wait for CLK_PERIOD;
+	PL_TB <= '0';
+	wait for CLK_PERIOD * 5;
+	PL_TB <= '1';
+	wait for CLK_PERIOD;
+	PL_TB <= '0';
+	wait for CLK_PERIOD * 5;
+	wait;
+		
+		
+end process;
+
+end architecture;

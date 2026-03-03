@@ -10,9 +10,14 @@ END decoder;
 
 ARCHITECTURE Behaviour OF decoder IS
 BEGIN
-	A(0) <= '0' when S(0) = '0' and S(1) = '0' else '1';
-	A(1) <= '0' when S(0) = '0' and S(1) = '1' else '1';
-	A(2) <= '0' when S(0) = '1' and S(1) = '0' else '1';
-	A(3) <= '0' when S(0) = '1' and S(1) = '1' else '1';
-
+	process(S)
+	begin
+	  case S is
+			when "00" => A <= "0111";
+			when "01" => A <= "1011";
+			when "10" => A <= "1101";
+			when "11" => A <= "1110";
+			when others => A <= "1111";
+	  end case;
+	end process;
 END Behaviour;

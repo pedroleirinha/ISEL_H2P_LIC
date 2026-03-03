@@ -1,15 +1,211 @@
-|decoder
-A[0] <= A.DB_MAX_OUTPUT_PORT_TYPE
-A[1] <= A.DB_MAX_OUTPUT_PORT_TYPE
-A[2] <= A.DB_MAX_OUTPUT_PORT_TYPE
-A[3] <= A.DB_MAX_OUTPUT_PORT_TYPE
-S[0] => A.IN0
-S[0] => A.IN0
-S[0] => A.IN0
-S[0] => A.IN0
-S[1] => A.IN1
-S[1] => A.IN1
-S[1] => A.IN1
-S[1] => A.IN1
+|KeyScanV1
+clk_in => Counter:cont.clk_in
+Kscan => Counter:cont.CE
+Kscan => Counter:cont.CLEAR
+rows[0] => MUX4_2L1:muxPL.A[0]
+rows[1] => MUX4_2L1:muxPL.A[1]
+rows[2] => MUX4_2L1:muxPL.A[2]
+rows[3] => MUX4_2L1:muxPL.A[3]
+cols[0] <= decoder:decode.A[0]
+cols[1] <= decoder:decode.A[1]
+cols[2] <= decoder:decode.A[2]
+cols[3] <= decoder:decode.A[3]
+K[0] <= Counter:cont.Q[0]
+K[1] <= Counter:cont.Q[1]
+K[2] <= Counter:cont.Q[2]
+K[3] <= Counter:cont.Q[3]
+Kpress <= MUX4_2L1:muxPL.Y
+
+
+|KeyScanV1|Counter:cont
+clk_in => RegistryL4:registry.clk_in
+CE => RegistryL4:registry.CE
+CLEAR => RegistryL4:registry.CLEAR
+PL => MUX2_1L4:muxPL.S
+initial[0] => MUX2_1L4:muxPL.B[0]
+initial[1] => MUX2_1L4:muxPL.B[1]
+initial[2] => MUX2_1L4:muxPL.B[2]
+initial[3] => MUX2_1L4:muxPL.B[3]
+step[0] => Adder:adder1.B[0]
+step[1] => Adder:adder1.B[1]
+step[2] => Adder:adder1.B[2]
+step[3] => Adder:adder1.B[3]
+Q[0] <= RegistryL4:registry.Q[0]
+Q[1] <= RegistryL4:registry.Q[1]
+Q[2] <= RegistryL4:registry.Q[2]
+Q[3] <= RegistryL4:registry.Q[3]
+Z <= Z.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|Adder:adder1
+A[0] => FullAdder:adder1.A
+A[1] => FullAdder:adder2.A
+A[2] => FullAdder:adder3.A
+A[3] => FullAdder:adder4.A
+B[0] => FullAdder:adder1.B
+B[1] => FullAdder:adder2.B
+B[2] => FullAdder:adder3.B
+B[3] => FullAdder:adder4.B
+C0 => FullAdder:adder1.CBi
+S[0] <= FullAdder:adder1.S
+S[1] <= FullAdder:adder2.S
+S[2] <= FullAdder:adder3.S
+S[3] <= FullAdder:adder4.S
+C4 <= FullAdder:adder4.CO
+
+
+|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder1
+A => addResult.IN0
+A => CO.IN0
+B => addResult.IN1
+B => CO.IN1
+CBi => S.IN1
+CBi => CO.IN1
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder2
+A => addResult.IN0
+A => CO.IN0
+B => addResult.IN1
+B => CO.IN1
+CBi => S.IN1
+CBi => CO.IN1
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder3
+A => addResult.IN0
+A => CO.IN0
+B => addResult.IN1
+B => CO.IN1
+CBi => S.IN1
+CBi => CO.IN1
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder4
+A => addResult.IN0
+A => CO.IN0
+B => addResult.IN1
+B => CO.IN1
+CBi => S.IN1
+CBi => CO.IN1
+S <= S.DB_MAX_OUTPUT_PORT_TYPE
+CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|MUX2_1L4:muxPL
+A[0] => Y.IN0
+A[1] => Y.IN0
+A[2] => Y.IN0
+A[3] => Y.IN0
+B[0] => Y.IN0
+B[1] => Y.IN0
+B[2] => Y.IN0
+B[3] => Y.IN0
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+Y[0] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+Y[1] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+Y[2] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+Y[3] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|RegistryL4:registry
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|MUX4_2L1:muxPL
+A[0] => Mux0.IN0
+A[1] => Mux0.IN1
+A[2] => Mux0.IN2
+A[3] => Mux0.IN3
+S[0] => Mux0.IN5
+S[1] => Mux0.IN4
+Y <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|KeyScanV1|decoder:decode
+A[0] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+A[1] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+A[2] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+A[3] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+S[0] => Mux0.IN5
+S[0] => Mux1.IN5
+S[0] => Mux2.IN5
+S[0] => Mux3.IN5
+S[1] => Mux0.IN4
+S[1] => Mux1.IN4
+S[1] => Mux2.IN4
+S[1] => Mux3.IN4
 
 

@@ -28,7 +28,7 @@ ARCHITECTURE Structural OF Counter IS
 		);
 	end component;
 	
-	component MUX4
+	component MUX2_1L4
 		PORT(
 			A,B: IN std_logic_vector (3 downto 0);
 			S: IN std_logic;
@@ -49,7 +49,7 @@ BEGIN
 		S => addRes
 	);
 	
-	muxPL: MUX4 port map(
+	muxPL: MUX2_1L4 port map(
 		A => addRes,
 		B => initial,
 		S => PL,

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TicketMachine
-Mon Mar 02 11:46:11 2026
+Tue Mar 03 16:21:14 2026
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -14,9 +14,15 @@ Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. General Register Statistics
-  9. Post-Synthesis Netlist Statistics for Top Partition
- 10. Elapsed Time Per Partition
- 11. Analysis & Synthesis Messages
+  9. Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop4"
+ 10. Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop3"
+ 11. Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop2"
+ 12. Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop1"
+ 13. Port Connectivity Checks: "Counter:cont|Adder:adder1"
+ 14. Port Connectivity Checks: "Counter:cont"
+ 15. Post-Synthesis Netlist Statistics for Top Partition
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
 
 
 
@@ -43,16 +49,16 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Mar 02 11:46:11 2026       ;
+; Analysis & Synthesis Status        ; Successful - Tue Mar 03 16:21:14 2026       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; TicketMachine                               ;
-; Top-level Entity Name              ; decoder                                     ;
+; Top-level Entity Name              ; KeyScanV1                                   ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 4                                           ;
-;     Total combinational functions  ; 4                                           ;
-;     Dedicated logic registers      ; 0                                           ;
-; Total registers                    ; 0                                           ;
-; Total pins                         ; 6                                           ;
+; Total logic elements               ; 10                                          ;
+;     Total combinational functions  ; 10                                          ;
+;     Dedicated logic registers      ; 4                                           ;
+; Total registers                    ; 4                                           ;
+; Total pins                         ; 15                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -68,7 +74,7 @@ https://fpgasoftware.intel.com/eula.
 ; Option                                                           ; Setting            ; Default Value      ;
 +------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                           ; 10M50DAF484C6GES   ;                    ;
-; Top-level entity name                                            ; decoder            ; TicketMachine      ;
+; Top-level entity name                                            ; KeyScanV1          ; TicketMachine      ;
 ; Family name                                                      ; MAX 10             ; Cyclone V          ;
 ; Use smart compilation                                            ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
@@ -157,61 +163,78 @@ https://fpgasoftware.intel.com/eula.
 ; Maximum allowed            ; 14          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 14          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processors 2-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                        ;
-+----------------------------------+-----------------+-----------------+--------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                 ; Library ;
-+----------------------------------+-----------------+-----------------+--------------------------------------------------------------+---------+
-; decoder.vhd                      ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd ;         ;
-+----------------------------------+-----------------+-----------------+--------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                           ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                    ; Library ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
+; MUX2_1L4.vhd                     ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd   ;         ;
+; Counter.vhd                      ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd    ;         ;
+; Adder.vhd                        ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd      ;         ;
+; RegistryL4.vhd                   ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd ;         ;
+; FullAdder.vhd                    ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd  ;         ;
+; FFD.vhd                          ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd        ;         ;
+; decoder.vhd                      ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd    ;         ;
+; KeyScanV1.vhd                    ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd  ;         ;
+; MUX4_2L1.vhd                     ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd   ;         ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
 
 
-+----------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary              ;
-+---------------------------------------------+------------+
-; Resource                                    ; Usage      ;
-+---------------------------------------------+------------+
-; Estimated Total logic elements              ; 4          ;
-;                                             ;            ;
-; Total combinational functions               ; 4          ;
-; Logic element usage by number of LUT inputs ;            ;
-;     -- 4 input functions                    ; 0          ;
-;     -- 3 input functions                    ; 0          ;
-;     -- <=2 input functions                  ; 4          ;
-;                                             ;            ;
-; Logic elements by mode                      ;            ;
-;     -- normal mode                          ; 4          ;
-;     -- arithmetic mode                      ; 0          ;
-;                                             ;            ;
-; Total registers                             ; 0          ;
-;     -- Dedicated logic registers            ; 0          ;
-;     -- I/O registers                        ; 0          ;
-;                                             ;            ;
-; I/O pins                                    ; 6          ;
-;                                             ;            ;
-; Embedded Multiplier 9-bit elements          ; 0          ;
-;                                             ;            ;
-; Maximum fan-out node                        ; S[0]~input ;
-; Maximum fan-out                             ; 4          ;
-; Total fan-out                               ; 18         ;
-; Average fan-out                             ; 1.13       ;
-+---------------------------------------------+------------+
++------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                                                    ;
++---------------------------------------------+--------------------------------------------------+
+; Resource                                    ; Usage                                            ;
++---------------------------------------------+--------------------------------------------------+
+; Estimated Total logic elements              ; 10                                               ;
+;                                             ;                                                  ;
+; Total combinational functions               ; 10                                               ;
+; Logic element usage by number of LUT inputs ;                                                  ;
+;     -- 4 input functions                    ; 3                                                ;
+;     -- 3 input functions                    ; 1                                                ;
+;     -- <=2 input functions                  ; 6                                                ;
+;                                             ;                                                  ;
+; Logic elements by mode                      ;                                                  ;
+;     -- normal mode                          ; 10                                               ;
+;     -- arithmetic mode                      ; 0                                                ;
+;                                             ;                                                  ;
+; Total registers                             ; 4                                                ;
+;     -- Dedicated logic registers            ; 4                                                ;
+;     -- I/O registers                        ; 0                                                ;
+;                                             ;                                                  ;
+; I/O pins                                    ; 15                                               ;
+;                                             ;                                                  ;
+; Embedded Multiplier 9-bit elements          ; 0                                                ;
+;                                             ;                                                  ;
+; Maximum fan-out node                        ; Counter:cont|RegistryL4:registry|FFD:flipflop3|Q ;
+; Maximum fan-out                             ; 7                                                ;
+; Total fan-out                               ; 62                                               ;
+; Average fan-out                             ; 1.41                                             ;
++---------------------------------------------+--------------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
-; |decoder                   ; 4 (4)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 6    ; 0            ; 0          ; |decoder            ; decoder     ; work         ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                       ;
++-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------+-------------+--------------+
+; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                       ; Entity Name ; Library Name ;
++-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------+-------------+--------------+
+; |KeyScanV1                  ; 10 (0)              ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 15   ; 0            ; 0          ; |KeyScanV1                                                ; KeyScanV1   ; work         ;
+;    |Counter:cont|           ; 4 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|Counter:cont                                   ; Counter     ; work         ;
+;       |RegistryL4:registry| ; 4 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|Counter:cont|RegistryL4:registry               ; RegistryL4  ; work         ;
+;          |FFD:flipflop1|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop1 ; FFD         ; work         ;
+;          |FFD:flipflop2|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop2 ; FFD         ; work         ;
+;          |FFD:flipflop3|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop3 ; FFD         ; work         ;
+;          |FFD:flipflop4|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop4 ; FFD         ; work         ;
+;    |MUX4_2L1:muxPL|         ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|MUX4_2L1:muxPL                                 ; MUX4_2L1    ; work         ;
+;    |decoder:decode|         ; 4 (4)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyScanV1|decoder:decode                                 ; decoder     ; work         ;
++-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -220,14 +243,73 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 0     ;
+; Total registers                              ; 4     ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Clear ; 4     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 0     ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++----------------------------------------------------------------------------+
+; Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop4" ;
++------+-------+----------+--------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                          ;
++------+-------+----------+--------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                     ;
++------+-------+----------+--------------------------------------------------+
+
+
++----------------------------------------------------------------------------+
+; Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop3" ;
++------+-------+----------+--------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                          ;
++------+-------+----------+--------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                     ;
++------+-------+----------+--------------------------------------------------+
+
+
++----------------------------------------------------------------------------+
+; Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop2" ;
++------+-------+----------+--------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                          ;
++------+-------+----------+--------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                     ;
++------+-------+----------+--------------------------------------------------+
+
+
++----------------------------------------------------------------------------+
+; Port Connectivity Checks: "Counter:cont|RegistryL4:registry|FFD:flipflop1" ;
++------+-------+----------+--------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                          ;
++------+-------+----------+--------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                     ;
++------+-------+----------+--------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Counter:cont|Adder:adder1"                                                          ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; c0   ; Input  ; Info     ; Stuck at GND                                                                        ;
+; c4   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Counter:cont"                                                                             ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port       ; Type   ; Severity ; Details                                                                             ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
+; pl         ; Input  ; Info     ; Stuck at GND                                                                        ;
+; initial    ; Input  ; Info     ; Stuck at GND                                                                        ;
+; step[3..1] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; step[0]    ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; z          ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -235,14 +317,18 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 6                           ;
-; cycloneiii_lcell_comb ; 7                           ;
-;     normal            ; 7                           ;
-;         1 data inputs ; 3                           ;
-;         2 data inputs ; 4                           ;
+; boundary_port         ; 15                          ;
+; cycloneiii_ff         ; 4                           ;
+;     CLR               ; 4                           ;
+; cycloneiii_lcell_comb ; 10                          ;
+;     normal            ; 10                          ;
+;         1 data inputs ; 1                           ;
+;         2 data inputs ; 5                           ;
+;         3 data inputs ; 1                           ;
+;         4 data inputs ; 3                           ;
 ;                       ;                             ;
 ; Max LUT depth         ; 2.00                        ;
-; Average LUT depth     ; 1.89                        ;
+; Average LUT depth     ; 1.20                        ;
 +-----------------------+-----------------------------+
 
 
@@ -261,10 +347,25 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Mon Mar 02 11:45:54 2026
+    Info: Processing started: Tue Mar 03 16:21:06 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TicketMachine -c TicketMachine
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file mux2_1l2.vhd
+    Info (12022): Found design unit 1: MUX2_1L2-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L2.vhd Line: 12
+    Info (12023): Found entity 1: MUX2_1L2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L2.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file mux2_1l4.vhd
+    Info (12022): Found design unit 1: MUX2_1L4-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd Line: 12
+    Info (12023): Found entity 1: MUX2_1L4 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file counter2.vhd
+    Info (12022): Found design unit 1: Counter2-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter2.vhd Line: 13
+    Info (12023): Found entity 1: Counter2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter2.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file registryl2.vhd
+    Info (12022): Found design unit 1: RegistryL2-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL2.vhd Line: 12
+    Info (12023): Found entity 1: RegistryL2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL2.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file adder2.vhd
+    Info (12022): Found design unit 1: Adder2-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder2.vhd Line: 13
+    Info (12023): Found entity 1: Adder2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder2.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file counter.vhd
     Info (12022): Found design unit 1: Counter-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 13
     Info (12023): Found entity 1: Counter File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 4
@@ -274,9 +375,6 @@ Info (12021): Found 2 design units, including 1 entities, in source file adder.v
 Info (12021): Found 2 design units, including 1 entities, in source file registryl4.vhd
     Info (12022): Found design unit 1: RegistryL4-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd Line: 12
     Info (12023): Found entity 1: RegistryL4 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd Line: 4
-Info (12021): Found 2 design units, including 1 entities, in source file mux4.vhd
-    Info (12022): Found design unit 1: MUX4-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4.vhd Line: 12
-    Info (12023): Found entity 1: MUX4 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file fulladder.vhd
     Info (12022): Found design unit 1: FullAdder-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd Line: 11
     Info (12023): Found entity 1: FullAdder File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd Line: 4
@@ -289,18 +387,33 @@ Info (12021): Found 2 design units, including 1 entities, in source file clkdiv.
 Info (12021): Found 2 design units, including 1 entities, in source file decoder.vhd
     Info (12022): Found design unit 1: decoder-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd Line: 11
     Info (12023): Found entity 1: decoder File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd Line: 4
-Info (12127): Elaborating entity "decoder" for the top level hierarchy
+Info (12021): Found 2 design units, including 1 entities, in source file keyscanv1.vhd
+    Info (12022): Found design unit 1: KeyScanV1-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd Line: 14
+    Info (12023): Found entity 1: KeyScanV1 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file mux4_2l1.vhd
+    Info (12022): Found design unit 1: MUX4_2L1-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd Line: 12
+    Info (12023): Found entity 1: MUX4_2L1 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd Line: 4
+Info (12127): Elaborating entity "KeyScanV1" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at KeyScanV1.vhd(40): object "zeros" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd Line: 40
+Info (12128): Elaborating entity "Counter" for hierarchy "Counter:cont" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd Line: 48
+Info (12128): Elaborating entity "Adder" for hierarchy "Counter:cont|Adder:adder1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 45
+Info (12128): Elaborating entity "FullAdder" for hierarchy "Counter:cont|Adder:adder1|FullAdder:adder1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd Line: 25
+Info (12128): Elaborating entity "MUX2_1L4" for hierarchy "Counter:cont|MUX2_1L4:muxPL" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 52
+Info (12128): Elaborating entity "RegistryL4" for hierarchy "Counter:cont|RegistryL4:registry" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 59
+Info (12128): Elaborating entity "FFD" for hierarchy "Counter:cont|RegistryL4:registry|FFD:flipflop1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd Line: 28
+Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd Line: 59
+Info (12128): Elaborating entity "decoder" for hierarchy "decoder:decode" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd Line: 66
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 10 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 2 input pins
-    Info (21059): Implemented 4 output pins
-    Info (21061): Implemented 4 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4808 megabytes
-    Info: Processing ended: Mon Mar 02 11:46:11 2026
-    Info: Elapsed time: 00:00:17
-    Info: Total CPU time (on all processors): 00:00:35
+Info (21057): Implemented 25 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 6 input pins
+    Info (21059): Implemented 9 output pins
+    Info (21061): Implemented 10 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 4859 megabytes
+    Info: Processing ended: Tue Mar 03 16:21:14 2026
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:16
 
 

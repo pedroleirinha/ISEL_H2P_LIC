@@ -1,0 +1,211 @@
+# Reading pref.tcl
+# do TicketMachine_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:02 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity MUX2_1L4
+# -- Compiling architecture Behaviour of MUX2_1L4
+# End time: 16:31:02 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity Counter
+# -- Compiling architecture Structural of Counter
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity Adder
+# -- Compiling architecture Structural of Adder
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity RegistryL4
+# -- Compiling architecture Structural of RegistryL4
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity FullAdder
+# -- Compiling architecture Behaviour of FullAdder
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity FFD
+# -- Compiling architecture logicFunction of FFD
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity decoder
+# -- Compiling architecture Behaviour of decoder
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScanV1.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity KeyScanV1
+# -- Compiling architecture Behaviour of KeyScanV1
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:03 on Mar 03,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity MUX4_2L1
+# -- Compiling architecture Behaviour of MUX4_2L1
+# End time: 16:31:03 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyScan1_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:31:14 on Mar 03,2026
+# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyScan1_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity KeyScanV1_tb
+# -- Compiling architecture KeyScanV1_tb_arch of KeyScanV1_tb
+# End time: 16:31:14 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.keyscanv1_tb
+# vsim work.keyscanv1_tb 
+# Start time: 16:31:17 on Mar 03,2026
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.keyscanv1_tb(keyscanv1_tb_arch)
+# Loading work.keyscanv1(behaviour)
+# Loading work.counter(structural)
+# Loading work.adder(structural)
+# Loading work.fulladder(behaviour)
+# Loading work.mux2_1l4(behaviour)
+# Loading work.registryl4(structural)
+# Loading work.ffd(logicfunction)
+# Loading work.mux4_2l1(behaviour)
+# Loading work.decoder(behaviour)
+add wave -position insertpoint  \
+sim:/keyscanv1_tb/ROWS_TB \
+sim:/keyscanv1_tb/MCLK_PERIOD \
+sim:/keyscanv1_tb/MCLK_HALF_PERIOD \
+sim:/keyscanv1_tb/KSCAN_TB \
+sim:/keyscanv1_tb/KPRESS_TB \
+sim:/keyscanv1_tb/K_TB \
+sim:/keyscanv1_tb/COLS_TB \
+sim:/keyscanv1_tb/CLK_TB \
+sim:/keyscanv1_tb/CLK_PERIOD
+run
+run
+run
+run
+run
+run
+run
+run
+vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyScan1_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 16:35:46 on Mar 03,2026
+# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyScan1_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity KeyScanV1_tb
+# -- Compiling architecture KeyScanV1_tb_arch of KeyScanV1_tb
+# End time: 16:35:46 on Mar 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.keyscanv1_tb
+# End time: 16:35:50 on Mar 03,2026, Elapsed time: 0:04:33
+# Errors: 0, Warnings: 0
+# vsim work.keyscanv1_tb 
+# Start time: 16:35:50 on Mar 03,2026
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.keyscanv1_tb(keyscanv1_tb_arch)
+# Loading work.keyscanv1(behaviour)
+# Loading work.counter(structural)
+# Loading work.adder(structural)
+# Loading work.fulladder(behaviour)
+# Loading work.mux2_1l4(behaviour)
+# Loading work.registryl4(structural)
+# Loading work.ffd(logicfunction)
+# Loading work.mux4_2l1(behaviour)
+# Loading work.decoder(behaviour)
+add wave -position insertpoint  \
+sim:/keyscanv1_tb/ROWS_TB \
+sim:/keyscanv1_tb/MCLK_PERIOD \
+sim:/keyscanv1_tb/MCLK_HALF_PERIOD \
+sim:/keyscanv1_tb/KSCAN_TB \
+sim:/keyscanv1_tb/KPRESS_TB \
+sim:/keyscanv1_tb/K_TB \
+sim:/keyscanv1_tb/COLS_TB \
+sim:/keyscanv1_tb/CLK_TB \
+sim:/keyscanv1_tb/CLK_PERIOD
+run
+run
+restart
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+restart
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# End time: 16:41:40 on Mar 03,2026, Elapsed time: 0:05:50
+# Errors: 0, Warnings: 0

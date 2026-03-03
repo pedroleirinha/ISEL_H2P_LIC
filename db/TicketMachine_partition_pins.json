@@ -4,27 +4,63 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "A[0]",
+					"name" : "cols[0]",
 					"strict" : false
 				},
 				{
-					"name" : "A[1]",
+					"name" : "cols[1]",
 					"strict" : false
 				},
 				{
-					"name" : "A[2]",
+					"name" : "cols[2]",
 					"strict" : false
 				},
 				{
-					"name" : "A[3]",
+					"name" : "cols[3]",
 					"strict" : false
 				},
 				{
-					"name" : "S[0]",
+					"name" : "K[0]",
 					"strict" : false
 				},
 				{
-					"name" : "S[1]",
+					"name" : "K[1]",
+					"strict" : false
+				},
+				{
+					"name" : "K[2]",
+					"strict" : false
+				},
+				{
+					"name" : "K[3]",
+					"strict" : false
+				},
+				{
+					"name" : "Kpress",
+					"strict" : false
+				},
+				{
+					"name" : "rows[2]",
+					"strict" : false
+				},
+				{
+					"name" : "rows[1]",
+					"strict" : false
+				},
+				{
+					"name" : "rows[0]",
+					"strict" : false
+				},
+				{
+					"name" : "rows[3]",
+					"strict" : false
+				},
+				{
+					"name" : "clk_in",
+					"strict" : false
+				},
+				{
+					"name" : "Kscan",
 					"strict" : false
 				}
 			]
