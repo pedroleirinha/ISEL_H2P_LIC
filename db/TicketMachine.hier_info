@@ -1,4 +1,23 @@
-|KeyScanV1
+|KeyDecode
+clk_in => KeyScan:scan.clk_in
+clk_in => KeyControl:control.clk_in
+Kack => KeyControl:control.Kack
+rows[0] => KeyScan:scan.rows[0]
+rows[1] => KeyScan:scan.rows[1]
+rows[2] => KeyScan:scan.rows[2]
+rows[3] => KeyScan:scan.rows[3]
+cols[0] << KeyScan:scan.cols[0]
+cols[1] << KeyScan:scan.cols[1]
+cols[2] << KeyScan:scan.cols[2]
+cols[3] << KeyScan:scan.cols[3]
+K[0] << KeyScan:scan.K[0]
+K[1] << KeyScan:scan.K[1]
+K[2] << KeyScan:scan.K[2]
+K[3] << KeyScan:scan.K[3]
+Kval << KeyControl:control.Kval
+
+
+|KeyDecode|KeyScan:scan
 clk_in => Counter:cont.clk_in
 Kscan => Counter:cont.CE
 Kscan => Counter:cont.CLEAR
@@ -17,7 +36,7 @@ K[3] <= Counter:cont.Q[3]
 Kpress <= MUX4_2L1:muxPL.Y
 
 
-|KeyScanV1|Counter:cont
+|KeyDecode|KeyScan:scan|Counter:cont
 clk_in => RegistryL4:registry.clk_in
 CE => RegistryL4:registry.CE
 CLEAR => RegistryL4:registry.CLEAR
@@ -37,7 +56,7 @@ Q[3] <= RegistryL4:registry.Q[3]
 Z <= Z.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|Adder:adder1
+|KeyDecode|KeyScan:scan|Counter:cont|Adder:adder1
 A[0] => FullAdder:adder1.A
 A[1] => FullAdder:adder2.A
 A[2] => FullAdder:adder3.A
@@ -54,7 +73,7 @@ S[3] <= FullAdder:adder4.S
 C4 <= FullAdder:adder4.CO
 
 
-|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder1
+|KeyDecode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -65,7 +84,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder2
+|KeyDecode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder2
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -76,7 +95,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder3
+|KeyDecode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder3
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -87,7 +106,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|Adder:adder1|FullAdder:adder4
+|KeyDecode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder4
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -98,7 +117,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|MUX2_1L4:muxPL
+|KeyDecode|KeyScan:scan|Counter:cont|MUX2_1L4:muxPL
 A[0] => Y.IN0
 A[1] => Y.IN0
 A[2] => Y.IN0
@@ -121,7 +140,7 @@ Y[2] <= Y.DB_MAX_OUTPUT_PORT_TYPE
 Y[3] <= Y.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|RegistryL4:registry
+|KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 D[2] => FFD:flipflop3.D
@@ -144,7 +163,7 @@ Q[2] <= FFD:flipflop3.Q
 Q[3] <= FFD:flipflop4.Q
 
 
-|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop1
+|KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -154,7 +173,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop2
+|KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -164,7 +183,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop3
+|KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -174,7 +193,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|Counter:cont|RegistryL4:registry|FFD:flipflop4
+|KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -184,7 +203,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|MUX4_2L1:muxPL
+|KeyDecode|KeyScan:scan|MUX4_2L1:muxPL
 A[0] => Mux0.IN0
 A[1] => Mux0.IN1
 A[2] => Mux0.IN2
@@ -194,7 +213,7 @@ S[1] => Mux0.IN4
 Y <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|KeyScanV1|decoder:decode
+|KeyDecode|KeyScan:scan|decoder:decode
 A[0] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
 A[1] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
 A[2] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
@@ -207,5 +226,17 @@ S[1] => Mux0.IN4
 S[1] => Mux1.IN4
 S[1] => Mux2.IN4
 S[1] => Mux3.IN4
+
+
+|KeyDecode|KeyControl:control
+clk_in => currState~1.DATAIN
+Kpress => Selector2.IN1
+Kpress => generateNextState.IN0
+Kack => Selector2.IN2
+Kack => generateNextState.IN1
+CLEAR => currState~3.DATAIN
+CE => ~NO_FANOUT~
+Kval <= Kval.DB_MAX_OUTPUT_PORT_TYPE
+Kscan <= Kscan.DB_MAX_OUTPUT_PORT_TYPE
 
 

@@ -36,7 +36,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "Kpress",
+					"name" : "Kval",
+					"strict" : false
+				},
+				{
+					"name" : "clk_in",
+					"strict" : false
+				},
+				{
+					"name" : "Kack",
 					"strict" : false
 				},
 				{
@@ -53,14 +61,6 @@
 				},
 				{
 					"name" : "rows[3]",
-					"strict" : false
-				},
-				{
-					"name" : "clk_in",
-					"strict" : false
-				},
-				{
-					"name" : "Kscan",
 					"strict" : false
 				}
 			]

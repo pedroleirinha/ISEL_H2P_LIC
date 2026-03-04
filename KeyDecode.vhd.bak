@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-ENTITY KeyScanV1 IS
+ENTITY KeyDecode IS
 	PORT(
 		clk_in, Kscan: IN std_logic;
 		rows: 			IN std_logic_vector(3 downto 0);

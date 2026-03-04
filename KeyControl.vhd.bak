@@ -1,0 +1,25 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+ENTITY KeyControl IS
+	PORT(
+		Kpress, Kack: IN std_logic;
+		Kval, Kscan: OUT std_logic
+	);
+END KeyControl;
+
+ARCHITECTURE Behaviour OF KeyControl IS
+BEGIN
+
+	process(S, A)
+	begin
+	  case S is
+			when "00" => Y <= NOT A(0);
+			when "01" => Y <= NOT A(1);
+			when "10" => Y <= NOT A(2);
+			when "11" => Y <= NOT A(3);
+			when others => Y <= '1';
+	  end case;
+	end process;
+	
+END Behaviour;

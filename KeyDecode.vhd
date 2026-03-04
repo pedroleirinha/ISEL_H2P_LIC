@@ -1,0 +1,57 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+ENTITY KeyDecode IS
+	PORT(
+		clk_in, Kack, CLEAR: 	IN std_logic;
+		rows: 						IN std_logic_vector(3 downto 0);
+		cols: 						OUT std_logic_vector(3 downto 0);
+		K: 							OUT std_logic_vector (3 downto 0);
+		Kval:							OUT std_logic
+	);
+END KeyDecode;
+
+ARCHITECTURE Behaviour OF KeyDecode IS
+	component KeyScan
+		PORT(
+			clk_in, Kscan: 		IN std_logic;
+			rows: 					IN std_logic_vector(3 downto 0);
+			cols: 					OUT std_logic_vector(3 downto 0);
+			K: 						OUT std_logic_vector (3 downto 0);
+			Kpress:					OUT std_logic
+		);
+	end component;
+	
+	component KeyControl 
+		PORT(
+			clk_in, Kpress, Kack, CLEAR, CE: IN std_logic;
+			Kval, Kscan: OUT std_logic
+		);
+	end component;
+	
+	signal controlKpress, controlKscan : std_logic;
+
+BEGIN
+	
+	scan: KeyScan port map(
+		clk_in 	=> clk_in,
+		Kscan 	=> controlKscan,
+		rows 		=> rows,		
+		cols 		=> cols,		
+		K 			=> K,		
+		Kpress 	=>	controlKpress
+	);
+	
+	control: KeyControl port map(
+		clk_in	=> clk_in,
+		Kpress	=> controlKpress,
+		Kack		=> Kack,
+		CLEAR		=> CLEAR,
+		CE			=> '1',
+		Kval		=> Kval,
+		Kscan		=> controlKscan
+	);
+	
+	
+
+END Behaviour;

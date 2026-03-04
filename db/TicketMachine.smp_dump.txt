@@ -1,0 +1,6 @@
+
+State Machine - |KeyDecode|KeyControl:control|currState
+Name currState.STATE_FINISHED currState.STATE_READING currState.STATE_SCANNING 
+currState.STATE_SCANNING 0 0 0 
+currState.STATE_READING 0 1 1 
+currState.STATE_FINISHED 1 0 1 
