@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TicketMachine
-Wed Mar 04 14:28:06 2026
+Sun Mar 08 18:15:06 2026
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -52,16 +52,16 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Mar 04 14:28:06 2026       ;
+; Analysis & Synthesis Status        ; Successful - Sun Mar 08 18:15:06 2026       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; TicketMachine                               ;
 ; Top-level Entity Name              ; KeyDecode                                   ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 15                                          ;
-;     Total combinational functions  ; 15                                          ;
+; Total logic elements               ; 17                                          ;
+;     Total combinational functions  ; 17                                          ;
 ;     Dedicated logic registers      ; 7                                           ;
 ; Total registers                    ; 7                                           ;
-; Total pins                         ; 15                                          ;
+; Total pins                         ; 16                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -199,30 +199,30 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+---------------------------------------------------------------+
 ; Resource                                    ; Usage                                                         ;
 +---------------------------------------------+---------------------------------------------------------------+
-; Estimated Total logic elements              ; 15                                                            ;
+; Estimated Total logic elements              ; 17                                                            ;
 ;                                             ;                                                               ;
-; Total combinational functions               ; 15                                                            ;
+; Total combinational functions               ; 17                                                            ;
 ; Logic element usage by number of LUT inputs ;                                                               ;
-;     -- 4 input functions                    ; 4                                                             ;
-;     -- 3 input functions                    ; 4                                                             ;
-;     -- <=2 input functions                  ; 7                                                             ;
+;     -- 4 input functions                    ; 6                                                             ;
+;     -- 3 input functions                    ; 5                                                             ;
+;     -- <=2 input functions                  ; 6                                                             ;
 ;                                             ;                                                               ;
 ; Logic elements by mode                      ;                                                               ;
-;     -- normal mode                          ; 15                                                            ;
+;     -- normal mode                          ; 17                                                            ;
 ;     -- arithmetic mode                      ; 0                                                             ;
 ;                                             ;                                                               ;
 ; Total registers                             ; 7                                                             ;
 ;     -- Dedicated logic registers            ; 7                                                             ;
 ;     -- I/O registers                        ; 0                                                             ;
 ;                                             ;                                                               ;
-; I/O pins                                    ; 15                                                            ;
+; I/O pins                                    ; 16                                                            ;
 ;                                             ;                                                               ;
 ; Embedded Multiplier 9-bit elements          ; 0                                                             ;
 ;                                             ;                                                               ;
 ; Maximum fan-out node                        ; KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3|Q ;
 ; Maximum fan-out                             ; 7                                                             ;
-; Total fan-out                               ; 82                                                            ;
-; Average fan-out                             ; 1.58                                                          ;
+; Total fan-out                               ; 96                                                            ;
+; Average fan-out                             ; 1.71                                                          ;
 +---------------------------------------------+---------------------------------------------------------------+
 
 
@@ -231,14 +231,14 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------------------------+-------------+--------------+
 ; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                    ; Entity Name ; Library Name ;
 +--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------------------------+-------------+--------------+
-; |KeyDecode                     ; 15 (0)              ; 7 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 15   ; 0            ; 0          ; |KeyDecode                                                             ; KeyDecode   ; work         ;
+; |KeyDecode                     ; 17 (0)              ; 7 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 16   ; 0            ; 0          ; |KeyDecode                                                             ; KeyDecode   ; work         ;
 ;    |KeyControl:control|        ; 5 (5)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyControl:control                                          ; KeyControl  ; work         ;
-;    |KeyScan:scan|              ; 10 (0)              ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan                                                ; KeyScan     ; work         ;
-;       |Counter:cont|           ; 4 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont                                   ; Counter     ; work         ;
-;          |RegistryL4:registry| ; 4 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry               ; RegistryL4  ; work         ;
+;    |KeyScan:scan|              ; 12 (0)              ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan                                                ; KeyScan     ; work         ;
+;       |Counter:cont|           ; 6 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont                                   ; Counter     ; work         ;
+;          |RegistryL4:registry| ; 6 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry               ; RegistryL4  ; work         ;
 ;             |FFD:flipflop1|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1 ; FFD         ; work         ;
 ;             |FFD:flipflop2|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2 ; FFD         ; work         ;
-;             |FFD:flipflop3|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3 ; FFD         ; work         ;
+;             |FFD:flipflop3|    ; 3 (3)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3 ; FFD         ; work         ;
 ;             |FFD:flipflop4|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4 ; FFD         ; work         ;
 ;       |MUX4_2L1:muxPL|         ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|MUX4_2L1:muxPL                                 ; MUX4_2L1    ; work         ;
 ;       |decoder:decode|         ; 4 (4)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|decoder:decode                                 ; decoder     ; work         ;
@@ -247,15 +247,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 Encoding Type:  One-Hot
-+----------------------------------------------------------------------------------------------------------+
-; State Machine - |KeyDecode|KeyControl:control|currState                                                  ;
-+--------------------------+--------------------------+-------------------------+--------------------------+
-; Name                     ; currState.STATE_FINISHED ; currState.STATE_READING ; currState.STATE_SCANNING ;
-+--------------------------+--------------------------+-------------------------+--------------------------+
-; currState.STATE_SCANNING ; 0                        ; 0                       ; 0                        ;
-; currState.STATE_READING  ; 0                        ; 1                       ; 1                        ;
-; currState.STATE_FINISHED ; 1                        ; 0                       ; 1                        ;
-+--------------------------+--------------------------+-------------------------+--------------------------+
++----------------------------------------------------------------------------------------------------------------+
+; State Machine - |KeyDecode|KeyControl:control|currState                                                        ;
++-----------------------------+-----------------------------+-------------------------+--------------------------+
+; Name                        ; currState.STATE_ACKNOWLEDGE ; currState.STATE_READING ; currState.STATE_SCANNING ;
++-----------------------------+-----------------------------+-------------------------+--------------------------+
+; currState.STATE_SCANNING    ; 0                           ; 0                       ; 0                        ;
+; currState.STATE_READING     ; 0                           ; 1                       ; 1                        ;
+; currState.STATE_ACKNOWLEDGE ; 1                           ; 0                       ; 1                        ;
++-----------------------------+-----------------------------+-------------------------+--------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------+
@@ -263,9 +263,9 @@ Encoding Type:  One-Hot
 +----------------------------------------------------+------------------------------+------------------------+
 ; Latch Name                                         ; Latch Enable Signal          ; Free of Timing Hazards ;
 +----------------------------------------------------+------------------------------+------------------------+
-; KeyControl:control|nextState.STATE_READING_76      ; KeyControl:control|Selector2 ; yes                    ;
-; KeyControl:control|nextState.STATE_SCANNING_87     ; KeyControl:control|Selector2 ; yes                    ;
-; KeyControl:control|nextState.STATE_FINISHED_65     ; KeyControl:control|Selector2 ; yes                    ;
+; KeyControl:control|nextState.STATE_READING_77      ; KeyControl:control|Selector2 ; yes                    ;
+; KeyControl:control|nextState.STATE_SCANNING_88     ; KeyControl:control|Selector2 ; yes                    ;
+; KeyControl:control|nextState.STATE_ACKNOWLEDGE_66  ; KeyControl:control|Selector2 ; yes                    ;
 ; Number of user-specified and inferred latches = 3  ;                              ;                        ;
 +----------------------------------------------------+------------------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
@@ -279,7 +279,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; Total registers                              ; 7     ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 4     ;
+; Number of registers using Asynchronous Clear ; 7     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 0     ;
 ; Number of registers using Preset             ; 0     ;
@@ -288,12 +288,11 @@ Note: All latches listed above may not be present at the end of synthesis due to
 
 +------------------------------------------------+
 ; Port Connectivity Checks: "KeyControl:control" ;
-+-------+-------+----------+---------------------+
-; Port  ; Type  ; Severity ; Details             ;
-+-------+-------+----------+---------------------+
-; clear ; Input ; Info     ; Stuck at GND        ;
-; ce    ; Input ; Info     ; Stuck at VCC        ;
-+-------+-------+----------+---------------------+
++------+-------+----------+----------------------+
+; Port ; Type  ; Severity ; Details              ;
++------+-------+----------+----------------------+
+; ce   ; Input ; Info     ; Stuck at VCC         ;
++------+-------+----------+----------------------+
 
 
 +-----------------------------------------------------------------------------------------+
@@ -360,19 +359,18 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 15                          ;
+; boundary_port         ; 16                          ;
 ; cycloneiii_ff         ; 7                           ;
-;     CLR               ; 4                           ;
-;     plain             ; 3                           ;
-; cycloneiii_lcell_comb ; 15                          ;
-;     normal            ; 15                          ;
-;         1 data inputs ; 2                           ;
+;     CLR               ; 7                           ;
+; cycloneiii_lcell_comb ; 17                          ;
+;     normal            ; 17                          ;
+;         1 data inputs ; 1                           ;
 ;         2 data inputs ; 5                           ;
-;         3 data inputs ; 4                           ;
-;         4 data inputs ; 4                           ;
+;         3 data inputs ; 5                           ;
+;         4 data inputs ; 6                           ;
 ;                       ;                             ;
 ; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 2.16                        ;
+; Average LUT depth     ; 2.41                        ;
 +-----------------------+-----------------------------+
 
 
@@ -391,7 +389,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Wed Mar 04 14:27:59 2026
+    Info: Processing started: Sun Mar 08 18:14:56 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TicketMachine -c TicketMachine
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -446,34 +444,34 @@ Info (12021): Found 2 design units, including 1 entities, in source file keydeco
 Info (12127): Elaborating entity "KeyDecode" for the top level hierarchy
 Info (12128): Elaborating entity "KeyScan" for hierarchy "KeyScan:scan" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd Line: 36
 Warning (10036): Verilog HDL or VHDL warning at KeyScan.vhd(40): object "zeros" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 40
-Info (12128): Elaborating entity "Counter" for hierarchy "KeyScan:scan|Counter:cont" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 48
+Info (12128): Elaborating entity "Counter" for hierarchy "KeyScan:scan|Counter:cont" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 46
 Info (12128): Elaborating entity "Adder" for hierarchy "KeyScan:scan|Counter:cont|Adder:adder1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 45
 Info (12128): Elaborating entity "FullAdder" for hierarchy "KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd Line: 25
 Info (12128): Elaborating entity "MUX2_1L4" for hierarchy "KeyScan:scan|Counter:cont|MUX2_1L4:muxPL" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 52
 Info (12128): Elaborating entity "RegistryL4" for hierarchy "KeyScan:scan|Counter:cont|RegistryL4:registry" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 59
 Info (12128): Elaborating entity "FFD" for hierarchy "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd Line: 28
-Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "KeyScan:scan|MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 59
-Info (12128): Elaborating entity "decoder" for hierarchy "KeyScan:scan|decoder:decode" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 66
-Info (12128): Elaborating entity "KeyControl" for hierarchy "KeyControl:control" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd Line: 45
+Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "KeyScan:scan|MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 57
+Info (12128): Elaborating entity "decoder" for hierarchy "KeyScan:scan|decoder:decode" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 64
+Info (12128): Elaborating entity "KeyControl" for hierarchy "KeyControl:control" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd Line: 46
 Warning (10631): VHDL Process Statement warning at KeyControl.vhd(20): inferring latch(es) for signal or variable "nextState", which holds its previous value in one or more paths through the process File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-Info (10041): Inferred latch for "nextState.STATE_FINISHED" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
+Info (10041): Inferred latch for "nextState.STATE_ACKNOWLEDGE" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
 Info (10041): Inferred latch for "nextState.STATE_READING" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
 Info (10041): Inferred latch for "nextState.STATE_SCANNING" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-Warning (13012): Latch KeyControl:control|nextState.STATE_READING_76 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
+Warning (13012): Latch KeyControl:control|nextState.STATE_READING_77 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
     Warning (13013): Ports D and ENA on the latch are fed by the same signal KeyControl:control|currState.STATE_SCANNING File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 15
-Warning (13012): Latch KeyControl:control|nextState.STATE_FINISHED_65 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
+Warning (13012): Latch KeyControl:control|nextState.STATE_ACKNOWLEDGE_66 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
     Warning (13013): Ports D and ENA on the latch are fed by the same signal KeyControl:control|currState.STATE_READING File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 15
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 32 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 6 input pins
+Info (21057): Implemented 35 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 7 input pins
     Info (21059): Implemented 9 output pins
-    Info (21061): Implemented 17 logic cells
+    Info (21061): Implemented 19 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 7 warnings
-    Info: Peak virtual memory: 4872 megabytes
-    Info: Processing ended: Wed Mar 04 14:28:06 2026
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:16
+    Info: Peak virtual memory: 4865 megabytes
+    Info: Processing ended: Sun Mar 08 18:15:06 2026
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:23
 
 

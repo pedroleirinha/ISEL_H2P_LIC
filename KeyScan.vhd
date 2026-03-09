@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 ENTITY KeyScan IS
 	PORT(
-		clk_in, Kscan: IN std_logic;
+		clk_in, Kscan, CLEAR: IN std_logic;
 		rows: 			IN std_logic_vector(3 downto 0);
 		cols: 			OUT std_logic_vector(3 downto 0);
 		K: 				OUT std_logic_vector (3 downto 0);
@@ -38,17 +38,15 @@ ARCHITECTURE Behaviour OF KeyScan IS
 	
 	signal countValues: std_logic_vector (3 downto 0);
 	signal zeros: std_logic;
-	signal clear: std_logic;
-	
 	signal decodeOutputs: std_logic_vector (3 downto 0);
+	
 
 BEGIN
-	clear <= NOT Kscan;
-	
+
 	cont: Counter port map(
 		clk_in 	=> clk_in, 
 		CE 		=> Kscan, 
-		CLEAR		=> clear, 
+		CLEAR		=> CLEAR, 
 		PL			=> '0', 
 		initial	=> "0000",
 		step		=> "0001",

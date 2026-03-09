@@ -10,12 +10,12 @@ END KeyControl;
 
 ARCHITECTURE Behaviour OF KeyControl IS
 
-	type STATE_TYPE is (STATE_SCANNING, STATE_READING, STATE_FINISHED);
+	type STATE_TYPE is (STATE_SCANNING, STATE_READING, STATE_ACKNOWLEDGE);
 		
 	signal currState, nextState: STATE_TYPE;
 BEGIN
 
-currState <= STATE_SCANNING when CLEAR = '1' else nextState when rising_edge(clk_in);
+	currState <= STATE_SCANNING when CLEAR = '1' else nextState when rising_edge(clk_in);
 
 generateNextState:
 	process(Kpress, Kack, currState, nextState)
@@ -26,16 +26,16 @@ generateNextState:
 												nextState <= STATE_READING;  
 											end if;
 			when STATE_READING => 	if(Kack = '1') then 
-												nextState <= STATE_FINISHED; 
+												nextState <= STATE_ACKNOWLEDGE; 
 											end if;
-			when STATE_FINISHED => 	if(Kack = '0' AND Kpress = '0') then
+			when STATE_ACKNOWLEDGE => 	if(Kack = '0' AND Kpress = '0') then
 												nextState <= STATE_SCANNING;
 											end if;
 			when others => nextState <= STATE_READING;
 	  end case;
 	end process;  
 	  
-	Kscan <= '1' when (currState = STATE_SCANNING) else '0';
+	Kscan <= '1' when (currState = STATE_SCANNING AND Kpress = '0') else '0';
 	Kval <= '1' when (currState = STATE_READING) else '0';
 	  
 	

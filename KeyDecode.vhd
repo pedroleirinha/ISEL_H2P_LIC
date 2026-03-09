@@ -14,7 +14,7 @@ END KeyDecode;
 ARCHITECTURE Behaviour OF KeyDecode IS
 	component KeyScan
 		PORT(
-			clk_in, Kscan: 		IN std_logic;
+			clk_in, Kscan, CLEAR:IN std_logic;
 			rows: 					IN std_logic_vector(3 downto 0);
 			cols: 					OUT std_logic_vector(3 downto 0);
 			K: 						OUT std_logic_vector (3 downto 0);
@@ -38,6 +38,7 @@ BEGIN
 		Kscan 	=> controlKscan,
 		rows 		=> rows,		
 		cols 		=> cols,		
+		CLEAR		=> CLEAR,
 		K 			=> K,		
 		Kpress 	=>	controlKpress
 	);

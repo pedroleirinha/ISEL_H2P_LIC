@@ -13,10 +13,10 @@ BEGIN
 	process(S)
 	begin
 	  case S is
-			when "00" => A <= "0111";
-			when "01" => A <= "1011";
-			when "10" => A <= "1101";
-			when "11" => A <= "1110";
+			when "00" => A <= "1110";
+			when "01" => A <= "1101";
+			when "10" => A <= "1011";
+			when "11" => A <= "0111";
 			when others => A <= "1111";
 	  end case;
 	end process;

@@ -40,14 +40,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "clk_in",
-					"strict" : false
-				},
-				{
-					"name" : "Kack",
-					"strict" : false
-				},
-				{
 					"name" : "rows[2]",
 					"strict" : false
 				},
@@ -61,6 +53,18 @@
 				},
 				{
 					"name" : "rows[3]",
+					"strict" : false
+				},
+				{
+					"name" : "clk_in",
+					"strict" : false
+				},
+				{
+					"name" : "CLEAR",
+					"strict" : false
+				},
+				{
+					"name" : "Kack",
 					"strict" : false
 				}
 			]

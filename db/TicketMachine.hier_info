@@ -2,6 +2,8 @@
 clk_in => KeyScan:scan.clk_in
 clk_in => KeyControl:control.clk_in
 Kack => KeyControl:control.Kack
+CLEAR => KeyScan:scan.CLEAR
+CLEAR => KeyControl:control.CLEAR
 rows[0] => KeyScan:scan.rows[0]
 rows[1] => KeyScan:scan.rows[1]
 rows[2] => KeyScan:scan.rows[2]
@@ -20,7 +22,7 @@ Kval << KeyControl:control.Kval
 |KeyDecode|KeyScan:scan
 clk_in => Counter:cont.clk_in
 Kscan => Counter:cont.CE
-Kscan => Counter:cont.CLEAR
+CLEAR => Counter:cont.CLEAR
 rows[0] => MUX4_2L1:muxPL.A[0]
 rows[1] => MUX4_2L1:muxPL.A[1]
 rows[2] => MUX4_2L1:muxPL.A[2]
@@ -231,6 +233,7 @@ S[1] => Mux3.IN4
 |KeyDecode|KeyControl:control
 clk_in => currState~1.DATAIN
 Kpress => Selector2.IN1
+Kpress => Kscan.IN0
 Kpress => generateNextState.IN0
 Kack => Selector2.IN2
 Kack => generateNextState.IN1

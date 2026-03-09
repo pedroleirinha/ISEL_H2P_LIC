@@ -12,158 +12,172 @@
 # 
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:38 on Mar 04,2026
+# Start time: 17:59:33 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity KeyScan
 # -- Compiling architecture Behaviour of KeyScan
-# End time: 14:28:38 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:33 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:38 on Mar 04,2026
+# Start time: 17:59:34 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity MUX2_1L4
 # -- Compiling architecture Behaviour of MUX2_1L4
-# End time: 14:28:38 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:34 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:34 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity Counter
 # -- Compiling architecture Structural of Counter
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:34 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:34 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity Adder
 # -- Compiling architecture Structural of Adder
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:34 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:34 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity RegistryL4
 # -- Compiling architecture Structural of RegistryL4
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:34 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:34 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity FullAdder
 # -- Compiling architecture Behaviour of FullAdder
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:35 on Mar 08,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:35 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity FFD
 # -- Compiling architecture logicFunction of FFD
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:35 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:35 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity decoder
 # -- Compiling architecture Behaviour of decoder
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:35 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:35 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity MUX4_2L1
 # -- Compiling architecture Behaviour of MUX4_2L1
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:35 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:35 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity KeyControl
 # -- Compiling architecture Behaviour of KeyControl
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:35 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:39 on Mar 04,2026
+# Start time: 17:59:35 on Mar 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity KeyDecode
 # -- Compiling architecture Behaviour of KeyDecode
-# End time: 14:28:39 on Mar 04,2026, Elapsed time: 0:00:00
+# End time: 17:59:35 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
-vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyControl_tb.vhd
+vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyDecode_tb.vhd
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 14:28:49 on Mar 04,2026
-# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyControl_tb.vhd 
+# Start time: 17:59:46 on Mar 08,2026
+# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyDecode_tb.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
-# -- Compiling entity KeyControl_tb
-# -- Compiling architecture KeyControl_tb_arch of KeyControl_tb
-# End time: 14:28:49 on Mar 04,2026, Elapsed time: 0:00:00
+# -- Compiling entity KeyDecode_tb
+# -- Compiling architecture KeyDecode_tb_arch of KeyDecode_tb
+# End time: 17:59:46 on Mar 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vsim work.keycontrol_tb
-# vsim work.keycontrol_tb 
-# Start time: 14:28:51 on Mar 04,2026
+vsim work.keydecode_tb
+# vsim work.keydecode_tb 
+# Start time: 17:59:52 on Mar 08,2026
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
-# Loading work.keycontrol_tb(keycontrol_tb_arch)
+# Loading work.keydecode_tb(keydecode_tb_arch)
+# Loading work.keydecode(behaviour)
+# Loading work.keyscan(behaviour)
+# Loading work.counter(structural)
+# Loading work.adder(structural)
+# Loading work.fulladder(behaviour)
+# Loading work.mux2_1l4(behaviour)
+# Loading work.registryl4(structural)
+# Loading work.ffd(logicfunction)
+# Loading work.mux4_2l1(behaviour)
+# Loading work.decoder(behaviour)
 # Loading work.keycontrol(behaviour)
 add wave -position insertpoint  \
-sim:/keycontrol_tb/UUT/Kval \
-sim:/keycontrol_tb/UUT/Kscan \
-sim:/keycontrol_tb/UUT/nextState \
-sim:/keycontrol_tb/UUT/currState \
-sim:/keycontrol_tb/UUT/CE \
-sim:/keycontrol_tb/UUT/CLEAR \
-sim:/keycontrol_tb/UUT/Kack \
-sim:/keycontrol_tb/UUT/Kpress \
-sim:/keycontrol_tb/UUT/clk_in
+sim:/keydecode_tb/UUT/scan/zeros \
+sim:/keydecode_tb/UUT/scan/press \
+sim:/keydecode_tb/UUT/scan/decodeOutputs \
+sim:/keydecode_tb/UUT/scan/countValues \
+sim:/keydecode_tb/UUT/scan/counterEnable \
+sim:/keydecode_tb/UUT/scan/Kpress \
+sim:/keydecode_tb/UUT/scan/K \
+sim:/keydecode_tb/UUT/scan/cols \
+sim:/keydecode_tb/UUT/scan/rows \
+sim:/keydecode_tb/UUT/scan/Kscan \
+sim:/keydecode_tb/UUT/scan/clk_in \
+sim:/keydecode_tb/UUT/scan/CLEAR
+add wave -position insertpoint /keydecode_tb/UUT/control/currState
 run
 run
 run
 run
-# End time: 14:30:43 on Mar 04,2026, Elapsed time: 0:01:52
+# End time: 18:13:31 on Mar 08,2026, Elapsed time: 0:13:39
 # Errors: 0, Warnings: 0
