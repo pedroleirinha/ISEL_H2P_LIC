@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TicketMachine
-Mon Mar 09 11:47:29 2026
+Wed Mar 11 13:39:22 2026
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -13,19 +13,26 @@ Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |KeyDecode|KeyControl:control|currState
-  9. User-Specified and Inferred Latches
- 10. General Register Statistics
- 11. Port Connectivity Checks: "KeyControl:control"
- 12. Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4"
- 13. Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3"
- 14. Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2"
- 15. Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1"
- 16. Port Connectivity Checks: "KeyScan:scan|Counter:cont|Adder:adder1"
- 17. Port Connectivity Checks: "KeyScan:scan|Counter:cont"
- 18. Post-Synthesis Netlist Statistics for Top Partition
- 19. Elapsed Time Per Partition
- 20. Analysis & Synthesis Messages
+  8. Analysis & Synthesis IP Cores Summary
+  9. State Machine - |TicketMachine|KeyDecode:decode|KeyControl:control|currState
+ 10. User-Specified and Inferred Latches
+ 11. Registers Removed During Synthesis
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Parameter Settings for User Entity Instance: UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst
+ 15. Port Connectivity Checks: "UsbPort:UsbPort1"
+ 16. Port Connectivity Checks: "KeyDecode:decode|KeyControl:control"
+ 17. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4"
+ 18. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3"
+ 19. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2"
+ 20. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1"
+ 21. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1"
+ 22. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont"
+ 23. Port Connectivity Checks: "KeyDecode:decode"
+ 24. Virtual JTAG Settings
+ 25. Post-Synthesis Netlist Statistics for Top Partition
+ 26. Elapsed Time Per Partition
+ 27. Analysis & Synthesis Messages
 
 
 
@@ -52,16 +59,16 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Mar 09 11:47:29 2026       ;
+; Analysis & Synthesis Status        ; Successful - Wed Mar 11 13:39:22 2026       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; TicketMachine                               ;
-; Top-level Entity Name              ; KeyDecode                                   ;
+; Top-level Entity Name              ; TicketMachine                               ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 17                                          ;
-;     Total combinational functions  ; 17                                          ;
-;     Dedicated logic registers      ; 7                                           ;
-; Total registers                    ; 7                                           ;
-; Total pins                         ; 16                                          ;
+; Total logic elements               ; 153                                         ;
+;     Total combinational functions  ; 129                                         ;
+;     Dedicated logic registers      ; 89                                          ;
+; Total registers                    ; 89                                          ;
+; Total pins                         ; 6                                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -77,7 +84,7 @@ https://fpgasoftware.intel.com/eula.
 ; Option                                                           ; Setting            ; Default Value      ;
 +------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                           ; 10M50DAF484C6GES   ;                    ;
-; Top-level entity name                                            ; KeyDecode          ; TicketMachine      ;
+; Top-level entity name                                            ; TicketMachine      ; TicketMachine      ;
 ; Family name                                                      ; MAX 10             ; Cyclone V          ;
 ; Use smart compilation                                            ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
@@ -174,80 +181,108 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                           ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                    ; Library ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
-; KeyScan.vhd                      ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd    ;         ;
-; MUX2_1L4.vhd                     ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd   ;         ;
-; Counter.vhd                      ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd    ;         ;
-; Adder.vhd                        ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd      ;         ;
-; RegistryL4.vhd                   ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd ;         ;
-; FullAdder.vhd                    ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd  ;         ;
-; FFD.vhd                          ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd        ;         ;
-; decoder.vhd                      ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd    ;         ;
-; MUX4_2L1.vhd                     ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd   ;         ;
-; KeyControl.vhd                   ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd ;         ;
-; KeyDecode.vhd                    ; yes             ; User VHDL File  ; C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd  ;         ;
-+----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                                  ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-------------+
+; File Name with User-Entered Path                                   ; Used in Netlist ; File Type                                    ; File Name with Absolute Path                                                                                        ; Library     ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-------------+
+; UsbPort.vhd                                                        ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd                                                        ;             ;
+; KeyScan.vhd                                                        ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd                                                        ;             ;
+; MUX2_1L4.vhd                                                       ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd                                                       ;             ;
+; Counter.vhd                                                        ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd                                                        ;             ;
+; Adder.vhd                                                          ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd                                                          ;             ;
+; RegistryL4.vhd                                                     ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd                                                     ;             ;
+; FullAdder.vhd                                                      ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd                                                      ;             ;
+; FFD.vhd                                                            ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd                                                            ;             ;
+; decoder.vhd                                                        ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd                                                        ;             ;
+; MUX4_2L1.vhd                                                       ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd                                                       ;             ;
+; KeyControl.vhd                                                     ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd                                                     ;             ;
+; KeyDecode.vhd                                                      ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd                                                      ;             ;
+; TicketMachine.vhd                                                  ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd                                                  ;             ;
+; sld_virtual_jtag.v                                                 ; yes             ; Megafunction                                 ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag.v                                           ;             ;
+; sld_virtual_jtag_basic.v                                           ; yes             ; Megafunction                                 ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v                                     ;             ;
+; sld_jtag_endpoint_adapter.vhd                                      ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd                                ;             ;
+; sld_jtag_endpoint_adapter_impl.sv                                  ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter_impl.sv                            ;             ;
+; sld_hub.vhd                                                        ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_hub.vhd                                                  ; altera_sld  ;
+; db/ip/sld89da40d0/alt_sld_fab.v                                    ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/alt_sld_fab.v                                    ; alt_sld_fab ;
+; db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab.v             ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab.v             ; alt_sld_fab ;
+; db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; yes             ; Auto-Found SystemVerilog HDL File            ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; alt_sld_fab ;
+; db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; alt_sld_fab ;
+; db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; yes             ; Encrypted Auto-Found VHDL File               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; alt_sld_fab ;
+; db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; alt_sld_fab ;
+; sld_jtag_hub.vhd                                                   ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_jtag_hub.vhd                                             ;             ;
+; sld_rom_sr.vhd                                                     ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_rom_sr.vhd                                               ;             ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-------------+
 
 
-+-------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                                                                 ;
-+---------------------------------------------+---------------------------------------------------------------+
-; Resource                                    ; Usage                                                         ;
-+---------------------------------------------+---------------------------------------------------------------+
-; Estimated Total logic elements              ; 17                                                            ;
-;                                             ;                                                               ;
-; Total combinational functions               ; 17                                                            ;
-; Logic element usage by number of LUT inputs ;                                                               ;
-;     -- 4 input functions                    ; 6                                                             ;
-;     -- 3 input functions                    ; 5                                                             ;
-;     -- <=2 input functions                  ; 6                                                             ;
-;                                             ;                                                               ;
-; Logic elements by mode                      ;                                                               ;
-;     -- normal mode                          ; 17                                                            ;
-;     -- arithmetic mode                      ; 0                                                             ;
-;                                             ;                                                               ;
-; Total registers                             ; 7                                                             ;
-;     -- Dedicated logic registers            ; 7                                                             ;
-;     -- I/O registers                        ; 0                                                             ;
-;                                             ;                                                               ;
-; I/O pins                                    ; 16                                                            ;
-;                                             ;                                                               ;
-; Embedded Multiplier 9-bit elements          ; 0                                                             ;
-;                                             ;                                                               ;
-; Maximum fan-out node                        ; KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3|Q ;
-; Maximum fan-out                             ; 7                                                             ;
-; Total fan-out                               ; 96                                                            ;
-; Average fan-out                             ; 1.71                                                          ;
-+---------------------------------------------+---------------------------------------------------------------+
++------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                            ;
++---------------------------------------------+--------------------------+
+; Resource                                    ; Usage                    ;
++---------------------------------------------+--------------------------+
+; Estimated Total logic elements              ; 153                      ;
+;                                             ;                          ;
+; Total combinational functions               ; 129                      ;
+; Logic element usage by number of LUT inputs ;                          ;
+;     -- 4 input functions                    ; 52                       ;
+;     -- 3 input functions                    ; 37                       ;
+;     -- <=2 input functions                  ; 40                       ;
+;                                             ;                          ;
+; Logic elements by mode                      ;                          ;
+;     -- normal mode                          ; 121                      ;
+;     -- arithmetic mode                      ; 8                        ;
+;                                             ;                          ;
+; Total registers                             ; 89                       ;
+;     -- Dedicated logic registers            ; 89                       ;
+;     -- I/O registers                        ; 0                        ;
+;                                             ;                          ;
+; I/O pins                                    ; 6                        ;
+;                                             ;                          ;
+; Embedded Multiplier 9-bit elements          ; 0                        ;
+;                                             ;                          ;
+; Maximum fan-out node                        ; altera_internal_jtag~TDO ;
+; Maximum fan-out                             ; 107                      ;
+; Total fan-out                               ; 688                      ;
+; Average fan-out                             ; 2.88                     ;
++---------------------------------------------+--------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                       ;
-+--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------------------------+-------------+--------------+
-; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                    ; Entity Name ; Library Name ;
-+--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------------------------+-------------+--------------+
-; |KeyDecode                     ; 17 (0)              ; 7 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 16   ; 0            ; 0          ; |KeyDecode                                                             ; KeyDecode   ; work         ;
-;    |KeyControl:control|        ; 5 (5)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyControl:control                                          ; KeyControl  ; work         ;
-;    |KeyScan:scan|              ; 12 (0)              ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan                                                ; KeyScan     ; work         ;
-;       |Counter:cont|           ; 6 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont                                   ; Counter     ; work         ;
-;          |RegistryL4:registry| ; 6 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry               ; RegistryL4  ; work         ;
-;             |FFD:flipflop1|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1 ; FFD         ; work         ;
-;             |FFD:flipflop2|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2 ; FFD         ; work         ;
-;             |FFD:flipflop3|    ; 3 (3)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3 ; FFD         ; work         ;
-;             |FFD:flipflop4|    ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4 ; FFD         ; work         ;
-;       |MUX4_2L1:muxPL|         ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|MUX4_2L1:muxPL                                 ; MUX4_2L1    ; work         ;
-;       |decoder:decode|         ; 4 (4)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |KeyDecode|KeyScan:scan|decoder:decode                                 ; decoder     ; work         ;
-+--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------------------------+-------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
++-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
+; Compilation Hierarchy Node                                                                                                              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                       ; Entity Name                       ; Library Name ;
++-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
+; |TicketMachine                                                                                                                          ; 129 (2)             ; 89 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 6    ; 0            ; 0          ; |TicketMachine                                                                                                                                                                                                                                                                                                                                            ; TicketMachine                     ; work         ;
+;    |KeyDecode:decode|                                                                                                                   ; 6 (0)               ; 3 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode                                                                                                                                                                                                                                                                                                                           ; KeyDecode                         ; work         ;
+;       |KeyControl:control|                                                                                                              ; 6 (6)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyControl:control                                                                                                                                                                                                                                                                                                        ; KeyControl                        ; work         ;
+;    |sld_hub:auto_hub|                                                                                                                   ; 121 (1)             ; 86 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                           ; sld_hub                           ; altera_sld   ;
+;       |alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric| ; 120 (0)             ; 86 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric                                                                                                                                                                                           ; alt_sld_fab_with_jtag_input       ; altera_sld   ;
+;          |alt_sld_fab:instrumentation_fabric|                                                                                           ; 120 (0)             ; 86 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                                                                                        ; alt_sld_fab                       ; alt_sld_fab  ;
+;             |alt_sld_fab_alt_sld_fab:alt_sld_fab|                                                                                       ; 120 (1)             ; 86 (5)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab                                                                                                                    ; alt_sld_fab_alt_sld_fab           ; alt_sld_fab  ;
+;                |alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|                                                                            ; 119 (0)             ; 81 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric                                                                        ; alt_sld_fab_alt_sld_fab_sldfabric ; alt_sld_fab  ;
+;                   |sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|                                                                        ; 119 (81)            ; 81 (53)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub                           ; sld_jtag_hub                      ; work         ;
+;                      |sld_rom_sr:hub_info_reg|                                                                                          ; 20 (20)             ; 9 (9)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_rom_sr:hub_info_reg   ; sld_rom_sr                        ; work         ;
+;                      |sld_shadow_jsm:shadow_jsm|                                                                                        ; 18 (18)             ; 19 (19)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_shadow_jsm:shadow_jsm ; sld_shadow_jsm                    ; altera_sld   ;
++-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis IP Cores Summary                                                                                                                                                                                                                                                                                                                                ;
++--------+--------------+---------+--------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance                                                                                                                                                                                                                                                                    ; IP Include File ;
++--------+--------------+---------+--------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                 ;                 ;
+; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab                                             ;                 ;
+; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_presplit:presplit   ;                 ;
+; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric ;                 ;
+; Altera ; Signal Tap   ; N/A     ; N/A          ; Licensed     ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_splitter:splitter   ;                 ;
++--------+--------------+---------+--------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
 
 
 Encoding Type:  One-Hot
 +----------------------------------------------------------------------------------------------------------------+
-; State Machine - |KeyDecode|KeyControl:control|currState                                                        ;
+; State Machine - |TicketMachine|KeyDecode:decode|KeyControl:control|currState                                   ;
 +-----------------------------+-----------------------------+-------------------------+--------------------------+
 ; Name                        ; currState.STATE_ACKNOWLEDGE ; currState.STATE_READING ; currState.STATE_SCANNING ;
 +-----------------------------+-----------------------------+-------------------------+--------------------------+
@@ -257,17 +292,30 @@ Encoding Type:  One-Hot
 +-----------------------------+-----------------------------+-------------------------+--------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                                        ;
-+----------------------------------------------------+------------------------------+------------------------+
-; Latch Name                                         ; Latch Enable Signal          ; Free of Timing Hazards ;
-+----------------------------------------------------+------------------------------+------------------------+
-; KeyControl:control|nextState.STATE_READING_77      ; KeyControl:control|Selector2 ; yes                    ;
-; KeyControl:control|nextState.STATE_SCANNING_88     ; KeyControl:control|Selector2 ; yes                    ;
-; KeyControl:control|nextState.STATE_ACKNOWLEDGE_66  ; KeyControl:control|Selector2 ; yes                    ;
-; Number of user-specified and inferred latches = 3  ;                              ;                        ;
-+----------------------------------------------------+------------------------------+------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                                                         ;
++--------------------------------------------------------------------+-----------------------------------------------+------------------------+
+; Latch Name                                                         ; Latch Enable Signal                           ; Free of Timing Hazards ;
++--------------------------------------------------------------------+-----------------------------------------------+------------------------+
+; KeyDecode:decode|KeyControl:control|nextState.STATE_READING_77     ; KeyDecode:decode|KeyControl:control|Selector2 ; yes                    ;
+; KeyDecode:decode|KeyControl:control|nextState.STATE_SCANNING_88    ; KeyDecode:decode|KeyControl:control|Selector2 ; yes                    ;
+; KeyDecode:decode|KeyControl:control|nextState.STATE_ACKNOWLEDGE_66 ; KeyDecode:decode|KeyControl:control|Selector2 ; yes                    ;
+; Number of user-specified and inferred latches = 3                  ;                                               ;                        ;
++--------------------------------------------------------------------+-----------------------------------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                           ;
++--------------------------------------------------------------------------------+---------------------------------------------+
+; Register name                                                                  ; Reason for Removal                          ;
++--------------------------------------------------------------------------------+---------------------------------------------+
+; KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3|Q ; Stuck at GND due to stuck port clock_enable ;
+; KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4|Q ; Stuck at GND due to stuck port clock_enable ;
+; KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1|Q ; Stuck at GND due to stuck port data_in      ;
+; KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2|Q ; Stuck at GND due to stuck port data_in      ;
+; Total Number of Removed Registers = 4                                          ;                                             ;
++--------------------------------------------------------------------------------+---------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -275,63 +323,100 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 7     ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 7     ;
+; Total registers                              ; 89    ;
+; Number of registers using Synchronous Clear  ; 12    ;
+; Number of registers using Synchronous Load   ; 10    ;
+; Number of registers using Asynchronous Clear ; 36    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Clock Enable       ; 58    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+------------------------------------------------+
-; Port Connectivity Checks: "KeyControl:control" ;
-+------+-------+----------+----------------------+
-; Port ; Type  ; Severity ; Details              ;
-+------+-------+----------+----------------------+
-; ce   ; Input ; Info     ; Stuck at VCC         ;
-+------+-------+----------+----------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Inverted Register Statistics                                                                                                                                                                                                                                                                                                              ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; Inverted Register                                                                                                                                                                                                                                                                                                               ; Fan out ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[2] ; 2       ;
+; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[1] ; 3       ;
+; Total number of inverted registers = 2                                                                                                                                                                                                                                                                                          ;         ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
 +-----------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4" ;
-+------+-------+----------+---------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                       ;
-+------+-------+----------+---------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                  ;
-+------+-------+----------+---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst ;
++-------------------------+------------------+--------------------------------------------+
+; Parameter Name          ; Value            ; Type                                       ;
++-------------------------+------------------+--------------------------------------------+
+; sld_auto_instance_index ; YES              ; String                                     ;
+; sld_instance_index      ; 0                ; Signed Integer                             ;
+; sld_ir_width            ; 8                ; Signed Integer                             ;
+; sld_sim_n_scan          ; 0                ; Signed Integer                             ;
+; sld_sim_action          ; UNUSED           ; String                                     ;
+; sld_sim_total_length    ; 0                ; Signed Integer                             ;
+; lpm_type                ; sld_virtual_jtag ; String                                     ;
+; lpm_hint                ; UNUSED           ; String                                     ;
++-------------------------+------------------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-----------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3" ;
-+------+-------+----------+---------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                       ;
-+------+-------+----------+---------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                  ;
-+------+-------+----------+---------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "UsbPort:UsbPort1"                                                                               ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port             ; Type   ; Severity ; Details                                                                             ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; outputport[7..1] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2" ;
-+------+-------+----------+---------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                       ;
-+------+-------+----------+---------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                  ;
-+------+-------+----------+---------------------------------------------------------------+
++-----------------------------------------------------------------+
+; Port Connectivity Checks: "KeyDecode:decode|KeyControl:control" ;
++------+-------+----------+---------------------------------------+
+; Port ; Type  ; Severity ; Details                               ;
++------+-------+----------+---------------------------------------+
+; ce   ; Input ; Info     ; Stuck at VCC                          ;
++------+-------+----------+---------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1" ;
-+------+-------+----------+---------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                       ;
-+------+-------+----------+---------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                  ;
-+------+-------+----------+---------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4" ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                        ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                   ;
++------+-------+----------+--------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3" ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                        ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                   ;
++------+-------+----------+--------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2" ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                        ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                   ;
++------+-------+----------+--------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1" ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                        ;
++------+-------+----------+--------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                   ;
++------+-------+----------+--------------------------------------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyScan:scan|Counter:cont|Adder:adder1"                                             ;
+; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1"                            ;
 +------+--------+----------+-------------------------------------------------------------------------------------+
 ; Port ; Type   ; Severity ; Details                                                                             ;
 +------+--------+----------+-------------------------------------------------------------------------------------+
@@ -341,7 +426,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 
 
 +----------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyScan:scan|Counter:cont"                                                                ;
+; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont"                                               ;
 +------------+--------+----------+-------------------------------------------------------------------------------------+
 ; Port       ; Type   ; Severity ; Details                                                                             ;
 +------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -353,23 +438,40 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyDecode:decode"                                                                   ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; cols ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Virtual JTAG Settings                                                                                                                                        ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+--------------------------------------------+
+; Instance Index ; Auto Index ; Index Reassigned ; IR Width ; Address ; USER1 DR length ; VIR capture instruction ; Hierarchy Location                         ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+--------------------------------------------+
+; 0              ; YES        ; N/A              ; 8        ; 0x100   ; 9               ; 0x00B                   ; UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+--------------------------------------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 16                          ;
-; cycloneiii_ff         ; 7                           ;
-;     CLR               ; 7                           ;
-; cycloneiii_lcell_comb ; 17                          ;
-;     normal            ; 17                          ;
-;         1 data inputs ; 1                           ;
-;         2 data inputs ; 5                           ;
-;         3 data inputs ; 5                           ;
-;         4 data inputs ; 6                           ;
+; boundary_port         ; 45                          ;
+; cycloneiii_ff         ; 3                           ;
+;     CLR               ; 3                           ;
+; cycloneiii_lcell_comb ; 7                           ;
+;     normal            ; 7                           ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 2                           ;
+;         3 data inputs ; 4                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 2.41                        ;
+; Max LUT depth         ; 2.00                        ;
+; Average LUT depth     ; 1.25                        ;
 +-----------------------+-----------------------------+
 
 
@@ -388,92 +490,144 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Mon Mar 09 11:47:13 2026
+    Info: Processing started: Wed Mar 11 13:39:01 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TicketMachine -c TicketMachine
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
 Info (12021): Found 2 design units, including 1 entities, in source file usbport.vhd
-    Info (12022): Found design unit 1: UsbPort-bdf_type File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UsbPort.vhd Line: 33
-    Info (12023): Found entity 1: UsbPort File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UsbPort.vhd Line: 25
+    Info (12022): Found design unit 1: UsbPort-bdf_type File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 33
+    Info (12023): Found entity 1: UsbPort File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 25
 Info (12021): Found 2 design units, including 1 entities, in source file keyscan.vhd
-    Info (12022): Found design unit 1: KeyScan-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 14
-    Info (12023): Found entity 1: KeyScan File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 4
+    Info (12022): Found design unit 1: KeyScan-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 14
+    Info (12023): Found entity 1: KeyScan File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file mux2_1l2.vhd
-    Info (12022): Found design unit 1: MUX2_1L2-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L2.vhd Line: 12
-    Info (12023): Found entity 1: MUX2_1L2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L2.vhd Line: 4
+    Info (12022): Found design unit 1: MUX2_1L2-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L2.vhd Line: 12
+    Info (12023): Found entity 1: MUX2_1L2 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L2.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file mux2_1l4.vhd
-    Info (12022): Found design unit 1: MUX2_1L4-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd Line: 12
-    Info (12023): Found entity 1: MUX2_1L4 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd Line: 4
+    Info (12022): Found design unit 1: MUX2_1L4-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd Line: 12
+    Info (12023): Found entity 1: MUX2_1L4 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file counter2.vhd
-    Info (12022): Found design unit 1: Counter2-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter2.vhd Line: 13
-    Info (12023): Found entity 1: Counter2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter2.vhd Line: 4
+    Info (12022): Found design unit 1: Counter2-Structural File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter2.vhd Line: 13
+    Info (12023): Found entity 1: Counter2 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter2.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file registryl2.vhd
-    Info (12022): Found design unit 1: RegistryL2-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL2.vhd Line: 12
-    Info (12023): Found entity 1: RegistryL2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL2.vhd Line: 4
+    Info (12022): Found design unit 1: RegistryL2-Structural File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL2.vhd Line: 12
+    Info (12023): Found entity 1: RegistryL2 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL2.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file adder2.vhd
-    Info (12022): Found design unit 1: Adder2-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder2.vhd Line: 13
-    Info (12023): Found entity 1: Adder2 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder2.vhd Line: 4
+    Info (12022): Found design unit 1: Adder2-Structural File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder2.vhd Line: 13
+    Info (12023): Found entity 1: Adder2 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder2.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file counter.vhd
-    Info (12022): Found design unit 1: Counter-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 13
-    Info (12023): Found entity 1: Counter File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 4
+    Info (12022): Found design unit 1: Counter-Structural File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 13
+    Info (12023): Found entity 1: Counter File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file adder.vhd
-    Info (12022): Found design unit 1: Adder-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd Line: 13
-    Info (12023): Found entity 1: Adder File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd Line: 4
+    Info (12022): Found design unit 1: Adder-Structural File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd Line: 13
+    Info (12023): Found entity 1: Adder File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file registryl4.vhd
-    Info (12022): Found design unit 1: RegistryL4-Structural File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd Line: 12
-    Info (12023): Found entity 1: RegistryL4 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd Line: 4
+    Info (12022): Found design unit 1: RegistryL4-Structural File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd Line: 12
+    Info (12023): Found entity 1: RegistryL4 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file fulladder.vhd
-    Info (12022): Found design unit 1: FullAdder-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd Line: 11
-    Info (12023): Found entity 1: FullAdder File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd Line: 4
+    Info (12022): Found design unit 1: FullAdder-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd Line: 11
+    Info (12023): Found entity 1: FullAdder File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file ffd.vhd
-    Info (12022): Found design unit 1: FFD-logicFunction File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd Line: 14
-    Info (12023): Found entity 1: FFD File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd Line: 4
+    Info (12022): Found design unit 1: FFD-logicFunction File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd Line: 14
+    Info (12023): Found entity 1: FFD File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file clkdiv.vhd
-    Info (12022): Found design unit 1: CLKDIV-bhv File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/clkDIV.vhd Line: 11
-    Info (12023): Found entity 1: CLKDIV File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/clkDIV.vhd Line: 5
+    Info (12022): Found design unit 1: CLKDIV-bhv File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/clkDIV.vhd Line: 11
+    Info (12023): Found entity 1: CLKDIV File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/clkDIV.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file decoder.vhd
-    Info (12022): Found design unit 1: decoder-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd Line: 11
-    Info (12023): Found entity 1: decoder File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd Line: 4
+    Info (12022): Found design unit 1: decoder-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd Line: 11
+    Info (12023): Found entity 1: decoder File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file mux4_2l1.vhd
-    Info (12022): Found design unit 1: MUX4_2L1-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd Line: 12
-    Info (12023): Found entity 1: MUX4_2L1 File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd Line: 4
+    Info (12022): Found design unit 1: MUX4_2L1-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd Line: 12
+    Info (12023): Found entity 1: MUX4_2L1 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file keycontrol.vhd
-    Info (12022): Found design unit 1: KeyControl-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 11
-    Info (12023): Found entity 1: KeyControl File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 4
+    Info (12022): Found design unit 1: KeyControl-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 11
+    Info (12023): Found entity 1: KeyControl File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file keydecode.vhd
-    Info (12022): Found design unit 1: KeyDecode-Behaviour File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd Line: 14
-    Info (12023): Found entity 1: KeyDecode File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd Line: 4
-Info (12127): Elaborating entity "KeyDecode" for the top level hierarchy
-Info (12128): Elaborating entity "KeyScan" for hierarchy "KeyScan:scan" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd Line: 36
-Warning (10036): Verilog HDL or VHDL warning at KeyScan.vhd(40): object "zeros" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 40
-Info (12128): Elaborating entity "Counter" for hierarchy "KeyScan:scan|Counter:cont" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 46
-Info (12128): Elaborating entity "Adder" for hierarchy "KeyScan:scan|Counter:cont|Adder:adder1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 45
-Info (12128): Elaborating entity "FullAdder" for hierarchy "KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd Line: 25
-Info (12128): Elaborating entity "MUX2_1L4" for hierarchy "KeyScan:scan|Counter:cont|MUX2_1L4:muxPL" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 52
-Info (12128): Elaborating entity "RegistryL4" for hierarchy "KeyScan:scan|Counter:cont|RegistryL4:registry" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd Line: 59
-Info (12128): Elaborating entity "FFD" for hierarchy "KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd Line: 28
-Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "KeyScan:scan|MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 57
-Info (12128): Elaborating entity "decoder" for hierarchy "KeyScan:scan|decoder:decode" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd Line: 64
-Info (12128): Elaborating entity "KeyControl" for hierarchy "KeyControl:control" File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at KeyControl.vhd(20): inferring latch(es) for signal or variable "nextState", which holds its previous value in one or more paths through the process File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-Info (10041): Inferred latch for "nextState.STATE_ACKNOWLEDGE" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-Info (10041): Inferred latch for "nextState.STATE_READING" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-Info (10041): Inferred latch for "nextState.STATE_SCANNING" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-Warning (13012): Latch KeyControl:control|nextState.STATE_READING_77 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KeyControl:control|currState.STATE_SCANNING File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 15
-Warning (13012): Latch KeyControl:control|nextState.STATE_ACKNOWLEDGE_66 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 20
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal KeyControl:control|currState.STATE_READING File: C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd Line: 15
-Info (286030): Timing-Driven Synthesis is running
+    Info (12022): Found design unit 1: KeyDecode-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 14
+    Info (12023): Found entity 1: KeyDecode File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file ticketmachine.vhd
+    Info (12022): Found design unit 1: TicketMachine-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 11
+    Info (12023): Found entity 1: TicketMachine File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 4
+Info (12127): Elaborating entity "TicketMachine" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at TicketMachine.vhd(33): used implicit default value for signal "rows" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 33
+Warning (10036): Verilog HDL or VHDL warning at TicketMachine.vhd(33): object "cols" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 33
+Info (12128): Elaborating entity "KeyDecode" for hierarchy "KeyDecode:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 40
+Info (12128): Elaborating entity "KeyScan" for hierarchy "KeyDecode:decode|KeyScan:scan" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 36
+Warning (10036): Verilog HDL or VHDL warning at KeyScan.vhd(40): object "zeros" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 40
+Info (12128): Elaborating entity "Counter" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 46
+Info (12128): Elaborating entity "Adder" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 45
+Info (12128): Elaborating entity "FullAdder" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd Line: 25
+Info (12128): Elaborating entity "MUX2_1L4" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|MUX2_1L4:muxPL" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 52
+Info (12128): Elaborating entity "RegistryL4" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 59
+Info (12128): Elaborating entity "FFD" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd Line: 28
+Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "KeyDecode:decode|KeyScan:scan|MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 57
+Info (12128): Elaborating entity "decoder" for hierarchy "KeyDecode:decode|KeyScan:scan|decoder:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 64
+Info (12128): Elaborating entity "KeyControl" for hierarchy "KeyDecode:decode|KeyControl:control" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 46
+Warning (10631): VHDL Process Statement warning at KeyControl.vhd(20): inferring latch(es) for signal or variable "nextState", which holds its previous value in one or more paths through the process File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 20
+Info (10041): Inferred latch for "nextState.STATE_ACKNOWLEDGE" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 20
+Info (10041): Inferred latch for "nextState.STATE_READING" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 20
+Info (10041): Inferred latch for "nextState.STATE_SCANNING" at KeyControl.vhd(20) File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 20
+Info (12128): Elaborating entity "UsbPort" for hierarchy "UsbPort:UsbPort1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 52
+Info (12128): Elaborating entity "sld_virtual_jtag" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
+Info (12130): Elaborated megafunction instantiation "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
+Info (12133): Instantiated megafunction "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" with the following parameter: File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
+    Info (12134): Parameter "lpm_type" = "sld_virtual_jtag"
+    Info (12134): Parameter "sld_auto_instance_index" = "YES"
+    Info (12134): Parameter "sld_instance_index" = "0"
+    Info (12134): Parameter "sld_ir_width" = "8"
+    Info (12134): Parameter "sld_sim_action" = "UNUSED"
+    Info (12134): Parameter "sld_sim_n_scan" = "0"
+    Info (12134): Parameter "sld_sim_total_length" = "0"
+Info (12128): Elaborating entity "sld_virtual_jtag_basic" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag.v Line: 152
+Info (12131): Elaborated megafunction instantiation "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst", which is child of megafunction instantiation "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag.v Line: 152
+Info (12128): Elaborating entity "sld_virtual_jtag_impl" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 152
+Info (12131): Elaborated megafunction instantiation "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst", which is child of megafunction instantiation "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 152
+Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 415
+Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
+Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
+Info (11172): 2026.03.11.13:39:11 Progress: Loading sld89da40d0/alt_sld_fab_wrapper_hw.tcl
+Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
+Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
+Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
+Info (11172): Presplit: "alt_sld_fab" instantiated altera_super_splitter "presplit"
+Info (11172): Splitter: "alt_sld_fab" instantiated altera_sld_splitter "splitter"
+Info (11172): Sldfabric: "alt_sld_fab" instantiated altera_sld_jtag_hub "sldfabric"
+Info (11172): Ident: "alt_sld_fab" instantiated altera_connection_identification_hub "ident"
+Info (11172): Alt_sld_fab: Done "alt_sld_fab" with 6 modules, 6 files
+Info (11171): Finished IP generation for the debug fabric: alt_sld_fab.
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld89da40d0/alt_sld_fab.v
+    Info (12023): Found entity 1: alt_sld_fab File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/alt_sld_fab.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab.v
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_ident.sv
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_ident File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_ident.sv Line: 33
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_presplit.sv
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_presplit File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_presplit.sv Line: 3
+Info (12021): Found 2 design units, including 1 entities, in source file db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd
+    Info (12022): Found design unit 1: alt_sld_fab_alt_sld_fab_sldfabric-rtl File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 102
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_sldfabric File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 11
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_splitter.sv
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_splitter File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_splitter.sv Line: 3
+Warning (13012): Latch KeyDecode:decode|KeyControl:control|nextState.STATE_READING_77 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 20
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KeyDecode:decode|KeyControl:control|currState.STATE_SCANNING File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 15
+Warning (13012): Latch KeyDecode:decode|KeyControl:control|nextState.STATE_ACKNOWLEDGE_66 has unsafe behavior File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 20
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal KeyDecode:decode|KeyControl:control|currState.STATE_READING File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd Line: 15
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "K[0]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 7
+    Warning (13410): Pin "K[1]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 7
+    Warning (13410): Pin "K[2]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 7
+    Warning (13410): Pin "K[3]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 7
+Info (286031): Timing-Driven Synthesis is running on partition "Top"
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 35 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 7 input pins
-    Info (21059): Implemented 9 output pins
-    Info (21061): Implemented 19 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 7 warnings
-    Info: Peak virtual memory: 4857 megabytes
-    Info: Processing ended: Mon Mar 09 11:47:29 2026
-    Info: Elapsed time: 00:00:16
-    Info: Total CPU time (on all processors): 00:00:27
+Info (21057): Implemented 170 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 5 input pins
+    Info (21059): Implemented 5 output pins
+    Info (21061): Implemented 159 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 14 warnings
+    Info: Peak virtual memory: 4874 megabytes
+    Info: Processing ended: Wed Mar 11 13:39:22 2026
+    Info: Elapsed time: 00:00:21
+    Info: Total CPU time (on all processors): 00:00:39
 
 

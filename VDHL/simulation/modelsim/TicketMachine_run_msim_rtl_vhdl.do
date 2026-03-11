@@ -5,15 +5,15 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd}
-vcom -93 -work work {C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd}
 

@@ -4,58 +4,6 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "cols[0]",
-					"strict" : false
-				},
-				{
-					"name" : "cols[1]",
-					"strict" : false
-				},
-				{
-					"name" : "cols[2]",
-					"strict" : false
-				},
-				{
-					"name" : "cols[3]",
-					"strict" : false
-				},
-				{
-					"name" : "K[0]",
-					"strict" : false
-				},
-				{
-					"name" : "K[1]",
-					"strict" : false
-				},
-				{
-					"name" : "K[2]",
-					"strict" : false
-				},
-				{
-					"name" : "K[3]",
-					"strict" : false
-				},
-				{
-					"name" : "Kval",
-					"strict" : false
-				},
-				{
-					"name" : "rows[2]",
-					"strict" : false
-				},
-				{
-					"name" : "rows[1]",
-					"strict" : false
-				},
-				{
-					"name" : "rows[0]",
-					"strict" : false
-				},
-				{
-					"name" : "rows[3]",
-					"strict" : false
-				},
-				{
 					"name" : "clk_in",
 					"strict" : false
 				},
@@ -64,7 +12,19 @@
 					"strict" : false
 				},
 				{
-					"name" : "Kack",
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
 					"strict" : false
 				}
 			]

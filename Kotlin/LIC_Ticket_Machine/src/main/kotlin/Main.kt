@@ -1,9 +1,6 @@
 package org.example
 
 import isel.leic.*
-import isel.leic.simul.module.D7Seg
-import isel.leic.simul.module.KeyMatrix
-import isel.leic.simul.module.Keyboard
 
 enum class ENVIROMENT {
     TEST,
@@ -48,9 +45,5 @@ fun main() {
             3 -> HAL.setBits(0b00001111)
             4 -> HAL.clrBits(0b00001111)
         }
-
-
     }
-
-
 }

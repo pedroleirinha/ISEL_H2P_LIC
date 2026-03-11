@@ -8,7 +8,6 @@ object HAL {
 
     // Inicia o objeto
     fun init(enviroment: ENVIROMENT) {
-
         this.enviroment = enviroment
 
         readValue()

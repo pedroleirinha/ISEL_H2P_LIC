@@ -1,8 +1,5 @@
 package org.example
 
-import isel.leic.UsbPort
-import isel.leic.simul.module.Keyboard
-
 // Ler teclas. Funções retornam '0'..'9', 'A'..'D', '#', '*' ou NONE.
 object KBD {
     const val NONE = '_'
@@ -16,7 +13,6 @@ object KBD {
 
     // Inicia a classe
     fun init() {
-        /*Keyboard("Keyboard", "0123A456B789C*0#D", 4, 4, 5)*/
     }
 
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.

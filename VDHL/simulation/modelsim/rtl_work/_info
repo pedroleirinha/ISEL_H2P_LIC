@@ -8,26 +8,26 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/simulation/modelsim
+Z0 dC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/simulation/modelsim
 Eadder
 Z1 w1765446604
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
 !i122 3
 R0
-Z4 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd
-Z5 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd
+Z4 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd
+Z5 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd
 l0
 L4 1
 V0C;IUa5Td3@F5[_Gb4SA71
 !s100 ]CTD5X7YF5O1TJ^NPKWBH1
 Z6 OV;C;2020.1;71
 31
-Z7 !s110 1773092525
+Z7 !s110 1773174541
 !i10b 1
-Z8 !s108 1773092525.000000
-Z9 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd|
-Z10 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Adder.vhd|
+Z8 !s108 1773174541.000000
+Z9 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd|
+Z10 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd|
 !i113 1
 Z11 o-93 -work work
 Z12 tExplicit 1 CvgOpt 0
@@ -56,19 +56,19 @@ R2
 R3
 !i122 2
 R0
-Z14 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd
-Z15 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd
+Z14 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd
+Z15 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd
 l0
 L4 1
 VXS>CXCgLGJ@:UN9H`9:d^0
 !s100 b`GPIJDM3nmCNSLSAE^ac3
 R6
 31
-Z16 !s110 1773092524
+R7
 !i10b 1
-Z17 !s108 1773092524.000000
-Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd|
-Z19 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/Counter.vhd|
+R8
+Z16 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd|
+Z17 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd|
 !i113 1
 R11
 R12
@@ -83,22 +83,22 @@ VOdzWih_HIPICF`78KDM8[2
 !s100 <_A^j7Jn=GW8`0C56i<co0
 R6
 31
-R16
+R7
 !i10b 1
+R8
+R16
 R17
-R18
-R19
 !i113 1
 R11
 R12
 Edecoder
-Z20 w1772711113
+Z18 w1772711113
 R2
 R3
 !i122 7
 R0
-Z21 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd
-Z22 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd
+Z19 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd
+Z20 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd
 l0
 L4 1
 V?ER_DdNGNkG9keI?MMRff3
@@ -108,8 +108,8 @@ R6
 R7
 !i10b 1
 R8
-Z23 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd|
-Z24 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/decoder.vhd|
+Z21 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd|
+Z22 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd|
 !i113 1
 R11
 R12
@@ -127,8 +127,8 @@ R6
 R7
 !i10b 1
 R8
-R23
-R24
+R21
+R22
 !i113 1
 R11
 R12
@@ -138,8 +138,8 @@ R2
 R3
 !i122 6
 R0
-Z25 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd
-Z26 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd
+Z23 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd
+Z24 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd
 l0
 L4 1
 VlLnJhUY99`]7^:0M0ZT@z3
@@ -149,8 +149,8 @@ R6
 R7
 !i10b 1
 R8
-Z27 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd|
-Z28 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FFD.vhd|
+Z25 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd|
+Z26 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd|
 !i113 1
 R11
 R12
@@ -168,8 +168,8 @@ R6
 R7
 !i10b 1
 R8
-R27
-R28
+R25
+R26
 !i113 1
 R11
 R12
@@ -179,8 +179,8 @@ R2
 R3
 !i122 5
 R0
-Z29 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd
-Z30 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd
+Z27 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd
+Z28 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd
 l0
 L4 1
 V[JgW6KzkH=gG6EM]n2^Qz2
@@ -190,8 +190,8 @@ R6
 R7
 !i10b 1
 R8
-Z31 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd|
-Z32 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/FullAdder.vhd|
+Z29 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd|
+Z30 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd|
 !i113 1
 R11
 R12
@@ -209,30 +209,30 @@ R6
 R7
 !i10b 1
 R8
-R31
-R32
+R29
+R30
 !i113 1
 R11
 R12
 Ekeycontrol
-Z33 w1772993695
+Z31 w1772993695
 R2
 R3
 !i122 9
 R0
-Z34 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd
-Z35 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd
+Z32 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd
+Z33 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd
 l0
 L4 1
 V80OWz9:Vj2ZS9YkTj7ki73
 !s100 bMh>9>n@;4zTb610[Pe8a3
 R6
 31
-R7
+Z34 !s110 1773174542
 !i10b 1
-R8
-Z36 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd|
-Z37 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyControl.vhd|
+Z35 !s108 1773174542.000000
+Z36 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd|
+Z37 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd|
 !i113 1
 R11
 R12
@@ -247,9 +247,9 @@ VYkjOzCHl92M_YSAiFXj340
 !s100 TPFUiK128<OdJ0kT[?PI43
 R6
 31
-R7
+R34
 !i10b 1
-R8
+R35
 R36
 R37
 !i113 1
@@ -261,19 +261,19 @@ R2
 R3
 !i122 10
 R0
-Z39 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd
-Z40 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd
+Z39 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd
+Z40 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd
 l0
 L4 1
 VGXL18IkEZBmMHMB0Jl0DC1
 !s100 cEN5C_I@I7U:4[W6<fl8z1
 R6
 31
-Z41 !s110 1773092526
+R34
 !i10b 1
-Z42 !s108 1773092526.000000
-Z43 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd|
-Z44 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyDecode.vhd|
+R35
+Z41 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd|
+Z42 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd|
 !i113 1
 R11
 R12
@@ -288,35 +288,35 @@ V>69@]zoKj10`bEkM1IQQF3
 !s100 ^8QA:RH2IHmD<U`hhYMPC0
 R6
 31
-R41
+R34
 !i10b 1
+R35
+R41
 R42
-R43
-R44
 !i113 1
 R11
 R12
 Ekeydecode_tb
-Z45 w1772643727
+Z43 w1772643727
 R2
 R3
 !i122 11
 R0
-Z46 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyDecode_tb.vhd
-Z47 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyDecode_tb.vhd
+Z44 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyDecode_tb.vhd
+Z45 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyDecode_tb.vhd
 l0
 L4 1
 VRFMb=6A8n7c2mK0]lTG173
 !s100 =Y=e9N5^Qzhfd4nYa[WFf2
 R6
 32
-Z48 !s110 1773092533
+Z46 !s110 1773174548
 !i10b 1
-Z49 !s108 1773092533.000000
-Z50 !s90 -reportprogress|300|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyDecode_tb.vhd|
-!s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyDecode_tb.vhd|
+Z47 !s108 1773174547.000000
+Z48 !s90 -reportprogress|300|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyDecode_tb.vhd|
+!s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyDecode_tb.vhd|
 !i113 1
-Z51 o-work work
+Z49 o-work work
 R12
 Akeydecode_tb_arch
 R2
@@ -329,33 +329,33 @@ Ve<WA8X`Mgee>FAzTkjZ721
 !s100 ^noT^PMn4AXRgM6LF?Q1W1
 R6
 32
-R48
+R46
 !i10b 1
-R49
-R50
-Z52 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/UnitTests/KeyDecode_tb.vhd|
+R47
+R48
+Z50 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyDecode_tb.vhd|
 !i113 1
-R51
+R49
 R12
 Ekeyscan
-Z53 w1772993640
+Z51 w1772993640
 R2
 R3
 !i122 0
 R0
-Z54 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd
-Z55 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd
+Z52 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd
+Z53 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd
 l0
 L4 1
 Vd=MgElJHI?z]NOT6X:]@G1
 !s100 S`lQWGWI26ZL>giXlaOAP0
 R6
 31
-R16
+Z54 !s110 1773174540
 !i10b 1
-Z56 !s108 1773092523.000000
-Z57 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd|
-Z58 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/KeyScan.vhd|
+Z55 !s108 1773174539.000000
+Z56 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd|
+Z57 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd|
 !i113 1
 R11
 R12
@@ -370,33 +370,33 @@ VlE;=ZKZ<_TPXH<lK2U_g:1
 !s100 090LLo[En0RU;LlkSAnHP3
 R6
 31
-R16
+R54
 !i10b 1
+R55
 R56
 R57
-R58
 !i113 1
 R11
 R12
 Emux2_1l4
-Z59 w1772551077
+Z58 w1772551077
 R2
 R3
 !i122 1
 R0
-Z60 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd
-Z61 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd
+Z59 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd
+Z60 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd
 l0
 L4 1
 VU=Z_A]gA8]P7IiojU7^:20
 !s100 LCNQEa@o=W@^BAHcFQ78F1
 R6
 31
-R16
+R54
 !i10b 1
-R17
-Z62 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd|
-Z63 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX2_1L4.vhd|
+Z61 !s108 1773174540.000000
+Z62 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd|
+Z63 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd|
 !i113 1
 R11
 R12
@@ -411,9 +411,9 @@ V=chZS3TbWKOfPXQ6?;kVb2
 !s100 B6@A@GWlJaE:OX3?W;PLO2
 R6
 31
-R16
+R54
 !i10b 1
-R17
+R61
 R62
 R63
 !i113 1
@@ -425,19 +425,19 @@ R2
 R3
 !i122 8
 R0
-Z65 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd
-Z66 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd
+Z65 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd
+Z66 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd
 l0
 L4 1
 V1hoJbbB7hEiO139LeENoR3
 !s100 SGVeLIePK6L0?VWfPWDM93
 R6
 31
-R7
+R34
 !i10b 1
 R8
-Z67 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd|
-Z68 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/MUX4_2L1.vhd|
+Z67 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd|
+Z68 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd|
 !i113 1
 R11
 R12
@@ -452,7 +452,7 @@ VI?fE`8;CDXdSNIY0U9j[a2
 !s100 zA9TnYHeLM38:U6Oa`zh>0
 R6
 31
-R7
+R34
 !i10b 1
 R8
 R67
@@ -466,8 +466,8 @@ R2
 R3
 !i122 4
 R0
-Z69 8C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd
-Z70 FC:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd
+Z69 8C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd
+Z70 FC:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd
 l0
 L4 1
 VU8[3d[hLkEk3SWH2F?NWB0
@@ -477,8 +477,8 @@ R6
 R7
 !i10b 1
 R8
-Z71 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd|
-Z72 !s107 C:/Users/oleir/Desktop/Coding/VDHL/TicketMachine/RegistryL4.vhd|
+Z71 !s90 -reportprogress|300|-93|-work|work|C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd|
+Z72 !s107 C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd|
 !i113 1
 R11
 R12

@@ -1,5 +1,5 @@
 
-State Machine - |KeyDecode|KeyControl:control|currState
+State Machine - |TicketMachine|KeyDecode:decode|KeyControl:control|currState
 Name currState.STATE_ACKNOWLEDGE currState.STATE_READING currState.STATE_SCANNING 
 currState.STATE_SCANNING 0 0 0 
 currState.STATE_READING 0 1 1 
