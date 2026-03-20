@@ -3,60 +3,48 @@ package org.example
 import isel.leic.UsbPort
 
 object HAL {
-    var enviroment = ENVIROMENT.TEST
-    var usbValue = 0
+    var lastValue = 0
 
     // Inicia o objeto
-    fun init(enviroment: ENVIROMENT) {
-        this.enviroment = enviroment
-
-        readValue()
-    }
-
-    fun readValue() {
-        this.usbValue = if (enviroment == ENVIROMENT.REAL) UsbPort.read() else FakeUsbPort.read()
+    fun init() {
+        lastValue = 0
+        clrBits(0b11111111)
     }
 
     // Retorna 'true' se o bit definido pela mask está com o valor lógico '1' no UsbPort
     fun isBit(mask: Int): Boolean {
-        readValue()
         //O operador "and" faz uma comparação AND bit a bit entre os dois valores
-        return (usbValue and mask) == mask
+        return (UsbPort.read() and mask) == mask
     }
 
     // Retorna os valores dos bits representados por mask presentes no UsbPort
     fun readBits(mask: Int): Int {
-        readValue()
-        return usbValue and mask
+        return UsbPort.read() and mask
     }
 
     // Escreve nos bits representados por mask os valores dos bits correspondentes em value
     fun writeBits(mask: Int, value: Int) {
-        readValue()
-
         val allBits = mask and value
-        val newValue = allBits or usbValue
+        val newValue = allBits or lastValue
 
-        if (enviroment == ENVIROMENT.REAL) UsbPort.write(newValue) else FakeUsbPort.write(newValue)
+        writeHAL(newValue)
     }
 
     // Coloca os bits representados por mask no valor lógico '1'
     fun setBits(mask: Int) {
-        readValue()
+        val newValue = lastValue or mask
 
-        val newValue = usbValue or mask
-        println(newValue)
-
-        if (enviroment == ENVIROMENT.REAL) UsbPort.write(newValue) else FakeUsbPort.write(newValue)
+        writeHAL(newValue)
     }
 
     // Coloca os bits representados por mask no valor lógico '0'
     fun clrBits(mask: Int) {
-        readValue()
+        val newValue = lastValue and mask.inv()
+        writeHAL(newValue)
+    }
 
-        val newValue = usbValue and mask.inv()
-        println(newValue)
-
-        if (enviroment == ENVIROMENT.REAL) UsbPort.write(newValue) else FakeUsbPort.write(newValue)
+    fun writeHAL(newValue: Int) {
+        lastValue = newValue
+        UsbPort.write(newValue)
     }
 }
