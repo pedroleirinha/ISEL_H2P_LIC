@@ -31,19 +31,23 @@ object SerialEmitter {
             *
             * */
             HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
+            //------000
             Integer.toBinaryString(data).reversed().mapIndexed { index, it ->
+
                 if (it.digitToInt() == 1) {
                     HAL.setBits(mask = 0b00000001) //Fica o ultimo bit ON
                 } else {
                     HAL.clrBits(mask = 0b00000001) //Fica o ultimo bit OFF
                 }
+
                 HAL.setBits(mask = 0b00000010)
                 println("index: $index -> val: $it")
-                Time.sleep(10)
+                Time.sleep(1000)
                 HAL.clrBits(mask = 0b00000010)
-                Time.sleep(10)
+                Time.sleep(1000)
             }
             HAL.clrBits(0b00000111)
+            HAL.setBits(0b00000100)
             println("Fim do Envio de dados \n\n")
             busy = false
         }

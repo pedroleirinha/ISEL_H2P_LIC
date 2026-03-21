@@ -1,10 +1,418 @@
 |TicketMachine
 clk_in => KeyDecode:decode.clk_in
+CLEAR => SerialReceiver:serialReceiver1.CLEAR
 CLEAR => KeyDecode:decode.CLEAR
+KEYPAD_LIN[0] => ~NO_FANOUT~
+KEYPAD_LIN[1] => ~NO_FANOUT~
+KEYPAD_LIN[2] => ~NO_FANOUT~
+KEYPAD_LIN[3] => ~NO_FANOUT~
+LCD_DATA[0] <= SerialReceiver:serialReceiver1.Q[1]
+LCD_DATA[1] <= SerialReceiver:serialReceiver1.Q[2]
+LCD_DATA[2] <= SerialReceiver:serialReceiver1.Q[3]
+LCD_DATA[3] <= SerialReceiver:serialReceiver1.Q[4]
+LCD_DATA[4] <= SerialReceiver:serialReceiver1.Q[5]
+LCD_DATA[5] <= SerialReceiver:serialReceiver1.Q[6]
+LCD_DATA[6] <= SerialReceiver:serialReceiver1.Q[7]
+LCD_DATA[7] <= SerialReceiver:serialReceiver1.Q[8]
+LCD_EN <= SerialReceiver:serialReceiver1.Q[0]
+LCD_RS <= SerialReceiver:serialReceiver1.Q[9]
+KEYPAD_COL[0] <= comb.DB_MAX_OUTPUT_PORT_TYPE
+KEYPAD_COL[1] <= KEYPAD_COL[1].DB_MAX_OUTPUT_PORT_TYPE
+KEYPAD_COL[2] <= KEYPAD_COL[2].DB_MAX_OUTPUT_PORT_TYPE
+KEYPAD_COL[3] <= KEYPAD_COL[3].DB_MAX_OUTPUT_PORT_TYPE
 K[0] <= KeyDecode:decode.K[0]
 K[1] <= KeyDecode:decode.K[1]
 K[2] <= KeyDecode:decode.K[2]
 K[3] <= KeyDecode:decode.K[3]
+
+
+|TicketMachine|SerialReceiver:serialReceiver1
+SCLK => ShiftRegister:shiftRegister1.SCLK
+SDX => ShiftRegister:shiftRegister1.SerialIn
+SS => HoldRegister:hold.SCLK
+SS => ShiftRegister:shiftRegister1.enableShift
+CLEAR => ShiftRegister:shiftRegister1.CLEAR
+CLEAR => HoldRegister:hold.CLEAR
+Q[0] <= HoldRegister:hold.Q[0]
+Q[1] <= HoldRegister:hold.Q[1]
+Q[2] <= HoldRegister:hold.Q[2]
+Q[3] <= HoldRegister:hold.Q[3]
+Q[4] <= HoldRegister:hold.Q[4]
+Q[5] <= HoldRegister:hold.Q[5]
+Q[6] <= HoldRegister:hold.Q[6]
+Q[7] <= HoldRegister:hold.Q[7]
+Q[8] <= HoldRegister:hold.Q[8]
+Q[9] <= HoldRegister:hold.Q[9]
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1
+SCLK => RegistryL4:registry1.clk_in
+SCLK => RegistryL4:registry2.clk_in
+SCLK => RegistryL2:registry3.clk_in
+enableShift => RegistryL4:registry1.CE
+enableShift => RegistryL4:registry2.CE
+enableShift => RegistryL2:registry3.CE
+SerialIn => RegistryL4:registry1.D[0]
+CLEAR => RegistryL4:registry1.CLEAR
+CLEAR => RegistryL4:registry2.CLEAR
+CLEAR => RegistryL2:registry3.CLEAR
+Q[0] <= RegistryL4:registry1.Q[0]
+Q[1] <= RegistryL4:registry1.Q[1]
+Q[2] <= RegistryL4:registry1.Q[2]
+Q[3] <= RegistryL4:registry1.Q[3]
+Q[4] <= RegistryL4:registry2.Q[0]
+Q[5] <= RegistryL4:registry2.Q[1]
+Q[6] <= RegistryL4:registry2.Q[2]
+Q[7] <= RegistryL4:registry2.Q[3]
+Q[8] <= RegistryL2:registry3.Q[0]
+Q[9] <= RegistryL2:registry3.Q[1]
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold
+SCLK => RegistryL4:registry1.clk_in
+SCLK => RegistryL4:registry2.clk_in
+SCLK => RegistryL2:registry3.clk_in
+CLEAR => RegistryL4:registry1.CLEAR
+CLEAR => RegistryL4:registry2.CLEAR
+CLEAR => RegistryL2:registry3.CLEAR
+D[0] => RegistryL4:registry1.D[0]
+D[1] => RegistryL4:registry1.D[1]
+D[2] => RegistryL4:registry1.D[2]
+D[3] => RegistryL4:registry1.D[3]
+D[4] => RegistryL4:registry2.D[0]
+D[5] => RegistryL4:registry2.D[1]
+D[6] => RegistryL4:registry2.D[2]
+D[7] => RegistryL4:registry2.D[3]
+D[8] => RegistryL2:registry3.D[0]
+D[9] => RegistryL2:registry3.D[1]
+Q[0] <= RegistryL4:registry1.Q[0]
+Q[1] <= RegistryL4:registry1.Q[1]
+Q[2] <= RegistryL4:registry1.Q[2]
+Q[3] <= RegistryL4:registry1.Q[3]
+Q[4] <= RegistryL4:registry2.Q[0]
+Q[5] <= RegistryL4:registry2.Q[1]
+Q[6] <= RegistryL4:registry2.Q[2]
+Q[7] <= RegistryL4:registry2.Q[3]
+Q[8] <= RegistryL2:registry3.Q[0]
+Q[9] <= RegistryL2:registry3.Q[1]
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |TicketMachine|KeyDecode:decode

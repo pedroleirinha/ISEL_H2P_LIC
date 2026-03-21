@@ -13,6 +13,7 @@ object LCD {
     // Escreve um byte de comando/dados no LCD em série
     private fun writeByteSerial(rs: Boolean, data: Int) {
         val rsBit = if (rs) 1 else 0
+
         var dataFullEnabled = "1${data}${rsBit}".toInt()
 
         SerialEmitter.send(SerialEmitter.Peripheral.LCD, dataFullEnabled)
@@ -40,6 +41,7 @@ object LCD {
     // Envia a sequência de iniciação para comunicação a 8 bits.
     fun init() {
         LCD("LCD")
+
         SerialEmitter.init()
         println("INICIALIZACAO DO LCD\n\n")
         Time.sleep(15)
@@ -55,8 +57,8 @@ object LCD {
         writeCMD(0b00001000) //DISPLAY OFF
         writeCMD(0b00000110) //Define o ENTRY MODE para incrementar automaticamente.
         Time.sleep(100)
-        println("FIM DAS CONFIGS DO LCD\n\n")
         clear()
+        println("FIM DAS CONFIGS DO LCD\n\n")
     }
 
     // Escreve um caracter na posição corrente.

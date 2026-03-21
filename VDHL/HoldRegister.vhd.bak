@@ -1,0 +1,21 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+ENTITY HoldRegister IS
+	PORT(
+		SCLKn: 	IN std_logic;
+		D:			OUT std_logic_vector(9 downto 0)
+		Q:			OUT std_logic_vector(9 downto 0)
+	);
+END HoldRegister;
+
+ARCHITECTURE Behaviour OF HoldRegister IS
+	
+	
+
+BEGIN
+	
+	
+	
+
+END Behaviour;

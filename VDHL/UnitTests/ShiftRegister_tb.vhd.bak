@@ -1,0 +1,50 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity SerialReceiver_tb is
+end entity;
+
+architecture SerialReceiver_tb_arch of SerialReceiver_tb is
+
+	component SerialReceiver PORT(
+		SCLK, SDX, SS: 	IN std_logic;
+		Q: 					OUT std_logic_vector(9 downto 0)
+	);
+	end component;
+
+	-- UUT signals
+	signal CLK_TB : std_logic := '0';
+	signal SDX_TB, SS_TB: std_logic;
+	signal Q_TB: std_logic_vector(9 downto 0);
+
+	constant MCLK_PERIOD : time := 20 ns;
+	constant MCLK_HALF_PERIOD : time := MCLK_PERIOD / 2;
+	constant CLK_PERIOD : time := 20 ns;
+
+begin
+
+	CLK_TB <= not CLK_TB after MCLK_HALF_PERIOD;		
+	UUT: SerialReceiver port map(	
+		SCLK	=> CLK_TB,
+		SDX	=> SDX_TB,
+		SS	 	=> SS_TB,
+		Q 		=> Q_TB
+	);
+	
+stimulus: process 
+begin
+
+	SDX_TB 	<= '0';
+	SS_TB		<= '0';
+	wait for CLK_PERIOD;
+	SDX_TB 	<= '1';
+	wait for CLK_PERIOD;
+	SDX_TB 	<= '0';
+	wait for CLK_PERIOD;
+	SDX_TB 	<= '1';
+	wait;
+		
+		
+end process;
+
+end architecture;

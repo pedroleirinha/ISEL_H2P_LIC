@@ -21,7 +21,7 @@ ARCHITECTURE Structural OF RegistryL2 IS
 		);
 	end component;
 	
-	signal flipflopsCurrentState: std_logic_vector (3 downto 0);
+	signal flipflopsCurrentState: std_logic_vector (1 downto 0);
 	
 BEGIN	
 	
