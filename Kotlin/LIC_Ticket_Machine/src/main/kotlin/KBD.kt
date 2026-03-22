@@ -41,6 +41,7 @@ object KBD {
         println("ACK SENT a 1")
         Time.sleep(1000)
         HAL.clrBits(mask = 0b00000001) //Limpa o ACK para finalizar o processo
+        Time.sleep(1000)
         println("ACK CLEAR.\n FINISHED")
     }
 
@@ -48,7 +49,6 @@ object KBD {
     // ou NONE caso contrário.
     fun waitKey(timeout: Long): Char {
         val time = getTimeInMillis() + timeout
-
         while (getTimeInMillis() < time) {
             val key = getKey()
             if (key != NONE) {
@@ -57,9 +57,7 @@ object KBD {
                 return key
             }
         }
-
         println("NO KEY PRESS")
-
         return NONE
     }
 }

@@ -14,13 +14,15 @@ object LCD {
     private fun writeByteSerial(rs: Boolean, data: Int) {
         val rsBit = if (rs) 1 else 0
 
-        var dataFullEnabled = "1${data}${rsBit}".toInt()
+        val extendedData = Integer.toBinaryString(data).padStart(8, '0')
 
-        SerialEmitter.send(SerialEmitter.Peripheral.LCD, dataFullEnabled)
+        var dataFullEnabled = "1${extendedData}${rsBit}".toInt(2)
 
-        dataFullEnabled = "0${data}${rsBit}".toInt()
+        SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
 
-        SerialEmitter.send(SerialEmitter.Peripheral.LCD, dataFullEnabled)
+        dataFullEnabled = "0${extendedData}${rsBit}".toInt(2)
+
+        SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
     }
 
     // Escreve um byte de comando/dados no LCD
@@ -46,24 +48,28 @@ object LCD {
         println("INICIALIZACAO DO LCD\n\n")
         Time.sleep(15)
         writeCMD(0b00110000)
-        Time.sleep(5)
-        writeCMD(0b00110000)
-        Time.sleep(1)
-        writeCMD(0b00110000)
-        Time.sleep(10)
-        println("FIM DA INICIALIZACAO DO LCD\n\n")
-        println("CONFIGS DO LCD\n\n")
-        writeCMD(0b00111000) //FUNCTION SET
-        writeCMD(0b00001000) //DISPLAY OFF
-        writeCMD(0b00000110) //Define o ENTRY MODE para incrementar automaticamente.
-        Time.sleep(100)
-        clear()
-        println("FIM DAS CONFIGS DO LCD\n\n")
+        /* Time.sleep(5)
+         writeCMD(0b00110000)
+         Time.sleep(1)
+         writeCMD(0b00110000)
+         Time.sleep(10)
+         println("FIM DA INICIALIZACAO DO LCD\n\n")
+         println("CONFIGS DO LCD\n\n")
+         writeCMD(0b00111000) //FUNCTION SET
+         writeCMD(0b00001000) //DISPLAY OFF
+         writeCMD(0b00000110) //Define o ENTRY MODE para incrementar automaticamente.
+         Time.sleep(100)
+         clear()
+         println("FIM DAS CONFIGS DO LCD\n\n")*/
     }
 
     // Escreve um caracter na posição corrente.
     fun write(c: Char) {
-        writeDATA(c.code)
+        if (c.isDigit()) {
+            writeDATA(c.digitToInt())
+        } else {
+            writeDATA(c.code)
+        }
     }
 
     // Escreve uma string na posição corrente.

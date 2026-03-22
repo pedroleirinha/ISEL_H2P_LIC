@@ -80,9 +80,9 @@ BEGIN
 	
 	K <= values;
 	
-	LCD_EN <= Q(0);
+	LCD_EN <= Q(9);
 	LCD_DATA <= Q(8 downto 1);
-	LCD_RS <= Q(9);
+	LCD_RS <= Q(0);
 	
 	
 

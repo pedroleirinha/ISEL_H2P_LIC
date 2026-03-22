@@ -30,9 +30,11 @@ object SerialEmitter {
             * O BIT (2) VAI SER O ENABLE DO PROCESSO [ACTIVE LOW].
             *
             * */
+
+
             HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
             //------000
-            Integer.toBinaryString(data).reversed().mapIndexed { index, it ->
+            Integer.toBinaryString(data).padStart(10, '0').reversed().mapIndexed { index, it ->
 
                 if (it.digitToInt() == 1) {
                     HAL.setBits(mask = 0b00000001) //Fica o ultimo bit ON
@@ -42,9 +44,9 @@ object SerialEmitter {
 
                 HAL.setBits(mask = 0b00000010)
                 println("index: $index -> val: $it")
-                Time.sleep(1000)
+                Time.sleep(10)
                 HAL.clrBits(mask = 0b00000010)
-                Time.sleep(1000)
+                Time.sleep(10)
             }
             HAL.clrBits(0b00000111)
             HAL.setBits(0b00000100)
