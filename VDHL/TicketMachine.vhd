@@ -66,14 +66,14 @@ BEGIN
 		Kval 		=>	Kval
 	);
 	
-	input <= "00000000" when (Kval = '0') else "000" & Kval & values;
+	input <= "00000000" when (Kval = '0') else Kval & "000" & values;
 	
 	UsbPort1: UsbPort port map(
 		inputPort	=> input,
 		outputPort	=> output
 	);
 	
-	Kack  <= output(0);
+	Kack  <= output(7);
 	SDX 	<= output(0);
 	SCLK	<= output(1);
 	SS		<= output(2);
