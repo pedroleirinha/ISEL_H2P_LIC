@@ -21,7 +21,7 @@ object SerialEmitter {
         if (isBusy()) return
         if (addr == Peripheral.LCD) {
             busy = true
-            println("\n\nNova Trama")
+            println("\nNova Trama")
 
 
             /*
@@ -30,6 +30,8 @@ object SerialEmitter {
             * O BIT (2) VAI SER O ENABLE DO PROCESSO [ACTIVE LOW].
             *
             * */
+
+            println("DADOS A ENVIAR: ${Integer.toBinaryString(data).padStart(10, '0').reversed()}")
 
 
             HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
@@ -43,14 +45,14 @@ object SerialEmitter {
                 }
 
                 HAL.setBits(mask = 0b00000010)
-                println("index: $index -> val: $it")
+                /*println("index: $index -> val: $it")*/
                 Time.sleep(10)
                 HAL.clrBits(mask = 0b00000010)
                 Time.sleep(10)
             }
             HAL.clrBits(0b00000111)
             HAL.setBits(0b00000100)
-            println("Fim do Envio de dados \n\n")
+            println("Fim do Envio de dados \n")
             busy = false
         }
     }

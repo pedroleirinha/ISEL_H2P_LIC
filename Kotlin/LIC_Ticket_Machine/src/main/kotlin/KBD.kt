@@ -7,6 +7,7 @@ import isel.leic.utils.Time
 // Ler teclas. Funções retornam '0'..'9', 'A'..'D', '#', '*' ou NONE.
 object KBD {
     const val NONE = '_'
+    var keyPressed = false
 
     val teclas = arrayOf(
         arrayOf('1', '2', '3', 'A'),
@@ -17,13 +18,14 @@ object KBD {
 
     // Inicia a classe
     fun init() {
+        keyPressed = false
         HAL.init()
         SerialEmitter.init()
     }
 
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
     fun getKey(): Char {
-        if (!HAL.isBit(0b10000)) {
+        if (!HAL.isBit(0b10000000)) {
             return NONE
         }
 
@@ -45,16 +47,28 @@ object KBD {
         println("ACK CLEAR.\n FINISHED")
     }
 
+    fun isAckOff(): Boolean {
+        return !HAL.isBit(0b10000000)
+    }
+
     // Retorna a tecla premida, caso ocorra antes do 'timeout' (em milissegundos),
     // ou NONE caso contrário.
     fun waitKey(timeout: Long): Char {
         val time = getTimeInMillis() + timeout
         while (getTimeInMillis() < time) {
-            val key = getKey()
-            if (key != NONE) {
-                println("KEY: $key pressed")
-                LCD.write(c = key)
-                return key
+            if (!keyPressed) {
+                val key = getKey()
+                if (key != NONE) {
+                    keyPressed = true
+                    println("KEY: $key pressed")
+                    LCD.clear()
+                    LCD.write(c = key)
+                    return key
+                }
+            } else {
+                if (isAckOff()) {
+                    keyPressed = false
+                }
             }
         }
         println("NO KEY PRESS")
