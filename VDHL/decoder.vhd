@@ -17,6 +17,10 @@ BEGIN
 			when "01" => A <= "1101";
 			when "10" => A <= "1011";
 			when "11" => A <= "0111";
+			--when "00" => A <= "0111";
+			--when "01" => A <= "1011";
+			--when "10" => A <= "1101";
+			--when "11" => A <= "1110";
 			when others => A <= "1111";
 	  end case;
 	end process;

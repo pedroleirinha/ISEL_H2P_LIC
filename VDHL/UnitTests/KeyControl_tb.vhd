@@ -40,6 +40,22 @@ begin
 	KPRESS_TB 	<= '0';
 	KACK_TB 		<= '0';
 	wait for CLK_PERIOD;	
+	CLEAR_TB 	<= '0';
+	wait for CLK_PERIOD * 2;	
+	KPRESS_TB 	<= '1';
+	wait for CLK_PERIOD * 2;	
+	KPRESS_TB 	<= '0';
+	KACK_TB 		<= '1';
+	wait for CLK_PERIOD * 2;
+	KACK_TB 		<= '0';
+	wait for CLK_PERIOD * 2;
+	KPRESS_TB 	<= '1';
+	wait for CLK_PERIOD * 2;
+	KACK_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	KACK_TB 		<= '0';
+	wait for CLK_PERIOD * 2;
+	KPRESS_TB 	<= '0';
 	wait;
 		
 		

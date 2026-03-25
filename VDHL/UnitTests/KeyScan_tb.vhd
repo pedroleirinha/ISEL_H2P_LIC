@@ -4,7 +4,7 @@ use IEEE.std_logic_1164.all;
 entity KeyScan_tb is
 end entity;
 
-architecture KeyScan_tb_arch of KeyScanV1_tb is
+architecture KeyScan_tb_arch of KeyScan_tb is
 
 	component KeyScan PORT(
 		clk_in, Kscan: IN std_logic;

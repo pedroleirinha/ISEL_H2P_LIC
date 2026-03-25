@@ -53,6 +53,31 @@ begin
 	wait until COLS_TB = "1101";  -- coluna 3 ativa
 	ROWS_TB <= "1101";            -- linha 3 ativa
 	wait for CLK_PERIOD * 5;
+	ROWS_TB <= "1111";
+	wait for CLK_PERIOD * 5;
+	KACK_TB 	<= '1';
+	wait for CLK_PERIOD * 5;
+	KACK_TB 	<= '0';
+	wait for CLK_PERIOD;
+		
+	
+	wait until COLS_TB = "1101";  -- coluna 3 ativa
+	ROWS_TB <= "1110";            -- linha 3 ativa
+	wait for CLK_PERIOD * 5;
+	ROWS_TB <= "1111";
+	wait for CLK_PERIOD * 5;
+	KACK_TB 	<= '1';
+	wait for CLK_PERIOD * 5;
+	
+	KACK_TB 	<= '0';
+	wait for CLK_PERIOD;
+	
+	
+	wait until COLS_TB = "1101";  -- coluna 3 ativa
+	ROWS_TB <= "0111";            -- linha 3 ativa
+	wait for CLK_PERIOD * 5;
+	ROWS_TB <= "1111";
+	wait for CLK_PERIOD * 5;
 	KACK_TB 	<= '1';
 	wait for CLK_PERIOD * 5;
 	

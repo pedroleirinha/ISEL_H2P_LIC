@@ -20,6 +20,7 @@ BEGIN
 generateNextState:
 	process(Kpress, Kack, currState, nextState)
 	begin
+	  nextState <= currState;
 	  
 	  case currState is
 			when STATE_SCANNING => 	if(Kpress = '1') then 
@@ -31,7 +32,6 @@ generateNextState:
 			when STATE_ACKNOWLEDGE => 	if(Kack = '0' AND Kpress = '0') then
 												nextState <= STATE_SCANNING;
 											end if;
-			when others => nextState <= STATE_READING;
 	  end case;
 	end process;  
 	  

@@ -39,11 +39,12 @@ object KBD {
     }
 
     fun sendAckBit() {
-        HAL.setBits(mask = 0b00000001) //Define o ACK a 1
+        HAL.setBits(mask = 0b10000000) //Define o ACK a 1
         println("ACK SENT a 1")
-        Time.sleep(1000)
-        HAL.clrBits(mask = 0b00000001) //Limpa o ACK para finalizar o processo
-        Time.sleep(1000)
+        Time.sleep(2000)
+        HAL.clrBits(mask = 0b10000000) //Limpa o ACK para finalizar o processo
+        Time.sleep(2000)
+        keyPressed = false
         println("ACK CLEAR.\n FINISHED")
     }
 
@@ -56,20 +57,18 @@ object KBD {
     fun waitKey(timeout: Long): Char {
         val time = getTimeInMillis() + timeout
         while (getTimeInMillis() < time) {
-            if (!keyPressed) {
-                val key = getKey()
-                if (key != NONE) {
-                    keyPressed = true
-                    println("KEY: $key pressed")
-                    LCD.clear()
-                    LCD.write(c = key)
-                    return key
-                }
-            } else {
-                if (isAckOff()) {
-                    keyPressed = false
-                }
+
+
+            val key = getKey()
+
+            if (key != NONE) {
+                keyPressed = true
+                println("KEY: $key pressed")
+                LCD.clear()
+                LCD.write(c = key)
+                return key
             }
+
         }
         println("NO KEY PRESS")
         return NONE

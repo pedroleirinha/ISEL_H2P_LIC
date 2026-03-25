@@ -1,11 +1,12 @@
 |TicketMachine
-clk_in => KeyDecode:decode.clk_in
+CLK => CLKDIV:clock1.clk_in
 CLEAR => SerialReceiver:serialReceiver1.CLEAR
 CLEAR => KeyDecode:decode.CLEAR
-KEYPAD_LIN[0] => ~NO_FANOUT~
-KEYPAD_LIN[1] => ~NO_FANOUT~
-KEYPAD_LIN[2] => ~NO_FANOUT~
-KEYPAD_LIN[3] => ~NO_FANOUT~
+Kack => KeyDecode:decode.Kack
+KEYPAD_LIN[0] => KeyDecode:decode.rows[0]
+KEYPAD_LIN[1] => KeyDecode:decode.rows[1]
+KEYPAD_LIN[2] => KeyDecode:decode.rows[2]
+KEYPAD_LIN[3] => KeyDecode:decode.rows[3]
 LCD_DATA[0] <= SerialReceiver:serialReceiver1.Q[1]
 LCD_DATA[1] <= SerialReceiver:serialReceiver1.Q[2]
 LCD_DATA[2] <= SerialReceiver:serialReceiver1.Q[3]
@@ -16,14 +17,52 @@ LCD_DATA[6] <= SerialReceiver:serialReceiver1.Q[7]
 LCD_DATA[7] <= SerialReceiver:serialReceiver1.Q[8]
 LCD_EN <= SerialReceiver:serialReceiver1.Q[9]
 LCD_RS <= SerialReceiver:serialReceiver1.Q[0]
-KEYPAD_COL[0] <= comb.DB_MAX_OUTPUT_PORT_TYPE
-KEYPAD_COL[1] <= KEYPAD_COL[1].DB_MAX_OUTPUT_PORT_TYPE
-KEYPAD_COL[2] <= KEYPAD_COL[2].DB_MAX_OUTPUT_PORT_TYPE
-KEYPAD_COL[3] <= KEYPAD_COL[3].DB_MAX_OUTPUT_PORT_TYPE
+Kval <= KeyDecode:decode.Kval
+KEYPAD_COL[0] <= KeyDecode:decode.cols[0]
+KEYPAD_COL[1] <= KeyDecode:decode.cols[1]
+KEYPAD_COL[2] <= KeyDecode:decode.cols[2]
+KEYPAD_COL[3] <= KeyDecode:decode.cols[3]
 K[0] <= KeyDecode:decode.K[0]
 K[1] <= KeyDecode:decode.K[1]
 K[2] <= KeyDecode:decode.K[2]
 K[3] <= KeyDecode:decode.K[3]
+
+
+|TicketMachine|CLKDIV:clock1
+clk_in => tmp.CLK
+clk_in => count[0].CLK
+clk_in => count[1].CLK
+clk_in => count[2].CLK
+clk_in => count[3].CLK
+clk_in => count[4].CLK
+clk_in => count[5].CLK
+clk_in => count[6].CLK
+clk_in => count[7].CLK
+clk_in => count[8].CLK
+clk_in => count[9].CLK
+clk_in => count[10].CLK
+clk_in => count[11].CLK
+clk_in => count[12].CLK
+clk_in => count[13].CLK
+clk_in => count[14].CLK
+clk_in => count[15].CLK
+clk_in => count[16].CLK
+clk_in => count[17].CLK
+clk_in => count[18].CLK
+clk_in => count[19].CLK
+clk_in => count[20].CLK
+clk_in => count[21].CLK
+clk_in => count[22].CLK
+clk_in => count[23].CLK
+clk_in => count[24].CLK
+clk_in => count[25].CLK
+clk_in => count[26].CLK
+clk_in => count[27].CLK
+clk_in => count[28].CLK
+clk_in => count[29].CLK
+clk_in => count[30].CLK
+clk_in => count[31].CLK
+clk_out <= tmp.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |TicketMachine|SerialReceiver:serialReceiver1
@@ -649,10 +688,14 @@ S[1] => Mux3.IN4
 
 |TicketMachine|KeyDecode:decode|KeyControl:control
 clk_in => currState~1.DATAIN
-Kpress => Selector2.IN1
+Kpress => nextState.OUTPUTSELECT
+Kpress => nextState.OUTPUTSELECT
+Kpress => nextState.OUTPUTSELECT
 Kpress => Kscan.IN0
 Kpress => generateNextState.IN0
-Kack => Selector2.IN2
+Kack => nextState.OUTPUTSELECT
+Kack => nextState.OUTPUTSELECT
+Kack => nextState.OUTPUTSELECT
 Kack => generateNextState.IN1
 CLEAR => currState~3.DATAIN
 CE => ~NO_FANOUT~

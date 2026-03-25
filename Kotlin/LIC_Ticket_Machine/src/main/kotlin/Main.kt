@@ -9,6 +9,8 @@ fun main() {
 
 
     while (true) {
+
+        println("${Integer.toBinaryString(UsbPort.read())}")
         KBD.waitKey(timeout = 6000)
     }
 }

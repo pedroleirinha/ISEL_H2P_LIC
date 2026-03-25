@@ -21,7 +21,7 @@ object SerialEmitter {
         if (isBusy()) return
         if (addr == Peripheral.LCD) {
             busy = true
-            println("\nNova Trama")
+            //println("\nNova Trama")
 
 
             /*
@@ -31,7 +31,7 @@ object SerialEmitter {
             *
             * */
 
-            println("DADOS A ENVIAR: ${Integer.toBinaryString(data).padStart(10, '0').reversed()}")
+            //println("DADOS A ENVIAR: ${Integer.toBinaryString(data).padStart(10, '0').reversed()}")
 
 
             HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
@@ -52,7 +52,7 @@ object SerialEmitter {
             }
             HAL.clrBits(0b00000111)
             HAL.setBits(0b00000100)
-            println("Fim do Envio de dados \n")
+            //println("Fim do Envio de dados \n")
             busy = false
         }
     }

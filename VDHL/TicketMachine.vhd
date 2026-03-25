@@ -3,16 +3,23 @@ use ieee.std_logic_1164.all;
 
 ENTITY TicketMachine IS
 	PORT(
-		clk_in, CLEAR:							IN std_logic;
+		CLK, CLEAR, Kack:						IN std_logic;
 		KEYPAD_LIN: 							IN std_logic_vector(3 downto 0);
 		LCD_DATA:		 						OUT std_logic_vector(7 downto 0);
-		LCD_EN, LCD_RS:						OUT std_logic;
+		LCD_EN, LCD_RS, Kval:				OUT std_logic; 
 		KEYPAD_COL: 							OUT std_logic_vector(3 downto 0);
 		K: 										OUT std_logic_vector (3 downto 0)
 	);
 END TicketMachine;
 
 ARCHITECTURE Behaviour OF TicketMachine IS
+
+	component CLKDIV
+		port ( 
+			clk_in: in std_logic;
+			clk_out: out std_logic
+		);
+	end component;
 
 	component KeyDecode
 		PORT(
@@ -43,10 +50,15 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	
 	signal input, output: STD_LOGIC_VECTOR(7 DOWNTO 0);
 	signal Q: STD_LOGIC_VECTOR(9 DOWNTO 0);
-	signal rows, cols, values: STD_LOGIC_VECTOR(3 DOWNTO 0);
-	signal Kval, Kack, SDX, SS, SCLK: STD_LOGIC;
+	signal values: STD_LOGIC_VECTOR(3 DOWNTO 0);
+	signal clock, Kval_Decode, SDX, SS, SCLK: STD_LOGIC;
 	
 BEGIN
+
+	clock1: CLKDIV port map(
+		clk_in 	=> CLK,
+		clk_out	=> clock
+	);
 		
 	serialReceiver1: SerialReceiver port map(
 		SCLK 	=> SCLK,
@@ -57,23 +69,25 @@ BEGIN
 	);
 	
 	decode: KeyDecode port map(
-		clk_in 	=> clk_in,
+		clk_in 	=> clock,
 		Kack 		=> Kack,
 		CLEAR 	=> CLEAR,
-		rows 		=> rows,		
-		cols 		=> cols,	
+		rows 		=> KEYPAD_LIN,		
+		cols 		=> KEYPAD_COL,	
 		K 			=> values,		
-		Kval 		=>	Kval
+		Kval 		=>	Kval_Decode
 	);
 	
-	input <= "00000000" when (Kval = '0') else Kval & "000" & values;
+	input <= Kval_Decode & "000" & values;
+	
+	Kval <= Kval_Decode;
 	
 	UsbPort1: UsbPort port map(
 		inputPort	=> input,
 		outputPort	=> output
 	);
 	
-	Kack  <= output(7);
+--	Kack  <= output(7);
 	SDX 	<= output(0);
 	SCLK	<= output(1);
 	SS		<= output(2);

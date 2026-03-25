@@ -68,6 +68,32 @@ set_global_assignment -name BOARD "MAX 10 DE10 - Lite"
 set_global_assignment -name VHDL_FILE SerialReceiver.vhd
 set_global_assignment -name VHDL_FILE ShiftRegister.vhd
 set_global_assignment -name VHDL_FILE HoldRegister.vhd
+set_location_assignment PIN_W8 -to LCD_RS
+set_location_assignment PIN_V5 -to LCD_EN
+set_location_assignment PIN_AA15 -to LCD_DATA[0]
+set_location_assignment PIN_W13 -to LCD_DATA[1]
+set_location_assignment PIN_AB13 -to LCD_DATA[2]
+set_location_assignment PIN_Y11 -to LCD_DATA[3]
+set_location_assignment PIN_W11 -to LCD_DATA[4]
+set_location_assignment PIN_AA10 -to LCD_DATA[5]
+set_location_assignment PIN_Y8 -to LCD_DATA[6]
+set_location_assignment PIN_Y7 -to LCD_DATA[7]
+set_location_assignment PIN_W5 -to KEYPAD_LIN[0]
+set_location_assignment PIN_AA14 -to KEYPAD_LIN[1]
+set_location_assignment PIN_W12 -to KEYPAD_LIN[2]
+set_location_assignment PIN_AB12 -to KEYPAD_LIN[3]
+set_location_assignment PIN_AB11 -to KEYPAD_COL[0]
+set_location_assignment PIN_AB10 -to KEYPAD_COL[1]
+set_location_assignment PIN_AA9 -to KEYPAD_COL[2]
+set_location_assignment PIN_AA8 -to KEYPAD_COL[3]
+set_location_assignment PIN_A8 -to K[0]
+set_location_assignment PIN_A9 -to K[1]
+set_location_assignment PIN_A10 -to K[2]
+set_location_assignment PIN_B10 -to K[3]
+set_location_assignment PIN_C10 -to CLEAR
+set_location_assignment PIN_B11 -to Kval
+set_location_assignment PIN_F15 -to Kack
+set_location_assignment PIN_P11 -to CLK
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top

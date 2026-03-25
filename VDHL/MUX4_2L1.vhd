@@ -19,6 +19,7 @@ BEGIN
 			when "01" => Y <= NOT A(1);
 			when "10" => Y <= NOT A(2);
 			when "11" => Y <= NOT A(3);
+	
 			when others => Y <= '0';
 	  end case;
 	end process;
