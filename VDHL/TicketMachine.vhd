@@ -32,13 +32,13 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	end component;
 	
 
-	component UsbPort
-		PORT
-		(
-			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
-			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
-		);
-	end component;
+--	component UsbPort
+--		PORT
+--		(
+--			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+--			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
+--		);
+--	end component;
 	
 	
 	component SerialReceiver                           
@@ -69,7 +69,7 @@ BEGIN
 	);
 	
 	decode: KeyDecode port map(
-		clk_in 	=> clock,
+		clk_in 	=> CLK,
 		Kack 		=> Kack,
 		CLEAR 	=> CLEAR,
 		rows 		=> KEYPAD_LIN,		
@@ -82,10 +82,10 @@ BEGIN
 	
 	Kval <= Kval_Decode;
 	
-	UsbPort1: UsbPort port map(
-		inputPort	=> input,
-		outputPort	=> output
-	);
+--	UsbPort1: UsbPort port map(
+--		inputPort	=> input,
+--		outputPort	=> output
+--	);
 	
 --	Kack  <= output(7);
 	SDX 	<= output(0);
