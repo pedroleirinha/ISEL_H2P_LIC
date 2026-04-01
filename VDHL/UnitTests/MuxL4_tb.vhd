@@ -5,6 +5,7 @@ entity MUX4_2L1_tb is
 end MUX4_2L1_tb;
 
 architecture MUX4_2L1_tb_arch of MUX4_2L1_tb is
+
 component MUX4_2L1 port(
 	A: IN std_logic_vector (3 downto 0);
 	S: IN std_logic_vector (1 downto 0);

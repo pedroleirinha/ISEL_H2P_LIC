@@ -12,14 +12,14 @@ object HAL {
     }
 
     // Retorna 'true' se o bit definido pela mask está com o valor lógico '1' no UsbPort
-    fun isBit(mask: Int): Boolean {
+    fun isBit(mask: Int, value: Int? = null): Boolean {
         //O operador "and" faz uma comparação AND bit a bit entre os dois valores
-        return (UsbPort.read() and mask) == mask
+        return ((value ?: UsbPort.read()) and mask) == mask
     }
 
     // Retorna os valores dos bits representados por mask presentes no UsbPort
-    fun readBits(mask: Int): Int {
-        return UsbPort.read() and mask
+    fun readBits(mask: Int, value: Int? = null): Int {
+        return (value ?: UsbPort.read()) and mask
     }
 
     // Escreve nos bits representados por mask os valores dos bits correspondentes em value

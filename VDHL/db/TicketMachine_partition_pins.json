@@ -80,46 +80,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "Q_OUT[0]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[1]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[2]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[3]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[4]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[5]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[6]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[7]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[8]",
-					"strict" : false
-				},
-				{
-					"name" : "Q_OUT[9]",
-					"strict" : false
-				},
-				{
 					"name" : "CLEAR",
 					"strict" : false
 				},

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TicketMachine
-Tue Mar 31 21:19:05 2026
+Wed Apr 01 15:44:12 2026
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -63,7 +63,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Mar 31 21:19:05 2026       ;
+; Analysis & Synthesis Status        ; Successful - Wed Apr 01 15:44:12 2026       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; TicketMachine                               ;
 ; Top-level Entity Name              ; TicketMachine                               ;
@@ -72,7 +72,7 @@ https://fpgasoftware.intel.com/eula.
 ;     Total combinational functions  ; 190                                         ;
 ;     Dedicated logic registers      ; 146                                         ;
 ; Total registers                    ; 146                                         ;
-; Total pins                         ; 35                                          ;
+; Total pins                         ; 25                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -181,7 +181,8 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-14        ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -245,14 +246,14 @@ https://fpgasoftware.intel.com/eula.
 ;     -- Dedicated logic registers            ; 146                      ;
 ;     -- I/O registers                        ; 0                        ;
 ;                                             ;                          ;
-; I/O pins                                    ; 35                       ;
+; I/O pins                                    ; 25                       ;
 ;                                             ;                          ;
 ; Embedded Multiplier 9-bit elements          ; 0                        ;
 ;                                             ;                          ;
 ; Maximum fan-out node                        ; altera_internal_jtag~TDO ;
 ; Maximum fan-out                             ; 107                      ;
-; Total fan-out                               ; 1058                     ;
-; Average fan-out                             ; 2.55                     ;
+; Total fan-out                               ; 1038                     ;
+; Average fan-out                             ; 2.63                     ;
 +---------------------------------------------+--------------------------+
 
 
@@ -261,7 +262,7 @@ https://fpgasoftware.intel.com/eula.
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 ; Compilation Hierarchy Node                                                                                                              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                       ; Entity Name                       ; Library Name ;
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
-; |TicketMachine                                                                                                                          ; 190 (2)             ; 146 (0)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 35   ; 0            ; 0          ; |TicketMachine                                                                                                                                                                                                                                                                                                                                            ; TicketMachine                     ; work         ;
+; |TicketMachine                                                                                                                          ; 190 (2)             ; 146 (0)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 25   ; 0            ; 0          ; |TicketMachine                                                                                                                                                                                                                                                                                                                                            ; TicketMachine                     ; work         ;
 ;    |CLKDIV:clock1|                                                                                                                      ; 50 (50)             ; 33 (33)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|CLKDIV:clock1                                                                                                                                                                                                                                                                                                                              ; CLKDIV                            ; work         ;
 ;    |KeyDecode:decode|                                                                                                                   ; 17 (0)              ; 7 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode                                                                                                                                                                                                                                                                                                                           ; KeyDecode                         ; work         ;
 ;       |KeyControl:control|                                                                                                              ; 6 (6)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyControl:control                                                                                                                                                                                                                                                                                                        ; KeyControl                        ; work         ;
@@ -540,7 +541,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 74                          ;
+; boundary_port         ; 64                          ;
 ; cycloneiii_ff         ; 60                          ;
 ;     CLR               ; 17                          ;
 ;     ENA CLR           ; 10                          ;
@@ -575,7 +576,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Tue Mar 31 21:18:47 2026
+    Info: Processing started: Wed Apr 01 15:43:52 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TicketMachine -c TicketMachine
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -631,7 +632,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file keydeco
     Info (12022): Found design unit 1: KeyDecode-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 14
     Info (12023): Found entity 1: KeyDecode File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file ticketmachine.vhd
-    Info (12022): Found design unit 1: TicketMachine-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 16
+    Info (12022): Found design unit 1: TicketMachine-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 15
     Info (12023): Found entity 1: TicketMachine File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file serialreceiver.vhd
     Info (12022): Found design unit 1: SerialReceiver-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 11
@@ -643,14 +644,14 @@ Info (12021): Found 2 design units, including 1 entities, in source file holdreg
     Info (12022): Found design unit 1: HoldRegister-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd Line: 12
     Info (12023): Found entity 1: HoldRegister File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd Line: 4
 Info (12127): Elaborating entity "TicketMachine" for the top level hierarchy
-Info (12128): Elaborating entity "CLKDIV" for hierarchy "CLKDIV:clock1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 59
-Info (12128): Elaborating entity "SerialReceiver" for hierarchy "SerialReceiver:serialReceiver1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 64
+Info (12128): Elaborating entity "CLKDIV" for hierarchy "CLKDIV:clock1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 58
+Info (12128): Elaborating entity "SerialReceiver" for hierarchy "SerialReceiver:serialReceiver1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 63
 Info (12128): Elaborating entity "ShiftRegister" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 35
 Info (12128): Elaborating entity "RegistryL4" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd Line: 37
 Info (12128): Elaborating entity "FFD" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd Line: 28
 Info (12128): Elaborating entity "RegistryL2" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd Line: 53
 Info (12128): Elaborating entity "HoldRegister" for hierarchy "SerialReceiver:serialReceiver1|HoldRegister:hold" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 43
-Info (12128): Elaborating entity "KeyDecode" for hierarchy "KeyDecode:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 72
+Info (12128): Elaborating entity "KeyDecode" for hierarchy "KeyDecode:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 71
 Info (12128): Elaborating entity "KeyScan" for hierarchy "KeyDecode:decode|KeyScan:scan" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 36
 Warning (10036): Verilog HDL or VHDL warning at KeyScan.vhd(40): object "zeros" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 40
 Info (12128): Elaborating entity "Counter" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 46
@@ -660,7 +661,7 @@ Info (12128): Elaborating entity "MUX2_1L4" for hierarchy "KeyDecode:decode|KeyS
 Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "KeyDecode:decode|KeyScan:scan|MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 57
 Info (12128): Elaborating entity "decoder" for hierarchy "KeyDecode:decode|KeyScan:scan|decoder:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 64
 Info (12128): Elaborating entity "KeyControl" for hierarchy "KeyDecode:decode|KeyControl:control" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 46
-Info (12128): Elaborating entity "UsbPort" for hierarchy "UsbPort:UsbPort1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 86
+Info (12128): Elaborating entity "UsbPort" for hierarchy "UsbPort:UsbPort1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 85
 Info (12128): Elaborating entity "sld_virtual_jtag" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
 Info (12130): Elaborated megafunction instantiation "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
 Info (12133): Instantiated megafunction "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" with the following parameter: File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
@@ -678,7 +679,7 @@ Info (12131): Elaborated megafunction instantiation "UsbPort:UsbPort1|sld_virtua
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 415
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2026.03.31.21:18:56 Progress: Loading sld89da40d0/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2026.04.01.15:44:01 Progress: Loading sld89da40d0/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -704,14 +705,14 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/ip/s
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 278 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 268 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 9 input pins
-    Info (21059): Implemented 30 output pins
+    Info (21059): Implemented 20 output pins
     Info (21061): Implemented 238 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4873 megabytes
-    Info: Processing ended: Tue Mar 31 21:19:05 2026
-    Info: Elapsed time: 00:00:18
-    Info: Total CPU time (on all processors): 00:00:38
+    Info: Peak virtual memory: 4887 megabytes
+    Info: Processing ended: Wed Apr 01 15:44:12 2026
+    Info: Elapsed time: 00:00:20
+    Info: Total CPU time (on all processors): 00:00:37
 
 

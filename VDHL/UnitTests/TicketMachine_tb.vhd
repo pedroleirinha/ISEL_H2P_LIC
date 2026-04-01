@@ -64,8 +64,8 @@ begin
 	wait for CLK_PERIOD * 5;
 	
 	
-	wait until COLS_TB = "1011";  -- coluna 3 ativa
-	ROWS_TB <= "0111";            -- linha 3 ativa
+	wait until COLS_TB = "1011";  -- coluna 2 ativa
+	ROWS_TB <= "0111";            -- linha 1 ativa
 	wait for CLK_PERIOD * 10;
 	KACK_TB 	<= '1';
 	ROWS_TB <= "1111";        
@@ -73,8 +73,8 @@ begin
 	KACK_TB 	<= '0';
 	
 	
-	wait until COLS_TB = "0111";  -- coluna 3 ativa
-	ROWS_TB <= "1011";            -- linha 3 ativa
+	wait until COLS_TB = "0111";  -- coluna 1 ativa
+	ROWS_TB <= "1011";            -- linha 2 ativa
 	wait for CLK_PERIOD * 10;
 	KACK_TB 	<= '1';
 	wait for CLK_PERIOD;
@@ -83,7 +83,7 @@ begin
 	
 	
 	wait until COLS_TB = "1110";  -- coluna 3 ativa
-	ROWS_TB <= "1111";     
+	ROWS_TB <= "1111";     			-- sem linha
 	wait for CLK_PERIOD * 10;
 	KACK_TB 	<= '1';
 	wait for CLK_PERIOD * 2;

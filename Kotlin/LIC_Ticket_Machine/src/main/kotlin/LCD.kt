@@ -15,6 +15,7 @@ object LCD {
         val rsBit = if (rs) 1 else 0
 
         val extendedData = Integer.toBinaryString(data).padStart(8, '0')
+
         var dataFullEnabled = "1${extendedData}${rsBit}".toInt(2)
         SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
 

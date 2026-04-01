@@ -37,54 +37,53 @@ begin
 	-- Reset
 	CLEAR_TB <= '1';
 	enableShift_TB <= '1';
-	wait for 20 ns;
+	wait for CLK_PERIOD;
 	CLEAR_TB <= '0';
 
 	-- Enable shifting
 	enableShift_TB <= '0';
 
-	-- Inject serial bits: 1 0 1 1 0
 	SerialIn_TB <= '1';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '0';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '1';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '1';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '0';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	-- Stop shifting
 	enableShift_TB <= '1';
 	wait for 50 ns;
 	
-	
+		
+	-- Restart
 
-	-- Shift again with different pattern
 	enableShift_TB <= '0';
 
 	SerialIn_TB <= '1';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '1';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '0';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '0';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
 	SerialIn_TB <= '1';
-	wait for clk_period;
+	wait for CLK_PERIOD;
 
-	-- Finish simulation
-	  wait;
+	
+	wait;
 		
 		
 end process;

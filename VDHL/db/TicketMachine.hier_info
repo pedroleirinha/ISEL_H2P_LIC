@@ -25,16 +25,6 @@ K[0] <= KeyDecode:decode.K[0]
 K[1] <= KeyDecode:decode.K[1]
 K[2] <= KeyDecode:decode.K[2]
 K[3] <= KeyDecode:decode.K[3]
-Q_OUT[0] <= SerialReceiver:serialReceiver1.Q[0]
-Q_OUT[1] <= SerialReceiver:serialReceiver1.Q[1]
-Q_OUT[2] <= SerialReceiver:serialReceiver1.Q[2]
-Q_OUT[3] <= SerialReceiver:serialReceiver1.Q[3]
-Q_OUT[4] <= SerialReceiver:serialReceiver1.Q[4]
-Q_OUT[5] <= SerialReceiver:serialReceiver1.Q[5]
-Q_OUT[6] <= SerialReceiver:serialReceiver1.Q[6]
-Q_OUT[7] <= SerialReceiver:serialReceiver1.Q[7]
-Q_OUT[8] <= SerialReceiver:serialReceiver1.Q[8]
-Q_OUT[9] <= SerialReceiver:serialReceiver1.Q[9]
 
 
 |TicketMachine|CLKDIV:clock1

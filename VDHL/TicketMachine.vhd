@@ -8,8 +8,7 @@ ENTITY TicketMachine IS
 		LCD_DATA:		 						OUT std_logic_vector(7 downto 0);
 		LCD_EN, LCD_RS, Kval:				OUT std_logic; 
 		KEYPAD_COL: 							OUT std_logic_vector(3 downto 0);
-		K: 										OUT std_logic_vector (3 downto 0);
-		Q_OUT:									OUT std_logic_vector (9 downto 0)
+		K: 										OUT std_logic_vector (3 downto 0)
 	);
 END TicketMachine;
 
@@ -49,9 +48,9 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 		);
 	end component;
 	
-	signal input, output: STD_LOGIC_VECTOR(7 DOWNTO 0);
-	signal Q, Q_temp: STD_LOGIC_VECTOR(9 DOWNTO 0);
-	signal values: STD_LOGIC_VECTOR(3 DOWNTO 0);
+	signal input, output: 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+	signal Q:					STD_LOGIC_VECTOR(9 DOWNTO 0);
+	signal values: 			STD_LOGIC_VECTOR(3 DOWNTO 0);
 	signal clock, Kval_Decode, SDX, Kack, SS, SCLK: STD_LOGIC;
 	
 BEGIN
@@ -100,10 +99,6 @@ BEGIN
 	LCD_EN <= Q(9);
 	LCD_DATA <= Q(8 downto 1);
 	LCD_RS <= Q(0);
-	
-	
-	Q_OUT <= Q;
-	
 	
 
 END Behaviour;

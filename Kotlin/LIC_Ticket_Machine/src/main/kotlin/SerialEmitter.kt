@@ -36,7 +36,11 @@ object SerialEmitter {
 
             HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
             //------000
-            Integer.toBinaryString(data).padStart(10, '0').mapIndexed { index, it ->
+
+            //
+            //SE FOR PARA EXECUTAR NA PLACA, NÃO PODEMOS INVERTER OS BITS. SE FOR PARA EXECUTAR NO SIMUL, TEMOS DE INVERTER.
+            //
+            Integer.toBinaryString(data).padStart(10, '0').reversed().mapIndexed { index, it ->
 
                 if (it.digitToInt() == 1) {
                     HAL.setBits(mask = 0b00000001) //Fica o ultimo bit ON
