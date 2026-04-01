@@ -46,7 +46,5 @@ BEGIN
 		CLEAR				=> CLEAR,
 		Q 					=> Q		
 	);
-	
-	
 
 END Behaviour;

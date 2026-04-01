@@ -58,8 +58,7 @@ object LCD {
         clear()
         println("FIM DAS CONFIGS DO LCD\n\n")
 
-        write("Hello World!!")
-
+        write("Welcome!")
     }
 
     // Escreve um caracter na posição corrente.

@@ -62,6 +62,8 @@ begin
 	-- Stop shifting
 	enableShift_TB <= '1';
 	wait for 50 ns;
+	
+	
 
 	-- Shift again with different pattern
 	enableShift_TB <= '0';

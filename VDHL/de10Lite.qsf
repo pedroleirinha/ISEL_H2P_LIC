@@ -32,23 +32,21 @@ set_location_assignment PIN_C10 -to CLEAR
 #set_location_assignment PIN_A13 -to SW[6]
 #set_location_assignment PIN_A14 -to SW[7]
 #set_location_assignment PIN_B14 -to SW[8]
-set_location_assignment PIN_F15 -to Kack
+#set_location_assignment PIN_F15 -to SW[9]
 
 #============================================================
 # LED
 #============================================================
-set_location_assignment PIN_A8 -to K[0]
-set_location_assignment PIN_A9 -to K[1]
-set_location_assignment PIN_A10 -to K[2]
-set_location_assignment PIN_B10 -to K[3]
-#set_location_assignment PIN_D13 -to LEDR[4]
-#set_location_assignment PIN_C13 -to LEDR[5]
-#set_location_assignment PIN_E14 -to LEDR[6]
-#set_location_assignment PIN_D14 -to LEDR[7]
-#set_location_assignment PIN_A11 -to LEDR[8]
-set_location_assignment PIN_B11 -to Kval
-
-
+set_location_assignment PIN_A8 -to Q_OUT[0]
+set_location_assignment PIN_A9 -to Q_OUT[1]
+set_location_assignment PIN_A10 -to Q_OUT[2]
+set_location_assignment PIN_B10 -to Q_OUT[3]
+set_location_assignment PIN_D13 -to Q_OUT[4]
+set_location_assignment PIN_C13 -to Q_OUT[5]
+set_location_assignment PIN_E14 -to Q_OUT[6]
+set_location_assignment PIN_D14 -to Q_OUT[7]
+set_location_assignment PIN_A11 -to Q_OUT[8]
+set_location_assignment PIN_B11 -to Q_OUT[9]
 
 
 #============================================================

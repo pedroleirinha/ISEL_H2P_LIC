@@ -3,12 +3,13 @@ use ieee.std_logic_1164.all;
 
 ENTITY TicketMachine IS
 	PORT(
-		CLK, CLEAR, Kack:						IN std_logic;
+		CLK, CLEAR:								IN std_logic;
 		KEYPAD_LIN: 							IN std_logic_vector(3 downto 0);
 		LCD_DATA:		 						OUT std_logic_vector(7 downto 0);
 		LCD_EN, LCD_RS, Kval:				OUT std_logic; 
 		KEYPAD_COL: 							OUT std_logic_vector(3 downto 0);
-		K: 										OUT std_logic_vector (3 downto 0)
+		K: 										OUT std_logic_vector (3 downto 0);
+		Q_OUT:									OUT std_logic_vector (9 downto 0)
 	);
 END TicketMachine;
 
@@ -32,13 +33,13 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	end component;
 	
 
---	component UsbPort
---		PORT
---		(
---			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
---			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
---		);
---	end component;
+	component UsbPort 
+		PORT
+		(
+			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
+		);
+	end component;
 	
 	
 	component SerialReceiver                           
@@ -49,9 +50,9 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	end component;
 	
 	signal input, output: STD_LOGIC_VECTOR(7 DOWNTO 0);
-	signal Q: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	signal Q, Q_temp: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	signal values: STD_LOGIC_VECTOR(3 DOWNTO 0);
-	signal clock, Kval_Decode, SDX, SS, SCLK: STD_LOGIC;
+	signal clock, Kval_Decode, SDX, Kack, SS, SCLK: STD_LOGIC;
 	
 BEGIN
 
@@ -69,7 +70,7 @@ BEGIN
 	);
 	
 	decode: KeyDecode port map(
-		clk_in 	=> CLK,
+		clk_in 	=> clock,
 		Kack 		=> Kack,
 		CLEAR 	=> CLEAR,
 		rows 		=> KEYPAD_LIN,		
@@ -82,12 +83,14 @@ BEGIN
 	
 	Kval <= Kval_Decode;
 	
---	UsbPort1: UsbPort port map(
---		inputPort	=> input,
---		outputPort	=> output
---	);
+	UsbPort1: UsbPort port map(
+		inputPort	=> input,
+		outputPort	=> output
+	);
 	
---	Kack  <= output(7);
+	
+	Kack  <= output(7);
+	
 	SDX 	<= output(0);
 	SCLK	<= output(1);
 	SS		<= output(2);
@@ -97,6 +100,9 @@ BEGIN
 	LCD_EN <= Q(9);
 	LCD_DATA <= Q(8 downto 1);
 	LCD_RS <= Q(0);
+	
+	
+	Q_OUT <= Q;
 	
 	
 

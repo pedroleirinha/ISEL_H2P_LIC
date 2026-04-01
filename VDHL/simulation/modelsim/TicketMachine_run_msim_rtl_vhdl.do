@@ -5,6 +5,7 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL2.vhd}
