@@ -1,0 +1,38 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity Mux4_2_tb is
+end Mux4_2_tb;
+
+architecture Mux4_2_tb_arch of Mux4_2_tb is
+component MUX4_2 port(
+	lsl_O, asr_O, or_O, xnor_O: IN std_logic_vector (3 downto 0);
+	S: IN std_logic_vector (1 downto 0);
+	Y: OUT std_logic_vector (3 downto 0)
+);
+end component;
+
+signal lsl_O_TB, asr_O_TB, or_O_TB, xnor_O_TB, Y_TB: std_logic_vector(3 downto 0);
+signal S_TB: std_logic_vector(1 downto 0);
+
+begin
+	U1: MUX4_2 port map (lsl_O => lsl_O_TB, asr_O => asr_O_TB, or_O => or_O_TB, xnor_O => xnor_O_TB, S => S_TB, Y => Y_TB);
+process begin
+	lsl_O_TB <= "0110";
+	asr_O_TB <= "1100";
+	or_O_TB <= "1101";
+	xnor_O_TB <= "1111";
+	
+	S_TB <= "00";
+	wait for 10 ns; --deve ser escolhido o OR (1101)
+	S_TB <= "01";
+	wait for 10 ns; --deve ser escolhido o XNOR (1111)
+	S_TB <= "10";
+	wait for 10 ns; --deve ser escolhido o LSL (0110)
+	S_TB <= "11";
+	wait for 10 ns; --deve ser escolhido o ASR (1111)
+
+	
+	wait;
+end process;
+end Mux4_2_tb_arch;
