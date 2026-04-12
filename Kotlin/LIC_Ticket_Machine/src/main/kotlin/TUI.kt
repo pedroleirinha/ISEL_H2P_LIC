@@ -2,6 +2,7 @@ package org.example
 
 import isel.leic.UsbPort
 import org.example.KBD.NONE
+import java.io.BufferedReader
 
 object TUI {
     var firstKey = true
@@ -24,4 +25,5 @@ object TUI {
             LCD.write(c = key)
         }
     }
+
 }

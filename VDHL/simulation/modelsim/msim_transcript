@@ -1,5 +1,4 @@
 # Reading pref.tcl
-# ERROR: No extended dataflow license exists
 # do TicketMachine_run_msim_rtl_vhdl.do
 # if {[file exists rtl_work]} {
 # 	vdel -lib rtl_work -all
@@ -11,268 +10,140 @@
 # Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
 # Modifying modelsim.ini
 # 
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:34 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity KeyScan
-# -- Compiling architecture Behaviour of KeyScan
-# End time: 15:31:34 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:34 on Apr 01,2026
+# Start time: 18:50:21 on Apr 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity MUX2_1L4
 # -- Compiling architecture Behaviour of MUX2_1L4
-# End time: 15:31:34 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL2.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:34 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL2.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity RegistryL2
-# -- Compiling architecture Structural of RegistryL2
-# End time: 15:31:34 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:34 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity Counter
-# -- Compiling architecture Structural of Counter
-# End time: 15:31:34 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:34 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity Adder
-# -- Compiling architecture Structural of Adder
-# End time: 15:31:34 on Apr 01,2026, Elapsed time: 0:00:00
+# End time: 18:50:21 on Apr 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
+# Start time: 18:50:22 on Apr 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity RegistryL4
 # -- Compiling architecture Structural of RegistryL4
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity FullAdder
-# -- Compiling architecture Behaviour of FullAdder
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
+# End time: 18:50:22 on Apr 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
+# Start time: 18:50:22 on Apr 08,2026
 # vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity FFD
 # -- Compiling architecture logicFunction of FFD
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
+# End time: 18:50:22 on Apr 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/clkDIV.vhd}
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/clkDIV.vhd 
+# Start time: 18:50:22 on Apr 08,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
-# -- Loading package NUMERIC_STD
-# -- Compiling entity CLKDIV
-# -- Compiling architecture bhv of CLKDIV
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
+# -- Compiling entity KeyTransmitter
+# -- Compiling architecture Behaviour of KeyTransmitter
+# End time: 18:50:23 on Apr 08,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd}
+# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegisterL4.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd 
+# Start time: 18:50:23 on Apr 08,2026
+# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegisterL4.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
-# -- Compiling entity decoder
-# -- Compiling architecture Behaviour of decoder
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity MUX4_2L1
-# -- Compiling architecture Behaviour of MUX4_2L1
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity KeyControl
-# -- Compiling architecture Behaviour of KeyControl
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity KeyDecode
-# -- Compiling architecture Behaviour of KeyDecode
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity TicketMachine
-# -- Compiling architecture Behaviour of TicketMachine
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity SerialReceiver
-# -- Compiling architecture Behaviour of SerialReceiver
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity ShiftRegister
-# -- Compiling architecture Behaviour of ShiftRegister
-# End time: 15:31:35 on Apr 01,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:35 on Apr 01,2026
-# vcom -reportprogress 300 -93 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Compiling entity HoldRegister
-# -- Compiling architecture Behaviour of HoldRegister
-# End time: 15:31:36 on Apr 01,2026, Elapsed time: 0:00:01
+# -- Compiling entity ShiftRegisterL4
+# -- Compiling architecture Behaviour of ShiftRegisterL4
+# End time: 18:50:23 on Apr 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
-vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/SerialReceiver_tb.vhd
+vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/ShiftRegisterL4_tb.vhd
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:31:45 on Apr 01,2026
-# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/SerialReceiver_tb.vhd 
+# Start time: 18:50:28 on Apr 08,2026
+# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/ShiftRegisterL4_tb.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
-# -- Compiling entity SerialReceiver_tb
-# -- Compiling architecture SerialReceiver_tb_arch of SerialReceiver_tb
-# End time: 15:31:45 on Apr 01,2026, Elapsed time: 0:00:00
+# -- Compiling entity ShiftRegisterL4_tb
+# -- Compiling architecture behavioral of ShiftRegisterL4_tb
+# End time: 18:50:28 on Apr 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vsim work.serialreceiver_tb
-# vsim work.serialreceiver_tb 
-# Start time: 15:31:51 on Apr 01,2026
+vsim work.shiftregisterl4_tb
+# vsim work.shiftregisterl4_tb 
+# Start time: 18:50:36 on Apr 08,2026
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
-# Loading work.serialreceiver_tb(serialreceiver_tb_arch)
-# Loading work.serialreceiver(behaviour)
-# Loading work.shiftregister(behaviour)
+# Loading work.shiftregisterl4_tb(behavioral)
+# Loading work.shiftregisterl4(behaviour)
 # Loading work.registryl4(structural)
 # Loading work.ffd(logicfunction)
-# Loading work.registryl2(structural)
-# Loading work.holdregister(behaviour)
+# Loading work.mux2_1l4(behaviour)
 add wave -position insertpoint  \
-sim:/serialreceiver_tb/SS_TB \
-sim:/serialreceiver_tb/SDX_TB \
-sim:/serialreceiver_tb/Q_TB \
-sim:/serialreceiver_tb/MCLK_PERIOD \
-sim:/serialreceiver_tb/MCLK_HALF_PERIOD \
-sim:/serialreceiver_tb/CLK_TB \
-sim:/serialreceiver_tb/CLK_PERIOD \
-sim:/serialreceiver_tb/CLEAR_TB
+sim:/shiftregisterl4_tb/Q_TB \
+sim:/shiftregisterl4_tb/PL_TB \
+sim:/shiftregisterl4_tb/MCLK_PERIOD \
+sim:/shiftregisterl4_tb/MCLK_HALF_PERIOD \
+sim:/shiftregisterl4_tb/D_TB \
+sim:/shiftregisterl4_tb/CLK_TB \
+sim:/shiftregisterl4_tb/CLK_PERIOD \
+sim:/shiftregisterl4_tb/CLEAR_TB \
+sim:/shiftregisterl4_tb/CE_TB
 run
 run
 run
 run
-vcom -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/SerialReceiver_tb.vhd
+run
+run
+run
+run
+vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyTransmitter_tb.vhd
 # Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 15:32:24 on Apr 01,2026
-# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/SerialReceiver_tb.vhd 
+# Start time: 18:51:52 on Apr 08,2026
+# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyTransmitter_tb.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
-# -- Compiling entity SerialReceiver_tb
-# -- Compiling architecture SerialReceiver_tb_arch of SerialReceiver_tb
-# End time: 15:32:24 on Apr 01,2026, Elapsed time: 0:00:00
+# -- Compiling entity KeyTransmitter_tb
+# -- Compiling architecture KeyTransmitter_tb_arch of KeyTransmitter_tb
+# End time: 18:51:52 on Apr 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vsim work.serialreceiver_tb
-# End time: 15:32:27 on Apr 01,2026, Elapsed time: 0:00:36
+vsim work.keytransmitter_tb
+# End time: 18:52:01 on Apr 08,2026, Elapsed time: 0:01:25
 # Errors: 0, Warnings: 0
-# vsim work.serialreceiver_tb 
-# Start time: 15:32:27 on Apr 01,2026
+# vsim work.keytransmitter_tb 
+# Start time: 18:52:01 on Apr 08,2026
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
-# Loading work.serialreceiver_tb(serialreceiver_tb_arch)
-# Loading work.serialreceiver(behaviour)
-# Loading work.shiftregister(behaviour)
+# Loading work.keytransmitter_tb(keytransmitter_tb_arch)
+# Loading work.keytransmitter(behaviour)
 # Loading work.registryl4(structural)
 # Loading work.ffd(logicfunction)
-# Loading work.registryl2(structural)
-# Loading work.holdregister(behaviour)
-# WARNING: No extended dataflow license exists
+# Loading work.shiftregisterl4(behaviour)
+# Loading work.mux2_1l4(behaviour)
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
 add wave -position insertpoint  \
-sim:/serialreceiver_tb/SS_TB \
-sim:/serialreceiver_tb/SDX_TB \
-sim:/serialreceiver_tb/Q_TB \
-sim:/serialreceiver_tb/MCLK_PERIOD \
-sim:/serialreceiver_tb/MCLK_HALF_PERIOD \
-sim:/serialreceiver_tb/CLK_TB \
-sim:/serialreceiver_tb/CLK_PERIOD \
-sim:/serialreceiver_tb/CLEAR_TB
+sim:/keytransmitter_tb/TXD_TB \
+sim:/keytransmitter_tb/TXCLK_TB \
+sim:/keytransmitter_tb/MCLK_PERIOD \
+sim:/keytransmitter_tb/MCLK_HALF_PERIOD \
+sim:/keytransmitter_tb/LOAD_TB \
+sim:/keytransmitter_tb/KBFREE_TB \
+sim:/keytransmitter_tb/CLK_TB \
+sim:/keytransmitter_tb/CLK_PERIOD \
+sim:/keytransmitter_tb/CLEAR_TB \
+sim:/keytransmitter_tb/BUFFER_TB
 run
 run
 run
@@ -281,5 +152,190 @@ run
 run
 run
 run
-# End time: 15:44:04 on Apr 01,2026, Elapsed time: 0:11:37
+run
+run
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/reg/flipflopsCurrentState
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/reg/Q
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+run
+run
+run
+run
+run
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/shiftRegister1/currRegState
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+run
+run
+run
+run
+run
+run
+run
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/shiftRegister1/CE
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+run
+run
+run
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/shiftRegister1/registryD
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+run
+run
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/shiftRegister1/CLK
+vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyTransmitter_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 18:57:42 on Apr 08,2026
+# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyTransmitter_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity KeyTransmitter_tb
+# -- Compiling architecture KeyTransmitter_tb_arch of KeyTransmitter_tb
+# End time: 18:57:42 on Apr 08,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
+vsim work.keytransmitter_tb
+# End time: 18:57:49 on Apr 08,2026, Elapsed time: 0:05:48
+# Errors: 0, Warnings: 1
+# vsim work.keytransmitter_tb 
+# Start time: 18:57:49 on Apr 08,2026
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.keytransmitter_tb(keytransmitter_tb_arch)
+# Loading work.keytransmitter(behaviour)
+# Loading work.registryl4(structural)
+# Loading work.ffd(logicfunction)
+# Loading work.shiftregisterl4(behaviour)
+# Loading work.mux2_1l4(behaviour)
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/shiftRegister1/registryD \
+sim:/keytransmitter_tb/UUT/shiftRegister1/nextRegState \
+sim:/keytransmitter_tb/UUT/shiftRegister1/currRegState \
+sim:/keytransmitter_tb/UUT/shiftRegister1/Q \
+sim:/keytransmitter_tb/UUT/shiftRegister1/PL \
+sim:/keytransmitter_tb/UUT/shiftRegister1/D \
+sim:/keytransmitter_tb/UUT/shiftRegister1/CLK \
+sim:/keytransmitter_tb/UUT/shiftRegister1/CLEAR \
+sim:/keytransmitter_tb/UUT/shiftRegister1/CE
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/LOAD_TB
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/TXD_TB \
+sim:/keytransmitter_tb/TXCLK_TB
+run
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/BUFFER_TB
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/reg/flipflopsCurrentState
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/CLK_PERIOD
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/CLK_TB
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+add wave -position insertpoint  \
+sim:/keytransmitter_tb/UUT/shiftRegister1/registry1/flipflopsCurrentState
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+vcom -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyTransmitter_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:04:21 on Apr 08,2026
+# vcom -reportprogress 300 -work work C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UnitTests/KeyTransmitter_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity KeyTransmitter_tb
+# -- Compiling architecture KeyTransmitter_tb_arch of KeyTransmitter_tb
+# End time: 19:04:21 on Apr 08,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.keytransmitter_tb(keytransmitter_tb_arch)
+# ** Warning: (vsim-8683) Uninitialized out port /keytransmitter_tb/UUT/KbFree has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+run
+run
+# End time: 19:16:02 on Apr 08,2026, Elapsed time: 0:18:13
+# Errors: 0, Warnings: 1

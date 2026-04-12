@@ -64,8 +64,8 @@ BEGIN
 	begin
 	  
 	  	
-    D_NEXT(9 downto 1) <= D(8 downto 0);
-    D_NEXT(0) <= SerialIn;
+    D_NEXT(8 downto 0) <= D(9 downto 1);
+    D_NEXT(9) <= SerialIn;
 		
 	end process;
 

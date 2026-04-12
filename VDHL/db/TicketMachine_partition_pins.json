@@ -64,22 +64,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "K[0]",
-					"strict" : false
-				},
-				{
-					"name" : "K[1]",
-					"strict" : false
-				},
-				{
-					"name" : "K[2]",
-					"strict" : false
-				},
-				{
-					"name" : "K[3]",
-					"strict" : false
-				},
-				{
 					"name" : "CLEAR",
 					"strict" : false
 				},

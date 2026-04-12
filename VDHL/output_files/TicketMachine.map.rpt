@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TicketMachine
-Wed Apr 01 15:44:12 2026
+Fri Apr 10 12:44:25 2026
 Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
@@ -14,29 +14,37 @@ Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis IP Cores Summary
-  9. State Machine - |TicketMachine|KeyDecode:decode|KeyControl:control|currState
- 10. General Register Statistics
- 11. Inverted Register Statistics
- 12. Multiplexer Restructuring Statistics (Restructuring Performed)
- 13. Parameter Settings for User Entity Instance: CLKDIV:clock1
- 14. Parameter Settings for User Entity Instance: UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst
- 15. Port Connectivity Checks: "UsbPort:UsbPort1"
- 16. Port Connectivity Checks: "KeyDecode:decode|KeyControl:control"
- 17. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1"
- 18. Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont"
- 19. Port Connectivity Checks: "SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3"
- 20. Port Connectivity Checks: "SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2"
- 21. Port Connectivity Checks: "SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1"
- 22. Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2"
- 23. Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1"
- 24. Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4"
- 25. Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3"
- 26. Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2"
- 27. Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1"
- 28. Virtual JTAG Settings
- 29. Post-Synthesis Netlist Statistics for Top Partition
- 30. Elapsed Time Per Partition
- 31. Analysis & Synthesis Messages
+  9. State Machine - |TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState
+ 10. State Machine - |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control|currState
+ 11. Registers Removed During Synthesis
+ 12. Removed Registers Triggering Further Register Optimizations
+ 13. General Register Statistics
+ 14. Inverted Register Statistics
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Parameter Settings for User Entity Instance: CLKDIV:clock1
+ 17. Parameter Settings for User Entity Instance: UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst
+ 18. Port Connectivity Checks: "UsbPort:UsbPort1"
+ 19. Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control"
+ 20. Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|MUX2_1L4:mux4"
+ 21. Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1"
+ 22. Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter"
+ 23. Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control"
+ 24. Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1"
+ 25. Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont"
+ 26. Port Connectivity Checks: "PortExpanderTD:peTd"
+ 27. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3"
+ 28. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2"
+ 29. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1"
+ 30. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2"
+ 31. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1"
+ 32. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4"
+ 33. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3"
+ 34. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2"
+ 35. Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1"
+ 36. Virtual JTAG Settings
+ 37. Post-Synthesis Netlist Statistics for Top Partition
+ 38. Elapsed Time Per Partition
+ 39. Analysis & Synthesis Messages
 
 
 
@@ -63,7 +71,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr 01 15:44:12 2026       ;
+; Analysis & Synthesis Status        ; Successful - Fri Apr 10 12:44:25 2026       ;
 ; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name                      ; TicketMachine                               ;
 ; Top-level Entity Name              ; TicketMachine                               ;
@@ -209,6 +217,12 @@ https://fpgasoftware.intel.com/eula.
 ; SerialReceiver.vhd                                                 ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd                                                 ;             ;
 ; ShiftRegister.vhd                                                  ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd                                                  ;             ;
 ; HoldRegister.vhd                                                   ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd                                                   ;             ;
+; KeyboardReader.vhd                                                 ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd                                                 ;             ;
+; KeyTransmitter.vhd                                                 ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd                                                 ;             ;
+; ShiftRegisterL4.vhd                                                ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegisterL4.vhd                                                ;             ;
+; KeyTransmitterControl.vhd                                          ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitterControl.vhd                                          ;             ;
+; PortExpanderLCD.vhd                                                ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderLCD.vhd                                                ;             ;
+; PortExpanderTD.vhd                                                 ; yes             ; User VHDL File                               ; C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderTD.vhd                                                 ;             ;
 ; sld_virtual_jtag.v                                                 ; yes             ; Megafunction                                 ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag.v                                           ;             ;
 ; sld_virtual_jtag_basic.v                                           ; yes             ; Megafunction                                 ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v                                     ;             ;
 ; sld_jtag_endpoint_adapter.vhd                                      ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd                                ;             ;
@@ -252,8 +266,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;                          ;
 ; Maximum fan-out node                        ; altera_internal_jtag~TDO ;
 ; Maximum fan-out                             ; 107                      ;
-; Total fan-out                               ; 1038                     ;
-; Average fan-out                             ; 2.63                     ;
+; Total fan-out                               ; 1034                     ;
+; Average fan-out                             ; 2.62                     ;
 +---------------------------------------------+--------------------------+
 
 
@@ -264,46 +278,48 @@ https://fpgasoftware.intel.com/eula.
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 ; |TicketMachine                                                                                                                          ; 190 (2)             ; 146 (0)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 25   ; 0            ; 0          ; |TicketMachine                                                                                                                                                                                                                                                                                                                                            ; TicketMachine                     ; work         ;
 ;    |CLKDIV:clock1|                                                                                                                      ; 50 (50)             ; 33 (33)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|CLKDIV:clock1                                                                                                                                                                                                                                                                                                                              ; CLKDIV                            ; work         ;
-;    |KeyDecode:decode|                                                                                                                   ; 17 (0)              ; 7 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode                                                                                                                                                                                                                                                                                                                           ; KeyDecode                         ; work         ;
-;       |KeyControl:control|                                                                                                              ; 6 (6)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyControl:control                                                                                                                                                                                                                                                                                                        ; KeyControl                        ; work         ;
-;       |KeyScan:scan|                                                                                                                    ; 11 (0)              ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan                                                                                                                                                                                                                                                                                                              ; KeyScan                           ; work         ;
-;          |Counter:cont|                                                                                                                 ; 5 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont                                                                                                                                                                                                                                                                                                 ; Counter                           ; work         ;
-;             |RegistryL4:registry|                                                                                                       ; 5 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry                                                                                                                                                                                                                                                                             ; RegistryL4                        ; work         ;
-;                |FFD:flipflop1|                                                                                                          ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1                                                                                                                                                                                                                                                               ; FFD                               ; work         ;
-;                |FFD:flipflop2|                                                                                                          ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2                                                                                                                                                                                                                                                               ; FFD                               ; work         ;
-;                |FFD:flipflop3|                                                                                                          ; 2 (2)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3                                                                                                                                                                                                                                                               ; FFD                               ; work         ;
-;                |FFD:flipflop4|                                                                                                          ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4                                                                                                                                                                                                                                                               ; FFD                               ; work         ;
-;          |MUX4_2L1:muxPL|                                                                                                               ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|MUX4_2L1:muxPL                                                                                                                                                                                                                                                                                               ; MUX4_2L1                          ; work         ;
-;          |decoder:decode|                                                                                                               ; 4 (4)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyDecode:decode|KeyScan:scan|decoder:decode                                                                                                                                                                                                                                                                                               ; decoder                           ; work         ;
-;    |SerialReceiver:serialReceiver1|                                                                                                     ; 0 (0)               ; 20 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1                                                                                                                                                                                                                                                                                                             ; SerialReceiver                    ; work         ;
-;       |HoldRegister:hold|                                                                                                               ; 0 (0)               ; 10 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold                                                                                                                                                                                                                                                                                           ; HoldRegister                      ; work         ;
-;          |RegistryL2:registry3|                                                                                                         ; 0 (0)               ; 2 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3                                                                                                                                                                                                                                                                      ; RegistryL2                        ; work         ;
-;             |FFD:flipflop1|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop1                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;             |FFD:flipflop2|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop2                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;          |RegistryL4:registry1|                                                                                                         ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1                                                                                                                                                                                                                                                                      ; RegistryL4                        ; work         ;
-;             |FFD:flipflop1|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop1                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;             |FFD:flipflop2|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop2                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;             |FFD:flipflop3|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop3                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;             |FFD:flipflop4|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop4                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;          |RegistryL4:registry2|                                                                                                         ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2                                                                                                                                                                                                                                                                      ; RegistryL4                        ; work         ;
-;             |FFD:flipflop1|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop1                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;             |FFD:flipflop2|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop2                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;             |FFD:flipflop3|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop3                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;             |FFD:flipflop4|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop4                                                                                                                                                                                                                                                        ; FFD                               ; work         ;
-;       |ShiftRegister:shiftRegister1|                                                                                                    ; 0 (0)               ; 10 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1                                                                                                                                                                                                                                                                                ; ShiftRegister                     ; work         ;
-;          |RegistryL2:registry3|                                                                                                         ; 0 (0)               ; 2 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3                                                                                                                                                                                                                                                           ; RegistryL2                        ; work         ;
-;             |FFD:flipflop1|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;             |FFD:flipflop2|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;          |RegistryL4:registry1|                                                                                                         ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1                                                                                                                                                                                                                                                           ; RegistryL4                        ; work         ;
-;             |FFD:flipflop1|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;             |FFD:flipflop2|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;             |FFD:flipflop3|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;             |FFD:flipflop4|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;          |RegistryL4:registry2|                                                                                                         ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2                                                                                                                                                                                                                                                           ; RegistryL4                        ; work         ;
-;             |FFD:flipflop1|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop1                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;             |FFD:flipflop2|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop2                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;             |FFD:flipflop3|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop3                                                                                                                                                                                                                                             ; FFD                               ; work         ;
-;             |FFD:flipflop4|                                                                                                             ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop4                                                                                                                                                                                                                                             ; FFD                               ; work         ;
+;    |KeyboardReader:keyboardReader1|                                                                                                     ; 17 (0)              ; 7 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1                                                                                                                                                                                                                                                                                                             ; KeyboardReader                    ; work         ;
+;       |KeyDecode:scan|                                                                                                                  ; 17 (0)              ; 7 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan                                                                                                                                                                                                                                                                                              ; KeyDecode                         ; work         ;
+;          |KeyControl:control|                                                                                                           ; 6 (6)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control                                                                                                                                                                                                                                                                           ; KeyControl                        ; work         ;
+;          |KeyScan:scan|                                                                                                                 ; 11 (0)              ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan                                                                                                                                                                                                                                                                                 ; KeyScan                           ; work         ;
+;             |Counter:cont|                                                                                                              ; 5 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont                                                                                                                                                                                                                                                                    ; Counter                           ; work         ;
+;                |RegistryL4:registry|                                                                                                    ; 5 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry                                                                                                                                                                                                                                                ; RegistryL4                        ; work         ;
+;                   |FFD:flipflop1|                                                                                                       ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                   |FFD:flipflop2|                                                                                                       ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                   |FFD:flipflop3|                                                                                                       ; 2 (2)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                   |FFD:flipflop4|                                                                                                       ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;             |MUX4_2L1:muxPL|                                                                                                            ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|MUX4_2L1:muxPL                                                                                                                                                                                                                                                                  ; MUX4_2L1                          ; work         ;
+;             |decoder:decode|                                                                                                            ; 4 (4)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|decoder:decode                                                                                                                                                                                                                                                                  ; decoder                           ; work         ;
+;    |PortExpanderLCD:peLcd|                                                                                                              ; 0 (0)               ; 20 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd                                                                                                                                                                                                                                                                                                                      ; PortExpanderLCD                   ; work         ;
+;       |SerialReceiver:serialReceiver1|                                                                                                  ; 0 (0)               ; 20 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1                                                                                                                                                                                                                                                                                       ; SerialReceiver                    ; work         ;
+;          |HoldRegister:hold|                                                                                                            ; 0 (0)               ; 10 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold                                                                                                                                                                                                                                                                     ; HoldRegister                      ; work         ;
+;             |RegistryL2:registry3|                                                                                                      ; 0 (0)               ; 2 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3                                                                                                                                                                                                                                                ; RegistryL2                        ; work         ;
+;                |FFD:flipflop1|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop1                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                |FFD:flipflop2|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop2                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;             |RegistryL4:registry1|                                                                                                      ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1                                                                                                                                                                                                                                                ; RegistryL4                        ; work         ;
+;                |FFD:flipflop1|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop1                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                |FFD:flipflop2|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop2                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                |FFD:flipflop3|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop3                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                |FFD:flipflop4|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop4                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;             |RegistryL4:registry2|                                                                                                      ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2                                                                                                                                                                                                                                                ; RegistryL4                        ; work         ;
+;                |FFD:flipflop1|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop1                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                |FFD:flipflop2|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop2                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                |FFD:flipflop3|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop3                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;                |FFD:flipflop4|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop4                                                                                                                                                                                                                                  ; FFD                               ; work         ;
+;          |ShiftRegister:shiftRegister1|                                                                                                 ; 0 (0)               ; 10 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1                                                                                                                                                                                                                                                          ; ShiftRegister                     ; work         ;
+;             |RegistryL2:registry3|                                                                                                      ; 0 (0)               ; 2 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3                                                                                                                                                                                                                                     ; RegistryL2                        ; work         ;
+;                |FFD:flipflop1|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;                |FFD:flipflop2|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;             |RegistryL4:registry1|                                                                                                      ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1                                                                                                                                                                                                                                     ; RegistryL4                        ; work         ;
+;                |FFD:flipflop1|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;                |FFD:flipflop2|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;                |FFD:flipflop3|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;                |FFD:flipflop4|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;             |RegistryL4:registry2|                                                                                                      ; 0 (0)               ; 4 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2                                                                                                                                                                                                                                     ; RegistryL4                        ; work         ;
+;                |FFD:flipflop1|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop1                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;                |FFD:flipflop2|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop2                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;                |FFD:flipflop3|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop3                                                                                                                                                                                                                       ; FFD                               ; work         ;
+;                |FFD:flipflop4|                                                                                                          ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop4                                                                                                                                                                                                                       ; FFD                               ; work         ;
 ;    |sld_hub:auto_hub|                                                                                                                   ; 121 (1)             ; 86 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                           ; sld_hub                           ; altera_sld   ;
 ;       |alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric| ; 120 (0)             ; 86 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric                                                                                                                                                                                           ; alt_sld_fab_with_jtag_input       ; altera_sld   ;
 ;          |alt_sld_fab:instrumentation_fabric|                                                                                           ; 120 (0)             ; 86 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |TicketMachine|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                                                                                        ; alt_sld_fab                       ; alt_sld_fab  ;
@@ -330,8 +346,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState                                                           ;
++------------------------------------+----------------------------------+------------------------------+------------------------------------+-------------------------+----------------------+
+; Name                               ; currState.STATE_END_TRANSMISSION ; currState.STATE_TRANSMITTING ; currState.STATE_BEGIN_TRANSMISSION ; currState.STATE_LOADING ; currState.STATE_IDLE ;
++------------------------------------+----------------------------------+------------------------------+------------------------------------+-------------------------+----------------------+
+; currState.STATE_IDLE               ; 0                                ; 0                            ; 0                                  ; 0                       ; 0                    ;
+; currState.STATE_LOADING            ; 0                                ; 0                            ; 0                                  ; 1                       ; 1                    ;
+; currState.STATE_BEGIN_TRANSMISSION ; 0                                ; 0                            ; 1                                  ; 0                       ; 1                    ;
+; currState.STATE_TRANSMITTING       ; 0                                ; 1                            ; 0                                  ; 0                       ; 1                    ;
+; currState.STATE_END_TRANSMISSION   ; 1                                ; 0                            ; 0                                  ; 0                       ; 1                    ;
++------------------------------------+----------------------------------+------------------------------+------------------------------------+-------------------------+----------------------+
+
+
+Encoding Type:  One-Hot
 +----------------------------------------------------------------------------------------------------------------+
-; State Machine - |TicketMachine|KeyDecode:decode|KeyControl:control|currState                                   ;
+; State Machine - |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control|currState      ;
 +-----------------------------+-----------------------------+-------------------------+--------------------------+
 ; Name                        ; currState.STATE_ACKNOWLEDGE ; currState.STATE_READING ; currState.STATE_SCANNING ;
 +-----------------------------+-----------------------------+-------------------------+--------------------------+
@@ -339,6 +369,41 @@ Encoding Type:  One-Hot
 ; currState.STATE_READING     ; 0                           ; 1                       ; 1                        ;
 ; currState.STATE_ACKNOWLEDGE ; 1                           ; 0                       ; 1                        ;
 +-----------------------------+-----------------------------+-------------------------+--------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                                     ;
++-------------------------------------------------------------------------------------------------------------------------------+----------------------------------------+
+; Register name                                                                                                                 ; Reason for Removal                     ;
++-------------------------------------------------------------------------------------------------------------------------------+----------------------------------------+
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop1|Q                                      ; Lost fanout                            ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop2|Q                                      ; Lost fanout                            ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop3|Q                                      ; Lost fanout                            ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop4|Q                                      ; Lost fanout                            ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop4|Q ; Stuck at GND due to stuck port data_in ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop3|Q ; Stuck at GND due to stuck port data_in ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop2|Q ; Stuck at GND due to stuck port data_in ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop1|Q ; Stuck at GND due to stuck port data_in ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState.STATE_LOADING               ; Lost fanout                            ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState.STATE_BEGIN_TRANSMISSION    ; Lost fanout                            ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState.STATE_TRANSMITTING          ; Lost fanout                            ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState.STATE_IDLE                  ; Stuck at GND due to stuck port clock   ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState.STATE_END_TRANSMISSION      ; Lost fanout                            ;
+; Total Number of Removed Registers = 13                                                                                        ;                                        ;
++-------------------------------------------------------------------------------------------------------------------------------+----------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                                                                                                                                                ;
++-------------------------------------------------------------------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+; Register name                                                                                                                 ; Reason for Removal        ; Registers Removed due to This Register                                                                                         ;
++-------------------------------------------------------------------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop4|Q ; Stuck at GND              ; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop3|Q, ;
+;                                                                                                                               ; due to stuck port data_in ; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop2|Q, ;
+;                                                                                                                               ;                           ; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop1|Q  ;
+; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState.STATE_IDLE                  ; Stuck at GND              ; KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState.STATE_END_TRANSMISSION       ;
+;                                                                                                                               ; due to stuck port clock   ;                                                                                                                                ;
++-------------------------------------------------------------------------------------------------------------------------------+---------------------------+--------------------------------------------------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -368,13 +433,13 @@ Encoding Type:  One-Hot
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                             ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                   ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------+
-; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |TicketMachine|KeyDecode:decode|KeyControl:control|Selector1 ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------+
+; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control|Selector1 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------------+
@@ -409,32 +474,70 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------------------+--------+----------+-------------------------------------------------------------------------------------+
 ; Port             ; Type   ; Severity ; Details                                                                             ;
 +------------------+--------+----------+-------------------------------------------------------------------------------------+
-; inputport[6..4]  ; Input  ; Info     ; Stuck at GND                                                                        ;
+; inputport[6..1]  ; Input  ; Info     ; Stuck at GND                                                                        ;
 ; outputport[6..3] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 +------------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+-----------------------------------------------------------------+
-; Port Connectivity Checks: "KeyDecode:decode|KeyControl:control" ;
-+------+-------+----------+---------------------------------------+
-; Port ; Type  ; Severity ; Details                               ;
-+------+-------+----------+---------------------------------------+
-; ce   ; Input ; Info     ; Stuck at VCC                          ;
-+------+-------+----------+---------------------------------------+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control" ;
++------+-------+----------+-------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                   ;
++------+-------+----------+-------------------------------------------------------------------------------------------+
+; ce   ; Input ; Info     ; Stuck at VCC                                                                              ;
++------+-------+----------+-------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1"                            ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; Port ; Type   ; Severity ; Details                                                                             ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; c0   ; Input  ; Info     ; Stuck at GND                                                                        ;
-; c4   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|MUX2_1L4:mux4" ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                  ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------+
+; a[3] ; Input ; Info     ; Stuck at GND                                                                                             ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "KeyDecode:decode|KeyScan:scan|Counter:cont"                                               ;
+; Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1" ;
++------+-------+----------+--------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                    ;
++------+-------+----------+--------------------------------------------------------------------------------------------+
+; ce   ; Input ; Info     ; Stuck at VCC                                                                               ;
++------+-------+----------+--------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter"                                                                                     ;
++--------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                                                                                      ;
++--------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; load   ; Input  ; Info     ; Stuck at GND                                                                                                                                 ;
+; kbfree ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                          ;
+; clk    ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
++--------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control" ;
++------+-------+----------+--------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                            ;
++------+-------+----------+--------------------------------------------------------------------+
+; ce   ; Input ; Info     ; Stuck at VCC                                                       ;
++------+-------+----------+--------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1" ;
++------+--------+----------+---------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                               ;
++------+--------+----------+---------------------------------------------------------------------------------------+
+; c0   ; Input  ; Info     ; Stuck at GND                                                                          ;
+; c4   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.   ;
++------+--------+----------+---------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont"                  ;
 +------------+--------+----------+-------------------------------------------------------------------------------------+
 ; Port       ; Type   ; Severity ; Details                                                                             ;
 +------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -446,85 +549,94 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3" ;
-+------+-------+----------+-------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                 ;
-+------+-------+----------+-------------------------------------------------------------------------+
-; ce   ; Input ; Info     ; Stuck at VCC                                                            ;
-+------+-------+----------+-------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderTD:peTd"                                                                ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; q    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2" ;
-+------+-------+----------+-------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                 ;
-+------+-------+----------+-------------------------------------------------------------------------+
-; ce   ; Input ; Info     ; Stuck at VCC                                                            ;
-+------+-------+----------+-------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3" ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                       ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
+; ce   ; Input ; Info     ; Stuck at VCC                                                                                  ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1" ;
-+------+-------+----------+-------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                 ;
-+------+-------+----------+-------------------------------------------------------------------------+
-; ce   ; Input ; Info     ; Stuck at VCC                                                            ;
-+------+-------+----------+-------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2" ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                       ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
+; ce   ; Input ; Info     ; Stuck at VCC                                                                                  ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2" ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                                          ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                                                     ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1" ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                       ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
+; ce   ; Input ; Info     ; Stuck at VCC                                                                                  ;
++------+-------+----------+-----------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1" ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                                          ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                                                     ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2" ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                                                           ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4" ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                                          ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                                                     ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1" ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                                                           ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3" ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                                          ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                                                     ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4" ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                                                           ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2" ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                                          ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                                                     ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3" ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                                                           ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1" ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                                          ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
-; set  ; Input ; Info     ; Stuck at GND                                                                                     ;
-+------+-------+----------+--------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2" ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                                                           ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1" ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
+; set  ; Input ; Info     ; Stuck at GND                                                                                                           ;
++------+-------+----------+------------------------------------------------------------------------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -576,7 +688,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-    Info: Processing started: Wed Apr 01 15:43:52 2026
+    Info: Processing started: Fri Apr 10 12:43:56 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TicketMachine -c TicketMachine
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -632,7 +744,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file keydeco
     Info (12022): Found design unit 1: KeyDecode-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 14
     Info (12023): Found entity 1: KeyDecode File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file ticketmachine.vhd
-    Info (12022): Found design unit 1: TicketMachine-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 15
+    Info (12022): Found design unit 1: TicketMachine-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 16
     Info (12023): Found entity 1: TicketMachine File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file serialreceiver.vhd
     Info (12022): Found design unit 1: SerialReceiver-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 11
@@ -643,25 +755,64 @@ Info (12021): Found 2 design units, including 1 entities, in source file shiftre
 Info (12021): Found 2 design units, including 1 entities, in source file holdregister.vhd
     Info (12022): Found design unit 1: HoldRegister-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd Line: 12
     Info (12023): Found entity 1: HoldRegister File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file keyboardreader.vhd
+    Info (12022): Found design unit 1: KeyboardReader-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd Line: 14
+    Info (12023): Found entity 1: KeyboardReader File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file ringbuffer.vhd
+    Info (12022): Found design unit 1: RingBuffer-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RingBuffer.vhd Line: 13
+    Info (12023): Found entity 1: RingBuffer File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RingBuffer.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file memoryaddresscontrol.vhd
+    Info (12022): Found design unit 1: MemoryAddressControl-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MemoryAddressControl.vhd Line: 12
+    Info (12023): Found entity 1: MemoryAddressControl File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MemoryAddressControl.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file ringbuffercontrol.vhd
+    Info (12022): Found design unit 1: RingBufferControl-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RingBufferControl.vhd Line: 11
+    Info (12023): Found entity 1: RingBufferControl File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RingBufferControl.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file randomaccessmemory.vhd
+    Info (12022): Found design unit 1: RandomAccessMemory-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RandomAccessMemory.vhd Line: 14
+    Info (12023): Found entity 1: RandomAccessMemory File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RandomAccessMemory.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file keytransmitter.vhd
+    Info (12022): Found design unit 1: KeyTransmitter-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd Line: 12
+    Info (12023): Found entity 1: KeyTransmitter File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file shiftregisterl4.vhd
+    Info (12022): Found design unit 1: ShiftRegisterL4-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegisterL4.vhd Line: 12
+    Info (12023): Found entity 1: ShiftRegisterL4 File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegisterL4.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file keytransmittercontrol.vhd
+    Info (12022): Found design unit 1: KeyTransmitterControl-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitterControl.vhd Line: 11
+    Info (12023): Found entity 1: KeyTransmitterControl File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitterControl.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file portexpanderlcd.vhd
+    Info (12022): Found design unit 1: PortExpanderLCD-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderLCD.vhd Line: 11
+    Info (12023): Found entity 1: PortExpanderLCD File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderLCD.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file portexpandertd.vhd
+    Info (12022): Found design unit 1: PortExpanderTD-Behaviour File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderTD.vhd Line: 11
+    Info (12023): Found entity 1: PortExpanderTD File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderTD.vhd Line: 4
 Info (12127): Elaborating entity "TicketMachine" for the top level hierarchy
-Info (12128): Elaborating entity "CLKDIV" for hierarchy "CLKDIV:clock1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 58
-Info (12128): Elaborating entity "SerialReceiver" for hierarchy "SerialReceiver:serialReceiver1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 63
-Info (12128): Elaborating entity "ShiftRegister" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 35
-Info (12128): Elaborating entity "RegistryL4" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd Line: 37
-Info (12128): Elaborating entity "FFD" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd Line: 28
-Info (12128): Elaborating entity "RegistryL2" for hierarchy "SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd Line: 53
-Info (12128): Elaborating entity "HoldRegister" for hierarchy "SerialReceiver:serialReceiver1|HoldRegister:hold" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 43
-Info (12128): Elaborating entity "KeyDecode" for hierarchy "KeyDecode:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 71
-Info (12128): Elaborating entity "KeyScan" for hierarchy "KeyDecode:decode|KeyScan:scan" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 36
+Warning (10036): Verilog HDL or VHDL warning at TicketMachine.vhd(61): object "QTD" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 61
+Info (12128): Elaborating entity "CLKDIV" for hierarchy "CLKDIV:clock1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 67
+Info (12128): Elaborating entity "PortExpanderLCD" for hierarchy "PortExpanderLCD:peLcd" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 72
+Info (12128): Elaborating entity "SerialReceiver" for hierarchy "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderLCD.vhd Line: 23
+Info (12128): Elaborating entity "ShiftRegister" for hierarchy "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 35
+Info (12128): Elaborating entity "RegistryL4" for hierarchy "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd Line: 37
+Info (12128): Elaborating entity "FFD" for hierarchy "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd Line: 28
+Info (12128): Elaborating entity "RegistryL2" for hierarchy "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd Line: 53
+Info (12128): Elaborating entity "HoldRegister" for hierarchy "PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd Line: 43
+Info (12128): Elaborating entity "PortExpanderTD" for hierarchy "PortExpanderTD:peTd" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 80
+Info (12128): Elaborating entity "KeyboardReader" for hierarchy "KeyboardReader:keyboardReader1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 88
+Warning (10541): VHDL Signal Declaration warning at KeyboardReader.vhd(9): used implicit default value for signal "K" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd Line: 9
+Warning (10036): Verilog HDL or VHDL warning at KeyboardReader.vhd(42): object "KbFree" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd Line: 42
+Info (12128): Elaborating entity "KeyDecode" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd Line: 47
+Info (12128): Elaborating entity "KeyScan" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 36
 Warning (10036): Verilog HDL or VHDL warning at KeyScan.vhd(40): object "zeros" assigned a value but never read File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 40
-Info (12128): Elaborating entity "Counter" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 46
-Info (12128): Elaborating entity "Adder" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 45
-Info (12128): Elaborating entity "FullAdder" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd Line: 25
-Info (12128): Elaborating entity "MUX2_1L4" for hierarchy "KeyDecode:decode|KeyScan:scan|Counter:cont|MUX2_1L4:muxPL" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 52
-Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "KeyDecode:decode|KeyScan:scan|MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 57
-Info (12128): Elaborating entity "decoder" for hierarchy "KeyDecode:decode|KeyScan:scan|decoder:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 64
-Info (12128): Elaborating entity "KeyControl" for hierarchy "KeyDecode:decode|KeyControl:control" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 46
-Info (12128): Elaborating entity "UsbPort" for hierarchy "UsbPort:UsbPort1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 85
+Info (12128): Elaborating entity "Counter" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 46
+Info (12128): Elaborating entity "Adder" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 45
+Info (12128): Elaborating entity "FullAdder" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd Line: 25
+Info (12128): Elaborating entity "MUX2_1L4" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|MUX2_1L4:muxPL" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd Line: 52
+Info (12128): Elaborating entity "MUX4_2L1" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|MUX4_2L1:muxPL" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 57
+Info (12128): Elaborating entity "decoder" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|decoder:decode" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd Line: 64
+Info (12128): Elaborating entity "KeyControl" for hierarchy "KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd Line: 46
+Info (12128): Elaborating entity "KeyTransmitter" for hierarchy "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd Line: 57
+Info (12128): Elaborating entity "ShiftRegisterL4" for hierarchy "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd Line: 50
+Info (12128): Elaborating entity "KeyTransmitterControl" for hierarchy "KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd Line: 60
+Info (12128): Elaborating entity "UsbPort" for hierarchy "UsbPort:UsbPort1" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 106
 Info (12128): Elaborating entity "sld_virtual_jtag" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
 Info (12130): Elaborated megafunction instantiation "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
 Info (12133): Instantiated megafunction "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst" with the following parameter: File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/UsbPort.vhd Line: 80
@@ -679,7 +830,7 @@ Info (12131): Elaborated megafunction instantiation "UsbPort:UsbPort1|sld_virtua
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 415
 Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "UsbPort:UsbPort1|sld_virtual_jtag:b2v_inst|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2026.04.01.15:44:01 Progress: Loading sld89da40d0/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2026.04.10.12:44:12 Progress: Loading sld89da40d0/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -702,17 +853,24 @@ Info (12021): Found 2 design units, including 1 entities, in source file db/ip/s
     Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_sldfabric File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 11
 Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_splitter.sv
     Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_splitter File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/db/ip/sld89da40d0/submodules/alt_sld_fab_alt_sld_fab_splitter.sv Line: 3
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "K[0]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 11
+    Warning (13410): Pin "K[1]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 11
+    Warning (13410): Pin "K[2]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 11
+    Warning (13410): Pin "K[3]" is stuck at GND File: C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd Line: 11
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
+Info (17049): 8 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Info (21057): Implemented 268 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 9 input pins
     Info (21059): Implemented 20 output pins
     Info (21061): Implemented 238 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4887 megabytes
-    Info: Processing ended: Wed Apr 01 15:44:12 2026
-    Info: Elapsed time: 00:00:20
-    Info: Total CPU time (on all processors): 00:00:37
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 11 warnings
+    Info: Peak virtual memory: 4894 megabytes
+    Info: Processing ended: Fri Apr 10 12:44:25 2026
+    Info: Elapsed time: 00:00:29
+    Info: Total CPU time (on all processors): 00:01:01
 
 

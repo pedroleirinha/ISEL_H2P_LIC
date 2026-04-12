@@ -1,30 +1,31 @@
 |TicketMachine
 CLK => CLKDIV:clock1.clk_in
-CLEAR => SerialReceiver:serialReceiver1.CLEAR
-CLEAR => KeyDecode:decode.CLEAR
-KEYPAD_LIN[0] => KeyDecode:decode.rows[0]
-KEYPAD_LIN[1] => KeyDecode:decode.rows[1]
-KEYPAD_LIN[2] => KeyDecode:decode.rows[2]
-KEYPAD_LIN[3] => KeyDecode:decode.rows[3]
-LCD_DATA[0] <= SerialReceiver:serialReceiver1.Q[1]
-LCD_DATA[1] <= SerialReceiver:serialReceiver1.Q[2]
-LCD_DATA[2] <= SerialReceiver:serialReceiver1.Q[3]
-LCD_DATA[3] <= SerialReceiver:serialReceiver1.Q[4]
-LCD_DATA[4] <= SerialReceiver:serialReceiver1.Q[5]
-LCD_DATA[5] <= SerialReceiver:serialReceiver1.Q[6]
-LCD_DATA[6] <= SerialReceiver:serialReceiver1.Q[7]
-LCD_DATA[7] <= SerialReceiver:serialReceiver1.Q[8]
-LCD_EN <= SerialReceiver:serialReceiver1.Q[9]
-LCD_RS <= SerialReceiver:serialReceiver1.Q[0]
-Kval <= KeyDecode:decode.Kval
-KEYPAD_COL[0] <= KeyDecode:decode.cols[0]
-KEYPAD_COL[1] <= KeyDecode:decode.cols[1]
-KEYPAD_COL[2] <= KeyDecode:decode.cols[2]
-KEYPAD_COL[3] <= KeyDecode:decode.cols[3]
-K[0] <= KeyDecode:decode.K[0]
-K[1] <= KeyDecode:decode.K[1]
-K[2] <= KeyDecode:decode.K[2]
-K[3] <= KeyDecode:decode.K[3]
+CLEAR => PortExpanderLCD:peLcd.CLEAR
+CLEAR => PortExpanderTD:peTd.CLEAR
+CLEAR => KeyboardReader:keyboardReader1.CLEAR
+KEYPAD_LIN[0] => KeyboardReader:keyboardReader1.rows[0]
+KEYPAD_LIN[1] => KeyboardReader:keyboardReader1.rows[1]
+KEYPAD_LIN[2] => KeyboardReader:keyboardReader1.rows[2]
+KEYPAD_LIN[3] => KeyboardReader:keyboardReader1.rows[3]
+LCD_DATA[0] <= PortExpanderLCD:peLcd.Q[1]
+LCD_DATA[1] <= PortExpanderLCD:peLcd.Q[2]
+LCD_DATA[2] <= PortExpanderLCD:peLcd.Q[3]
+LCD_DATA[3] <= PortExpanderLCD:peLcd.Q[4]
+LCD_DATA[4] <= PortExpanderLCD:peLcd.Q[5]
+LCD_DATA[5] <= PortExpanderLCD:peLcd.Q[6]
+LCD_DATA[6] <= PortExpanderLCD:peLcd.Q[7]
+LCD_DATA[7] <= PortExpanderLCD:peLcd.Q[8]
+LCD_EN <= PortExpanderLCD:peLcd.Q[9]
+LCD_RS <= PortExpanderLCD:peLcd.Q[0]
+Kval <= KeyboardReader:keyboardReader1.Kval
+KEYPAD_COL[0] <= KeyboardReader:keyboardReader1.cols[0]
+KEYPAD_COL[1] <= KeyboardReader:keyboardReader1.cols[1]
+KEYPAD_COL[2] <= KeyboardReader:keyboardReader1.cols[2]
+KEYPAD_COL[3] <= KeyboardReader:keyboardReader1.cols[3]
+K[0] <= KeyboardReader:keyboardReader1.K[0]
+K[1] <= KeyboardReader:keyboardReader1.K[1]
+K[2] <= KeyboardReader:keyboardReader1.K[2]
+K[3] <= KeyboardReader:keyboardReader1.K[3]
 
 
 |TicketMachine|CLKDIV:clock1
@@ -64,7 +65,24 @@ clk_in => count[31].CLK
 clk_out <= tmp.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1
+|TicketMachine|PortExpanderLCD:peLcd
+SCLK => SerialReceiver:serialReceiver1.SCLK
+SDX => SerialReceiver:serialReceiver1.SDX
+SS => SerialReceiver:serialReceiver1.SS
+CLEAR => SerialReceiver:serialReceiver1.CLEAR
+Q[0] <= SerialReceiver:serialReceiver1.Q[0]
+Q[1] <= SerialReceiver:serialReceiver1.Q[1]
+Q[2] <= SerialReceiver:serialReceiver1.Q[2]
+Q[3] <= SerialReceiver:serialReceiver1.Q[3]
+Q[4] <= SerialReceiver:serialReceiver1.Q[4]
+Q[5] <= SerialReceiver:serialReceiver1.Q[5]
+Q[6] <= SerialReceiver:serialReceiver1.Q[6]
+Q[7] <= SerialReceiver:serialReceiver1.Q[7]
+Q[8] <= SerialReceiver:serialReceiver1.Q[8]
+Q[9] <= SerialReceiver:serialReceiver1.Q[9]
+
+
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1
 SCLK => ShiftRegister:shiftRegister1.SCLK
 SDX => ShiftRegister:shiftRegister1.SerialIn
 SS => HoldRegister:hold.SCLK
@@ -83,14 +101,14 @@ Q[8] <= HoldRegister:hold.Q[8]
 Q[9] <= HoldRegister:hold.Q[9]
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1
 SCLK => RegistryL4:registry1.clk_in
 SCLK => RegistryL4:registry2.clk_in
 SCLK => RegistryL2:registry3.clk_in
 enableShift => RegistryL4:registry1.CE
 enableShift => RegistryL4:registry2.CE
 enableShift => RegistryL2:registry3.CE
-SerialIn => RegistryL4:registry1.D[0]
+SerialIn => RegistryL2:registry3.D[1]
 CLEAR => RegistryL4:registry1.CLEAR
 CLEAR => RegistryL4:registry2.CLEAR
 CLEAR => RegistryL2:registry3.CLEAR
@@ -106,7 +124,7 @@ Q[8] <= RegistryL2:registry3.Q[0]
 Q[9] <= RegistryL2:registry3.Q[1]
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 D[2] => FFD:flipflop3.D
@@ -129,7 +147,7 @@ Q[2] <= FFD:flipflop3.Q
 Q[3] <= FFD:flipflop4.Q
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -139,7 +157,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -149,7 +167,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -159,7 +177,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -169,7 +187,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 D[2] => FFD:flipflop3.D
@@ -192,7 +210,7 @@ Q[2] <= FFD:flipflop3.Q
 Q[3] <= FFD:flipflop4.Q
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -202,7 +220,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -212,7 +230,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop3
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop3
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -222,7 +240,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop4
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop4
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -232,7 +250,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 clk_in => FFD:flipflop1.CLK
@@ -245,7 +263,7 @@ Q[0] <= FFD:flipflop1.Q
 Q[1] <= FFD:flipflop2.Q
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -255,7 +273,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -265,7 +283,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold
 SCLK => RegistryL4:registry1.clk_in
 SCLK => RegistryL4:registry2.clk_in
 SCLK => RegistryL2:registry3.clk_in
@@ -294,7 +312,7 @@ Q[8] <= RegistryL2:registry3.Q[0]
 Q[9] <= RegistryL2:registry3.Q[1]
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 D[2] => FFD:flipflop3.D
@@ -317,7 +335,7 @@ Q[2] <= FFD:flipflop3.Q
 Q[3] <= FFD:flipflop4.Q
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -327,7 +345,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -337,7 +355,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop3
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop3
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -347,7 +365,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop4
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop4
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -357,7 +375,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 D[2] => FFD:flipflop3.D
@@ -380,7 +398,7 @@ Q[2] <= FFD:flipflop3.Q
 Q[3] <= FFD:flipflop4.Q
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -390,7 +408,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -400,7 +418,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop3
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop3
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -410,7 +428,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop4
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop4
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -420,7 +438,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 clk_in => FFD:flipflop1.CLK
@@ -433,7 +451,7 @@ Q[0] <= FFD:flipflop1.Q
 Q[1] <= FFD:flipflop2.Q
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop1
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -443,7 +461,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop2
+|TicketMachine|PortExpanderLCD:peLcd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -453,7 +471,436 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode
+|TicketMachine|PortExpanderTD:peTd
+SCLK => SerialReceiver:serialReceiver1.SCLK
+SDX => SerialReceiver:serialReceiver1.SDX
+SS => SerialReceiver:serialReceiver1.SS
+CLEAR => SerialReceiver:serialReceiver1.CLEAR
+Q[0] <= SerialReceiver:serialReceiver1.Q[0]
+Q[1] <= SerialReceiver:serialReceiver1.Q[1]
+Q[2] <= SerialReceiver:serialReceiver1.Q[2]
+Q[3] <= SerialReceiver:serialReceiver1.Q[3]
+Q[4] <= SerialReceiver:serialReceiver1.Q[4]
+Q[5] <= SerialReceiver:serialReceiver1.Q[5]
+Q[6] <= SerialReceiver:serialReceiver1.Q[6]
+Q[7] <= SerialReceiver:serialReceiver1.Q[7]
+Q[8] <= SerialReceiver:serialReceiver1.Q[8]
+Q[9] <= SerialReceiver:serialReceiver1.Q[9]
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1
+SCLK => ShiftRegister:shiftRegister1.SCLK
+SDX => ShiftRegister:shiftRegister1.SerialIn
+SS => HoldRegister:hold.SCLK
+SS => ShiftRegister:shiftRegister1.enableShift
+CLEAR => ShiftRegister:shiftRegister1.CLEAR
+CLEAR => HoldRegister:hold.CLEAR
+Q[0] <= HoldRegister:hold.Q[0]
+Q[1] <= HoldRegister:hold.Q[1]
+Q[2] <= HoldRegister:hold.Q[2]
+Q[3] <= HoldRegister:hold.Q[3]
+Q[4] <= HoldRegister:hold.Q[4]
+Q[5] <= HoldRegister:hold.Q[5]
+Q[6] <= HoldRegister:hold.Q[6]
+Q[7] <= HoldRegister:hold.Q[7]
+Q[8] <= HoldRegister:hold.Q[8]
+Q[9] <= HoldRegister:hold.Q[9]
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1
+SCLK => RegistryL4:registry1.clk_in
+SCLK => RegistryL4:registry2.clk_in
+SCLK => RegistryL2:registry3.clk_in
+enableShift => RegistryL4:registry1.CE
+enableShift => RegistryL4:registry2.CE
+enableShift => RegistryL2:registry3.CE
+SerialIn => RegistryL2:registry3.D[1]
+CLEAR => RegistryL4:registry1.CLEAR
+CLEAR => RegistryL4:registry2.CLEAR
+CLEAR => RegistryL2:registry3.CLEAR
+Q[0] <= RegistryL4:registry1.Q[0]
+Q[1] <= RegistryL4:registry1.Q[1]
+Q[2] <= RegistryL4:registry1.Q[2]
+Q[3] <= RegistryL4:registry1.Q[3]
+Q[4] <= RegistryL4:registry2.Q[0]
+Q[5] <= RegistryL4:registry2.Q[1]
+Q[6] <= RegistryL4:registry2.Q[2]
+Q[7] <= RegistryL4:registry2.Q[3]
+Q[8] <= RegistryL2:registry3.Q[0]
+Q[9] <= RegistryL2:registry3.Q[1]
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry1|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL4:registry2|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|ShiftRegister:shiftRegister1|RegistryL2:registry3|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold
+SCLK => RegistryL4:registry1.clk_in
+SCLK => RegistryL4:registry2.clk_in
+SCLK => RegistryL2:registry3.clk_in
+CLEAR => RegistryL4:registry1.CLEAR
+CLEAR => RegistryL4:registry2.CLEAR
+CLEAR => RegistryL2:registry3.CLEAR
+D[0] => RegistryL4:registry1.D[0]
+D[1] => RegistryL4:registry1.D[1]
+D[2] => RegistryL4:registry1.D[2]
+D[3] => RegistryL4:registry1.D[3]
+D[4] => RegistryL4:registry2.D[0]
+D[5] => RegistryL4:registry2.D[1]
+D[6] => RegistryL4:registry2.D[2]
+D[7] => RegistryL4:registry2.D[3]
+D[8] => RegistryL2:registry3.D[0]
+D[9] => RegistryL2:registry3.D[1]
+Q[0] <= RegistryL4:registry1.Q[0]
+Q[1] <= RegistryL4:registry1.Q[1]
+Q[2] <= RegistryL4:registry1.Q[2]
+Q[3] <= RegistryL4:registry1.Q[3]
+Q[4] <= RegistryL4:registry2.Q[0]
+Q[5] <= RegistryL4:registry2.Q[1]
+Q[6] <= RegistryL4:registry2.Q[2]
+Q[7] <= RegistryL4:registry2.Q[3]
+Q[8] <= RegistryL2:registry3.Q[0]
+Q[9] <= RegistryL2:registry3.Q[1]
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry1|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL4:registry2|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|PortExpanderTD:peTd|SerialReceiver:serialReceiver1|HoldRegister:hold|RegistryL2:registry3|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1
+clk_in => KeyDecode:scan.clk_in
+clk_in => KeyTransmitter:transmitter.TxClk
+Kack => KeyDecode:scan.Kack
+CLEAR => KeyDecode:scan.CLEAR
+CLEAR => KeyTransmitter:transmitter.CLEAR
+TxClk => ~NO_FANOUT~
+rows[0] => KeyDecode:scan.rows[0]
+rows[1] => KeyDecode:scan.rows[1]
+rows[2] => KeyDecode:scan.rows[2]
+rows[3] => KeyDecode:scan.rows[3]
+cols[0] <= KeyDecode:scan.cols[0]
+cols[1] <= KeyDecode:scan.cols[1]
+cols[2] <= KeyDecode:scan.cols[2]
+cols[3] <= KeyDecode:scan.cols[3]
+K[0] <= comb.DB_MAX_OUTPUT_PORT_TYPE
+K[1] <= K[1].DB_MAX_OUTPUT_PORT_TYPE
+K[2] <= K[2].DB_MAX_OUTPUT_PORT_TYPE
+K[3] <= K[3].DB_MAX_OUTPUT_PORT_TYPE
+Kval <= KeyDecode:scan.Kval
+TxD <= KeyTransmitter:transmitter.TxD
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan
 clk_in => KeyScan:scan.clk_in
 clk_in => KeyControl:control.clk_in
 Kack => KeyControl:control.Kack
@@ -474,7 +921,7 @@ K[3] <= KeyScan:scan.K[3]
 Kval <= KeyControl:control.Kval
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan
 clk_in => Counter:cont.clk_in
 Kscan => Counter:cont.CE
 CLEAR => Counter:cont.CLEAR
@@ -493,7 +940,7 @@ K[3] <= Counter:cont.Q[3]
 Kpress <= MUX4_2L1:muxPL.Y
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont
 clk_in => RegistryL4:registry.clk_in
 CE => RegistryL4:registry.CE
 CLEAR => RegistryL4:registry.CLEAR
@@ -513,7 +960,7 @@ Q[3] <= RegistryL4:registry.Q[3]
 Z <= Z.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1
 A[0] => FullAdder:adder1.A
 A[1] => FullAdder:adder2.A
 A[2] => FullAdder:adder3.A
@@ -530,7 +977,7 @@ S[3] <= FullAdder:adder4.S
 C4 <= FullAdder:adder4.CO
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder1
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -541,7 +988,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder2
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder2
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -552,7 +999,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder3
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder3
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -563,7 +1010,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder4
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|Adder:adder1|FullAdder:adder4
 A => addResult.IN0
 A => CO.IN0
 B => addResult.IN1
@@ -574,7 +1021,7 @@ S <= S.DB_MAX_OUTPUT_PORT_TYPE
 CO <= CO.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|MUX2_1L4:muxPL
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|MUX2_1L4:muxPL
 A[0] => Y.IN0
 A[1] => Y.IN0
 A[2] => Y.IN0
@@ -597,7 +1044,7 @@ Y[2] <= Y.DB_MAX_OUTPUT_PORT_TYPE
 Y[3] <= Y.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry
 D[0] => FFD:flipflop1.D
 D[1] => FFD:flipflop2.D
 D[2] => FFD:flipflop3.D
@@ -620,7 +1067,7 @@ Q[2] <= FFD:flipflop3.Q
 Q[3] <= FFD:flipflop4.Q
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop1
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -630,7 +1077,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop2
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -640,7 +1087,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop3
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -650,7 +1097,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|Counter:cont|RegistryL4:registry|FFD:flipflop4
 CLK => Q~reg0.CLK
 RESET => Q~reg0.ACLR
 RESET => Q.IN0
@@ -660,7 +1107,7 @@ EN => Q~reg0.ENA
 Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|MUX4_2L1:muxPL
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|MUX4_2L1:muxPL
 A[0] => Mux0.IN0
 A[1] => Mux0.IN1
 A[2] => Mux0.IN2
@@ -670,7 +1117,7 @@ S[1] => Mux0.IN4
 Y <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|TicketMachine|KeyDecode:decode|KeyScan:scan|decoder:decode
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyScan:scan|decoder:decode
 A[0] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
 A[1] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
 A[2] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
@@ -685,7 +1132,7 @@ S[1] => Mux2.IN4
 S[1] => Mux3.IN4
 
 
-|TicketMachine|KeyDecode:decode|KeyControl:control
+|TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control
 clk_in => currState~1.DATAIN
 Kpress => nextState.OUTPUTSELECT
 Kpress => nextState.OUTPUTSELECT
@@ -700,6 +1147,205 @@ CLEAR => currState~3.DATAIN
 CE => ~NO_FANOUT~
 Kval <= Kval.DB_MAX_OUTPUT_PORT_TYPE
 Kscan <= Kscan.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter
+CLK => KeyTransmitterControl:control.clk_in
+TxClk => ShiftRegisterL4:shiftRegister1.CLK
+Load => RegistryL4:reg.clk_in
+Load => ShiftRegisterL4:shiftRegister1.PL
+Load => KeyTransmitterControl:control.Load
+CLEAR => RegistryL4:reg.CLEAR
+CLEAR => ShiftRegisterL4:shiftRegister1.CLEAR
+CLEAR => KeyTransmitterControl:control.CLEAR
+D[0] => RegistryL4:reg.D[0]
+D[1] => RegistryL4:reg.D[1]
+D[2] => RegistryL4:reg.D[2]
+D[3] => RegistryL4:reg.D[3]
+TxD <= TxD.DB_MAX_OUTPUT_PORT_TYPE
+KbFree <= KeyTransmitterControl:control.kbFree
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|RegistryL4:reg|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1
+CLK => RegistryL4:registry1.clk_in
+CE => RegistryL4:registry1.CE
+PL => MUX2_1L4:mux4.S
+CLEAR => RegistryL4:registry1.CLEAR
+D[0] => MUX2_1L4:mux4.B[0]
+D[1] => MUX2_1L4:mux4.B[1]
+D[2] => MUX2_1L4:mux4.B[2]
+D[3] => MUX2_1L4:mux4.B[3]
+Q <= RegistryL4:registry1.Q[0]
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1
+D[0] => FFD:flipflop1.D
+D[1] => FFD:flipflop2.D
+D[2] => FFD:flipflop3.D
+D[3] => FFD:flipflop4.D
+clk_in => FFD:flipflop1.CLK
+clk_in => FFD:flipflop2.CLK
+clk_in => FFD:flipflop3.CLK
+clk_in => FFD:flipflop4.CLK
+CE => FFD:flipflop1.EN
+CE => FFD:flipflop2.EN
+CE => FFD:flipflop3.EN
+CE => FFD:flipflop4.EN
+CLEAR => FFD:flipflop1.RESET
+CLEAR => FFD:flipflop2.RESET
+CLEAR => FFD:flipflop3.RESET
+CLEAR => FFD:flipflop4.RESET
+Q[0] <= FFD:flipflop1.Q
+Q[1] <= FFD:flipflop2.Q
+Q[2] <= FFD:flipflop3.Q
+Q[3] <= FFD:flipflop4.Q
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop1
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop2
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop3
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|RegistryL4:registry1|FFD:flipflop4
+CLK => Q~reg0.CLK
+RESET => Q~reg0.ACLR
+RESET => Q.IN0
+SET => Q.IN1
+D => Q~reg0.DATAIN
+EN => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|ShiftRegisterL4:shiftRegister1|MUX2_1L4:mux4
+A[0] => Y.IN0
+A[1] => Y.IN0
+A[2] => Y.IN0
+A[3] => Y.IN0
+B[0] => Y.IN0
+B[1] => Y.IN0
+B[2] => Y.IN0
+B[3] => Y.IN0
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+S => Y.IN1
+Y[0] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+Y[1] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+Y[2] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+Y[3] <= Y.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control
+clk_in => currState~1.DATAIN
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+Load => regEn.DATAIN
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+Load => nextState.OUTPUTSELECT
+CLEAR => currState~3.DATAIN
+CE => ~NO_FANOUT~
+regEn <= Load.DB_MAX_OUTPUT_PORT_TYPE
+kbFree <= kbFree.DB_MAX_OUTPUT_PORT_TYPE
+startSignal <= startSignal.DB_MAX_OUTPUT_PORT_TYPE
+endSignal <= endSignal.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |TicketMachine|UsbPort:UsbPort1
