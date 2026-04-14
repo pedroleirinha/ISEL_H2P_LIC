@@ -85,8 +85,7 @@ object LCD {
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
     fun clear() {
         writeCMD(data = 0b00000001)  // Clears Display
-        Time.sleep(2)
+        Time.sleep(1)
         writeCMD(data = 0b00000010)  // Return Home
-        Time.sleep(2)
     }
 }

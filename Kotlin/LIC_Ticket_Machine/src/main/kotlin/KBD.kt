@@ -35,9 +35,8 @@ object KBD {
     fun sendAckBit() {
         HAL.setBits(mask = 0b10000000) //Define o ACK a 1
         println("ACK SENT a 1")
-        Time.sleep(20)
+        Time.sleep(1)
         HAL.clrBits(mask = 0b10000000) //Limpa o ACK para finalizar o processo
-        Time.sleep(20)
         println("ACK CLEAR.\n FINISHED")
     }
 

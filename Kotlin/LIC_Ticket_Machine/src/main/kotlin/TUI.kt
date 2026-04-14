@@ -9,21 +9,28 @@ import java.io.FileReader
 data class Station(
     val numb: Int,
     val name: String,
-    val price: Int=0
+    val price: Int = 0
 
 )
 
 object TUI {
     var firstKey = true
     val stations = mutableListOf<Station>()
-    var index = 0
+    var stationCount = -1
+    var originStation: Station? = null
+    var destStation: Station? = null
 
-    fun readStations(){
+    fun readStations() {
         BufferedReader(FileReader("stations.csv")).forEachLine {
             val info = it.split(";")
-            stations.add(Station(info[0].toInt(),info[1]))
-
+            stations.add(Station(info[0].toInt(), info[1]))
         }
+    }
+
+    fun showStation() {
+        LCD.clear()
+        stationCount %= stations.size
+        LCD.write(text = stations[stationCount].name)
     }
 
     fun init() {
@@ -35,6 +42,17 @@ object TUI {
         readStations()
     }
 
+    fun nextStation() {
+        stationCount++
+        showStation()
+    }
+
+    fun previousStation() {
+        stationCount = if (stationCount > 0) stationCount - 1 else stations.size - 1
+        showStation()
+    }
+
+
     fun readKey() {
         println(Integer.toBinaryString(UsbPort.read()).padStart(8, '0'))
         val key = KBD.waitKey(timeout = 6000)
@@ -45,32 +63,20 @@ object TUI {
             }
 
             when (key) {
-                '*' -> activatePrintingTicket(roundTrip = true, origin = 2, destination = 2)
-                'A' -> {
-                    index++
-                    index %= stations.size
-                    LCD.clear()
-                    LCD.write(stations[index].name)
-                }
-                'B' -> {
-                    index--
-                    index = if(index >= 0 ) index % stations.size else  stations.size  - 1
-                    LCD.clear()
-                    LCD.write(stations[index].name)
+                '0' -> activatePrintingTicket(
+                    roundTrip = true,
+                    origin = originStation?.numb ?: 0,
+                    destination = destStation?.numb ?: 0
+                )
 
-                }
+                'A' -> nextStation()
+                'B' -> previousStation()
+                '*' -> originStation = stations[stationCount]
+                '#' -> destStation = stations[stationCount]
                 else -> LCD.write(c = key)
             }
-
-
-
-
         }
     }
-
-
-
-
-    }
+}
 
 

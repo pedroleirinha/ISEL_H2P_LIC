@@ -34,9 +34,7 @@ object SerialEmitter {
 
                 HAL.setBits(mask = 0b00000010)
                 /*println("index: $index -> val: $it")*/
-                Time.sleep(1)
                 HAL.clrBits(mask = 0b00000010)
-                Time.sleep(1)
             }
         HAL.clrBits(0b00000111)
         HAL.setBits(0b00000100)
