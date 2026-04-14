@@ -19,7 +19,6 @@ ARCHITECTURE Behaviour OF PortExpanderTD IS
 	
 BEGIN
 
-	
 	serialReceiver1: SerialReceiver port map(
 		SCLK 	=> SCLK,
 		CLEAR	=> CLEAR,
@@ -27,5 +26,6 @@ BEGIN
 		SS 	=> SS,
 		Q 		=>	Q
 	);
+	
 	
 END Behaviour;

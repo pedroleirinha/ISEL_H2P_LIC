@@ -5,9 +5,30 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ticketDispenser.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/int7seg.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoderHex.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyScan.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX2_1L4.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL2.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Counter.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/Adder.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/RegistryL4.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FullAdder.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/FFD.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/clkDIV.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/decoder.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/MUX4_2L1.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyControl.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyDecode.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/TicketMachine.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/SerialReceiver.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegister.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/HoldRegister.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyboardReader.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitter.vhd}
 vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/ShiftRegisterL4.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/KeyTransmitterControl.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderLCD.vhd}
+vcom -93 -work work {C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/PortExpanderTD.vhd}
 

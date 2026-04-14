@@ -18,9 +18,7 @@ object LCD {
 
         var dataFullEnabled = "1${extendedData}${rsBit}".toInt(2)
         SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
-
         dataFullEnabled = "0${extendedData}${rsBit}".toInt(2)
-
         SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
     }
 

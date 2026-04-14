@@ -33,7 +33,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 	
 	component KeyTransmitter
 		PORT(
-			TxClk, Load, CLEAR:	 	IN std_logic;
+			CLK, TxClk, Load, CLEAR:	 	IN std_logic;
 			D:		 						IN std_logic_vector(3 downto 0);
 			TxD, KbFree:				OUT std_logic
 		);
@@ -55,7 +55,8 @@ BEGIN
 	);
 	
 	transmitter: KeyTransmitter port map(
-		TxClk 	=> clk_in,
+		CLK		=> clk_in,
+		TxClk 	=> TxClk,
 		Load 		=> '0',
 		CLEAR 	=> CLEAR,
 		D 			=> bufferD,		

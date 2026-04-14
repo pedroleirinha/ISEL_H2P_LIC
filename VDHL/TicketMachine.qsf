@@ -46,28 +46,7 @@ set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
-set_global_assignment -name VHDL_FILE UsbPort.vhd
-set_global_assignment -name VHDL_FILE KeyScan.vhd
-set_global_assignment -name VHDL_FILE MUX2_1L2.vhd
-set_global_assignment -name VHDL_FILE MUX2_1L4.vhd
-set_global_assignment -name VHDL_FILE Counter2.vhd
-set_global_assignment -name VHDL_FILE RegistryL2.vhd
-set_global_assignment -name VHDL_FILE Adder2.vhd
-set_global_assignment -name VHDL_FILE Counter.vhd
-set_global_assignment -name VHDL_FILE Adder.vhd
-set_global_assignment -name VHDL_FILE RegistryL4.vhd
-set_global_assignment -name VHDL_FILE FullAdder.vhd
-set_global_assignment -name VHDL_FILE FFD.vhd
-set_global_assignment -name VHDL_FILE clkDIV.vhd
-set_global_assignment -name VHDL_FILE decoder.vhd
-set_global_assignment -name VHDL_FILE MUX4_2L1.vhd
-set_global_assignment -name VHDL_FILE KeyControl.vhd
-set_global_assignment -name VHDL_FILE KeyDecode.vhd
-set_global_assignment -name VHDL_FILE TicketMachine.vhd
 set_global_assignment -name BOARD "MAX 10 DE10 - Lite"
-set_global_assignment -name VHDL_FILE SerialReceiver.vhd
-set_global_assignment -name VHDL_FILE ShiftRegister.vhd
-set_global_assignment -name VHDL_FILE HoldRegister.vhd
 set_location_assignment PIN_W8 -to LCD_RS
 set_location_assignment PIN_V5 -to LCD_EN
 set_location_assignment PIN_AA15 -to LCD_DATA[0]
@@ -88,6 +67,37 @@ set_location_assignment PIN_AA9 -to KEYPAD_COL[2]
 set_location_assignment PIN_AA8 -to KEYPAD_COL[3]
 set_location_assignment PIN_C10 -to CLEAR
 set_location_assignment PIN_P11 -to CLK
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VHDL_FILE ticketDispenser.vhd
+set_global_assignment -name VHDL_FILE int7seg.vhd
+set_global_assignment -name VHDL_FILE decoderHex.vhd
+set_global_assignment -name VHDL_FILE UsbPort.vhd
+set_global_assignment -name VHDL_FILE KeyScan.vhd
+set_global_assignment -name VHDL_FILE MUX2_1L2.vhd
+set_global_assignment -name VHDL_FILE MUX2_1L4.vhd
+set_global_assignment -name VHDL_FILE Counter2.vhd
+set_global_assignment -name VHDL_FILE RegistryL2.vhd
+set_global_assignment -name VHDL_FILE Adder2.vhd
+set_global_assignment -name VHDL_FILE Counter.vhd
+set_global_assignment -name VHDL_FILE Adder.vhd
+set_global_assignment -name VHDL_FILE RegistryL4.vhd
+set_global_assignment -name VHDL_FILE FullAdder.vhd
+set_global_assignment -name VHDL_FILE FFD.vhd
+set_global_assignment -name VHDL_FILE clkDIV.vhd
+set_global_assignment -name VHDL_FILE decoder.vhd
+set_global_assignment -name VHDL_FILE MUX4_2L1.vhd
+set_global_assignment -name VHDL_FILE KeyControl.vhd
+set_global_assignment -name VHDL_FILE KeyDecode.vhd
+set_global_assignment -name VHDL_FILE TicketMachine.vhd
+set_global_assignment -name VHDL_FILE SerialReceiver.vhd
+set_global_assignment -name VHDL_FILE ShiftRegister.vhd
+set_global_assignment -name VHDL_FILE HoldRegister.vhd
 set_global_assignment -name VHDL_FILE KeyboardReader.vhd
 set_global_assignment -name VHDL_FILE RingBuffer.vhd
 set_global_assignment -name VHDL_FILE MemoryAddressControl.vhd
@@ -95,9 +105,6 @@ set_global_assignment -name VHDL_FILE RingBufferControl.vhd
 set_global_assignment -name VHDL_FILE RandomAccessMemory.vhd
 set_global_assignment -name VHDL_FILE KeyTransmitter.vhd
 set_global_assignment -name VHDL_FILE ShiftRegisterL4.vhd
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VHDL_FILE KeyTransmitterControl.vhd
 set_global_assignment -name VHDL_FILE PortExpanderLCD.vhd
 set_global_assignment -name VHDL_FILE PortExpanderTD.vhd
