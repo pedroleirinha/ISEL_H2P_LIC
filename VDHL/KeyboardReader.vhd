@@ -54,15 +54,15 @@ BEGIN
 		Kval 		=>	Kval
 	);
 	
-	transmitter: KeyTransmitter port map(
-		CLK		=> clk_in,
-		TxClk 	=> TxClk,
-		Load 		=> '0',
-		CLEAR 	=> CLEAR,
-		D 			=> bufferD,		
-		TxD 		=> TxD,	
-		KbFree 	=> KbFree
-	);
+	--transmitter: KeyTransmitter port map(
+	--	CLK		=> clk_in,
+	--	TxClk 	=> TxClk,
+	--	Load 		=> '0',
+	--	CLEAR 	=> CLEAR,
+	--	D 			=> bufferD,		
+	--	TxD 		=> TxD,	
+	--	KbFree 	=> KbFree
+	--);
 	
 		
 --	ringBuffer1: RingBuffer port map(
@@ -76,6 +76,7 @@ BEGIN
 --		DAC		=> DAC
 --	);
 	
+	K <= bufferD;
 
 
 END Behaviour;
