@@ -8,6 +8,8 @@ import java.io.FileReader
 
 object TUI {
     var firstKey = true
+    val stations =
+        arrayOf<String>("Lisboa", "Porto", "Braga", "Faro", "Viana do Castelo", "Coimbra", "Evora", "Algarve")
 
     fun init() {
         HAL.init()
@@ -27,54 +29,31 @@ object TUI {
 
             when (key) {
                 '*' -> activatePrintingTicket(roundTrip = true, origin = 2, destination = 2)
+                'A' -> {
+                    index++
+                    index %= stations.size
+                    LCD.clear()
+                    LCD.write(stations[index])
+                }
+                'B' -> {
+                    index--
+                    index = if(index >= 0 ) index % stations.size else  stations.size  - 1
+                    LCD.clear()
+                    LCD.write(stations[index])
+
+                }
                 else -> LCD.write(c = key)
             }
+
+
+
+
         }
     }
 
-    var index =-1
+    var index = 0
 
-    fun stations() {
 
-        val stations =
-            arrayOf<String>("Lisboa", "Porto", "Braga", "Faro", "Viana do Castelo", "Coimbra", "Évora", "Algarve")
-
-        val tecla = KBD.getKey()
-
-        if (tecla != NONE) {
-
-            if (firstKey) {
-                LCD.clear()
-                firstKey = false
-            }
-
-            if (tecla == 'A') {
-
-                if (index < stations.size - 1) {
-
-                    index++
-                } else {
-                    index = 0
-                }
-            }
-
-            if (tecla == 'B' ) {
-
-                if(index <= 0 ){
-
-                    index = stations.size-1
-                }
-                else{
-                    index--
-                }
-            }
-
-            LCD.clear()
-            LCD.write(stations[index])
-
-        }
-
-    }
     }
 
 

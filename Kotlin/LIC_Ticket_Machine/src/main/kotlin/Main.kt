@@ -9,6 +9,6 @@ fun main() {
     while (true) {
 
         TUI.readKey()
-        TUI.stations()
+
     }
 }
