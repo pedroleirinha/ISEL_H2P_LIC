@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 ENTITY KeyTransmitter IS
 	PORT(
-		CLK ,TxClk, Load, CLEAR:	 	IN std_logic;
+		CLK ,TxClk, Load, CLEAR:IN std_logic;
 		D:		 						IN std_logic_vector(3 downto 0);
 		TxD, KbFree:				OUT std_logic
 	);

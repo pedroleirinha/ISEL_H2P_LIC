@@ -9,8 +9,7 @@ ENTITY TicketMachine IS
 		LCD_EN, LCD_RS, Kval:					OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
 		K: 											OUT std_logic_vector (3 downto 0);
-		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
-		Q:												OUT STD_LOGIC_VECTOR(9 downto 0)
+		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0)
 	);
 	
 END TicketMachine;
@@ -131,8 +130,8 @@ BEGIN
 		outputPort	=> output
 	);
 	
-	--	input <= Kval_Decode & "000000" & TxD_o;
-   input <= Kval_Decode & "000" & values;
+	input <= Kval_Decode & "000000" & TxD_o;
+   --input <= Kval_Decode & "000" & values;
 	
 	
 	-- Info for TicketDispenser
@@ -140,9 +139,7 @@ BEGIN
 	roundtripFlag	<= QTD(0);
 	destStation 	<= QTD(4 downto 1);
 	origStation 	<= QTD(8 downto 5);
-	
-	Q	<= QTD;
-	
+
 	
 	-- Info for Key detection
 	Kval 		<= Kval_Decode;

@@ -6,6 +6,7 @@ import org.example.KBD.NONE
 import org.example.TicketDispenser.activatePrintingTicket
 import java.io.BufferedReader
 import java.io.FileReader
+import kotlin.math.round
 import kotlin.math.roundToInt
 
 data class Station(
@@ -35,6 +36,7 @@ object TUI {
     }
 
     fun yesOrNoAnwser(): Boolean {
+        // "*" for YES and "#" for NO
         var key: Char?
         do {
             key = KBD.waitKey(timeout = 6000)
@@ -53,7 +55,8 @@ object TUI {
 
     fun showStation() {
         LCD.clear()
-        showMessageLeftAlign(message = "Destino: A${0.toChar()} e B${1.toChar()}")
+        showMessageLeftAlign(message = "Destino:")
+        showMessageRightAlign(message = "A${0.toChar()} e B${1.toChar()}")
         stationCount %= stations.size
         showMessageCenterAlign(message = stations[stationCount].name, 1)
     }
@@ -117,8 +120,7 @@ object TUI {
                 'A' -> nextStation()
                 'B' -> previousStation()
             }
-
-        } while (key != '*')
+        } while (key != '#')
 
         destStation = stations[stationCount]
         LCD.clear()
@@ -131,7 +133,7 @@ object TUI {
         submitTicket()
         LCD.clear()
         showMessageLeftAlign(message = "Retire o bilhete!")
-        while (!HAL.isBit(0b00010000)){
+        while (!HAL.isBit(0b00010000)) {
             Time.sleep(1000)
         }
         Time.sleep(1000)
