@@ -1,7 +1,5 @@
 package org.example
 
-import isel.leic.utils.Time
-
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialEmitter {
     var busy = false

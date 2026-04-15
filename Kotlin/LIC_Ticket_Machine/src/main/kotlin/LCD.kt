@@ -57,7 +57,7 @@ object LCD {
         clear()
         println("FIM DAS CONFIGS DO LCD\n\n")
 
-        write("Welcome!")
+        drawCustomIcons()
     }
 
     // Escreve um caracter na posição corrente.
@@ -73,13 +73,49 @@ object LCD {
     // Envia comando para posicionar cursor ('line': 0..LINES-1, 'column': 0..COLS-1)
     fun cursor(line: Int, column: Int) {
         if (line in 0..<LINES && column in 0..<COLS) {
-            val lineBits = Integer.toBinaryString(line).padStart(2, '0')
-            val columnBits = Integer.toBinaryString(column).padStart(4, '0')
 
-            val cursorCommand = "1$lineBits$columnBits".toInt(2) //USES DDRAM
+            val lineBits = Integer.toBinaryString(line)
+
+            val column2 = column % 16
+            val columnBits =
+                Integer.toBinaryString(column2).padStart(4, '0')
+
+
+            val cursorCommand = "1${lineBits}00${columnBits}".toInt(2) //USES DDRAM
 
             writeCMD(data = cursorCommand)
         }
+    }
+
+    fun drawArrowUp() {
+        val data = arrayOf(4, 14, 21, 4, 4, 4, 4, 0)
+        writeCMD(0x40)
+        data.forEach {
+            writeDATA(it)
+        }
+    }
+
+    fun drawArrowDown() {
+        val data = arrayOf(0, 4, 4, 4, 4, 21, 14, 4)
+        writeCMD(0x48)
+        data.forEach {
+            writeDATA(it)
+        }
+    }
+
+    fun drawSmile(){
+        val data = arrayOf(0, 10, 10, 0, 17, 14, 0, 0)
+        writeCMD(0x50)
+        data.forEach {
+            writeDATA(it)
+        }
+
+    }
+
+    fun drawCustomIcons() {
+        drawArrowUp()
+        drawArrowDown()
+        drawSmile()
     }
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
