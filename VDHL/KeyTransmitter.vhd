@@ -11,65 +11,56 @@ END KeyTransmitter;
 
 ARCHITECTURE Behaviour OF KeyTransmitter IS
 	
-	component RegistryL4 
-		PORT(	
-			D: IN std_logic_vector (3 downto 0);
-			clk_in, CE, CLEAR: IN std_logic;
-			Q: OUT std_logic_vector (3 downto 0)
-		);
-	end component;
-	
-	component ShiftRegisterL4
+	component ShiftRegisterL7
 		PORT(
 			CLK, CE, PL, CLEAR: 	IN std_logic;
 			D: 						IN std_logic_vector(3 downto 0);
-			Q:							OUT std_logic
+			Q, zeros:				OUT std_logic
 		);
 	end component;
 	
 	component KeyTransmitterControl
 		PORT(
-			clk_in, Load, CLEAR, CE: 					IN std_logic;
-			regEn, kbFree, startSignal, endSignal: OUT std_logic
+			clk_in, Load, CLEAR, CE, zeros: IN std_logic;
+			kbFree, startSignal, shiftEnable, PL: OUT std_logic
 		);
 	end component;
 	
-	signal DAV, CTS, DAC, Wreg, regEn, startSignal, endSignal, sendBit, shiftBit: std_logic;
-	signal bufferK: std_logic_vector(3 downto 0);
+	signal shiftClk, PL, errorZeros, transZero, startSignal, shiftEnable, shiftBit, signalFree: std_logic;
+	signal countValues, bufferK: std_logic_vector(3 downto 0);
 	
 BEGIN
-	
-	reg: RegistryL4 port map(
-		clk_in 	=> Load,
-		CLEAR  	=> CLEAR,
-		D 			=> D,
-		CE 		=> regEn,
-		Q 			=> bufferK
-	);
 
-	shiftRegister1: ShiftRegisterL4 port map(
-		CLK 		=> TxClk,
+	shiftClk <= CLK when shiftEnable = '0' else TxClk;
+
+
+	shiftRegister1: ShiftRegisterL7 port map(
+		CLK 		=> shiftClk,
 		CE 		=> '1',
-		PL 		=> Load,		
+		PL 		=> PL,		
 		CLEAR		=> CLEAR,
-		D			=>	bufferK,
-		Q 			=> shiftBit
+		D			=>	D,
+		Q 			=> shiftBit,
+		zeros		=> errorZeros
 	);
 
 	
 	control: KeyTransmitterControl port map(
 		clk_in 		=> CLK,
 		CE 			=> '1',
-		Load 			=> Load,		
+		Load 			=> Load,
+		zeros			=> errorZeros,
 		CLEAR			=> CLEAR,
-		regEn			=>	regEn,
-		kbFree 		=> KbFree,
+		kbFree 		=> signalFree,
 		startSignal => startSignal,
-		endSignal	=> endSignal
+		shiftEnable	=> shiftEnable,
+		PL				=> PL
 	);
 	
-	TxD	<=	'1' when startSignal = '1' else
-				'0' when endSignal = '1' else
+	KbFree <= signalFree;
+	
+	TxD	<=	'1' when signalFree = '1' else
+				'0' when startSignal = '1' else
 				shiftBit;
 	
 	

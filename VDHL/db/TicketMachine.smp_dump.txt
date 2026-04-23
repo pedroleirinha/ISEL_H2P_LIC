@@ -1,4 +1,12 @@
 
+State Machine - |TicketMachine|KeyboardReader:keyboardReader1|KeyTransmitter:transmitter|KeyTransmitterControl:control|currState
+Name currState.STATE_END_TRANSMISSION currState.STATE_TRANSMITTING currState.STATE_BEGIN_TRANSMISSION currState.STATE_LOADING currState.STATE_IDLE 
+currState.STATE_IDLE 0 0 0 0 0 
+currState.STATE_LOADING 0 0 0 1 1 
+currState.STATE_BEGIN_TRANSMISSION 0 0 1 0 1 
+currState.STATE_TRANSMITTING 0 1 0 0 1 
+currState.STATE_END_TRANSMISSION 1 0 0 0 1 
+
 State Machine - |TicketMachine|KeyboardReader:keyboardReader1|KeyDecode:scan|KeyControl:control|currState
 Name currState.STATE_ACKNOWLEDGE currState.STATE_READING currState.STATE_SCANNING 
 currState.STATE_SCANNING 0 0 0 

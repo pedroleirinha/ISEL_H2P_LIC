@@ -34,13 +34,13 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	end component;
 	
 
-	component UsbPort 
-		PORT
-		(
-			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
-			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
-	);
-	end component;
+--	component UsbPort 
+--		PORT
+--		(
+--			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+--			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
+--	);
+--	end component;
 	
 	
 	component PortExpanderLCD                           
@@ -98,7 +98,7 @@ BEGIN
 	);
 	
 	keyboardReader1: KeyboardReader port map(
-		clk_in 	=> clock,
+		clk_in 	=> CLK,
 		TxClk		=> TxClk_i,
 		Kack 		=> Kack,
 		CLEAR 	=> CLEAR,
@@ -125,13 +125,13 @@ BEGIN
 		HEX5    			=> HEX5
 	);
 			
-	UsbPort1: UsbPort port map(
-		inputPort	=> input,
-		outputPort	=> output
-	);
+	--UsbPort1: UsbPort port map(
+	--	inputPort	=> input,
+	--	outputPort	=> output
+	--);
 	
-	input <= Kval_Decode & "000000" & TxD_o;
-   --input <= Kval_Decode & "000" & values;
+	--input <= Kval_Decode & "000000" & TxD_o;
+   input <= Kval_Decode & "000" & values;
 	
 	
 	-- Info for TicketDispenser

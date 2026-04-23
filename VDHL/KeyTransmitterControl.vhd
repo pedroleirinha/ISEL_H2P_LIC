@@ -3,8 +3,8 @@ use ieee.std_logic_1164.all;
 
 ENTITY KeyTransmitterControl IS
 	PORT(
-		clk_in, Load, CLEAR, CE: IN std_logic;
-		regEn, kbFree, startSignal, endSignal: OUT std_logic
+		clk_in, Load, CLEAR, CE, zeros: IN std_logic;
+		kbFree, startSignal, shiftEnable, PL: OUT std_logic
 	);
 END KeyTransmitterControl;
 
@@ -17,9 +17,14 @@ ARCHITECTURE Behaviour OF KeyTransmitterControl IS
 BEGIN
 
 	currState <= STATE_IDLE when CLEAR = '1' else nextState when rising_edge(clk_in);
+	
+	kbFree		<= '1' when  currState = STATE_IDLE else '0';
+	startSignal <= '1' when  currState = STATE_BEGIN_TRANSMISSION else '0';
+	PL 			<= '1' when  currState = STATE_LOADING else '0';
+	shiftEnable	<= '1' when  currState = STATE_TRANSMITTING else '0';
 
 generateNextState:
-	process(Load, currState, nextState)
+	process(Load, zeros, currState, nextState)
 	begin
 	  nextState <= currState;
 	  
@@ -33,7 +38,9 @@ generateNextState:
 															
 			when STATE_BEGIN_TRANSMISSION =>	 	nextState <= STATE_TRANSMITTING;  
 															
-			when STATE_TRANSMITTING 		=> 	nextState <= STATE_END_TRANSMISSION;  
+			when STATE_TRANSMITTING 		=> 	if(zeros = '1') then 
+																nextState <= STATE_END_TRANSMISSION;  
+															end if;
 															
 			when STATE_END_TRANSMISSION 	=> 	nextState <= STATE_IDLE;  
 			
@@ -41,11 +48,6 @@ generateNextState:
 	
 	
 	end process;  
-	  
-	kbFree		<= '1' when  currState = STATE_IDLE else '0';
-	startSignal <= '1' when  currState = STATE_BEGIN_TRANSMISSION else '0';
-	endSignal 	<= '1' when  currState = STATE_END_TRANSMISSION else '0';
-	regEn 		<= Load;
-
+	 
 	
 END Behaviour;

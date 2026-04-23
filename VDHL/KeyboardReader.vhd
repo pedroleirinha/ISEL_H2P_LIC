@@ -39,7 +39,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 		);
 	end component;
 	
-	signal DAV, CTS, DAC, Wreg, KbFree: std_logic;
+	signal DAV, CTS, DAC, Wreg, KbFree, Kvalue: std_logic;
 	signal bufferD: std_logic_vector(3 downto 0);
 	
 BEGIN
@@ -51,13 +51,13 @@ BEGIN
 		rows 		=> rows,		
 		cols 		=> cols,	
 		K 			=> bufferD,		
-		Kval 		=>	Kval
+		Kval 		=>	Kvalue
 	);
 	
 	transmitter: KeyTransmitter port map(
 		CLK		=> clk_in,
 		TxClk 	=> TxClk,
-		Load 		=> '0',
+		Load 		=> Kvalue,
 		CLEAR 	=> CLEAR,
 		D 			=> bufferD,		
 		TxD 		=> TxD,	
@@ -76,7 +76,8 @@ BEGIN
 --		DAC		=> DAC
 --	);
 	
-	K <= bufferD;
+	K 		<= bufferD;
+	Kval 	<= Kvalue;
 
 
 END Behaviour;

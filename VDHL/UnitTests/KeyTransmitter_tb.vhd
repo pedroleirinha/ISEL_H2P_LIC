@@ -7,7 +7,7 @@ end entity;
 architecture KeyTransmitter_tb_arch of KeyTransmitter_tb is
 
 	component KeyTransmitter PORT(
-		TxClk, Load, CLEAR:	 	IN std_logic;
+		CLK ,TxClk, Load, CLEAR:IN std_logic;
 		D:		 						IN std_logic_vector(3 downto 0);
 		TxD, KbFree:				OUT std_logic
 	);
@@ -26,6 +26,7 @@ begin
 
 	CLK_TB <= not CLK_TB after MCLK_HALF_PERIOD;		
 	UUT: KeyTransmitter port map(	
+		CLK		=> CLK_TB,
 		TxClk 	=> TXCLK_TB,
 		Load 		=> LOAD_TB,
 		CLEAR 	=> CLEAR_TB,
@@ -34,10 +35,9 @@ begin
 		KbFree 	=> KBFREE_TB
 	);
 	
-	 
-	
 stimulus: process 
-
+	
+	variable test_data : std_logic_vector(3 downto 0) := "0110"; 
 
 begin
 	TXCLK_TB	<= '0';
@@ -47,34 +47,38 @@ begin
 	CLEAR_TB <= '0';
 	wait for CLK_PERIOD	;
 	BUFFER_TB<= "0110";
-	LOAD_TB	<= '0';
 	wait for CLK_PERIOD;
 	LOAD_TB	<= '1';
-	TXCLK_TB	<= '0';
 	wait for CLK_PERIOD;
-	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD;
-	TXCLK_TB	<= '0';
-	wait for CLK_PERIOD * 2;
 	LOAD_TB	<= '0';
-	TXCLK_TB	<= '0';
-	BUFFER_TB		<= "1110";
+	wait for CLK_PERIOD;
 
-	wait for CLK_PERIOD * 2;
 	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '0';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '1';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '0';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '1';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '0';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '1';
+	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
 	wait;
 	

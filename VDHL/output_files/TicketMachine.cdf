@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(10M50DAF484ES) Path("C:/Users/henri/ISEL_H2P_LIC/VDHL/output_files/") File("TicketMachine.sof") MfrSpec(OpMask(1));
+		Device PartName(10M50DAF484ES) Path("C:/Users/oleir/Desktop/Coding/TicketMachine/VDHL/output_files/") File("TicketMachine.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 
