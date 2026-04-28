@@ -11,14 +11,8 @@ fun main() {
         if (key != NONE) {
             when (key) {
                 '#' -> TUI.sellTicket()
-                '0' -> {
-                    val key = SerialReceiver.receiveKeyInSerie(9)
-
-                }
-
                 else -> LCD.write(c = key)
             }
         }
-
     }
 }

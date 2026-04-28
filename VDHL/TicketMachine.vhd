@@ -9,7 +9,8 @@ ENTITY TicketMachine IS
 		LCD_EN, LCD_RS, Kval:					OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
 		K: 											OUT std_logic_vector (3 downto 0);
-		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0)
+		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
+		state:										OUT std_logic_vector(6 downto 0)
 	);
 	
 END TicketMachine;
@@ -25,22 +26,23 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 
 	component KeyboardReader
 		PORT(
-			clk_in, Kack, CLEAR, TxClk: 	IN std_logic;
+			clk_in, CLEAR, TxClk:		 	IN std_logic;
 			rows: 								IN std_logic_vector(3 downto 0);
 			cols: 								OUT std_logic_vector(3 downto 0);
 			K: 									OUT std_logic_vector (3 downto 0);
-			Kval, TxD:							OUT std_logic
+			Kval, TxD:							OUT std_logic;
+			state:								OUT std_logic_vector(6 downto 0)
 		);
 	end component;
 	
 
---	component UsbPort 
---		PORT
---		(
---			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
---			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
---	);
---	end component;
+	component UsbPort 
+		PORT
+		(
+			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
+	);
+	end component;
 	
 	
 	component PortExpanderLCD                           
@@ -98,15 +100,15 @@ BEGIN
 	);
 	
 	keyboardReader1: KeyboardReader port map(
-		clk_in 	=> CLK,
+		clk_in 	=> clock,
 		TxClk		=> TxClk_i,
-		Kack 		=> Kack,
 		CLEAR 	=> CLEAR,
 		rows 		=> KEYPAD_LIN,		
 		cols 		=> KEYPAD_COL,	
 		K 			=> values,		
 		Kval 		=>	Kval_Decode,
-		TxD		=> TxD_o
+		TxD		=> TxD_o,
+		state		=> state		
 	);
 	
 	
@@ -125,13 +127,13 @@ BEGIN
 		HEX5    			=> HEX5
 	);
 			
-	--UsbPort1: UsbPort port map(
-	--	inputPort	=> input,
-	--	outputPort	=> output
-	--);
+	UsbPort1: UsbPort port map(
+		inputPort	=> input,
+		outputPort	=> output
+	);
 	
-	--input <= Kval_Decode & "000000" & TxD_o;
-   input <= Kval_Decode & "000" & values;
+	input <= Kval_Decode & "000000" & TxD_o;
+   --input <= Kval_Decode & "000" & values;
 	
 	
 	-- Info for TicketDispenser
@@ -143,7 +145,7 @@ BEGIN
 	
 	-- Info for Key detection
 	Kval 		<= Kval_Decode;
-	Kack  	<= output(7);
+	--Kack  	<= output(7);
 	
 
 	-- Info for KeyTransmitter

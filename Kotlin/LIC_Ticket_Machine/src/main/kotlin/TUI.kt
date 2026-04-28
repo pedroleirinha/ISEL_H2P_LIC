@@ -11,6 +11,7 @@ import kotlin.math.roundToInt
 data class Station(
     val code: Int,
     val name: String,
+    val distance: Int,
     val price: Int = 0
 )
 
@@ -23,10 +24,12 @@ object TUI {
     var roundTrip = false
 
     fun readStations() {
-        BufferedReader(FileReader("stations.csv")).forEachLine {
-            val info = it.split(";")
-            stations.add(Station(info[0].toInt(), info[1]))
-        }
+        var stationCounter = 1
+        BufferedReader(FileReader("stations.csv"))
+            .forEachLine {
+                val info = it.split(";")
+                stations.add(Station(stationCounter++, info[2], info[0].toInt()))
+            }
     }
 
     fun askQuestion(message: String) {

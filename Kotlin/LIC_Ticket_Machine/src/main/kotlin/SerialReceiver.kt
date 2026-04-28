@@ -4,8 +4,8 @@ import isel.leic.utils.Time
 
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialReceiver {
-    private val keyDecodeMask = 0b111000011
-    private val keyDecodeExpectedValue = 0b101000001
+    private const val keyDecodeMask = 0b1100001
+    private const val keyDecodeExpectedValue = 0b1000001
 
     var busy = false
 
@@ -24,7 +24,7 @@ object SerialReceiver {
 
         if (isValid) {
             //Retrieve the key
-            return Integer.toBinaryString(bits).slice(3..6).toInt(2)
+            return Integer.toBinaryString(bits).slice(2..5).toInt(2)
         }
         return -1
     }
@@ -40,17 +40,19 @@ object SerialReceiver {
             bits += "${if (HAL.isBit(0b00000001)) '1' else '0'}"
 
             HAL.setBits(mask = 0b00000010)
+            Time.sleep(10)
             HAL.clrBits(mask = 0b00000010)
 
             println("current bits: $bits")
-            while (!HAL.isBit(0b00100000)) {
-            }
+            /*
+            while (!HAL.isBit(0b00100000)) {}
+            */
 
-            Time.sleep(2000)
+            Time.sleep(10)
         }
 
         busy = false
-        return bits.toInt(2)
+        return bits.reversed().toInt(2)
     }
 
     fun validateSequence(bits: Int, mask: Int, valueRef: Int): Boolean {

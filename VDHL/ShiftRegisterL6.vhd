@@ -5,7 +5,8 @@ ENTITY ShiftRegisterL7 IS
 	PORT(
 		CLK, CE, PL, CLEAR: 	IN std_logic;
 		D: 						IN std_logic_vector(3 downto 0);
-		Q, zeros:				OUT std_logic
+		Q, zeros:				OUT std_logic;
+		state:					OUT std_logic_vector(6 downto 0)
 	);
 END ShiftRegisterL7;
 
@@ -41,7 +42,7 @@ ARCHITECTURE Behaviour OF ShiftRegisterL7 IS
 		
 BEGIN
 
-	
+	state	<= currRegState;
 	regCE <= CE OR PL;
 	
 	registry1: RegistryL4 port map(
