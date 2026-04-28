@@ -1,7 +1,12 @@
 package org.example
 
+import isel.leic.utils.Time
+
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialReceiver {
+    private val keyDecodeMask = 0b111000011
+    private val keyDecodeExpectedValue = 0b101000001
+
     var busy = false
 
     // Inicia a classe
@@ -9,23 +14,61 @@ object SerialReceiver {
         busy = false
     }
 
+    fun receiveKeyInSerie(bitsToReceive: Int): Int {
+
+        //Receive and concatenate all bits
+        val bits = receiveInSerie(bitsToReceive)
+
+        //Validate sequence of bits according to the mask
+        val isValid = validateSequence(bits, keyDecodeMask, keyDecodeExpectedValue)
+
+        if (isValid) {
+            //Retrieve the key
+            return Integer.toBinaryString(bits).slice(3..6).toInt(2)
+        }
+        return -1
+    }
+
     fun receiveInSerie(bitsToReceive: Int): Int {
+        if (isBusy()) return 0
+
+        busy = true
         var bits = ""
-        /*
-       * O BIT (0) VAI SER USADO PARA RECEBER O BIT (TxD)
-       *
-       * */
+
         println("A RECEBER $bitsToReceive BITS")
-        for (i in 0..bitsToReceive) {
+        for (i in 0 until bitsToReceive) {
             bits += "${if (HAL.isBit(0b00000001)) '1' else '0'}"
 
             HAL.setBits(mask = 0b00000010)
             HAL.clrBits(mask = 0b00000010)
+
+            println("current bits: $bits")
+            while (!HAL.isBit(0b00100000)) {
+            }
+
+            Time.sleep(2000)
         }
 
+        busy = false
         return bits.toInt(2)
     }
 
+    fun validateSequence(bits: Int, mask: Int, valueRef: Int): Boolean {
+        //Dos 9 bits Queremos validar os bits (1)-01DDDD0-(1) em que o '1' da ponta é o estado de repouso
+
+        //000 0110 01 - ERRADO
+
+        //101 0110 01 - BATE CERTO
+
+        //101 0000 01 - MASK
+
+        //bits => 111011001
+
+        //bits => 111011001
+
+
+        return (bits and mask) == valueRef
+    }
 
     // Retorna informação se o periférico está ocupado
     fun isBusy(): Boolean {

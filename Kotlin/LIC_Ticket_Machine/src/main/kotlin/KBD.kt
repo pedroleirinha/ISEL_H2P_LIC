@@ -1,7 +1,8 @@
 package org.example
 
-import isel.leic.utils.Time.getTimeInMillis
 import isel.leic.utils.Time
+import isel.leic.utils.Time.getTimeInMillis
+import org.example.SerialReceiver.receiveKeyInSerie
 
 
 // Ler teclas. Funções retornam '0'..'9', 'A'..'D', '#', '*' ou NONE.
@@ -23,8 +24,17 @@ object KBD {
 
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
     fun getKey(): Char {
-        val row = HAL.readBits(0b0011)
-        val col = (HAL.readBits(0b1100) shr 2) //Signed Right Shift de dois bits
+
+        val keyBits = receiveKeyInSerie(9)
+        if (keyBits == -1) return NONE
+
+        /*val row = HAL.readBits(0b0011)
+        val col = (HAL.readBits(0b1100) shr 2) //Signed Right Shift de dois bits*/
+        val key = Integer.toBinaryString(keyBits).padStart(4, '0')
+
+        val row = key.slice(2..3).toInt(2)
+        val col = key.slice(0..1).toInt(2)
+
         println("Coluna: $col; Linha: $row")
 
         sendAckBit()

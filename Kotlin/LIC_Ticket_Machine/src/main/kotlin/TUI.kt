@@ -6,7 +6,6 @@ import org.example.KBD.NONE
 import org.example.TicketDispenser.activatePrintingTicket
 import java.io.BufferedReader
 import java.io.FileReader
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 data class Station(
@@ -123,6 +122,7 @@ object TUI {
         } while (key != '#')
 
         destStation = stations[stationCount]
+
         LCD.clear()
         showMessageLeftAlign(message = "Escolheu:")
         showMessageLeftAlign(message = "${destStation?.name}", 1)
@@ -151,7 +151,7 @@ object TUI {
         )
     }
 
-    fun readKey() {
+    fun readKey(): Char {
         println(Integer.toBinaryString(UsbPort.read()).padStart(8, '0'))
         val key = KBD.waitKey(timeout = 6000)
         if (key != NONE) {
@@ -159,12 +159,9 @@ object TUI {
                 LCD.clear()
                 firstKey = false
             }
-
-            when (key) {
-                '#' -> sellTicket()
-                else -> LCD.write(c = key)
-            }
         }
+
+        return key
     }
 }
 

@@ -36,7 +36,7 @@ BEGIN
 
 	shiftRegister1: ShiftRegisterL7 port map(
 		CLK 		=> shiftClk,
-		CE 		=> '1',
+		CE 		=> shiftEnable,
 		PL 		=> PL,		
 		CLEAR		=> CLEAR,
 		D			=>	D,
