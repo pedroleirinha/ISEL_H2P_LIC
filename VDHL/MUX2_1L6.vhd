@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 
 ENTITY MUX2_1L7 IS
 	PORT(
-		A,B: IN std_logic_vector (6 downto 0);
+		A,B: IN std_logic_vector (7 downto 0);
 		S: IN std_logic;
-		Y: OUT std_logic_vector (6 downto 0)
+		Y: OUT std_logic_vector (7 downto 0)
 	);
 END MUX2_1L7;
 
@@ -18,5 +18,6 @@ BEGIN
 	Y(4) <= (A(4) AND NOT S) OR (B(4) AND S);
 	Y(5) <= (A(5) AND NOT S) OR (B(5) AND S);
 	Y(6) <= (A(6) AND NOT S) OR (B(6) AND S);
+	Y(7) <= (A(7) AND NOT S) OR (B(7) AND S);
 	
 END Behaviour;

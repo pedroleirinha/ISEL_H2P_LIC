@@ -61,7 +61,8 @@ BEGIN
 	
 	TxD	<=	'1' when signalFree = '1' else
 				'0' when startSignal = '1' else
-				shiftBit;
+				shiftBit when shiftEnable = '1' else
+				'1';
 	
 	
 

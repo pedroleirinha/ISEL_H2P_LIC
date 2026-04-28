@@ -21,7 +21,8 @@ BEGIN
 	kbFree		<= '1' when  currState = STATE_IDLE else '0';
 	startSignal <= '1' when  currState = STATE_BEGIN_TRANSMISSION else '0';
 	PL 			<= '1' when  currState = STATE_LOADING else '0';
-	shiftEnable	<= '1' when  currState = STATE_TRANSMITTING else '0';
+	shiftEnable	<= '1' when  currState = STATE_TRANSMITTING AND zeros = '0' else '0';
+	
 
 generateNextState:
 	process(Load, zeros, currState, nextState)

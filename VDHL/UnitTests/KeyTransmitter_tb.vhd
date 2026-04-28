@@ -80,6 +80,14 @@ begin
 	TXCLK_TB	<= '1';
 	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '1';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '0';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '1';
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '0';
 	wait;
 	
 end process;
