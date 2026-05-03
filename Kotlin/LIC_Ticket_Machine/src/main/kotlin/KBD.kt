@@ -25,7 +25,7 @@ object KBD {
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
     fun getKey(): Char {
 
-        val keyBits = receiveKeyInSerie(7)
+        val keyBits = receiveKeyInSerie(4)
         if (keyBits == -1) return NONE
 
         /*val row = HAL.readBits(0b0011)
@@ -51,7 +51,7 @@ object KBD {
     }
 
     fun isValOff(): Boolean {
-        return !HAL.isBit(0b10000000)
+        return !HAL.isBit(0b01000000)
     }
 
     // Retorna a tecla premida, caso ocorra antes do 'timeout' (em milissegundos),

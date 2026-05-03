@@ -19,6 +19,8 @@ object SerialReceiver {
         //Receive and concatenate all bits
         val bits = receiveInSerie(bitsToReceive)
 
+        //return Integer.toBinaryString(bits).padStart(4, '0').toInt(2)
+
         //Validate sequence of bits according to the mask
         val isValid = validateSequence(bits, keyDecodeMask, keyDecodeExpectedValue)
 
@@ -34,18 +36,22 @@ object SerialReceiver {
 
         busy = true
         var bits = ""
-
         println("A RECEBER $bitsToReceive BITS")
         for (i in 0 until bitsToReceive) {
-            bits += "${if (HAL.isBit(0b00000001)) '1' else '0'}"
+            bits += "${if (HAL.isBit(0b10000000)) '1' else '0'}"
 
-            HAL.setBits(mask = 0b00000010)
+            /*HAL.setBits(mask = 0b00000010)
             Time.sleep(10)
-            HAL.clrBits(mask = 0b00000010)
+            HAL.clrBits(mask = 0b00000010)*/
+
+            HAL.setBits(mask = 0b10000000)
+            Time.sleep(1000)
+            HAL.clrBits(mask = 0b10000000)
 
             println("current bits: $bits")
             /*
-            while (!HAL.isBit(0b00100000)) {}
+            while (!HAL.isBit(0b00100000)) {
+            }
             */
 
             Time.sleep(10)

@@ -70,6 +70,8 @@ object TUI {
 
         startUpLcd()
         readStations()
+
+        HAL.clrBits(0xF)
     }
 
     fun nextStation() {

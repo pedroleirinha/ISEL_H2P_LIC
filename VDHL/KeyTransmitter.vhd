@@ -36,7 +36,7 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 		);
 	end component;
 	
-	signal shiftClk, PL, errorZeros, transZero, startSignal, shiftEnable, shiftBit, signalFree: std_logic;
+	signal shiftClk, PL, errorZeros, startSignal, shiftEnable, shiftBit, TxDTtemp, TxDFinal, signalFree: std_logic;
 	signal countValues, bufferK: std_logic_vector(3 downto 0);
 	
 BEGIN
@@ -81,9 +81,26 @@ BEGIN
 	--			'0' when startSignal = '1' else
 	--			shiftBit when shiftEnable = '1' else '1';
 				
-	TxD	<=	'1' when signalFree = '1' else
-				'0' when startSignal = '1' else
-				shiftBit when shiftEnable = '1' else '1';
+	--TxD	<=	'0' when startSignal = '1' else
+	--			shiftBit when shiftEnable = '1' else '1';
+	
+		
+	mux1: MUX2_1L1 port map(
+		A 		=> '1',
+		B		=> shiftBit,
+		S		=> shiftEnable,
+		Y		=> TxDTtemp  
+	);
+	
+			
+	mux2: MUX2_1L1 port map(
+		A 		=> NOT startSignal,
+		B		=> TxDTtemp,
+		S		=> startSignal,
+		Y		=> TxDFinal 
+	);
+	
+	TxD <= TxDFinal;
 	
 	
 

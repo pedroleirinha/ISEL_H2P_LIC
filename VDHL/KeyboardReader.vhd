@@ -48,7 +48,7 @@ BEGIN
 	
 	scan: KeyDecode port map(
 		clk_in 	=> clk_in,
-		Kack 		=> NOT KbFreeSignal,
+		Kack 		=> KbFreeSignal,
 		CLEAR 	=> CLEAR,
 		rows 		=> rows,		
 		cols 		=> cols,	
