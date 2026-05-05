@@ -5,6 +5,7 @@ ENTITY TicketMachine IS
 	PORT(
 		CLK, CLEAR, CollectTicket:				IN std_logic;
 		KEYPAD_LIN: 								IN std_logic_vector(3 downto 0);
+		output:										IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
 		LCD_EN, LCD_RS, Kval:					OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
@@ -17,7 +18,7 @@ END TicketMachine;
 
 ARCHITECTURE Behaviour OF TicketMachine IS
 
-	component CLKDIV
+	component CLKDIV	
 		port ( 
 			clk_in: in std_logic;
 			clk_out: out std_logic
@@ -69,10 +70,10 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 		);
 	end component;
 	
-	signal input, output: 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-	signal QLCD, QTD :					STD_LOGIC_VECTOR(9 DOWNTO 0);
-	signal values, origStation, destStation: 			STD_LOGIC_VECTOR(3 DOWNTO 0);
-	signal clock, Kval_Decode, Kack, SCLK, SDX, SS_LCD, SS_TD, TxClk_i, TxD_o: STD_LOGIC;
+	signal input: 										 STD_LOGIC_VECTOR(7 DOWNTO 0);
+	signal QLCD, QTD :											 STD_LOGIC_VECTOR(9 DOWNTO 0);
+	signal values, origStation, destStation: 				 STD_LOGIC_VECTOR(3 DOWNTO 0);
+	signal clock, Kval_Decode, SCLK, SDX, SS_LCD, SS_TD, TxClk_i, TxD_o: STD_LOGIC;
 	
 	signal fnFlag, roundtripFlag, PrtFlag, collectFlag: STD_LOGIC;
 	

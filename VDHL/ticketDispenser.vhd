@@ -24,6 +24,7 @@ component DECODERHEX
 end component;
 
 signal RTtoBDC: STD_LOGIC_VECTOR(3 downto 0);
+signal notPrint: STD_LOGIC;
 
 begin
 
@@ -32,6 +33,7 @@ begin
 	
 	-- Convert RT bit to BDC
 	RTtoBDC <= "0000" when RT = '1' else "0001";
+	notPrint	<= not Prt;
 	
 	-- Using the six 7 segment displays available on the MAX10 Lite Board
 	-- produce a valid array of numbers and letters which the client can understand
@@ -41,7 +43,7 @@ begin
 	U0: DECODERHEX port map (
 		A => D,
 		ewr => "11111111",
-		clear => not Prt,
+		clear => notPrint,
 		HEX0 => HEX4 );
 		
 	U1: DECODERHEX port map (
@@ -54,7 +56,7 @@ begin
 	U2: DECODERHEX port map (
 		A => O,
 		ewr => "11111111",
-		clear => not Prt,
+		clear => notPrint,
 		HEX0 => HEX2 );
 	
 	U3: DECODERHEX port map (
@@ -69,7 +71,7 @@ begin
 		-- RT bit in BDC
 		A => RTtoBDC,
 		ewr => "11111111",
-		clear => not Prt,
+		clear => notPrint,
 		HEX0 => HEX0 );
 	
 	U5: DECODERHEX port map (

@@ -1,35 +1,50 @@
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-- Project     : DE10-Lite 
+-- Affiliations: DEETC, ISEL - IPL
+-- Funding     : -
+-------------------------------------------------------------------------------
+-- File        : RAM.vhd
+-- Author(s)   : Pedro Miguens Matutino
+-- Date        : 2023/01/03
+-------------------------------------------------------------------------------
+-- Copyright (c) 2023 Pedro Miguens Matutino
+-------------------------------------------------------------------------------
+-- Description :
+-- .
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+use ieee.std_logic_arith.all;
 
+entity RAM is
+	generic(
+		ADDRESS_WIDTH : natural := 4;
+		DATA_WIDTH : natural := 4
+	);
+	port(
+		address : in std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
+		wr: in std_logic;
+		din: in std_logic_vector(DATA_WIDTH - 1 downto 0);
+		dout: out std_logic_vector(DATA_WIDTH - 1 downto 0)
+	);
+end RAM;
 
-ENTITY RandomAccessMemory IS
-    PORT (
-        clk_in, Wr:		in  std_logic;                         
-        Addr, dataIn: 	in  std_logic_vector(3 downto 0);      
-        dataOut:			out std_logic_vector(3 downto 0)      
-    );
-END RandomAccessMemory;
+architecture behavioral of RAM is
 
-ARCHITECTURE Behaviour OF RandomAccessMemory IS
-	 -- Definição do tipo para a memória: 16 posições de 4 bits [2]
-    type memory_t is array (0 to 15) of std_logic_vector(3 downto 0);
-    signal ram_block : memory_t;
-	 
-BEGIN
-	 -- Processo de Escrita Síncrona
-    process(clk_in)
-    begin
-        if rising_edge(clk_in) then
-            if Wr = '1' then
-                ram_block(to_integer(unsigned(Addr))) <= dataIn;
-            end if;
-        end if;
-    end process;
+	type RAM_TYPE is array (0 to 2**ADDRESS_WIDTH - 1) of std_logic_vector(DATA_WIDTH - 1 downto 0);
+	signal ram : RAM_TYPE;
 
-    -- Leitura Combinatória (Assíncrona)
-    -- O valor à saída atualiza mal o endereço addr mude
-    dataOut <= ram_block(to_integer(unsigned(Addr)));
-	
+begin
 
-END Behaviour;
+	process(address, wr)
+	begin
+		dout <= ram(conv_integer(unsigned(address)));
+
+		if (wr='1') then
+			ram(conv_integer(unsigned(address))) <= din;
+		end if;
+	end process;
+
+end behavioral;

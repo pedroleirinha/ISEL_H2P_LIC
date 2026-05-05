@@ -25,7 +25,7 @@ BEGIN
 	
 
 generateNextState:
-	process(Load, zeros, currState, nextState)
+	process(Load, zeros, currState)
 	begin
 	  nextState <= currState;
 	  
