@@ -1,6 +1,8 @@
 package org.example
 
 import org.example.KBD.NONE
+import org.example.TUI.nextStation
+import org.example.TUI.previousStation
 
 fun main() {
 
@@ -11,7 +13,14 @@ fun main() {
         if (key != NONE) {
             when (key) {
                 '#' -> TUI.sellTicket()
-                else -> LCD.write(c = key)
+                '*' -> {
+                    if (TUI.beginSellingProcess) {
+                        TUI.toggleRoundTrip()
+                    }
+                }
+                'A' -> nextStation()
+                'B' -> previousStation()
+                else -> TUI.pickStation(key)
             }
         }
     }

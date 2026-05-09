@@ -1,6 +1,9 @@
 package org.example
 
+import isel.leic.utils.Time
+
 object TicketDispenser {
+    var lastBit = false
 
     fun init() {
         SerialEmitter.init()
@@ -14,13 +17,17 @@ object TicketDispenser {
 
         val data = "${prt}${originBits}${destinationBits}${roundTripBit}".toInt(2)
 
-
-        HAL.clrBits(mask = 0b00001000)
         SerialEmitter.send(SerialEmitter.Peripheral.TICKET, data)
-        HAL.setBits(mask = 0b00001000)
     }
 
-    fun collectPrint() {
-        HAL.writeBits(0b00010000, 1)
+
+    fun isTicketCollected(): Boolean {
+        val bit = HAL.isBit(0b00010000)
+
+        if (!bit && lastBit) {
+            return true
+        }
+        lastBit = bit
+        return false
     }
 }

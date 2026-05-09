@@ -1,35 +1,81 @@
 package org.example
 
-import isel.leic.UsbPort
 import isel.leic.utils.Time
 import org.example.KBD.NONE
 import org.example.TicketDispenser.activatePrintingTicket
+import org.example.TicketDispenser.isTicketCollected
 import java.io.BufferedReader
 import java.io.FileReader
+import java.util.*
 import kotlin.math.roundToInt
 
 data class Station(
     val code: Int,
     val name: String,
     val distance: Int,
-    val price: Int = 0
+    val price: Int
 )
 
 object TUI {
     var firstKey = true
+
+    var beginSellingProcess = false
+
     val stations = mutableListOf<Station>()
     var stationCount = 0
     var originStation: Station? = null
     var destStation: Station? = null
-    var roundTrip = false
+    var roundTrip = true
+
+    fun pickStation(key: Char) {
+        if (key.isDigit()) {
+            stationCount = key.digitToInt()
+            if (originStation == null) {
+                originStation = stations[key.digitToInt()]
+                printStation()
+            } else {
+                destStation = stations[key.digitToInt()]
+                printStation()
+            }
+        }
+    }
+
+    fun toggleRoundTrip() {
+        roundTrip = !roundTrip
+        printStation()
+    }
+
+    fun printStation() {
+        val station = stations[stationCount]
+        LCD.clear()
+
+        val stationNumber = (station.code - 1).toString().padStart(2, '0')
+        val tripIcon = "${0.toChar()}${if (roundTrip) 1.toChar() else ""}"
+
+        var price = station.price.toDouble()
+
+        showMessageCenterAlign(station.name)
+        if (beginSellingProcess) {
+            showMessageLeftAlign(tripIcon, 1)
+            if (roundTrip) {
+                price *= 2
+            }
+
+        } else {
+            showMessageLeftAlign("$stationNumber$tripIcon", 1)
+        }
+        val priceText = (price / 100).toString().padEnd(4, '0')
+        showMessageRightAlign("$priceText${3.toChar()}", 1)
+    }
 
     fun readStations() {
         var stationCounter = 1
         BufferedReader(FileReader("stations.csv"))
             .forEachLine {
                 val info = it.split(";")
-                stations.add(Station(stationCounter++, info[2], info[0].toInt()))
+                stations.add(Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt()))
             }
+        println(stations.toString())
     }
 
     fun askQuestion(message: String) {
@@ -47,12 +93,10 @@ object TUI {
         return key == '*'
     }
 
-    fun sellTicket() {
-        askQuestion("Ida e Volta")
-        showMessageLeftAlign("S - * | N - #", 1)
-        roundTrip = yesOrNoAnwser()
 
-        pickFromStationsList()
+    fun sellTicket() {
+        beginSellingProcess = true
+        printStation()
     }
 
     fun showStation() {
@@ -75,13 +119,13 @@ object TUI {
     }
 
     fun nextStation() {
-        stationCount++
-        showStation()
+        stationCount = ++stationCount % stations.size
+        printStation()
     }
 
     fun previousStation() {
         stationCount = if (stationCount > 0) stationCount - 1 else stations.size - 1
-        showStation()
+        printStation()
     }
 
     fun startUpLcd() {
@@ -89,9 +133,30 @@ object TUI {
         showWelcomeMessage()
     }
 
-    fun showWelcomeMessage() {
+    fun showWelcomeMessageV2() {
         showMessageCenterAlign(message = "Welcome to")
         showMessageCenterAlign(message = "Matosinhos ${2.toChar()}", line = 1)
+    }
+
+    fun getDateTime(): String {
+        val cal = Calendar.getInstance()
+
+        val day = "${cal.get(Calendar.DAY_OF_MONTH)}".padStart(2, '0')
+        val month = "${cal.get(Calendar.MONTH) + 1}".padStart(2, '0')
+        val year = "${cal.get(Calendar.YEAR)}".padStart(2, '0')
+
+        val hour = "${cal.get(Calendar.HOUR_OF_DAY)}".padStart(2, '0')
+        val minute = "${cal.get(Calendar.MINUTE)}".padStart(2, '0')
+
+        val date = "${day}/${month}/${year}"
+        val time = "${hour}:${minute}"
+
+        return "$date $time"
+    }
+
+    fun showWelcomeMessage() {
+        showMessageCenterAlign(message = "Ticket To Ride")
+        showMessageCenterAlign(message = getDateTime(), line = 1)
     }
 
     fun showMessageRightAlign(message: String, line: Int = 0) {
@@ -138,10 +203,8 @@ object TUI {
         submitTicket()
         LCD.clear()
         showMessageLeftAlign(message = "Retire o bilhete!")
-        while (!HAL.isBit(0b00010000)) {
-            Time.sleep(1000)
-        }
         Time.sleep(1000)
+        isTicketCollected()
         LCD.clear()
         showMessageLeftAlign(message = "Coletado")
         Time.sleep(2000)

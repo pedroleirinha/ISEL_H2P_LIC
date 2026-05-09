@@ -1,6 +1,5 @@
 package org.example
 
-import isel.leic.simul.module.LCD
 import isel.leic.utils.Time
 
 // Escreve no LCD usando a interface a 8 bits.
@@ -103,19 +102,27 @@ object LCD {
         }
     }
 
-    fun drawSmile(){
+    fun drawSmile() {
         val data = arrayOf(0, 10, 10, 0, 17, 14, 0, 0)
         writeCMD(0x50)
         data.forEach {
             writeDATA(it)
         }
+    }
 
+    fun drawEuro() {
+        val data = arrayOf(6, 9, 30, 8, 30, 9, 6, 0)
+        writeCMD(0x58)
+        data.forEach {
+            writeDATA(it)
+        }
     }
 
     fun drawCustomIcons() {
         drawArrowUp()
         drawArrowDown()
         drawSmile()
+        drawEuro()
     }
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)

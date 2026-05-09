@@ -78,9 +78,6 @@ object SerialReceiver {
         return bits.reversed().toInt(2)
     }
 
-    fun validateSequence(bits: Int, mask: Int, valueRef: Int): Boolean {
-        return (bits and mask) == valueRef
-    }
 
     // Retorna informação se o periférico está ocupado
     // É suposto indicar se a emissão foi concluida verificando o bit final no inputport
