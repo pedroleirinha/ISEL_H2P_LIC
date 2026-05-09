@@ -6,7 +6,7 @@ ENTITY KeyTransmitter IS
 		CLK ,TxClk, Load, CLEAR:IN std_logic;
 		D:		 						IN std_logic_vector(3 downto 0);
 		TxD, KbFree:				OUT std_logic;
-		state:					OUT std_logic_vector(6 downto 0)
+		state:					OUT std_logic_vector(7 downto 0)
 	);
 END KeyTransmitter;
 
@@ -17,14 +17,14 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 			CLK, CE, PL, CLEAR: 	IN std_logic;
 			D: 						IN std_logic_vector(3 downto 0);
 			Q, zeros:				OUT std_logic;
-			state:					OUT std_logic_vector(6 downto 0)
+			state:					OUT std_logic_vector(7 downto 0)
 		);
 	end component;
 	
 	component KeyTransmitterControl
 		PORT(
 			clk_in, Load, CLEAR, CE, zeros: IN std_logic;
-			kbFree, startSignal, shiftEnable, PL: OUT std_logic
+			kbFree, shiftEnable, PL: OUT std_logic
 		);
 	end component;
 	
@@ -41,11 +41,10 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 	
 BEGIN
 
-	clkSelect <= shiftEnable OR PL;
 	clkMux: MUX2_1L1 port map(
-		A 		=> CLK,
-		B		=> TxClk,
-		S		=> shiftEnable,
+		A 		=> TxClk,
+		B		=> CLK,
+		S		=> PL,
 		Y		=> shiftClk 
 	);
 	
@@ -68,7 +67,6 @@ BEGIN
 		zeros			=> errorZeros,
 		CLEAR			=> CLEAR,
 		kbFree 		=> signalFree,
-		startSignal => startSignal,
 		shiftEnable	=> shiftEnable,
 		PL				=> PL
 	);
@@ -79,16 +77,9 @@ BEGIN
 		A 		=> '1',
 		B		=> shiftBit,
 		S		=> shiftEnable,
-		Y		=> TxDTtemp  
+		Y		=> TxDFinal  
 	);
-	
-	notStartSignal <= NOT startSignal;
-	mux2: MUX2_1L1 port map(
-		A 		=> TxDTtemp,
-		B		=> notStartSignal,
-		S		=> startSignal,
-		Y		=> TxDFinal 
-	);
+
 	
 	TxD <= TxDFinal;
 	

@@ -16,23 +16,23 @@ ARCHITECTURE Behaviour OF RingBuffer IS
 		PORT(
 			clk_in, putGet, CLEAR, incPut, incGet: IN std_logic;
 			Q:		 											OUT std_logic_vector(3 downto 0);
-			full, empty:										OUT std_logic
+			full, empty:									OUT std_logic
 		);
 	END component;
 	
 	
 	component RingBufferControl
 		PORT(
-			clk_in, DAV, CTS, full, empty: 			IN std_logic;
+			clk_in, DAV, CTS, full, empty, CLEAR:	IN std_logic;
 			Wreg, DAC, Wr, selPG, incPut, incGet:	OUT std_logic
 		);
 	END component;
 
-	component RandomAccessMemory
+	component RAM
 		PORT(
-			clk_in, Wr:		in  std_logic;                         
-			Addr, dataIn: 	in  std_logic_vector(3 downto 0);      
-			dataOut:			out std_logic_vector(3 downto 0)  
+			wr:		in  std_logic;                         
+			address, din: 	in  std_logic_vector(3 downto 0);      
+			dout:			out std_logic_vector(3 downto 0)  
 		);
 	END component;
 	
@@ -52,7 +52,8 @@ BEGIN
 		Wr			=>		writeRegister,
 		selPG		=>		selPG,
 		incPut	=> 	incPut,
-		incGet   =>		incGet
+		incGet   =>		incGet,
+		CLEAR		=>		CLEAR
 	);
 	
 	mac: MemoryAddressControl port map(
@@ -67,13 +68,14 @@ BEGIN
 	
 	);
 	
-	ram: RandomAccessMemory port map(
-		clk_in	=>		clk_in,
-		Wr			=>		writeRegister,
-		Addr		=>		ramAddr,
-		dataIn	=>		D,
-		dataOut	=>		Q
+	ram1: RAM port map(
+		wr			=>		writeRegister,
+		address	=>		ramAddr,
+		din		=>		D,
+		dout		=>		Q
 	);
+	
+	
 	
 	
 

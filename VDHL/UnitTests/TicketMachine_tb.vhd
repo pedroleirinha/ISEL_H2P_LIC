@@ -15,7 +15,7 @@ architecture TicketMachine_tb_arch of TicketMachine_tb is
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
 		K: 											OUT std_logic_vector (3 downto 0);
 		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
-		state:										OUT std_logic_vector(6 downto 0)
+		state:										OUT std_logic_vector(7 downto 0)
 	);
 	end component;
 
@@ -24,7 +24,7 @@ architecture TicketMachine_tb_arch of TicketMachine_tb is
 	signal LCD_RS_TB, LCD_EN_TB, CLEAR_TB, KVAL_TB, KACK_TB, COLLECT_TICKET_TB: std_logic;
 	signal HEX0_TB, HEX1_TB, HEX2_TB, HEX3_TB, HEX4_TB, HEX5_TB: STD_LOGIC_VECTOR(7 downto 0);
 
-	signal STATE_TB: std_logic_vector(6 downto 0);
+	signal STATE_TB: std_logic_vector(7 downto 0);
 	signal COLS_TB, K_TB, ROWS_TB  : std_logic_vector(3 downto 0);
 	signal LCD_DATA_TB, OUTPUT_TB  : std_logic_vector(7 downto 0);
 
@@ -72,37 +72,15 @@ begin
 	ROWS_TB <= "1101";            -- linha 3 ativa
 	wait for CLK_PERIOD * 5;
 	ROWS_TB <= "1111";
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD * 7;
 	
 	-- Começa o TxCLK
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
+	for i in 0 to 9 loop
+		OUTPUT_TB(7)	<= '1';
+		wait for CLK_PERIOD; 
+		OUTPUT_TB(7)	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo
+	end loop;
 	-- FIM DO TXCLK
 	
 	
@@ -112,37 +90,15 @@ begin
 	ROWS_TB <= "1011";            -- linha 3 ativa
 	wait for CLK_PERIOD * 5;
 	ROWS_TB <= "1111";
-	wait for CLK_PERIOD * 2;
+	wait for CLK_PERIOD * 7;
 	
 	-- Começa o TxCLK
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '1';
-	wait for CLK_PERIOD;
-	OUTPUT_TB(1) <= '0';
-	wait for CLK_PERIOD;
+	for i in 0 to 9 loop
+		OUTPUT_TB(7)	<= '1';
+		wait for CLK_PERIOD; 
+		OUTPUT_TB(7)	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo
+	end loop;
 	-- FIM DO TXCLK	
 	
 	wait;

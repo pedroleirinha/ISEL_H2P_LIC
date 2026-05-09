@@ -1,15 +1,15 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-ENTITY MUX2_1L7 IS
+ENTITY MUX2_1L8 IS
 	PORT(
-		A,B: IN std_logic_vector (6 downto 0);
+		A,B: IN std_logic_vector (7 downto 0);
 		S: IN std_logic;
-		Y: OUT std_logic_vector (6 downto 0)
+		Y: OUT std_logic_vector (7 downto 0)
 	);
-END MUX2_1L7;
+END MUX2_1L8;
 
-ARCHITECTURE Behaviour OF MUX2_1L7 IS
+ARCHITECTURE Behaviour OF MUX2_1L8 IS
 BEGIN
 	Y(0) <= (A(0) AND NOT S) OR (B(0) AND S);
 	Y(1) <= (A(1) AND NOT S) OR (B(1) AND S);
@@ -18,5 +18,6 @@ BEGIN
 	Y(4) <= (A(4) AND NOT S) OR (B(4) AND S);
 	Y(5) <= (A(5) AND NOT S) OR (B(5) AND S);
 	Y(6) <= (A(6) AND NOT S) OR (B(6) AND S);
+	Y(7) <= (A(7) AND NOT S) OR (B(7) AND S);
 	
 END Behaviour;

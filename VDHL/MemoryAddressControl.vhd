@@ -11,36 +11,101 @@ END MemoryAddressControl;
 
 ARCHITECTURE Behaviour OF MemoryAddressControl IS
 
-	component RegistryL4 
+	
+	component Counter
 		PORT(	
-			D: IN std_logic_vector (3 downto 0);
-			clk_in, CE, CLEAR: IN std_logic;
+			clk_in, CE, CLEAR, PL: IN std_logic;
+			initial, step: IN std_logic_vector (3 downto 0);
 			Q: OUT std_logic_vector (3 downto 0)
 		);
 	end component;
 	
-	signal putIndex, getIndex: std_logic_vector(3 downto 0);
+	component MUX2_1L4
+		PORT(
+			A, B: IN std_logic_vector(3 downto 0);
+			S: IN std_logic;
+			Y: OUT std_logic_vector(3 downto 0)
+		);
+	end component;
+	
+	component FFD 
+		PORT(	
+			CLK : in std_logic;
+			RESET : in STD_LOGIC;
+			SET : in std_logic;
+			D : IN STD_LOGIC;
+			EN : IN STD_LOGIC;
+			Q : out std_logic
+		);
+	end component;
+	
+	component Adder
+		PORT(	
+			A,B: IN std_logic_vector (3 downto 0);
+			C0: IN std_logic;
+			S: OUT std_logic_vector (3 downto 0);
+			C4: OUT std_logic
+		);
+	end component;
+	
+	signal putIndex, getIndex, invertedPutIndex, subtractorRes: std_logic_vector(3 downto 0);
+	signal getFlag, lastActionFlag, pointersEqual, latchReset: std_logic;
 	
 BEGIN
-	
-	
-	putReg: RegistryL4 port map(
-		clk_in => clk_in,
-		CLEAR  => CLEAR,
-		D => putIndex(3 downto 0),
-		CE => putGet,
-		Q => putIndex(3 downto 0)
+
+	latchReset <= incGet OR CLEAR;
+
+	SRlatch: FFD port map(
+		CLK		=> '0',
+		EN 		=> '1', 
+		RESET		=> latchReset	, 
+		SET		=> incPut, 
+		D			=> '0',
+		Q			=> lastActionFlag
 	);
 	
-	
-	getReg: RegistryL4 port map(
-		clk_in => clk_in,
-		CLEAR  => CLEAR,
-		D => getIndex(3 downto 0),
-		CE => NOT putGet,
-		Q => getIndex(3 downto 0)
+	contPut: Counter port map(
+		clk_in 	=> clk_in, 
+		CE 		=> incPut, 
+		CLEAR		=> CLEAR, 
+		PL			=> '0', 
+		initial	=> "0000",
+		step		=> "0001",
+		Q			=> putIndex
+	);
+		
+	contGet: Counter port map(
+		clk_in 	=> clk_in, 
+		CE 		=> incGet, 
+		CLEAR		=> CLEAR, 
+		PL			=> '0', 
+		initial	=> "0000",
+		step		=> "0001",
+		Q			=> getIndex
 	);
 	
+	muxPL: MUX2_1L4 port map(
+		A			=> getIndex,
+		B			=> putIndex,
+		S			=> putGet,
+		Y			=> Q
+	);
+	
+	invertedPutIndex <= NOT putIndex(3) & NOT putIndex(2) & NOT putIndex(1) & NOT putIndex(0);
+	
+	adder1: Adder port map(
+		A => invertedPutIndex,
+		B => getIndex,
+		C0 => '1',
+		S => subtractorRes
+	);
+	
+	pointersEqual	<= NOT subtractorRes(3) AND NOT subtractorRes(2) 
+							AND NOT subtractorRes(1) AND NOT subtractorRes(0);
+	
+	full <= pointersEqual AND lastActionFlag;
+	
+	empty <= pointersEqual AND NOT lastActionFlag;
 	
 	
 

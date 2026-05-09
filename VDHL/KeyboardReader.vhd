@@ -8,7 +8,7 @@ ENTITY KeyboardReader IS
 		cols: 								OUT std_logic_vector(3 downto 0);
 		K: 									OUT std_logic_vector (3 downto 0);
 		Kval, TxD, KbFree:				OUT std_logic;
-		state:								OUT std_logic_vector(6 downto 0)
+		state:								OUT std_logic_vector(7 downto 0)
 	);
 END KeyboardReader;
 
@@ -37,18 +37,18 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 			CLK, TxClk, Load, CLEAR:IN std_logic;
 			D:		 						IN std_logic_vector(3 downto 0);
 			TxD, KbFree:				OUT std_logic;
-			state:					OUT std_logic_vector(6 downto 0)
+			state:					OUT std_logic_vector(7 downto 0)
 		);
 	end component;
 	
-	signal DAV, CTS, DAC, Wreg, KbFreeSignal, Kvalue: std_logic;
-	signal bufferD: std_logic_vector(3 downto 0);
+	signal DAC, Wreg, KbFreeSignal, Kvalue: std_logic;
+	signal bufferD, ringQ: std_logic_vector(3 downto 0);
 	
 BEGIN
 	
 	scan: KeyDecode port map(
 		clk_in 	=> clk_in,
-		Kack 		=> KbFreeSignal,
+		Kack 		=> DAC,
 		CLEAR 	=> CLEAR,
 		rows 		=> rows,		
 		cols 		=> cols,	
@@ -59,7 +59,7 @@ BEGIN
 	transmitter: KeyTransmitter port map(
 		CLK		=> clk_in,
 		TxClk 	=> TxClk,
-		Load 		=> Kvalue,
+		Load 		=> Wreg,
 		CLEAR 	=> CLEAR,
 		D 			=> bufferD,		
 		TxD 		=> TxD,	
@@ -67,21 +67,20 @@ BEGIN
 		state 	=> state
 	);
 	
-	KbFree <= KbFreeSignal;
-	
+	KbFree 	<= KbFreeSignal;
 		
---	ringBuffer1: RingBuffer port map(
---		clk_in 	=> clk_in,
---		DAV 		=> DAV,
---		CTS 		=> CTS,
---		CLEAR 	=> CLEAR,		
---		D 			=> bufferD,	
---		Q 			=> K,		
---		Wreg 		=>	Wreg,
---		DAC		=> DAC
---	);
+   ringBuffer1: RingBuffer port map(
+		clk_in 	=> clk_in,
+		DAV 		=> Kvalue,
+		CTS 		=> KbFreeSignal,
+		CLEAR 	=> CLEAR,		
+		D 			=> bufferD,	
+		Q 			=> ringQ,		
+		Wreg 		=>	Wreg,
+		DAC		=> DAC
+	);
 	
-	K 		<= bufferD;
+	K 		<= ringQ;
 	Kval 	<= Kvalue;
 
 

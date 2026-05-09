@@ -7,11 +7,11 @@ ENTITY TicketMachine IS
 		KEYPAD_LIN: 								IN std_logic_vector(3 downto 0);
 		output:										IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
-		LCD_EN, LCD_RS, Kval:					OUT std_logic; 
+		LCD_EN, LCD_RS, Kval, KbFree:			OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
-		K: 											OUT std_logic_vector (3 downto 0);
+		K: 											OUT std_logic_vector(3 downto 0);
 		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
-		state:										OUT std_logic_vector(6 downto 0)
+		state:										OUT std_logic_vector(7 downto 0)
 	);
 	
 END TicketMachine;
@@ -31,8 +31,8 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 			rows: 								IN std_logic_vector(3 downto 0);
 			cols: 								OUT std_logic_vector(3 downto 0);
 			K: 									OUT std_logic_vector (3 downto 0);
-			Kval, TxD:							OUT std_logic;
-			state:								OUT std_logic_vector(6 downto 0)
+			Kval, TxD, KbFree:				OUT std_logic;
+			state:								OUT std_logic_vector(7 downto 0)
 		);
 	end component;
 	
@@ -109,9 +109,9 @@ BEGIN
 		K 			=> values,		
 		Kval 		=>	Kval_Decode,
 		TxD		=> TxD_o,
+		KbFree	=> KbFree,
 		state		=> state		
 	);
-	
 	
 	ticketDispenser: TICKET_DISPENSER port map(
 		Prt 				=> PrtFlag,
@@ -127,13 +127,13 @@ BEGIN
 		HEX4    			=> HEX4,
 		HEX5    			=> HEX5
 	);
-			
---	UsbPort1: UsbPort port map(
---		inputPort	=> input,
---		outputPort	=> output
---	);
 	
---	input <= Kval_Decode & "000000" & TxD_o;
+	--UsbPort1: UsbPort port map(
+		--inputPort	=> input,
+		--outputPort	=> output
+	--);
+	
+	input <= Kval_Decode & "000000" & TxD_o;
    --input <= Kval_Decode & "000" & values;
 	
 	
@@ -150,7 +150,7 @@ BEGIN
 	
 
 	-- Info for KeyTransmitter
-	TxClk_i 	<= output(1);
+	TxClk_i 	<= output(7);
 	
 	
 	-- Info for Serial Receiver

@@ -2,13 +2,11 @@ package org.example
 
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialEmitter {
-    var busy = false
-
     enum class Peripheral { LCD, TICKET }
 
     // Inicia a classe
     fun init() {
-        busy = false
+
     }
 
     fun sendInSerie(data: Int) {
@@ -18,7 +16,7 @@ object SerialEmitter {
        * O BIT (2) VAI SER O ENABLE DO PROCESSO [ACTIVE LOW].
        *
        * */
-        println("DADOS A ENVIAR: ${Integer.toBinaryString(data).padStart(10, '0').reversed()}")
+        //println("DADOS A ENVIAR: ${Integer.toBinaryString(data).padStart(10, '0').reversed()}")
         HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
         Integer.toBinaryString(data).padStart(10, '0')
             .reversed()
@@ -39,21 +37,17 @@ object SerialEmitter {
     }
 
     fun sendToLCD(data: Int) {
-        busy = true
-        println("\nDADOS PARA O LCD")
+        //println("\nDADOS PARA O LCD")
         sendInSerie(data)
-        println("CONCLUIDO (LCD)")
-        busy = false
+        //println("CONCLUIDO (LCD)")
     }
 
     fun sendToTD(data: Int) {
-        busy = true
-        println("\nDADOS PARA O TICKET DISPENSER")
+        //println("\nDADOS PARA O TICKET DISPENSER")
         sendInSerie(data)
         //ATIVA O ÚLTIMO BIT PARA SINALIZAR QUE TERMINOU A IMPRESSAO
         HAL.setBits(0b01000000)
-        println("CONCLUIDO (TD)")
-        busy = false
+        //println("CONCLUIDO (TD)")
     }
 
     // Envia um a trama para o Serial Receiver
@@ -61,7 +55,6 @@ object SerialEmitter {
     // os bits de dados em 'data'
     // e em 'size' o número de bits a enviar.
     fun send(addr: Peripheral, data: Int) {
-        if (isBusy()) return
         when (addr) {
             Peripheral.LCD -> sendToLCD(data)
             Peripheral.TICKET -> sendToTD(data)
@@ -70,6 +63,6 @@ object SerialEmitter {
 
     // Retorna informação se o periférico está ocupado
     fun isBusy(): Boolean {
-        return busy
+        return !HAL.isBit(0b10000000)
     }
 }

@@ -19,4 +19,8 @@ object TicketDispenser {
         SerialEmitter.send(SerialEmitter.Peripheral.TICKET, data)
         HAL.setBits(mask = 0b00001000)
     }
+
+    fun collectPrint() {
+        HAL.writeBits(0b00010000, 1)
+    }
 }

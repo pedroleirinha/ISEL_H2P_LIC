@@ -157,7 +157,7 @@ object TUI {
     }
 
     fun readKey(): Char {
-        println(Integer.toBinaryString(UsbPort.read()).padStart(8, '0'))
+        //println(Integer.toBinaryString(UsbPort.read()).padStart(8, '0'))
         val key = KBD.waitKey(timeout = 6000)
         if (key != NONE) {
             if (firstKey) {

@@ -8,7 +8,7 @@ PORT(	CLK : in std_logic;
 		D : IN STD_LOGIC;
 		EN : IN STD_LOGIC;
 		Q : out std_logic
-		);
+	);
 END FFD;
 
 ARCHITECTURE logicFunction OF FFD IS
