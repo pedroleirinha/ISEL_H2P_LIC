@@ -47,6 +47,7 @@ object KBD {
                 println("KEY: $key pressed")
                 return key
             }
+            if (CoinAcceptor.checkForCoin()) return NONE
         }
         println("NO KEY PRESS")
         return NONE

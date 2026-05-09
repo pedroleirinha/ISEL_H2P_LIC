@@ -10,14 +10,25 @@ fun main() {
     while (true) {
 
         val key = TUI.readKey()
+        if (TUI.beginSellingProcess) {
+            CoinAcceptor.readCoin()
+        }
         if (key != NONE) {
             when (key) {
-                '#' -> TUI.sellTicket()
+                '#' -> {
+                    if (TUI.beginSellingProcess) {
+                        TUI.submitTicket()
+                    } else {
+                        TUI.sellTicket()
+                    }
+                }
+
                 '*' -> {
                     if (TUI.beginSellingProcess) {
                         TUI.toggleRoundTrip()
                     }
                 }
+
                 'A' -> nextStation()
                 'B' -> previousStation()
                 else -> TUI.pickStation(key)

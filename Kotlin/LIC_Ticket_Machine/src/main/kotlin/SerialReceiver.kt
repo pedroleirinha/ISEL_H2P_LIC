@@ -34,12 +34,10 @@ object SerialReceiver {
 
     fun emitTxClkUp() {
         HAL.setBits(mask = 0b10000000)
-        Time.sleep(10)
     }
 
     fun emitTxClkDown() {
         HAL.clrBits(mask = 0b10000000)
-        Time.sleep(10)
     }
 
     fun emitTxClkCycle(){

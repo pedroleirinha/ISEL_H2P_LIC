@@ -1,42 +1,51 @@
 package org.example
 
 import isel.leic.utils.Time
+import org.example.CoinAcceptor.totalAddedCoinsValue
 import org.example.KBD.NONE
 import org.example.TicketDispenser.activatePrintingTicket
 import org.example.TicketDispenser.isTicketCollected
-import java.io.BufferedReader
-import java.io.FileReader
 import java.util.*
 import kotlin.math.roundToInt
 
-data class Station(
-    val code: Int,
-    val name: String,
-    val distance: Int,
-    val price: Int
-)
+enum class TicketMachineState {
+    PICK_STATION,
+    PAYMENT,
+    TICKET
+}
+
+enum class ICONS(val code: Char) {
+    ARROW_UP(0.toChar()),
+    ARROW_DOWN(1.toChar()),
+    EURO(3.toChar()),
+    SMILE(2.toChar()),
+}
 
 object TUI {
+
     var firstKey = true
-
     var beginSellingProcess = false
+    var roundTrip = false
 
-    val stations = mutableListOf<Station>()
-    var stationCount = 0
-    var originStation: Station? = null
-    var destStation: Station? = null
-    var roundTrip = true
+
+    fun init() {
+        HAL.init()
+        KBD.init()
+        TicketDispenser.init()
+        startUpLcd()
+        Stations.init()
+    }
 
     fun pickStation(key: Char) {
         if (key.isDigit()) {
-            stationCount = key.digitToInt()
-            if (originStation == null) {
-                originStation = stations[key.digitToInt()]
-                printStation()
+            val keyNumber = key.digitToInt()
+            Stations.stationCount = keyNumber
+            if (Stations.originStation == null) {
+                Stations.setOriginStation(keyNumber)
             } else {
-                destStation = stations[key.digitToInt()]
-                printStation()
+                Stations.setDestinationStation(keyNumber)
             }
+            printStation()
         }
     }
 
@@ -46,12 +55,11 @@ object TUI {
     }
 
     fun printStation() {
-        val station = stations[stationCount]
+        val station = Stations.getCurrentStation()
         LCD.clear()
 
         val stationNumber = (station.code - 1).toString().padStart(2, '0')
-        val tripIcon = "${0.toChar()}${if (roundTrip) 1.toChar() else ""}"
-
+        val tripIcon = "${ICONS.ARROW_UP.code}${if (roundTrip) ICONS.ARROW_DOWN.code else ""}"
         var price = station.price.toDouble()
 
         showMessageCenterAlign(station.name)
@@ -62,21 +70,12 @@ object TUI {
             }
 
         } else {
-            showMessageLeftAlign("$stationNumber$tripIcon", 1)
+            showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
         }
-        val priceText = (price / 100).toString().padEnd(4, '0')
-        showMessageRightAlign("$priceText${3.toChar()}", 1)
+        val priceText = ((price - totalAddedCoinsValue()) / 100).toString().padEnd(4, '0')
+        showMessageRightAlign("$priceText${ICONS.EURO.code}", 1)
     }
 
-    fun readStations() {
-        var stationCounter = 1
-        BufferedReader(FileReader("stations.csv"))
-            .forEachLine {
-                val info = it.split(";")
-                stations.add(Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt()))
-            }
-        println(stations.toString())
-    }
 
     fun askQuestion(message: String) {
         LCD.clear()
@@ -102,29 +101,18 @@ object TUI {
     fun showStation() {
         LCD.clear()
         showMessageLeftAlign(message = "Destino:")
-        showMessageRightAlign(message = "A${0.toChar()} e B${1.toChar()}")
-        stationCount %= stations.size
-        showMessageCenterAlign(message = stations[stationCount].name, 1)
+        showMessageRightAlign(message = "A${ICONS.ARROW_UP} e B${ICONS.ARROW_DOWN}")
+        showMessageCenterAlign(message = Stations.getCurrentStation().name, 1)
     }
 
-    fun init() {
-        HAL.init()
-        KBD.init()
-        TicketDispenser.init()
-
-        startUpLcd()
-        readStations()
-
-        HAL.clrBits(0xF)
-    }
 
     fun nextStation() {
-        stationCount = ++stationCount % stations.size
+        Stations.incrementStationsCount()
         printStation()
     }
 
     fun previousStation() {
-        stationCount = if (stationCount > 0) stationCount - 1 else stations.size - 1
+        Stations.decrementStationsCount()
         printStation()
     }
 
@@ -135,10 +123,10 @@ object TUI {
 
     fun showWelcomeMessageV2() {
         showMessageCenterAlign(message = "Welcome to")
-        showMessageCenterAlign(message = "Matosinhos ${2.toChar()}", line = 1)
+        showMessageCenterAlign(message = "Matosinhos ${ICONS.SMILE}", line = 1)
     }
 
-    fun getDateTime(): String {
+    fun getCurrentDateTimeString(): String {
         val cal = Calendar.getInstance()
 
         val day = "${cal.get(Calendar.DAY_OF_MONTH)}".padStart(2, '0')
@@ -156,7 +144,7 @@ object TUI {
 
     fun showWelcomeMessage() {
         showMessageCenterAlign(message = "Ticket To Ride")
-        showMessageCenterAlign(message = getDateTime(), line = 1)
+        showMessageCenterAlign(message = getCurrentDateTimeString(), line = 1)
     }
 
     fun showMessageRightAlign(message: String, line: Int = 0) {
@@ -191,11 +179,11 @@ object TUI {
             }
         } while (key != '#')
 
-        destStation = stations[stationCount]
+        Stations.setDestinationStation(Stations.stationCount)
 
         LCD.clear()
         showMessageLeftAlign(message = "Escolheu:")
-        showMessageLeftAlign(message = "${destStation?.name}", 1)
+        showMessageLeftAlign(message = "${Stations.destStation?.name}", 1)
         Time.sleep(2000)
         LCD.clear()
         HAL.clrBits(0b00010000)
@@ -213,14 +201,13 @@ object TUI {
 
     fun submitTicket() {
         activatePrintingTicket(
-            roundTrip = true,
-            origin = originStation?.code ?: 0,
-            destination = destStation?.code ?: 0
+            roundTrip = roundTrip,
+            origin = Stations.originStation?.code ?: 0,
+            destination = Stations.destStation?.code ?: 0
         )
     }
 
     fun readKey(): Char {
-        //println(Integer.toBinaryString(UsbPort.read()).padStart(8, '0'))
         val key = KBD.waitKey(timeout = 6000)
         if (key != NONE) {
             if (firstKey) {
