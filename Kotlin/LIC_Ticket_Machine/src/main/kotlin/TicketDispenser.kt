@@ -18,6 +18,17 @@ object TicketDispenser {
         val data = "${prt}${originBits}${destinationBits}${roundTripBit}".toInt(2)
 
         SerialEmitter.send(SerialEmitter.Peripheral.TICKET, data)
+
+        Time.sleep(1000)
+        collectTicket()
+    }
+
+
+    fun collectTicket() {
+        HAL.setBits(0b00010000)
+        Time.sleep(1000)
+        HAL.clrBits(0b00010000)
+        Time.sleep(1000)
     }
 
 

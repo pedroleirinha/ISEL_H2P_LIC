@@ -2,7 +2,6 @@ package org.example
 
 import isel.leic.utils.Time
 import org.example.CoinAcceptor.totalAddedCoinsValue
-import org.example.KBD.NONE
 import org.example.TicketDispenser.activatePrintingTicket
 import org.example.TicketDispenser.isTicketCollected
 import java.util.*
@@ -22,11 +21,8 @@ enum class ICONS(val code: Char) {
 }
 
 object TUI {
-
-    var firstKey = true
-    var beginSellingProcess = false
+    var state: TicketMachineState = TicketMachineState.PICK_STATION
     var roundTrip = false
-
 
     fun init() {
         HAL.init()
@@ -40,11 +36,8 @@ object TUI {
         if (key.isDigit()) {
             val keyNumber = key.digitToInt()
             Stations.stationCount = keyNumber
-            if (Stations.originStation == null) {
-                Stations.setOriginStation(keyNumber)
-            } else {
-                Stations.setDestinationStation(keyNumber)
-            }
+            Stations.setDestinationStation(keyNumber)
+            println("Destination set to ${Stations.getCurrentStation().name}")
             printStation()
         }
     }
@@ -58,24 +51,35 @@ object TUI {
         val station = Stations.getCurrentStation()
         LCD.clear()
 
-        val stationNumber = (station.code - 1).toString().padStart(2, '0')
-        val tripIcon = "${ICONS.ARROW_UP.code}${if (roundTrip) ICONS.ARROW_DOWN.code else ""}"
         var price = station.price.toDouble()
 
         showMessageCenterAlign(station.name)
-        if (beginSellingProcess) {
-            showMessageLeftAlign(tripIcon, 1)
-            if (roundTrip) {
-                price *= 2
-            }
 
-        } else {
-            showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
+        when (state) {
+            TicketMachineState.PICK_STATION -> showTicketStationNumber(station)
+            TicketMachineState.PAYMENT -> {
+                showTicketRoundTripInformation()
+                price *= if (roundTrip) 2 else 1
+            } else -> 1
         }
+
+        showTicketPrice(price)
+    }
+
+    fun showTicketStationNumber(station: Station) {
+        val stationNumber = (station.code - 1).toString().padStart(2, '0')
+        showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
+    }
+
+    fun showTicketRoundTripInformation() {
+        val tripIcon = "${ICONS.ARROW_UP.code}${if (roundTrip) ICONS.ARROW_DOWN.code else ""}"
+        showMessageLeftAlign(tripIcon, 1)
+    }
+
+    fun showTicketPrice(price: Double){
         val priceText = ((price - totalAddedCoinsValue()) / 100).toString().padEnd(4, '0')
         showMessageRightAlign("$priceText${ICONS.EURO.code}", 1)
     }
-
 
     fun askQuestion(message: String) {
         LCD.clear()
@@ -94,7 +98,7 @@ object TUI {
 
 
     fun sellTicket() {
-        beginSellingProcess = true
+        state = TicketMachineState.PAYMENT
         printStation()
     }
 
@@ -205,18 +209,13 @@ object TUI {
             origin = Stations.originStation?.code ?: 0,
             destination = Stations.destStation?.code ?: 0
         )
+        LCD.clear()
+        showMessageLeftAlign(message = "Imprimir Ticket")
+
     }
 
     fun readKey(): Char {
-        val key = KBD.waitKey(timeout = 6000)
-        if (key != NONE) {
-            if (firstKey) {
-                LCD.clear()
-                firstKey = false
-            }
-        }
-
-        return key
+        return KBD.waitKey(timeout = 6000)
     }
 }
 

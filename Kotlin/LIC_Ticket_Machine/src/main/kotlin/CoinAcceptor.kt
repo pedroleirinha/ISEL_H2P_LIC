@@ -6,8 +6,9 @@ import org.example.TUI.printStation
 object CoinAcceptor {
     val coins = arrayOf<Int>(5, 10, 20, 50, 100, 200)
 
-    fun totalAddedCoinsValue(): Int = if (coinsAdded.isNotEmpty()) coinsAdded.reduce { acc, d -> acc + d } else 0
+    fun totalAddedCoinsValue(): Int = coinsAdded.fold(0) { acc, coin -> acc + coin }
 
+    var safeDeposit = mutableListOf<Int>()
     var coinsAdded = mutableListOf<Int>()
 
     fun init() {
@@ -41,6 +42,15 @@ object CoinAcceptor {
     fun activateCollectCoins() {
         collectCoin()
         coinsAdded = mutableListOf()
+    }
+
+    fun transferTicketCoinsToSafe() {
+        safeDeposit.addAll(coinsAdded)
+        coinsAdded = mutableListOf()
+    }
+
+    fun isTicketPaymentCompleted(price: Int): Boolean {
+        return totalAddedCoinsValue() >= price
     }
 
     fun readCoin() {

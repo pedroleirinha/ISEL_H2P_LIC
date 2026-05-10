@@ -10,21 +10,35 @@ fun main() {
     while (true) {
 
         val key = TUI.readKey()
-        if (TUI.beginSellingProcess) {
-            CoinAcceptor.readCoin()
+
+        if (TUI.state == TicketMachineState.PAYMENT) {
+            if(CoinAcceptor.isTicketPaymentCompleted(Stations.getCurrentStation().price))
+            {
+                TUI.state = TicketMachineState.TICKET
+                TUI.submitTicket()
+                CoinAcceptor.transferTicketCoinsToSafe()
+            }else{
+                CoinAcceptor.readCoin()
+            }
         }
+
+        if (TicketDispenser.isTicketCollected()) {
+            println("Ticket Collected")
+        }
+
+
         if (key != NONE) {
             when (key) {
                 '#' -> {
-                    if (TUI.beginSellingProcess) {
-                        TUI.submitTicket()
-                    } else {
-                        TUI.sellTicket()
+                    when(TUI.state){
+                        TicketMachineState.PICK_STATION -> TUI.sellTicket()
+                        TicketMachineState.TICKET -> TUI.submitTicket()
+                        else ->TUI.sellTicket()
                     }
                 }
 
                 '*' -> {
-                    if (TUI.beginSellingProcess) {
+                    if (TUI.state == TicketMachineState.PAYMENT) {
                         TUI.toggleRoundTrip()
                     }
                 }
