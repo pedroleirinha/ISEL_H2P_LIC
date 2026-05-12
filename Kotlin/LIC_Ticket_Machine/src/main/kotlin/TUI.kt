@@ -1,17 +1,11 @@
 package org.example
 
-import isel.leic.utils.Time
 import org.example.CoinAcceptor.totalAddedCoinsValue
-import org.example.TicketDispenser.activatePrintingTicket
-import org.example.TicketDispenser.isTicketCollected
+import org.example.TicketMachine.TicketMachineState
+import org.example.TicketMachine.getTotalTicketPrice
 import java.util.*
+import kotlin.math.max
 import kotlin.math.roundToInt
-
-enum class TicketMachineState {
-    PICK_STATION,
-    PAYMENT,
-    TICKET
-}
 
 enum class ICONS(val code: Char) {
     ARROW_UP(0.toChar()),
@@ -21,49 +15,26 @@ enum class ICONS(val code: Char) {
 }
 
 object TUI {
-    var state: TicketMachineState = TicketMachineState.PICK_STATION
-    var roundTrip = false
 
     fun init() {
         HAL.init()
         KBD.init()
-        TicketDispenser.init()
         startUpLcd()
-        Stations.init()
     }
 
-    fun pickStation(key: Char) {
-        if (key.isDigit()) {
-            val keyNumber = key.digitToInt()
-            Stations.stationCount = keyNumber
-            Stations.setDestinationStation(keyNumber)
-            println("Destination set to ${Stations.getCurrentStation().name}")
-            printStation()
-        }
-    }
-
-    fun toggleRoundTrip() {
-        roundTrip = !roundTrip
-        printStation()
-    }
-
-    fun printStation() {
+    fun printStation(roundTrip: Boolean = false) {
         val station = Stations.getCurrentStation()
         LCD.clear()
 
-        var price = station.price.toDouble()
-
         showMessageCenterAlign(station.name)
 
-        when (state) {
+        when (TicketMachine.state) {
             TicketMachineState.PICK_STATION -> showTicketStationNumber(station)
-            TicketMachineState.PAYMENT -> {
-                showTicketRoundTripInformation()
-                price *= if (roundTrip) 2 else 1
-            } else -> 1
+            TicketMachineState.PAYMENT -> showTicketRoundTripInformation(roundTrip)
+            else -> 1
         }
 
-        showTicketPrice(price)
+        showTicketPrice(getTotalTicketPrice().toDouble())
     }
 
     fun showTicketStationNumber(station: Station) {
@@ -71,13 +42,14 @@ object TUI {
         showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
     }
 
-    fun showTicketRoundTripInformation() {
+    fun showTicketRoundTripInformation(roundTrip: Boolean) {
         val tripIcon = "${ICONS.ARROW_UP.code}${if (roundTrip) ICONS.ARROW_DOWN.code else ""}"
         showMessageLeftAlign(tripIcon, 1)
     }
 
-    fun showTicketPrice(price: Double){
-        val priceText = ((price - totalAddedCoinsValue()) / 100).toString().padEnd(4, '0')
+    fun showTicketPrice(price: Double) {
+        val newPrice = max((price - totalAddedCoinsValue()) / 100, 0.0)
+        val priceText = (newPrice).toString().padEnd(4, '0')
         showMessageRightAlign("$priceText${ICONS.EURO.code}", 1)
     }
 
@@ -96,28 +68,11 @@ object TUI {
         return key == '*'
     }
 
-
-    fun sellTicket() {
-        state = TicketMachineState.PAYMENT
-        printStation()
-    }
-
     fun showStation() {
         LCD.clear()
         showMessageLeftAlign(message = "Destino:")
         showMessageRightAlign(message = "A${ICONS.ARROW_UP} e B${ICONS.ARROW_DOWN}")
         showMessageCenterAlign(message = Stations.getCurrentStation().name, 1)
-    }
-
-
-    fun nextStation() {
-        Stations.incrementStationsCount()
-        printStation()
-    }
-
-    fun previousStation() {
-        Stations.decrementStationsCount()
-        printStation()
     }
 
     fun startUpLcd() {
@@ -178,41 +133,14 @@ object TUI {
             key = KBD.waitKey(timeout = 6000)
 
             when (key) {
-                'A' -> nextStation()
-                'B' -> previousStation()
+                'A' -> TicketMachine.nextStation()
+                'B' -> TicketMachine.previousStation()
             }
         } while (key != '#')
 
         Stations.setDestinationStation(Stations.stationCount)
-
-        LCD.clear()
-        showMessageLeftAlign(message = "Escolheu:")
-        showMessageLeftAlign(message = "${Stations.destStation?.name}", 1)
-        Time.sleep(2000)
-        LCD.clear()
-        HAL.clrBits(0b00010000)
-        showMessageLeftAlign(message = "Imprimir Ticket")
-        submitTicket()
-        LCD.clear()
-        showMessageLeftAlign(message = "Retire o bilhete!")
-        Time.sleep(1000)
-        isTicketCollected()
-        LCD.clear()
-        showMessageLeftAlign(message = "Coletado")
-        Time.sleep(2000)
-        LCD.clear()
     }
 
-    fun submitTicket() {
-        activatePrintingTicket(
-            roundTrip = roundTrip,
-            origin = Stations.originStation?.code ?: 0,
-            destination = Stations.destStation?.code ?: 0
-        )
-        LCD.clear()
-        showMessageLeftAlign(message = "Imprimir Ticket")
-
-    }
 
     fun readKey(): Char {
         return KBD.waitKey(timeout = 6000)

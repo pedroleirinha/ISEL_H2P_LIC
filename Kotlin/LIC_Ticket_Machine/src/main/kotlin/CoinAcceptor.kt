@@ -49,10 +49,6 @@ object CoinAcceptor {
         coinsAdded = mutableListOf()
     }
 
-    fun isTicketPaymentCompleted(price: Int): Boolean {
-        return totalAddedCoinsValue() >= price
-    }
-
     fun readCoin() {
         if (!checkForCoin()) return
 
