@@ -9,9 +9,8 @@ object SerialReceiver {
     fun init() {
     }
 
-    fun receiveKeyInSerie(bitsToReceive: Int): Int {
 
-        if (!checkFirstTransmissionBit()) return -1
+    fun receiveKeyInSerie(bitsToReceive: Int): Int {
 
         emitTxClkCycle()
 
@@ -21,15 +20,26 @@ object SerialReceiver {
         //return Integer.toBinaryString(bits).padStart(4, '0').toInt(2)
 
         println("\n" + Integer.toBinaryString(bits).padStart(4, '0').toInt(2) + "\n")
-        if (!checkLastTransmissionBit()) return -1
 
-        while (!retrieveTxD()) {
-            emitTxClkUp()
-            emitTxClkDown()
-
+        emitTxClkCycle()
+        if (checkLastTransmissionBit()) {
+            return Integer.toBinaryString(bits).toInt(2)
         }
 
-        return Integer.toBinaryString(bits).toInt(2)
+        var count = 0
+        for (i in 0 until 7) {
+            emitTxClkUp()
+            val txD = retrieveTxD()
+            emitTxClkDown()
+            if (txD) {
+                count++
+            }
+            if (count == 7) {
+                return -1
+            }
+        }
+
+        return -1
     }
 
     fun emitTxClkUp() {
@@ -40,9 +50,11 @@ object SerialReceiver {
         HAL.clrBits(mask = 0b10000000)
     }
 
-    fun emitTxClkCycle(){
+    fun emitTxClkCycle() {
         emitTxClkUp()
+        Time.sleep(100)
         emitTxClkDown()
+        Time.sleep(100)
     }
 
     fun retrieveTxD(): Boolean {
@@ -52,12 +64,10 @@ object SerialReceiver {
     }
 
     fun checkFirstTransmissionBit(): Boolean {
-        emitTxClkUp()
         return retrieveTxD()
     }
 
     fun checkLastTransmissionBit(): Boolean {
-        emitTxClkUp()
         return !retrieveTxD()
     }
 
