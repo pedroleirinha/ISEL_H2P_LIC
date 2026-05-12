@@ -12,7 +12,7 @@ object SerialReceiver {
 
     fun receiveKeyInSerie(bitsToReceive: Int): Int {
 
-        emitTxClkCycle()
+        //emitTxClkCycle()
 
         //Receive and concatenate all bits
         val bits = receiveInSerie(bitsToReceive)
