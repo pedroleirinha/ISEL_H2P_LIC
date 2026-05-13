@@ -63,9 +63,6 @@ begin
 	wait for CLK_PERIOD * 5;
 	ROWS_TB <= "1111";
 	
-
-	wait until KBFREE_TB = '0';
-	-- Key pressed
 	
 	for i in 0 to 9 loop
 		TXCLK_TB	<= '1';
@@ -84,8 +81,7 @@ begin
 	ROWS_TB <= "1011";            -- linha 3 ativa
 	wait for CLK_PERIOD * 2;
 	ROWS_TB <= "1111";
-	
-	wait until KBFREE_TB = '0';
+
 	
 	for i in 0 to 9 loop
 		TXCLK_TB	<= '1';
@@ -100,7 +96,6 @@ begin
 	wait for CLK_PERIOD * 5;
 	ROWS_TB <= "1111";
 	
-	wait until KBFREE_TB = '0';
 	
 	for i in 0 to 9 loop
 		TXCLK_TB	<= '1';

@@ -6,7 +6,7 @@ ENTITY KeyTransmitter IS
 		CLK ,TxClk, Load, CLEAR:IN std_logic;
 		D:		 						IN std_logic_vector(3 downto 0);
 		TxD, KbFree:				OUT std_logic;
-		state:					OUT std_logic_vector(7 downto 0)
+		state:						OUT std_logic_vector(7 downto 0)
 	);
 END KeyTransmitter;
 
@@ -36,7 +36,7 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 		);
 	end component;
 	
-	signal shiftClk, clkSelect, PL, errorZeros, startSignal, shiftEnable, shiftBit, TxDTtemp, TxDFinal, signalFree, notStartSignal: std_logic;
+	signal shiftClk, PL, errorZeros, shiftEnable, clkSelect, startSignal, shiftBit, TxDTtemp, TxDFinal, signalFree, notStartSignal: std_logic;
 	signal countValues, bufferK: std_logic_vector(3 downto 0);
 	
 BEGIN

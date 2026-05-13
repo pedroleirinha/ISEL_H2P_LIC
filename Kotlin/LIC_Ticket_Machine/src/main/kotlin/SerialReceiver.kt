@@ -1,7 +1,5 @@
 package org.example
 
-import isel.leic.utils.Time
-
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialReceiver {
 
@@ -12,7 +10,8 @@ object SerialReceiver {
 
     fun receiveKeyInSerie(bitsToReceive: Int): Int {
 
-        //emitTxClkCycle()
+        emitTxClkCycle()
+        if (!retrieveTxD()) return -1
 
         //Receive and concatenate all bits
         val bits = receiveInSerie(bitsToReceive)
@@ -52,9 +51,9 @@ object SerialReceiver {
 
     fun emitTxClkCycle() {
         emitTxClkUp()
-        Time.sleep(100)
+        //Time.sleep(100)
         emitTxClkDown()
-        Time.sleep(100)
+        //Time.sleep(100)
     }
 
     fun retrieveTxD(): Boolean {

@@ -1,25 +1,26 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity ShiftRegisterL4_tb is
+entity ShiftRegisterL7_tb is
 end entity;
 
-architecture behavioral of ShiftRegisterL4_tb is
+architecture behavioral of ShiftRegisterL7_tb is
 
     -- Componente a testar (UUT)
-    component ShiftRegisterL4 IS
+    component ShiftRegisterL7 IS
         PORT(
-            CLK, CE, PL, CLEAR:   IN std_logic;
-            D:                    IN std_logic_vector(3 downto 0);
-            Q:                    OUT std_logic
-        );
+				CLK, CE, PL, CLEAR: 	IN std_logic;
+				D: 						IN std_logic_vector(3 downto 0);
+				Q, zeros:				OUT std_logic;
+				state:					OUT std_logic_vector(7 downto 0)
+			);
     end component;
 
     -- Sinais internos para ligação à UUT
     signal CLK_TB: std_logic := '0'; 
-	 signal CE_TB, PL_TB, CLEAR_TB : std_logic;
+	 signal CE_TB, Q_TB, PL_TB, CLEAR_TB, ZEROS_TB : std_logic;
     signal D_TB : std_logic_vector(3 downto 0);
-    signal Q_TB : std_logic;
+    signal STATE_TB : std_logic_vector(7 downto 0);
 
 	constant MCLK_PERIOD : time := 20 ns;
 	constant MCLK_HALF_PERIOD : time := MCLK_PERIOD / 2;
@@ -29,13 +30,15 @@ begin
 
 	CLK_TB <= not CLK_TB after MCLK_HALF_PERIOD;		
 	-- Instanciação da Unit Under Test (UUT) [1]
-	UUT: ShiftRegisterL4 port map (
-		CLK => CLK_TB,
-		CE => CE_TB,
-		PL => PL_TB,
+	UUT: ShiftRegisterL7 port map (
+		CLK 	=> CLK_TB,
+		CE 	=> CE_TB,
+		PL 	=> PL_TB,
 		CLEAR => CLEAR_TB,
-		D => D_TB,
-		Q => Q_TB
+		D 		=> D_TB,
+		Q 		=> Q_TB,
+		zeros	=>	ZEROS_TB,
+		STATE => STATE_TB
 	);
 
 stimulus: process
@@ -58,11 +61,11 @@ begin
 	PL_TB <= '1'; -- Ativa carga paralela
 	wait for CLK_PERIOD;
 	PL_TB <= '0'; -- Passa para modo de deslocamento
-	wait for CLK_PERIOD * 6;
+	wait for CLK_PERIOD * 8;
 	CE_TB <= '0';
 	wait for CLK_PERIOD;
 	D_TB  <= "1111";
-	wait for CLK_PERIOD * 6;
+	wait for CLK_PERIOD * 8;
 	
 	
 	

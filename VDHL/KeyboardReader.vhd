@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 ENTITY KeyboardReader IS
 	PORT(
-		clk_in, CLEAR, TxClk: 	IN std_logic;
+		clk_in, CLEAR, TxClk: 			IN std_logic;
 		rows: 								IN std_logic_vector(3 downto 0);
 		cols: 								OUT std_logic_vector(3 downto 0);
 		K: 									OUT std_logic_vector (3 downto 0);
@@ -13,6 +13,14 @@ ENTITY KeyboardReader IS
 END KeyboardReader;
 
 ARCHITECTURE Behaviour OF KeyboardReader IS
+
+	component CLKDIV	
+		port ( 
+			clk_in: in std_logic;
+			clk_out: out std_logic
+		);
+	end component;
+	
 	component KeyDecode
 		PORT(
 			clk_in, Kack, CLEAR: 	IN std_logic;
@@ -37,17 +45,23 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 			CLK, TxClk, Load, CLEAR:IN std_logic;
 			D:		 						IN std_logic_vector(3 downto 0);
 			TxD, KbFree:				OUT std_logic;
-			state:					OUT std_logic_vector(7 downto 0)
+			state:						OUT std_logic_vector(7 downto 0)
 		);
 	end component;
 	
-	signal DAC, Wreg, KbFreeSignal, Kvalue: std_logic;
+	signal DAC, Wreg, KbFreeSignal, Kvalue, clock, kack: std_logic;
 	signal bufferD, ringQ: std_logic_vector(3 downto 0);
 	
 BEGIN
+
+
+	clock1: CLKDIV port map(
+		clk_in 	=> clk_in,
+		clk_out	=> clock
+	);
 	
 	scan: KeyDecode port map(
-		clk_in 	=> clk_in,
+		clk_in 	=> clock,
 		Kack 		=> DAC,
 		CLEAR 	=> CLEAR,
 		rows 		=> rows,		
@@ -61,7 +75,7 @@ BEGIN
 		TxClk 	=> TxClk,
 		Load 		=> Wreg,
 		CLEAR 	=> CLEAR,
-		D 			=> bufferD,		
+		D 			=> ringQ,		
 		TxD 		=> TxD,	
 		KbFree 	=> KbFreeSignal,
 		state 	=> state
@@ -80,7 +94,7 @@ BEGIN
 		DAC		=> DAC
 	);
 	
-	K 		<= ringQ;
+	K 		<= bufferD;
 	Kval 	<= Kvalue;
 
 

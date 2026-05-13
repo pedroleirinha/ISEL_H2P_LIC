@@ -10,7 +10,7 @@ END KeyTransmitterControl;
 
 ARCHITECTURE Behaviour OF KeyTransmitterControl IS
 
-	type STATE_TYPE is (STATE_IDLE, STATE_LOADING, STATE_TRANSMITTING, STATE_END_TRANSMISSION);
+	type STATE_TYPE is (STATE_IDLE, STATE_LOADING, STATE_START_TRANSMISSION, STATE_TRANSMITTING, STATE_END_TRANSMISSION);
 		
 	signal currState, nextState: STATE_TYPE;
 BEGIN
@@ -32,8 +32,10 @@ generateNextState:
 																nextState <= STATE_LOADING;  
 															end if;
 			when STATE_LOADING 				=> 	if(Load = '0') then 
-																nextState <= STATE_TRANSMITTING;  
+																nextState <= STATE_START_TRANSMISSION;  
 															end if;
+															
+			when STATE_START_TRANSMISSION	=> 	nextState <= STATE_TRANSMITTING;
 															
 			when STATE_TRANSMITTING 		=> 	if(zeros = '1') then 
 																nextState <= STATE_END_TRANSMISSION;  

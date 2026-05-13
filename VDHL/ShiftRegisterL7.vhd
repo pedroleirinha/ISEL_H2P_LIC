@@ -63,7 +63,7 @@ BEGIN
 	);
 	
 	
-	inputValueKey <= '1' & '0' & D(3 downto 0) & '1' & '0';
+	inputValueKey <= '1' & '0' & D(3 downto 0) & '1' & '0' ;
 	
 	mux: MUX2_1L8 port map(
 		A	=>	nextRegState, 	
