@@ -7,36 +7,36 @@ object SerialReceiver {
     fun init() {
     }
 
+    fun realignTransmission() {
+        var count = 0
+        while (count < 7) {
+            emitTxClkUp()
+            val txD = retrieveTxD()
+            emitTxClkDown()
+
+            if (txD) {
+                count++
+            }
+        }
+    }
+
 
     fun receiveKeyInSerie(bitsToReceive: Int): Int {
 
         emitTxClkCycle()
-        if (!retrieveTxD()) return -1
 
-        //Receive and concatenate all bits
-        val bits = receiveInSerie(bitsToReceive)
+        // Se o txD não estvier a '1' está desalinhado
+        if (retrieveTxD()) {
+            //Receive and concatenate all bits
+            val bits = receiveInSerie(bitsToReceive)
 
-        //return Integer.toBinaryString(bits).padStart(4, '0').toInt(2)
-
-        println("\n" + Integer.toBinaryString(bits).padStart(4, '0').toInt(2) + "\n")
-
-        emitTxClkCycle()
-        if (checkLastTransmissionBit()) {
-            return Integer.toBinaryString(bits).toInt(2)
-        }
-
-        var count = 0
-        for (i in 0 until 7) {
-            emitTxClkUp()
-            val txD = retrieveTxD()
-            emitTxClkDown()
-            if (txD) {
-                count++
-            }
-            if (count == 7) {
-                return -1
+            emitTxClkCycle()
+            if (checkLastTransmissionBit()) {
+                return Integer.toBinaryString(bits).toInt(2)
             }
         }
+
+        realignTransmission()
 
         return -1
     }
@@ -62,10 +62,6 @@ object SerialReceiver {
         return bit
     }
 
-    fun checkFirstTransmissionBit(): Boolean {
-        return retrieveTxD()
-    }
-
     fun checkLastTransmissionBit(): Boolean {
         return !retrieveTxD()
     }
@@ -87,7 +83,7 @@ object SerialReceiver {
 
 
     // Retorna informação se o periférico está ocupado
-    // É suposto indicar se a emissão foi concluida verificando o bit final no inputport
+// É suposto indicar se a emissão foi concluida verificando o bit final no inputport
     fun isBusy(): Boolean {
         return !HAL.isBit(0b10000000)
     }

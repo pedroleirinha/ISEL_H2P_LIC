@@ -42,7 +42,7 @@ object KBD {
     fun waitKey(timeout: Long): Char {
         val time = getTimeInMillis() + timeout
         while (getTimeInMillis() < time) {
-            //println(Integer.toBinaryString(UsbPort.read()).padStart(8, '0'))
+
             if (SerialReceiver.isBusy()) {
                 val key = getKey()
                 println("KEY: $key pressed")

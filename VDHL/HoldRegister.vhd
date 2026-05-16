@@ -14,7 +14,7 @@ ARCHITECTURE Behaviour OF HoldRegister IS
 	component RegistryL4 
 		PORT(	
 			D: IN std_logic_vector (3 downto 0);
-			clk_in, CE, CLEAR: IN std_logic;
+			clk_in, CE, CLEAR, SET: IN std_logic;
 			Q: OUT std_logic_vector (3 downto 0)
 		);
 	end component;
@@ -32,6 +32,7 @@ BEGIN
 	registry1: RegistryL4 port map(
 		clk_in => SCLK,
 		CLEAR  => CLEAR,
+		SET	=> '0',
 		D => D(3 downto 0),
 		CE => '1',
 		Q => Q(3 downto 0)
@@ -40,6 +41,7 @@ BEGIN
 	registry2: RegistryL4 port map(
 		clk_in => SCLK,
 		CLEAR  => CLEAR,
+		SET	=> '0',
 		D => D(7 downto 4),
 		CE => '1',
 		Q => Q(7 downto 4)

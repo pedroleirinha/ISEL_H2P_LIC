@@ -7,11 +7,12 @@ end entity;
 architecture TicketMachine_tb_arch of TicketMachine_tb is
 
 	component TicketMachine 			PORT(
-		CLK, CLEAR, CollectTicket:				IN std_logic;
+		CLK, CLEAR, CollectTicket, Coin:		IN std_logic;
 		KEYPAD_LIN: 								IN std_logic_vector(3 downto 0);
+		COINS: 										IN std_logic_vector(2 downto 0);
 		output:										IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
-		LCD_EN, LCD_RS, Kval:					OUT std_logic; 
+		LCD_EN, LCD_RS:							OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
 		K: 											OUT std_logic_vector (3 downto 0);
 		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
@@ -21,7 +22,8 @@ architecture TicketMachine_tb_arch of TicketMachine_tb is
 
 	-- UUT signals
 	signal CLK_TB : std_logic := '0';
-	signal LCD_RS_TB, LCD_EN_TB, CLEAR_TB, KVAL_TB, KACK_TB, COLLECT_TICKET_TB: std_logic;
+	signal COINS_TB: std_logic_vector(2 downto 0);
+	signal LCD_RS_TB, LCD_EN_TB, CLEAR_TB, COLLECT_TICKET_TB, COIN_TB: std_logic;
 	signal HEX0_TB, HEX1_TB, HEX2_TB, HEX3_TB, HEX4_TB, HEX5_TB: STD_LOGIC_VECTOR(7 downto 0);
 
 	signal STATE_TB: std_logic_vector(7 downto 0);
@@ -45,9 +47,10 @@ begin
 		LCD_EN			=> LCD_RS_TB,
 		LCD_RS			=> LCD_RS_TB,
 		CollectTicket	=> COLLECT_TICKET_TB,
+		Coin				=> COIN_TB,
+		COINS				=> COINS_TB,
 		output			=> OUTPUT_TB,
 		state				=> STATE_TB,
-		Kval				=> KVAL_TB,
 		HEX0				=> HEX0_TB,
 		HEX1				=> HEX1_TB,
 		HEX2				=> HEX2_TB,
@@ -60,6 +63,7 @@ stimulus: process
 begin
 	OUTPUT_TB <= "00000000";
 	CLEAR_TB <= '1';
+	COIN_TB	<= '0';
 	ROWS_TB <= "1111";        
 	wait for CLK_PERIOD;
 	CLEAR_TB <= '0';

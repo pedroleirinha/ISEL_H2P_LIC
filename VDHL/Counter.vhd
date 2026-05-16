@@ -14,7 +14,7 @@ ARCHITECTURE Structural OF Counter IS
 	component RegistryL4 
 		PORT(	
 			D: IN std_logic_vector (3 downto 0);
-			clk_in, CE, CLEAR: IN std_logic;
+			clk_in, CE, CLEAR, SET: IN std_logic;
 			Q: OUT std_logic_vector (3 downto 0)
 		);
 	end component;
@@ -59,6 +59,7 @@ BEGIN
 	registry: RegistryL4 port map(
 		clk_in => clk_in,
 		CLEAR  => CLEAR,
+		SET	=> '0',
 		D => flipflopsNextState,
 		CE => CE,
 		Q => flipflopsCurrentState

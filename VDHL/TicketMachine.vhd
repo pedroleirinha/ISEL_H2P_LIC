@@ -4,9 +4,9 @@ use ieee.std_logic_1164.all;
 ENTITY TicketMachine IS
 	PORT(
 		CLK, CLEAR, CollectTicket, Coin:		IN std_logic;
-		KEYPAD_LIN: 								IN std_logic_vector(3 downto 0);
+		KEYPAD_LIN:									IN std_logic_vector(3 downto 0);
 		COINS: 										IN std_logic_vector(2 downto 0);
-		--output:									IN std_logic_vector(7 downto 0);
+		output:										IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
 		LCD_EN, LCD_RS, txD, KbFree:			OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
@@ -32,13 +32,13 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	end component;
 	
 
-	component UsbPort 
-		PORT
-		(
-			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
-			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
-		);
-	end component;
+--	component UsbPort 
+--		PORT
+--		(
+--			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+--			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
+--		);
+--	end component;
 	
 	
 	component PortExpanderLCD                           
@@ -73,7 +73,7 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 		);
 	end component;
 	
-	signal input, output:		STD_LOGIC_VECTOR(7 DOWNTO 0);
+	signal input:					STD_LOGIC_VECTOR(7 DOWNTO 0);
 	signal values: 				STD_LOGIC_VECTOR(3 DOWNTO 0);
 	signal clock, Kval_Decode: STD_LOGIC;
 	
@@ -151,15 +151,14 @@ BEGIN
 		Coin				=> Coin2
 	);
 	
-	UsbPort1: UsbPort port map(
-		inputPort	=> input,
-		outputPort	=> output
-	);
+--	UsbPort1: UsbPort port map(
+--		inputPort	=> input,
+--		outputPort	=> output
+--	);
 	
 	--input <= Kval_Decode & "000000" & TxD_o;
    --input <= Kval_Decode & "000" & values;
 	input <= TxD_o & "000" & coin & coins;
-	
 	txD	<= TxD_o;
 	
 	-- Info for TicketDispenser

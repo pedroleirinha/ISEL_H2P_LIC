@@ -49,7 +49,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 		);
 	end component;
 	
-	signal DAC, Wreg, KbFreeSignal, Kvalue, clock, kack: std_logic;
+	signal DAC, Wreg, KbFreeSignal, Kvalue, clock: std_logic;
 	signal bufferD, ringQ: std_logic_vector(3 downto 0);
 	
 BEGIN
@@ -61,7 +61,7 @@ BEGIN
 	);
 	
 	scan: KeyDecode port map(
-		clk_in 	=> clock,
+		clk_in 	=> clk_in,
 		Kack 		=> DAC,
 		CLEAR 	=> CLEAR,
 		rows 		=> rows,		

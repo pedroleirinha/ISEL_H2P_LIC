@@ -26,7 +26,7 @@ ARCHITECTURE Behaviour OF SerialReceiver IS
 	end component;
 	
 	signal shiftRegisterOut: std_logic_vector(9 downto 0);
-	signal enableShift, holdShiftCLK: std_logic;
+	signal enableShift: std_logic;
 
 BEGIN
 

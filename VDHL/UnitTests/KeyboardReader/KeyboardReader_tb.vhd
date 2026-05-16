@@ -44,8 +44,6 @@ begin
 	);
 	
 stimulus: process 
-	
-	variable test_data : std_logic_vector(3 downto 0) := "0110"; 
 
 begin
 	CLEAR_TB <= '1';
@@ -63,8 +61,9 @@ begin
 	wait for CLK_PERIOD * 5;
 	ROWS_TB <= "1111";
 	
+	wait for CLK_PERIOD * 6;
 	
-	for i in 0 to 9 loop
+	for i in 0 to 8 loop
 		TXCLK_TB	<= '1';
 		wait for CLK_PERIOD; 
 		TXCLK_TB	<= '0';
@@ -83,7 +82,7 @@ begin
 	ROWS_TB <= "1111";
 
 	
-	for i in 0 to 9 loop
+	for i in 0 to 8 loop
 		TXCLK_TB	<= '1';
 		wait for CLK_PERIOD; 
 		TXCLK_TB	<= '0';
@@ -96,8 +95,9 @@ begin
 	wait for CLK_PERIOD * 5;
 	ROWS_TB <= "1111";
 	
+	wait for CLK_PERIOD * 5;
 	
-	for i in 0 to 9 loop
+	for i in 0 to 8 loop
 		TXCLK_TB	<= '1';
 		wait for CLK_PERIOD; 
 		TXCLK_TB	<= '0';

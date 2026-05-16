@@ -15,7 +15,7 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 	component ShiftRegisterL7
 		PORT(
 			CLK, CE, PL, CLEAR: 	IN std_logic;
-			D: 						IN std_logic_vector(3 downto 0);
+			D: 						IN std_logic_vector(7 downto 0);
 			Q, zeros:				OUT std_logic;
 			state:					OUT std_logic_vector(7 downto 0)
 		);
@@ -36,8 +36,8 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 		);
 	end component;
 	
-	signal shiftClk, PL, errorZeros, shiftEnable, clkSelect, startSignal, shiftBit, TxDTtemp, TxDFinal, signalFree, notStartSignal: std_logic;
-	signal countValues, bufferK: std_logic_vector(3 downto 0);
+	signal shiftClk, PL, errorZeros, shiftEnable, shiftBit, TxDFinal: std_logic;
+	signal shiftRegisterBits: std_logic_vector(7 downto 0);
 	
 BEGIN
 
@@ -53,11 +53,13 @@ BEGIN
 		CE 		=> shiftEnable,
 		PL 		=> PL,			
 		CLEAR		=> CLEAR,
-		D			=>	D,
+		D			=>	shiftRegisterBits,
 		Q 			=> shiftBit,
 		zeros		=> errorZeros,
 		state		=> state
 	);
+	
+	shiftRegisterBits <= '1' & '0' & D(3 downto 0) & '1' & '0';
 
 	
 	control: KeyTransmitterControl port map(
@@ -66,22 +68,13 @@ BEGIN
 		Load 			=> Load,
 		zeros			=> errorZeros,
 		CLEAR			=> CLEAR,
-		kbFree 		=> signalFree,
+		kbFree 		=> KbFree,
 		shiftEnable	=> shiftEnable,
 		PL				=> PL
 	);
-	
-	KbFree <= signalFree;
 		
-	mux1: MUX2_1L1 port map(
-		A 		=> '1',
-		B		=> shiftBit,
-		S		=> shiftEnable,
-		Y		=> TxDFinal  
-	);
-
 	
-	TxD <= TxDFinal;
+	TxD <= shiftBit;
 	
 	
 

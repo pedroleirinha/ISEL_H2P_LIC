@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 ENTITY ShiftRegisterL7 IS
 	PORT(
 		CLK, CE, PL, CLEAR: 	IN std_logic;
-		D: 						IN std_logic_vector(3 downto 0);
+		D: 						IN std_logic_vector(7 downto 0);
 		Q, zeros:				OUT std_logic;
 		state:					OUT std_logic_vector(7 downto 0)
 	);
@@ -15,19 +15,12 @@ ARCHITECTURE Behaviour OF ShiftRegisterL7 IS
 	component RegistryL4 
 		PORT(	
 			D: IN std_logic_vector (3 downto 0);
-			clk_in, CE, CLEAR: IN std_logic;
+			clk_in, CE, SET, CLEAR: IN std_logic;
 			Q: OUT std_logic_vector (3 downto 0)
 		);
 	end component;
 	
-	component RegistryL3
-		PORT(	
-			D: IN std_logic_vector (2 downto 0);
-			clk_in, CE, CLEAR: IN std_logic;
-			Q: OUT std_logic_vector (2 downto 0)
-		);
-	end component;
-	
+
 	component MUX2_1L8
 		PORT(
 			A,B: IN std_logic_vector (7 downto 0);
@@ -36,8 +29,8 @@ ARCHITECTURE Behaviour OF ShiftRegisterL7 IS
 		);
 	end component;
 
-	signal regCE, clkTemp: std_logic;
-	signal currRegState, nextRegState, registryD, inputValueKey: std_logic_vector(7 downto 0);
+	signal regCE: std_logic;
+	signal currRegState, nextRegState, registryD: std_logic_vector(7 downto 0);
 	
 		
 BEGIN
@@ -48,7 +41,8 @@ BEGIN
 	
 	registry1: RegistryL4 port map(
 		clk_in => CLK,
-		CLEAR  => CLEAR,
+		SET  => CLEAR,
+		CLEAR => '0',
 		D => registryD(3 downto 0),
 		CE => regCE,
 		Q => currRegState(3 downto 0)
@@ -56,32 +50,28 @@ BEGIN
 
 	registry2: RegistryL4 port map(
 		clk_in => CLK,
-		CLEAR  => CLEAR,
+		SET  => CLEAR,
+		CLEAR => '0',
 		D => registryD(7 downto 4),
 		CE => regCE,
 		Q => currRegState(7 downto 4)
 	);
 	
 	
-	inputValueKey <= '1' & '0' & D(3 downto 0) & '1' & '0' ;
-	
 	mux: MUX2_1L8 port map(
 		A	=>	nextRegState, 	
-		B	=>	inputValueKey, 
+		B	=>	D, 
 		S	=>	PL,
 		Y	=>	registryD
 	);
 	
 	Q 		<= currRegState(0);
-	zeros <= NOT currRegState(0) AND NOT currRegState(1) AND NOT currRegState(2) AND 
-				NOT currRegState(3) AND NOT currRegState(4) AND NOT currRegState(5) AND 
-				NOT currRegState(6) AND NOT currRegState(7);
+	zeros <= currRegState(0) AND currRegState(1) AND currRegState(2) AND 
+				currRegState(3) AND currRegState(4) AND currRegState(5) AND 
+				currRegState(6) AND currRegState(7);
 
-	process(currRegState)
-	begin
-		nextRegState(6 downto 0) <= currRegState(7 downto 1);
-		nextRegState(7) <= '0';
-	end process;
+	nextRegState(6 downto 0) <= currRegState(7 downto 1);
+	nextRegState(7) <= '1';
 
 	
 

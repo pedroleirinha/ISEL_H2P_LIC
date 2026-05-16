@@ -10,7 +10,7 @@ architecture behavioral of ShiftRegisterL7_tb is
     component ShiftRegisterL7 IS
         PORT(
 				CLK, CE, PL, CLEAR: 	IN std_logic;
-				D: 						IN std_logic_vector(3 downto 0);
+				D: 						IN std_logic_vector(7 downto 0);
 				Q, zeros:				OUT std_logic;
 				state:					OUT std_logic_vector(7 downto 0)
 			);
@@ -19,7 +19,7 @@ architecture behavioral of ShiftRegisterL7_tb is
     -- Sinais internos para ligação à UUT
     signal CLK_TB: std_logic := '0'; 
 	 signal CE_TB, Q_TB, PL_TB, CLEAR_TB, ZEROS_TB : std_logic;
-    signal D_TB : std_logic_vector(3 downto 0);
+    signal D_TB : std_logic_vector(7 downto 0);
     signal STATE_TB : std_logic_vector(7 downto 0);
 
 	constant MCLK_PERIOD : time := 20 ns;
@@ -43,28 +43,24 @@ begin
 
 stimulus: process
 begin
- 
-	CLEAR_TB <= '0';
+ -- 1. Reset inicial: Garante que o registo começa a zeros
+	CLEAR_TB <= '1';
 	PL_TB <= '0';
 	CE_TB <= '0';
- 
-	wait for CLK_PERIOD;
-	-- 1. Reset inicial: Garante que o registo começa a zeros
-	CLEAR_TB <= '1';
 	wait for CLK_PERIOD;
 	CLEAR_TB <= '0';
 	CE_TB <= '1';
 	wait for CLK_PERIOD;
 	
 	-- 2. Carga Paralela: Carrega o valor "1011"
-	D_TB  <= "1011";
+	D_TB  <= '1' & '0' & "1011" & '1' & '0';
 	PL_TB <= '1'; -- Ativa carga paralela
 	wait for CLK_PERIOD;
 	PL_TB <= '0'; -- Passa para modo de deslocamento
 	wait for CLK_PERIOD * 8;
 	CE_TB <= '0';
 	wait for CLK_PERIOD;
-	D_TB  <= "1111";
+	D_TB  <= '1' & '0' & "1111" & '1' & '0';
 	wait for CLK_PERIOD * 8;
 	
 	
@@ -73,7 +69,7 @@ begin
 	
 	
 	-- 2. Carga Paralela: Carrega o valor "1011"
-	D_TB  <= "1101";
+	D_TB  <= '1' & '0' & "1101" & '1' & '0';
 	CE_TB <= '1';
 	PL_TB <= '1'; -- Ativa carga paralela
 	wait for CLK_PERIOD;
@@ -86,7 +82,7 @@ begin
 
 	  -- 4. Teste de Clock Enable (CE): Desativar CE e mudar dados
 	CE_TB <= '0';
-	D_TB  <= "0000";
+	D_TB  <= '1' & '0' & "0000" & '1' & '0';
 	wait for CLK_PERIOD * 2;
 	  -- O estado interno não deve mudar enquanto CE = '0'
 
