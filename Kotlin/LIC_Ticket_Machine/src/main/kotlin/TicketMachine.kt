@@ -1,10 +1,11 @@
 package org.example
 
+import isel.leic.utils.Time
 import org.example.CoinAcceptor.totalAddedCoinsValue
 import org.example.KBD.NONE
 import org.example.TUI.printStation
 import org.example.TUI.showMessageLeftAlign
-import org.example.TicketDispenser.activatePrintingTicket
+import org.example.TUI.showWelcomeMessage
 
 object TicketMachine {
     enum class TicketMachineState {
@@ -54,7 +55,17 @@ object TicketMachine {
     fun checkForTickedCollected() {
         if (TicketDispenser.isTicketCollected()) {
             println("Ticket Collected")
+
+            showMessageLeftAlign("Ticket Collected")
             state = TicketMachineState.PICK_STATION
+
+            TicketDispenser.emitPrintingTicketDown(
+                roundTrip = roundTrip,
+                origin = Stations.originStation?.code ?: 0,
+                destination = Stations.destStation?.code ?: 0
+            )
+            Time.sleep(500)
+            showWelcomeMessage()
         }
     }
 
@@ -67,13 +78,13 @@ object TicketMachine {
     }
 
     fun submitTicket() {
-        activatePrintingTicket(
+        LCD.clear()
+        showMessageLeftAlign(message = "Imprimir Ticket")
+        TicketDispenser.emitPrintingTicketUp(
             roundTrip = roundTrip,
             origin = Stations.originStation?.code ?: 0,
             destination = Stations.destStation?.code ?: 0
         )
-        LCD.clear()
-        showMessageLeftAlign(message = "Imprimir Ticket")
 
     }
 
@@ -88,8 +99,10 @@ object TicketMachine {
             state = TicketMachineState.TICKET
             submitTicket()
             CoinAcceptor.transferTicketCoinsToSafe()
-        } else {
-            CoinAcceptor.readCoin()
+        } else if (CoinAcceptor.checkForCoin()) {
+            CoinAcceptor.readAndAcceptCoin()
+        } else if (CoinAcceptor.isHandshakeDone()) {
+            CoinAcceptor.coinHandshake()
         }
 
     }

@@ -1,13 +1,12 @@
 package org.example
 
-import isel.leic.utils.Time
 import org.example.TUI.printStation
 
 object CoinAcceptor {
     val coins = arrayOf<Int>(5, 10, 20, 50, 100, 200)
 
     fun totalAddedCoinsValue(): Int = coinsAdded.fold(0) { acc, coin -> acc + coin }
-
+    var coinRead = false
     var safeDeposit = mutableListOf<Int>()
     var coinsAdded = mutableListOf<Int>()
 
@@ -44,20 +43,35 @@ object CoinAcceptor {
         coinsAdded = mutableListOf()
     }
 
+    fun readAndAcceptCoin() {
+        readCoin()
+        coinRead = true
+        acceptCoin()
+    }
+
+    fun coinHandshake(){
+        collectCoin()
+        coinRead = false
+    }
+
     fun transferTicketCoinsToSafe() {
         safeDeposit.addAll(coinsAdded)
         coinsAdded = mutableListOf()
     }
 
-    fun readCoin() {
-        if (!checkForCoin()) return
+    fun isHandshakeDone(): Boolean {
+        return !checkForCoin() && coinRead
+    }
 
+    fun readCoin() {
         val coinValue = readCoinBits()
 
         coinsAdded.add(coinValue)
         println(coinValue)
         printStation()
+    }
 
-        acceptCoin()
+    fun isBusy(): Boolean {
+        return checkForCoin() || isHandshakeDone()
     }
 }

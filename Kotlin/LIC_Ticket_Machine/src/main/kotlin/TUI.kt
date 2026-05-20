@@ -1,5 +1,6 @@
 package org.example
 
+import isel.leic.utils.Time
 import org.example.CoinAcceptor.totalAddedCoinsValue
 import org.example.TicketMachine.TicketMachineState
 import org.example.TicketMachine.getTotalTicketPrice
@@ -102,6 +103,7 @@ object TUI {
     }
 
     fun showWelcomeMessage() {
+        LCD.clear()
         showMessageCenterAlign(message = "Ticket To Ride")
         showMessageCenterAlign(message = getCurrentDateTimeString(), line = 1)
     }

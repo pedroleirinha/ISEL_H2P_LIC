@@ -1,6 +1,5 @@
 package org.example
 
-import isel.leic.UsbPort
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.SerialReceiver.receiveKeyInSerie
 
@@ -48,7 +47,7 @@ object KBD {
                 println("KEY: $key pressed")
                 return key
             }
-            if (CoinAcceptor.checkForCoin()) return NONE
+            if (CoinAcceptor.isBusy()) return NONE
         }
         println("NO KEY PRESS")
         return NONE
