@@ -19,7 +19,7 @@ object Stations {
     var destStation: Station? = null
 
     fun init() {
-        readStations()
+        readStationsFromFile()
 
         originStation = stationsList[0]
     }
@@ -44,13 +44,13 @@ object Stations {
         stationCount = ++stationCount % stationsList.size
     }
 
-    fun readStations() {
+    fun readStationsFromFile() {
         var stationCounter = 1
         BufferedReader(FileReader("stations.csv"))
             .forEachLine {
                 val info = it.split(";")
                 stationsList.add(Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt()))
             }
-        originStation = stationsList[0]
+        setOriginStation((stationsList.find { it.price == 0 }?.code ?: 0))
     }
 }

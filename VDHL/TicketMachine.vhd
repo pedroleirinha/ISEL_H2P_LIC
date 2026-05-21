@@ -66,7 +66,7 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 		);
 	end component;
 	
-	signal input:			STD_LOGIC_VECTOR(7 DOWNTO 0);
+	signal input:					STD_LOGIC_VECTOR(7 DOWNTO 0);
 	signal values: 				STD_LOGIC_VECTOR(3 DOWNTO 0);
 	signal clock: 					STD_LOGIC;
 	

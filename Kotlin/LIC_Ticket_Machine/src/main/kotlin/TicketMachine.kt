@@ -103,7 +103,11 @@ object TicketMachine {
                 CoinAcceptor.transferTicketCoinsToSafe()
             }
 
-            CoinAcceptor.checkForCoin() -> CoinAcceptor.readAndAcceptCoin()
+            CoinAcceptor.checkForCoin() -> {
+                CoinAcceptor.readAndAcceptCoin()
+                printStation()
+            }
+
             CoinAcceptor.isCoinCollectionDone() -> CoinAcceptor.coinHandshake()
         }
     }
@@ -137,5 +141,36 @@ object TicketMachine {
                 '*' -> toggleRoundTrip()
             }
         }
+    }
+}
+
+fun main() {
+    TicketMachine.init()
+
+    println(" <- TicketMachine -> ")
+    println("Ticket Machine iniciada [Modo Venda].")
+    println("Comandos: Digitos (0-9) ou A/B para selecionar estação.")
+    println("'#' para iniciar pagamento.")
+    println("'*' para alternar Ida/Volta (no estado de pagamento).")
+
+    while (true) {
+
+        // Se estiver em PICK_STATION ou PAYMENT, processa as teclas
+        if (TicketMachine.isPickingStationState() || TicketMachine.isPaymentState()) {
+            TicketMachine.waitForKeyPressed()
+        }
+
+        // Se estiver em PAYMENT, monitoriza a inserção de moedas até o valor inserido cobrir o valor para o bilhete
+        if (TicketMachine.isPaymentState()) {
+            TicketMachine.checkForPaymentCompleted()
+        }
+
+        // Se estiver em TICKET, aguarda que o bilhete seja emitido e coletado
+        if (TicketMachine.isTicketEmittingState()) {
+            // Verifica se o utilizador retirou o bilhete
+            TicketMachine.checkForTickedCollected()
+        }
+
+        Time.sleep(50)
     }
 }

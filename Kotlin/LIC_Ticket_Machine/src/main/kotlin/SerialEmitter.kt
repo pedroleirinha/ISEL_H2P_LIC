@@ -1,5 +1,7 @@
 package org.example
 
+import isel.leic.utils.Time
+
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialEmitter {
 
@@ -9,7 +11,9 @@ object SerialEmitter {
 
     // Inicia a classe
     fun init() {
-
+        HAL.turnOffLcdSS()
+        HAL.turnOffTdSS()
+        HAL.clearSCKLBit()
     }
 
     fun sendInSerie(data: Int, addr: Peripheral) {
@@ -70,4 +74,37 @@ object SerialEmitter {
     fun isBusy(): Boolean {
         return !HAL.isBit(0b10000000)
     }
+}
+
+fun main() {
+    HAL.init()
+    SerialEmitter.init()
+
+    println(" <- SerialEmitter -> ")
+    println("Iniciando teste do Serial Emitter...")
+
+    // --- TESTE 1: Enviar o carater 'A' com RS = 1 e E = 1
+    val dataLCD = 0b1010000011
+    println("A enviar trama para o LCD: ${Integer.toBinaryString(dataLCD).padStart(10, '0')}")
+
+    SerialEmitter.send(SerialEmitter.Peripheral.LCD, dataLCD)
+
+    // Pequena pausa para observação nos LED da placa se necessário
+    Time.sleep(1000)
+
+    // --- TESTE 2: Simulação de envio da trama : [Prt][D3...D0][O3...O0][RT]
+    // RT=1, Origem=1, Destino=4, Prt=1
+    val dataTicket = 0b1010000011
+    println("A enviar trama para o Ticket Dispenser...")
+
+    SerialEmitter.send(SerialEmitter.Peripheral.TICKET, dataTicket)
+
+    // --- TESTE 3: Verificação de isBusy ---
+    if (SerialEmitter.isBusy()) {
+        println("O emitter sinaliza que está ocupado.")
+    } else {
+        println("O emitter está pronto para nova trama.")
+    }
+
+    println("Concluído.")
 }

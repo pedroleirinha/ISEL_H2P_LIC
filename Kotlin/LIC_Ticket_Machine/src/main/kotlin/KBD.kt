@@ -1,7 +1,6 @@
 package org.example
 
 import isel.leic.utils.Time.getTimeInMillis
-import org.example.SerialReceiver.receiveKeyInSerie
 
 
 // Ler teclas. Funções retornam '0'..'9', 'A'..'D', '#', '*' ou NONE.
@@ -24,9 +23,7 @@ object KBD {
     }
 
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
-    fun getKey(): Char {
-
-        val keyBits = receiveKeyInSerie(keyBitsSize)
+    fun getKey(keyBits: Int): Char {
         if (keyBits == -1) return NONE
 
         val key = Integer.toBinaryString(keyBits).padStart(keyBitsSize, '0')
@@ -43,9 +40,9 @@ object KBD {
     fun waitKey(timeout: Long): Char {
         val time = getTimeInMillis() + timeout
         while (getTimeInMillis() < time) {
-
-            if (SerialReceiver.isBusy()) {
-                val key = getKey()
+            val keyCode = SerialReceiver.getData()
+            val key = getKey(keyCode)
+            if (key != NONE) {
                 println("KEY: $key pressed")
                 return key
             }
@@ -54,4 +51,24 @@ object KBD {
         println("NO KEY PRESS")
         return NONE
     }
+}
+
+
+fun main() {
+    HAL.init()
+    KBD.init()
+
+    var key: Char
+    do {
+        key = KBD.waitKey(5000)
+
+        // 4. Verifica se uma tecla foi efetivamente premida
+        if (key != KBD.NONE) {
+            println("Tecla detetada: $key")
+        } else {
+            println("Nenhuma tecla premida nos ultimos 5 segundos...")
+        }
+    } while (key != '#')
+
+    println("Terminado")
 }

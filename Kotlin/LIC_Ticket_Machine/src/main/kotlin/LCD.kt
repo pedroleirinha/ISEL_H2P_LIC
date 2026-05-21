@@ -132,3 +132,40 @@ object LCD {
         writeCMD(data = HAL.lcdHomeSetBits)  // Return Home
     }
 }
+
+fun main() {
+    HAL.init()
+    LCD.init()
+
+    println("<- LCD ->")
+
+    LCD.cursor(0, 0)
+    LCD.write("ISEL - LIC 25/26")
+
+    LCD.cursor(1, 0)
+    LCD.write("Ticket Machine")
+
+    Time.sleep(2000)
+
+    LCD.clear()
+    LCD.cursor(0, 0)
+    LCD.write("Icons: ")
+    LCD.write(ICONS.ARROW_UP.code) // Seta Cima
+    LCD.write(ICONS.ARROW_DOWN.code) // Seta Baixo
+    LCD.write(ICONS.SMILE.code) // Smile
+
+    LCD.cursor(1, 0)
+    LCD.write("Preco: 1.50")
+    LCD.write(ICONS.EURO.code) // Euro
+
+    Time.sleep(3000)
+
+    // 4. Teste de Limpeza e Persistência
+    LCD.clear()
+    LCD.cursor(0, 4)
+    LCD.write("Fim do Teste")
+    LCD.cursor(1, 7)
+    LCD.write(ICONS.SMILE.code) // Smile
+
+    println("Concluído")
+}

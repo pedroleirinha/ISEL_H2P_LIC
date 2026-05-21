@@ -83,7 +83,7 @@ object TUI {
 
     fun showWelcomeMessageV2() {
         showMessageCenterAlign(message = "Welcome to")
-        showMessageCenterAlign(message = "Matosinhos ${ICONS.SMILE}", line = 1)
+        showMessageCenterAlign(message = "Matosinhos ${ICONS.SMILE.code}", line = 1)
     }
 
     fun getCurrentDateTimeString(): String {
@@ -132,3 +132,36 @@ object TUI {
 }
 
 
+fun main() {
+    println(" <- TUI -> ")
+    TUI.init()
+
+    println("A verificar ecrã de boas-vindas...")
+    Time.sleep(3000)
+
+    LCD.clear()
+    TUI.showMessageLeftAlign("Esquerda", 0)
+    TUI.showMessageCenterAlign("Centro", 1)
+    Time.sleep(2000)
+
+    LCD.clear()
+    TUI.showMessageRightAlign("Direita", 0)
+    TUI.showTicketPrice(150.0)
+    Time.sleep(3000)
+
+    println("Responda no teclado: Pagar Bilhete? (* para Sim, # para Não)")
+    TUI.askQuestion("Pagar Bilhete")
+    val resposta = TUI.yesOrNoAnwser()
+
+    LCD.clear()
+    if (resposta) {
+        TUI.showMessageCenterAlign("A processar...", 0)
+        TUI.showWelcomeMessageV2()
+    } else {
+        TUI.showMessageCenterAlign("Cancelado", 0)
+    }
+
+    Time.sleep(3000)
+    TUI.showWelcomeMessage() // Volta ao estado inicial
+    println("Teste do TUI concluído.")
+}

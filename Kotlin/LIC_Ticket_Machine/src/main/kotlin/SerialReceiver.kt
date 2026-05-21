@@ -1,5 +1,8 @@
 package org.example
 
+import isel.leic.utils.Time
+import org.example.KBD.keyBitsSize
+
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialReceiver {
     const val numberBitsForKeyTransmission = 7
@@ -21,6 +24,15 @@ object SerialReceiver {
         }
     }
 
+    fun getData(): Int {
+        if (isBusy()) {
+            val keyBits = receiveKeyInSerie(keyBitsSize)
+            return keyBits
+
+        }
+        return -1
+    }
+
     fun receiveKeyInSerie(bitsToReceive: Int): Int {
 
         emitTxClkCycle()
@@ -32,10 +44,12 @@ object SerialReceiver {
 
             emitTxClkCycle()
             if (checkLastTransmissionBit()) {
+                emitTxClkCycle() // Ultimo ciclo para repor o '1' no TxD
                 return Integer.toBinaryString(bits).toInt(2)
             }
         }
 
+        // Tenta realinhar a trama garantido que encontra o txD a '1' (repouso) 7 vezes consecutivas
         realignTransmission()
 
         return -1
@@ -56,7 +70,6 @@ object SerialReceiver {
 
     fun retrieveTxD(): Boolean {
         val bit = HAL.getTxDBit()
-        print(bit)
         return bit == 1
     }
 
@@ -84,5 +97,35 @@ object SerialReceiver {
     // É suposto indicar se a emissão foi concluida verificando o bit final no inputport
     fun isBusy(): Boolean {
         return !HAL.isTxDBitOn()
+    }
+}
+
+fun main() {
+    HAL.init()
+    SerialReceiver.init()
+
+    println(" <- SerialReceiver -> ")
+
+    println("Prima teclas no keypad para ver a transmissão série.")
+
+    while (true) {
+        SerialReceiver.emitTxClkDown()
+
+        // Detetar o Start Bit. Espera que TXD baixe para '0' enquanto TXclk = 0
+        if (!SerialReceiver.retrieveTxD()) {
+            println("\nInício de transmissao detetado!")
+
+            // Depois de detetar a tecla, lemos os 4 bits de dados referentes ao código da tecla
+            val keyCode = SerialReceiver.receiveKeyInSerie(4)
+
+            if (keyCode != -1) {
+                println("Tecla recebida com sucesso! Codigo: ${Integer.toBinaryString(keyCode).padStart(4, '0')}")
+            } else {
+                println("Desalinhamento detetado. A realinhar...")
+            }
+
+            // Pequeno atraso para evitar múltiplas leituras da mesma pressão
+            Time.sleep(200)
+        }
     }
 }
