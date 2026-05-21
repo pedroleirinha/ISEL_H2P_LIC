@@ -5,10 +5,11 @@ ENTITY TicketMachine IS
 	PORT(
 		CLK, CLEAR, CollectTicket, Coin:		IN std_logic;
 		KEYPAD_LIN:									IN std_logic_vector(3 downto 0);
+      delay:					               IN std_logic_vector(1 downto 0); 
 		COINS: 										IN std_logic_vector(2 downto 0);
 		output:										IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
-		LCD_EN, LCD_RS, txD, KbFree:			OUT std_logic; 
+		LCD_EN, LCD_RS, CoinAccepted, Prt:	OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
 		K: 											OUT std_logic_vector(3 downto 0);
 		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
@@ -23,11 +24,11 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	component KeyboardReader
 		PORT(
 			clk_in, CLEAR, TxClk:		 	IN std_logic;
+			delay:               			IN std_logic_vector(1 downto 0); 
 			rows: 								IN std_logic_vector(3 downto 0);
 			cols: 								OUT std_logic_vector(3 downto 0);
 			K: 									OUT std_logic_vector (3 downto 0);
-			Kval, TxD, KbFree:				OUT std_logic;
-			state:								OUT std_logic_vector(7 downto 0)
+			TxD:									OUT std_logic
 		);
 	end component;
 	
@@ -65,17 +66,9 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 		);
 	end component;
 	
-	component CoinAcceptor
-		PORT (
-			accept, collect, eject: in STD_LOGIC;
-			Coins: out STD_LOGIC_VECTOR(2 downto 0);
-			Coin: out STD_LOGIC
-		);
-	end component;
-	
-	signal input:					STD_LOGIC_VECTOR(7 DOWNTO 0);
+	signal input:			STD_LOGIC_VECTOR(7 DOWNTO 0);
 	signal values: 				STD_LOGIC_VECTOR(3 DOWNTO 0);
-	signal clock, Kval_Decode: STD_LOGIC;
+	signal clock: 					STD_LOGIC;
 	
 	
 	-- Signals for LCD
@@ -91,9 +84,7 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	signal fnFlag, roundtripFlag, PrtFlag, collectFlag: STD_LOGIC;
 	
 	-- Signals for CoinAcceptor
-	signal coinAccepted, coinsCollected, ejectCoins: STD_LOGIC;
-	signal Coin2: STD_LOGIC;
-	signal Coins2: STD_LOGIC_VECTOR(2 DOWNTO 0);
+	signal coinAccepted2, coinsCollected, ejectCoins: STD_LOGIC;
 	
 	
 BEGIN
@@ -117,15 +108,13 @@ BEGIN
 	
 	keyboardReader1: KeyboardReader port map(
 		clk_in 	=> CLK,
+		delay		=> delay,
 		TxClk		=> TxClk_i,
 		CLEAR 	=> CLEAR,
 		rows 		=> KEYPAD_LIN,		
 		cols 		=> KEYPAD_COL,	
 		K 			=> values,		
-		Kval 		=>	Kval_Decode,
-		TxD		=> TxD_o,
-		KbFree	=> KbFree,
-		state		=> state
+		TxD		=> TxD_o
 	);
 	
 	ticketDispenser: TICKET_DISPENSER port map(
@@ -142,24 +131,15 @@ BEGIN
 		HEX4    			=> HEX4,
 		HEX5    			=> HEX5
 	);
-	
-	coinsAcc: CoinAcceptor port map(
-		accept			=> coinAccepted, 
-		collect			=> coinsCollected, 
-		eject				=> ejectCoins,
-		Coins				=> Coins2,
-		Coin				=> Coin2
-	);
-	
+
 --	UsbPort1: UsbPort port map(
 --		inputPort	=> input,
 --		outputPort	=> output
 --	);
 	
-	--input <= Kval_Decode & "000000" & TxD_o;
-   --input <= Kval_Decode & "000" & values;
-	input <= TxD_o & "000" & coin & coins;
-	txD	<= TxD_o;
+	
+	input <= TxD_o & "00" & PrtFlag & coin & coins;
+	Prt 	<= PrtFlag;
 	
 	-- Info for TicketDispenser
 	PrtFlag			<= QTD(9);
@@ -170,10 +150,11 @@ BEGIN
 		
 
 	-- Info for CoinAcceptor
-	coinAccepted 	<= output(4);
+	coinAccepted2 	<= output(4);
 	coinsCollected <= output(6);
 	ejectCoins		<= output(5);
 	
+	CoinAccepted <= coinAccepted2;
 	
 	-- Info for KeyTransmitter
 	TxClk_i 	<= output(7);

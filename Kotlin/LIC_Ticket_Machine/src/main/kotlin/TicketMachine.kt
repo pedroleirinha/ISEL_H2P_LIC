@@ -17,6 +17,9 @@ object TicketMachine {
     var roundTrip = false
     var state: TicketMachineState = TicketMachineState.PICK_STATION
 
+    fun hasInterruption(): Boolean {
+        return CoinAcceptor.isBusy()
+    }
 
     fun init() {
         TUI.init()
@@ -54,8 +57,6 @@ object TicketMachine {
 
     fun checkForTickedCollected() {
         if (TicketDispenser.isTicketCollected()) {
-            println("Ticket Collected")
-
             showMessageLeftAlign("Ticket Collected")
             state = TicketMachineState.PICK_STATION
 
@@ -95,16 +96,16 @@ object TicketMachine {
 
     fun checkForPaymentCompleted() {
 
-        if (isPaymentCompleted()) {
-            state = TicketMachineState.TICKET
-            submitTicket()
-            CoinAcceptor.transferTicketCoinsToSafe()
-        } else if (CoinAcceptor.checkForCoin()) {
-            CoinAcceptor.readAndAcceptCoin()
-        } else if (CoinAcceptor.isHandshakeDone()) {
-            CoinAcceptor.coinHandshake()
-        }
+        when {
+            isPaymentCompleted() -> {
+                state = TicketMachineState.TICKET
+                submitTicket()
+                CoinAcceptor.transferTicketCoinsToSafe()
+            }
 
+            CoinAcceptor.checkForCoin() -> CoinAcceptor.readAndAcceptCoin()
+            CoinAcceptor.isCoinCollectionDone() -> CoinAcceptor.coinHandshake()
+        }
     }
 
     fun pickStation(key: Char) {

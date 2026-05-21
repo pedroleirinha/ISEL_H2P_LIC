@@ -7,7 +7,9 @@ import org.example.SerialReceiver.receiveKeyInSerie
 // Ler teclas. Funções retornam '0'..'9', 'A'..'D', '#', '*' ou NONE.
 object KBD {
     const val NONE = '_'
-
+    const val keyBitsSize = 4
+    val rowKeyIndices = 2..3
+    val colKeyIndices = 0..1
 
     val teclas = arrayOf(
         arrayOf('1', '2', '3', 'A'),
@@ -18,19 +20,19 @@ object KBD {
 
     // Inicia a classe
     fun init() {
-        SerialEmitter.init()
+
     }
 
     // Retorna de imediato a tecla premida ou NONE se não há tecla premida.
     fun getKey(): Char {
 
-        val keyBits = receiveKeyInSerie(4)
+        val keyBits = receiveKeyInSerie(keyBitsSize)
         if (keyBits == -1) return NONE
 
-        val key = Integer.toBinaryString(keyBits).padStart(4, '0')
+        val key = Integer.toBinaryString(keyBits).padStart(keyBitsSize, '0')
 
-        val row = key.slice(2..3).toInt(2)
-        val col = key.slice(0..1).toInt(2)
+        val row = key.slice(rowKeyIndices).toInt(2)
+        val col = key.slice(colKeyIndices).toInt(2)
 
         println("Coluna: $col; Linha: $row")
         return teclas[row][col]
@@ -47,7 +49,7 @@ object KBD {
                 println("KEY: $key pressed")
                 return key
             }
-            if (CoinAcceptor.isBusy()) return NONE
+            if (TicketMachine.hasInterruption()) return NONE
         }
         println("NO KEY PRESS")
         return NONE

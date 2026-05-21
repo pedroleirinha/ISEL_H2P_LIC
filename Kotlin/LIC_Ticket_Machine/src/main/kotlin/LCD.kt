@@ -1,6 +1,10 @@
 package org.example
 
 import isel.leic.utils.Time
+import org.example.HAL.lcdCommandBits
+import org.example.HAL.lcdDisplaySetBits
+import org.example.HAL.lcdEntryModeSetBits
+import org.example.HAL.lcdFunctionSetBits
 
 // Escreve no LCD usando a interface a 8 bits.
 object LCD {
@@ -41,17 +45,17 @@ object LCD {
         SerialEmitter.init()
         println("INICIALIZACAO DO LCD\n\n")
         Time.sleep(15)
-        writeCMD(0b00110000)
+        writeCMD(lcdCommandBits)
         Time.sleep(5)
-        writeCMD(0b00110000)
+        writeCMD(lcdCommandBits)
         Time.sleep(1)
-        writeCMD(0b00110000)
+        writeCMD(lcdCommandBits)
         Time.sleep(10)
         println("FIM DA INICIALIZACAO DO LCD\n\n")
         println("CONFIGS DO LCD\n\n")
-        writeCMD(0b00111000) //FUNCTION SET
-        writeCMD(0b00001111) //DISPLAY OFF
-        writeCMD(0b00000110) //Define o ENTRY MODE para incrementar automaticamente.
+        writeCMD(lcdFunctionSetBits) //FUNCTION SET
+        writeCMD(lcdDisplaySetBits) //DISPLAY OFF
+        writeCMD(lcdEntryModeSetBits) //Define o ENTRY MODE para incrementar automaticamente.
         Time.sleep(100)
         clear()
         println("FIM DAS CONFIGS DO LCD\n\n")
@@ -72,14 +76,10 @@ object LCD {
     // Envia comando para posicionar cursor ('line': 0..LINES-1, 'column': 0..COLS-1)
     fun cursor(line: Int, column: Int) {
         if (line in 0..<LINES && column in 0..<COLS) {
-
             val lineBits = Integer.toBinaryString(line)
 
-            val column2 = column % 16
-            val columnBits =
-                Integer.toBinaryString(column2).padStart(4, '0')
-
-
+            val columnBits = Integer.toBinaryString(column % COLS)
+                .padStart(4, '0')
             val cursorCommand = "1${lineBits}00${columnBits}".toInt(2) //USES DDRAM
 
             writeCMD(data = cursorCommand)
@@ -127,8 +127,8 @@ object LCD {
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
     fun clear() {
-        writeCMD(data = 0b00000001)  // Clears Display
+        writeCMD(data = HAL.lcdClearSetBits)  // Clears Display
         Time.sleep(1)
-        writeCMD(data = 0b00000010)  // Return Home
+        writeCMD(data = HAL.lcdHomeSetBits)  // Return Home
     }
 }

@@ -44,8 +44,8 @@ set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:04:03  FEBRUARY 28, 2026"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
-set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
-set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 set_global_assignment -name BOARD "MAX 10 DE10 - Lite"
 set_location_assignment PIN_W8 -to LCD_RS
 set_location_assignment PIN_V5 -to LCD_EN
@@ -72,16 +72,6 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_location_assignment PIN_C11 -to CollectTicket
-set_location_assignment PIN_A8 -to Q[0]
-set_location_assignment PIN_A9 -to Q[1]
-set_location_assignment PIN_A10 -to Q[2]
-set_location_assignment PIN_B10 -to Q[3]
-set_location_assignment PIN_D13 -to Q[4]
-set_location_assignment PIN_C13 -to Q[5]
-set_location_assignment PIN_E14 -to Q[6]
-set_location_assignment PIN_D14 -to Q[7]
-set_location_assignment PIN_A11 -to Q[8]
-set_location_assignment PIN_B11 -to Q[9]
 set_location_assignment PIN_C14 -to HEX0[0]
 set_location_assignment PIN_E15 -to HEX0[1]
 set_location_assignment PIN_C15 -to HEX0[2]
@@ -130,8 +120,33 @@ set_location_assignment PIN_M20 -to HEX5[4]
 set_location_assignment PIN_N19 -to HEX5[5]
 set_location_assignment PIN_N20 -to HEX5[6]
 set_location_assignment PIN_L19 -to HEX5[7]
-set_global_assignment -name VHDL_FILE RegistryL3.vhd
-set_global_assignment -name VHDL_FILE ShiftRegisterL6.vhd
+set_location_assignment PIN_A8 -to state[0]
+set_location_assignment PIN_A9 -to state[1]
+set_location_assignment PIN_A10 -to state[2]
+set_location_assignment PIN_B10 -to state[3]
+set_location_assignment PIN_D13 -to state[4]
+set_location_assignment PIN_C13 -to state[5]
+set_location_assignment PIN_E14 -to state[6]
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY OFF -section_id eda_simulation
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_timing
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
+set_location_assignment PIN_A11 -to KbFree
+set_location_assignment PIN_D14 -to state[7]
+set_global_assignment -name STATE_MACHINE_PROCESSING AUTO
+set_global_assignment -name SAFE_STATE_MACHINE OFF
+set_location_assignment PIN_A13 -to Coin
+set_location_assignment PIN_A14 -to COINS[0]
+set_location_assignment PIN_B14 -to COINS[1]
+set_location_assignment PIN_F15 -to COINS[2]
+set_location_assignment PIN_B11 -to coinAccept
+set_global_assignment -name VHDL_FILE CLKDIV_timer.vhd
+set_global_assignment -name VHDL_FILE ShiftRegisterL7.vhd
 set_global_assignment -name VHDL_FILE UsbPort.vhd
 set_global_assignment -name VHDL_FILE TicketMachine.vhd
 set_global_assignment -name VHDL_FILE ticketDispenser.vhd
@@ -140,6 +155,7 @@ set_global_assignment -name VHDL_FILE SerialReceiver.vhd
 set_global_assignment -name VHDL_FILE RingBufferControl.vhd
 set_global_assignment -name VHDL_FILE RingBuffer.vhd
 set_global_assignment -name VHDL_FILE RegistryL4.vhd
+set_global_assignment -name VHDL_FILE RegistryL3.vhd
 set_global_assignment -name VHDL_FILE RegistryL2.vhd
 set_global_assignment -name VHDL_FILE RandomAccessMemory.vhd
 set_global_assignment -name VHDL_FILE PortExpanderTD.vhd
@@ -148,6 +164,7 @@ set_global_assignment -name VHDL_FILE MUX4_2L1.vhd
 set_global_assignment -name VHDL_FILE MUX2_1L6.vhd
 set_global_assignment -name VHDL_FILE MUX2_1L4.vhd
 set_global_assignment -name VHDL_FILE MUX2_1L2.vhd
+set_global_assignment -name VHDL_FILE MUX2_1L1.vhd
 set_global_assignment -name VHDL_FILE MemoryAddressControl.vhd
 set_global_assignment -name VHDL_FILE KeyTransmitterControl.vhd
 set_global_assignment -name VHDL_FILE KeyTransmitter.vhd
@@ -166,7 +183,4 @@ set_global_assignment -name VHDL_FILE Counter.vhd
 set_global_assignment -name VHDL_FILE clkDIV.vhd
 set_global_assignment -name VHDL_FILE Adder2.vhd
 set_global_assignment -name VHDL_FILE Adder.vhd
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

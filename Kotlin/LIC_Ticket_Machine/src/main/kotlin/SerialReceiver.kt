@@ -2,6 +2,7 @@ package org.example
 
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialReceiver {
+    const val numberBitsForKeyTransmission = 7
 
     // Inicia a classe
     fun init() {
@@ -9,7 +10,7 @@ object SerialReceiver {
 
     fun realignTransmission() {
         var count = 0
-        while (count < 7) {
+        while (count < numberBitsForKeyTransmission) {
             emitTxClkUp()
             val txD = retrieveTxD()
             emitTxClkDown()
@@ -19,7 +20,6 @@ object SerialReceiver {
             }
         }
     }
-
 
     fun receiveKeyInSerie(bitsToReceive: Int): Int {
 
@@ -42,24 +42,22 @@ object SerialReceiver {
     }
 
     fun emitTxClkUp() {
-        HAL.setBits(mask = 0b10000000)
+        HAL.setTxCLK()
     }
 
     fun emitTxClkDown() {
-        HAL.clrBits(mask = 0b10000000)
+        HAL.clearTxCLK()
     }
 
     fun emitTxClkCycle() {
         emitTxClkUp()
-        //Time.sleep(100)
         emitTxClkDown()
-        //Time.sleep(100)
     }
 
     fun retrieveTxD(): Boolean {
-        val bit = HAL.isBit(0b10000000)
-        print("${if (bit) 1 else 0}")
-        return bit
+        val bit = HAL.getTxDBit()
+        print(bit)
+        return bit == 1
     }
 
     fun checkLastTransmissionBit(): Boolean {
@@ -72,8 +70,8 @@ object SerialReceiver {
 
         for (i in 0 until bitsToReceive) {
             emitTxClkUp()
-            val txD = retrieveTxD()
-            bits += "${if (txD) '1' else '0'}"
+            val txD = HAL.getTxDBit()
+            bits += txD
 
             emitTxClkDown()
         }
@@ -83,8 +81,8 @@ object SerialReceiver {
 
 
     // Retorna informação se o periférico está ocupado
-// É suposto indicar se a emissão foi concluida verificando o bit final no inputport
+    // É suposto indicar se a emissão foi concluida verificando o bit final no inputport
     fun isBusy(): Boolean {
-        return !HAL.isBit(0b10000000)
+        return !HAL.isTxDBitOn()
     }
 }

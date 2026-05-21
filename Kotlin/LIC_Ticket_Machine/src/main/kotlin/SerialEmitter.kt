@@ -5,6 +5,8 @@ object SerialEmitter {
 
     enum class Peripheral { LCD, TICKET }
 
+    const val serialInformationSize = 10
+
     // Inicia a classe
     fun init() {
 
@@ -17,47 +19,40 @@ object SerialEmitter {
        * O BIT (2) VAI SER O ENABLE DO PROCESSO [ACTIVE LOW].
        *
        * */
-        //println("DADOS A ENVIAR: ${Integer.toBinaryString(data).padStart(10, '0').reversed()}")
-        if(addr == Peripheral.LCD){
-            HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
-        }else{
-            HAL.clrBits(mask = 0b00001111) // LIMPA OS 3 BITS QUE VAO SER USADOS
+        if (addr == Peripheral.LCD) {
+            HAL.clearLCDSerialBits() // LIMPA OS 3 BITS QUE VAO SER USADOS
+        } else {
+            HAL.clearTDSerialBits() // LIMPA OS 3 BITS QUE VAO SER USADOS
         }
-        Integer.toBinaryString(data).padStart(10, '0')
+        Integer.toBinaryString(data).padStart(serialInformationSize, '0')
             .reversed()
             .mapIndexed { index, it ->
 
                 if (it.digitToInt() == 1) {
-                    HAL.setBits(mask = 0b00000001) //Fica o ultimo bit ON
+                    HAL.setSDXBit() //Fica o ultimo bit ON
                 } else {
-                    HAL.clrBits(mask = 0b00000001) //Fica o ultimo bit OFF
+                    HAL.clearSDXBit() //Fica o ultimo bit OFF
                 }
 
-                HAL.setBits(mask = 0b00000010)
-                /*println("index: $index -> val: $it")*/
-                HAL.clrBits(mask = 0b00000010)
+                HAL.setSCKLBit()
+                HAL.clearSCKLBit()
             }
-        if(addr == Peripheral.LCD){
-            HAL.clrBits(mask = 0b00000111) // LIMPA OS 3 BITS QUE VAO SER USADOS
-            HAL.setBits(0b00000100)
-        }else{
-            HAL.clrBits(mask = 0b00001111) // LIMPA OS 3 BITS QUE VAO SER USADOS
-            HAL.setBits(0b00001000)
+
+        if (addr == Peripheral.LCD) {
+            HAL.clearLCDSerialBits()
+            HAL.turnOffLcdSS()
+        } else {
+            HAL.clearTDSerialBits()
+            HAL.turnOffTdSS()
         }
     }
 
     fun sendToLCD(data: Int) {
-        //println("\nDADOS PARA O LCD")
         sendInSerie(data, Peripheral.LCD)
-        //println("CONCLUIDO (LCD)")
     }
 
     fun sendToTD(data: Int) {
-        //println("\nDADOS PARA O TICKET DISPENSER")
         sendInSerie(data, Peripheral.TICKET)
-        //ATIVA O ÚLTIMO BIT PARA SINALIZAR QUE TERMINOU A IMPRESSAO
-        HAL.setBits(0b01000000)
-        //println("CONCLUIDO (TD)")
     }
 
     // Envia um a trama para o Serial Receiver

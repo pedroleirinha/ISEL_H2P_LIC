@@ -59,7 +59,7 @@ BEGIN
 		state		=> state
 	);
 	
-	shiftRegisterBits <= '1' & '0' & D(3 downto 0) & '1' & '0';
+	shiftRegisterBits <= '0' & D(3 downto 0) & '1' & '0' & '0';
 
 	
 	control: KeyTransmitterControl port map(

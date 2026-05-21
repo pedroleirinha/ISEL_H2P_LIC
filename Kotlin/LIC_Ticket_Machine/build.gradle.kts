@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation(files("libs/usbPort.jar"))
+    implementation(files("libs/ticketMachine.jar"))
 }
 
 kotlin {

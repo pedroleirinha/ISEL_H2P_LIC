@@ -126,24 +126,6 @@ object TUI {
         LCD.write(text = message)
     }
 
-    fun pickFromStationsList() {
-        LCD.clear()
-        showMessageLeftAlign(message = "Destino:")
-        showStation()
-        var key: Char?
-        do {
-            key = KBD.waitKey(timeout = 6000)
-
-            when (key) {
-                'A' -> TicketMachine.nextStation()
-                'B' -> TicketMachine.previousStation()
-            }
-        } while (key != '#')
-
-        Stations.setDestinationStation(Stations.stationCount)
-    }
-
-
     fun readKey(): Char {
         return KBD.waitKey(timeout = 6000)
     }

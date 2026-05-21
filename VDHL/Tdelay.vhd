@@ -49,9 +49,7 @@ ARCHITECTURE Behaviour OF Tdelay IS
 BEGIN
 
     -- Forçamos o valor do 'div' para 25_000_000 (500 ms) através do generic map
-    Inst_CLKDIV: CLKDIV_timer 
-        generic map ( div => 25000000 )
-        port map(
+    Inst_CLKDIV: CLKDIV_timer port map(
             clk_in  => clk_in,
             reset   => reset, -- Garante que o divisor zera se a tecla for solta!
             clk_out => pulso_500ms

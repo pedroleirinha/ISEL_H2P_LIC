@@ -5,6 +5,7 @@ ENTITY KeyboardReader IS
 	PORT(
 		clk_in, CLEAR, TxClk: 			IN std_logic;
 		rows: 								IN std_logic_vector(3 downto 0);
+		delay:					         IN std_logic_vector(1 downto 0); 
 		cols: 								OUT std_logic_vector(3 downto 0);
 		K: 									OUT std_logic_vector (3 downto 0);
 		Kval, TxD, KbFree:				OUT std_logic;
@@ -25,6 +26,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 		PORT(
 			clk_in, Kack, CLEAR: 	IN std_logic;
 			rows: 						IN std_logic_vector(3 downto 0);
+			delay:					   IN std_logic_vector(1 downto 0); 
 			cols: 						OUT std_logic_vector(3 downto 0);
 			K: 							OUT std_logic_vector (3 downto 0);
 			Kval:							OUT std_logic
@@ -61,8 +63,9 @@ BEGIN
 	);
 	
 	scan: KeyDecode port map(
-		clk_in 	=> clk_in,
+		clk_in 	=> clock,
 		Kack 		=> DAC,
+		delay		=> delay,
 		CLEAR 	=> CLEAR,
 		rows 		=> rows,		
 		cols 		=> cols,	

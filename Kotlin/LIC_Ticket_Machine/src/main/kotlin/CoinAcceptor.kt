@@ -15,22 +15,22 @@ object CoinAcceptor {
     }
 
     fun checkForCoin(): Boolean {
-        return HAL.isBit(0b00001000)
+        return HAL.isCoinBitOn()
     }
 
 
     fun acceptCoin() {
-        HAL.setBits(0b00010000)
-        HAL.clrBits(0b00010000)
+        HAL.setAcceptCoinBit()
+        HAL.clearAcceptCoinBit()
     }
 
     fun collectCoin() {
-        HAL.setBits(0b01000000)
-        HAL.clrBits(0b01000000)
+        HAL.setCollectCoinBit()
+        HAL.clearCollectCoinBit()
     }
 
     fun readCoinBits(): Int {
-        val coinBits = HAL.readBits(0b00000111)
+        val coinBits = HAL.getCoinsBits()
 
         if (coinBits in 0..coins.size) {
             return coins[coinBits]
@@ -49,7 +49,7 @@ object CoinAcceptor {
         acceptCoin()
     }
 
-    fun coinHandshake(){
+    fun coinHandshake() {
         collectCoin()
         coinRead = false
     }
@@ -59,7 +59,7 @@ object CoinAcceptor {
         coinsAdded = mutableListOf()
     }
 
-    fun isHandshakeDone(): Boolean {
+    fun isCoinCollectionDone(): Boolean {
         return !checkForCoin() && coinRead
     }
 
@@ -72,6 +72,6 @@ object CoinAcceptor {
     }
 
     fun isBusy(): Boolean {
-        return checkForCoin() || isHandshakeDone()
+        return checkForCoin() || isCoinCollectionDone()
     }
 }
