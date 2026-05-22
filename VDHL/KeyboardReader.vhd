@@ -8,8 +8,7 @@ ENTITY KeyboardReader IS
 		delay:					         IN std_logic_vector(1 downto 0); 
 		cols: 								OUT std_logic_vector(3 downto 0);
 		K: 									OUT std_logic_vector (3 downto 0);
-		Kval, TxD, KbFree:				OUT std_logic;
-		state:								OUT std_logic_vector(7 downto 0)
+		Kval, TxD, KbFree:				OUT std_logic
 	);
 END KeyboardReader;
 
@@ -46,8 +45,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 		PORT(
 			CLK, TxClk, Load, CLEAR:IN std_logic;
 			D:		 						IN std_logic_vector(3 downto 0);
-			TxD, KbFree:				OUT std_logic;
-			state:						OUT std_logic_vector(7 downto 0)
+			TxD, KbFree:				OUT std_logic
 		);
 	end component;
 	
@@ -63,7 +61,7 @@ BEGIN
 	);
 	
 	scan: KeyDecode port map(
-		clk_in 	=> clock,
+		clk_in 	=> clk_in,
 		Kack 		=> DAC,
 		delay		=> delay,
 		CLEAR 	=> CLEAR,
@@ -80,8 +78,7 @@ BEGIN
 		CLEAR 	=> CLEAR,
 		D 			=> ringQ,		
 		TxD 		=> TxD,	
-		KbFree 	=> KbFreeSignal,
-		state 	=> state
+		KbFree 	=> KbFreeSignal
 	);
 	
 	KbFree 	<= KbFreeSignal;

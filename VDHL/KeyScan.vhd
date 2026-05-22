@@ -37,7 +37,7 @@ ARCHITECTURE Behaviour OF KeyScan IS
 	end component;
 	
 	signal countValues: std_logic_vector (3 downto 0);
-	signal zeros: std_logic;
+	signal zeros, muxKpress: std_logic;
 	signal decodeOutputs: std_logic_vector (3 downto 0);
 	
 
@@ -57,15 +57,16 @@ BEGIN
 	muxPL: MUX4_2L1 port map(
 		A			=> rows,
 		S			=> countValues(1 downto 0),
-		Y			=> Kpress
+		Y			=> muxKpress
 
 	);
-	
+		
 	decode: decoder port map(
 		A 			=> decodeOutputs,
 		S 			=> countValues(3 downto 2)
 	);
 	
+	Kpress <= NOT muxKpress;
 	cols <= decodeOutputs;
 	K <= countValues;
 

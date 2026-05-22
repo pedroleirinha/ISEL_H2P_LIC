@@ -8,6 +8,7 @@ object HAL {
     const val coinBit = 0b00001000
     const val acceptCoinBit = 0b00010000
     const val collectCoinBit = 0b01000000
+    const val ejectCoinBit = 0b01000000
     const val coinsBits = 0b00000111
 
     const val sdxBits = 0b00000001
@@ -116,6 +117,14 @@ object HAL {
         clrBits(collectCoinBit)
     }
 
+    fun setEjectCoinBit() {
+        setBits(ejectCoinBit)
+    }
+
+    fun clearEjectCoinBit() {
+        clrBits(ejectCoinBit)
+    }
+
     fun getCoinsBits(): Int {
         return readBits(coinsBits)
     }
@@ -135,7 +144,6 @@ object HAL {
     fun clearLCDSerialBits() {
         clrBits(lcdSerialBits)
     }
-
 
     fun setSDXBit() {
         setBits(mask = sdxBits) //Fica o ultimo bit ON

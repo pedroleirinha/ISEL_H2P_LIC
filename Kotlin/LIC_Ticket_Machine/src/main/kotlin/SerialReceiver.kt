@@ -105,7 +105,6 @@ fun main() {
     SerialReceiver.init()
 
     println(" <- SerialReceiver -> ")
-
     println("Prima teclas no keypad para ver a transmissão série.")
 
     while (true) {
@@ -115,7 +114,7 @@ fun main() {
         if (!SerialReceiver.retrieveTxD()) {
             println("\nInício de transmissao detetado!")
 
-            // Depois de detetar a tecla, lemos os 4 bits de dados referentes ao código da tecla
+            // Depois de detetar a tecla, lêmos os 4 bits de dados referentes ao código da tecla
             val keyCode = SerialReceiver.receiveKeyInSerie(4)
 
             if (keyCode != -1) {
@@ -124,7 +123,6 @@ fun main() {
                 println("Desalinhamento detetado. A realinhar...")
             }
 
-            // Pequeno atraso para evitar múltiplas leituras da mesma pressão
             Time.sleep(200)
         }
     }

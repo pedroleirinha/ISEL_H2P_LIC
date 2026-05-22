@@ -9,10 +9,10 @@ architecture KeyboardReader_tb_arch of KeyboardReader_tb is
 	component KeyboardReader 	PORT(
 		clk_in, CLEAR, TxClk: 			IN std_logic;
 		rows: 								IN std_logic_vector(3 downto 0);
+		delay:					         IN std_logic_vector(1 downto 0); 
 		cols: 								OUT std_logic_vector(3 downto 0);
 		K: 									OUT std_logic_vector (3 downto 0);
-		Kval, TxD, KbFree:				OUT std_logic;
-		state:								OUT std_logic_vector(7 downto 0)
+		Kval, TxD, KbFree:				OUT std_logic
 	);
 	end component;
 
@@ -20,7 +20,7 @@ architecture KeyboardReader_tb_arch of KeyboardReader_tb is
 	signal CLK_TB : std_logic := '0';
 	signal TXCLK_TB, TXD_TB, CLEAR_TB, KBFREE_TB, KVAL_TB: std_logic;
 	signal COLS_TB, K_TB, ROWS_TB  : std_logic_vector(3 downto 0);
-	signal STATE_TB: std_logic_vector(7 downto 0);
+	signal DELAY_TB: std_logic_vector(1 downto 0);
 
 
 	constant MCLK_PERIOD : time := 20 ns;
@@ -36,16 +36,17 @@ begin
 		CLEAR 	=> CLEAR_TB,
 		rows	 	=> ROWS_TB,
 		cols		=> COLS_TB,
+		delay		=> DELAY_TB,
 		K 			=> K_TB,		
 		TxD 		=> TXD_TB,	
 		Kval 		=> KVAL_TB,	
-		KbFree 	=> KBFREE_TB,
-		state		=> STATE_TB
+		KbFree 	=> KBFREE_TB
 	);
 	
 stimulus: process 
 
 begin
+	DELAY_TB <= "00";
 	CLEAR_TB <= '1';
 	ROWS_TB <= "1111";        
 	TXCLK_TB	<= '0';

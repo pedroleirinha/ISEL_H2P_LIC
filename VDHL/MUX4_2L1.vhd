@@ -11,17 +11,11 @@ END MUX4_2L1;
 
 ARCHITECTURE Behaviour OF MUX4_2L1 IS
 BEGIN
-
-	process(S, A)
-	begin
-	  case S is
-			when "00" => Y <= NOT A(0);
-			when "01" => Y <= NOT A(1);
-			when "10" => Y <= NOT A(2);
-			when "11" => Y <= NOT A(3);
 	
-			when others => Y <= '0';
-	  end case;
-	end process;
+	Y <= (A(0) AND NOT S(0) AND NOT S(1)) OR
+			(A(1) AND S(0) AND NOT S(1)) OR
+			(A(2) AND NOT S(0) AND S(1)) OR
+			(A(3) AND S(0) AND S(1));
+	
 	
 END Behaviour;

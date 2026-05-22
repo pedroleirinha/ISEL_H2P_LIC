@@ -29,6 +29,11 @@ object CoinAcceptor {
         HAL.clearCollectCoinBit()
     }
 
+    fun ejectCoins() {
+        HAL.setEjectCoinBit()
+        HAL.clearEjectCoinBit()
+    }
+
     fun readCoinBits(): Int {
         val coinBits = HAL.getCoinsBits()
 
@@ -36,6 +41,11 @@ object CoinAcceptor {
             return coins[coinBits]
         }
         return -1
+    }
+
+    fun ejectCoinsAndCleanDeposit() {
+        ejectCoins()
+        coinsAdded = mutableListOf()
     }
 
     fun activateCollectCoins() {

@@ -5,19 +5,18 @@ ENTITY KeyTransmitter IS
 	PORT(
 		CLK ,TxClk, Load, CLEAR:IN std_logic;
 		D:		 						IN std_logic_vector(3 downto 0);
-		TxD, KbFree:				OUT std_logic;
-		state:						OUT std_logic_vector(7 downto 0)
+		TxD, KbFree:				OUT std_logic
 	);
 END KeyTransmitter;
 
 ARCHITECTURE Behaviour OF KeyTransmitter IS
 	
-	component ShiftRegisterL7
+	component ShiftRegisterL6
 		PORT(
 			CLK, CE, PL, CLEAR: 	IN std_logic;
-			D: 						IN std_logic_vector(7 downto 0);
+			D: 						IN std_logic_vector(6 downto 0);
 			Q, zeros:				OUT std_logic;
-			state:					OUT std_logic_vector(7 downto 0)
+			state:					OUT std_logic_vector(6 downto 0)
 		);
 	end component;
 	
@@ -36,30 +35,31 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 		);
 	end component;
 	
-	signal shiftClk, PL, errorZeros, shiftEnable, shiftBit, TxDFinal: std_logic;
-	signal shiftRegisterBits: std_logic_vector(7 downto 0);
+	signal InvClk, shiftClk, PL, errorZeros, shiftEnable, shiftBit, TxDFinal: std_logic;
+	signal shiftRegisterBits: std_logic_vector(6 downto 0);
 	
 BEGIN
+	InvClk <= NOT CLK;
 
 	clkMux: MUX2_1L1 port map(
 		A 		=> TxClk,
-		B		=> CLK,
+		B		=> InvClk,
 		S		=> PL,
 		Y		=> shiftClk 
 	);
 	
-	shiftRegister1: ShiftRegisterL7 port map(
+	shiftRegister1: ShiftRegisterL6 port map(
 		CLK 		=> shiftClk,
 		CE 		=> shiftEnable,
 		PL 		=> PL,			
 		CLEAR		=> CLEAR,
 		D			=>	shiftRegisterBits,
 		Q 			=> shiftBit,
-		zeros		=> errorZeros,
-		state		=> state
+		zeros		=> errorZeros
 	);
 	
-	shiftRegisterBits <= '0' & D(3 downto 0) & '1' & '0' & '0';
+	
+	shiftRegisterBits <= '0' & D(3 downto 0) & '1' & '0';
 
 	
 	control: KeyTransmitterControl port map(
