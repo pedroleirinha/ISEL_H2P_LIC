@@ -74,14 +74,7 @@ begin
 	
 	wait until COLS_TB = "1101";  -- coluna 3 ativa
 	ROWS_TB <= "1110";            -- linha 3 ativa
-	wait for CLK_PERIOD * 2;
-	ROWS_TB <= "1111";
-	
-	wait until COLS_TB = "1110";  -- coluna 3 ativa
-	ROWS_TB <= "1011";            -- linha 3 ativa
-	wait for CLK_PERIOD * 2;
-	ROWS_TB <= "1111";
-
+	wait for CLK_PERIOD * 9;
 	
 	for i in 0 to 8 loop
 		TXCLK_TB	<= '1';
@@ -90,22 +83,8 @@ begin
       wait for CLK_PERIOD; -- Aguarda um ciclo completo 
 	end loop;
 	
-	
-	wait until COLS_TB = "1101";  -- coluna 3 ativa
-	ROWS_TB <= "0111";            -- linha 3 ativa
 	wait for CLK_PERIOD * 5;
-	ROWS_TB <= "1111";
-	
-	wait for CLK_PERIOD * 5;
-	
-	for i in 0 to 8 loop
-		TXCLK_TB	<= '1';
-		wait for CLK_PERIOD; 
-		TXCLK_TB	<= '0';
-      wait for CLK_PERIOD; -- Aguarda um ciclo completo
-	end loop;
-	
-	
+
 	wait;
 	
 end process;

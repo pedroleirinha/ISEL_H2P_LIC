@@ -9,6 +9,7 @@ architecture KeyDecode_tb_arch of KeyDecode_tb is
 	component KeyDecode 	PORT(
 		clk_in, Kack, CLEAR: 	IN std_logic;
 		rows: 						IN std_logic_vector(3 downto 0);
+		delay:               	IN std_logic_vector(1 downto 0); 
 		cols: 						OUT std_logic_vector(3 downto 0);
 		K: 							OUT std_logic_vector (3 downto 0);
 		Kval:							OUT std_logic
@@ -19,6 +20,7 @@ architecture KeyDecode_tb_arch of KeyDecode_tb is
 	signal CLK_TB : std_logic := '0';
 	signal KACK_TB, KPRESS_TB, KVAL_TB, CLEAR_TB: std_logic;
 	signal COLS_TB, K_TB, ROWS_TB  : std_logic_vector(3 downto 0);
+	signal DELAY_TB: std_logic_vector(1 downto 0);
 
 	constant MCLK_PERIOD : time := 20 ns;
 	constant MCLK_HALF_PERIOD : time := MCLK_PERIOD / 2;
@@ -34,12 +36,13 @@ begin
 		CLEAR		=> CLEAR_TB,
 		cols		=> COLS_TB,
 		K			=> K_TB, 
+		delay		=> DELAY_TB,
 		Kval	=> KVAL_TB
 	);
 	
 stimulus: process 
 begin
-
+	DELAY_TB	<= "00";
 	CLEAR_TB <= '1';
 	KACK_TB 	<= '0';
 	ROWS_TB <= "1111";        
@@ -52,22 +55,22 @@ begin
 
 	wait until COLS_TB = "1101";  -- coluna 3 ativa
 	ROWS_TB <= "1101";            -- linha 3 ativa
-	wait for CLK_PERIOD * 5;
+	wait for CLK_PERIOD * 3;
 	ROWS_TB <= "1111";
-	wait for CLK_PERIOD * 5;
+	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '1';
-	wait for CLK_PERIOD * 5;
+	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '0';
 	wait for CLK_PERIOD;
 		
 	
 	wait until COLS_TB = "1101";  -- coluna 3 ativa
 	ROWS_TB <= "1110";            -- linha 3 ativa
-	wait for CLK_PERIOD * 5;
+	wait for CLK_PERIOD * 3;
 	ROWS_TB <= "1111";
-	wait for CLK_PERIOD * 5;
+	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '1';
-	wait for CLK_PERIOD * 5;
+	wait for CLK_PERIOD * 2;
 	
 	KACK_TB 	<= '0';
 	wait for CLK_PERIOD;
@@ -76,14 +79,23 @@ begin
 	wait until COLS_TB = "1101";  -- coluna 3 ativa
 	ROWS_TB <= "0111";            -- linha 3 ativa
 	wait for CLK_PERIOD * 5;
-	ROWS_TB <= "1111";
-	wait for CLK_PERIOD * 5;
 	KACK_TB 	<= '1';
-	wait for CLK_PERIOD * 5;
-	
+	wait for CLK_PERIOD * 2;
+	KACK_TB 	<= '0';
+	wait for CLK_PERIOD * 2;
+	KACK_TB 	<= '1';
+	wait for CLK_PERIOD * 2;
+	KACK_TB 	<= '0';
+	wait for CLK_PERIOD * 2;
+	KACK_TB 	<= '1';
+	wait for CLK_PERIOD * 2;
+	KACK_TB 	<= '0';
+	wait for CLK_PERIOD * 2;
+	KACK_TB 	<= '1';
+	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '0';
 	wait for CLK_PERIOD;
-	CLEAR_TB <= '1';
+	--CLEAR_TB <= '1';
 
 	wait;
 		

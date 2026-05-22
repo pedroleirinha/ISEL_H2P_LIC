@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 ENTITY CLKDIV_timer IS
-    generic( div: natural := 25000000 ); -- Valor padrão para 500ms a 50MHz
+    generic( div: natural := 50 ); -- Valor padrão para 500ms a 50MHz [25000000]
     port ( 
         clk_in  : in  std_logic;
         reset   : in  std_logic; 

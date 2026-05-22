@@ -28,7 +28,7 @@ ARCHITECTURE Behaviour OF KeyDecode IS
 			clk_in, Kpress, Kack, CLEAR, CE: IN std_logic;
 			time_up:                         IN std_logic;  
 			Kval, Kscan:                     OUT std_logic;
-			ce_timer, reset_timer:           OUT std_logic  
+			ceTimer, resetTimer:           	OUT std_logic  
 	  );
 	end component;
 
@@ -69,8 +69,8 @@ BEGIN
 	  time_up     => s_time_up,     
 	  Kval        => Kval,
 	  Kscan       => controlKscan,
-	  ce_timer    => s_ce_timer,    
-	  reset_timer => s_reset_timer  
+	  ceTimer	  => s_ce_timer,    
+	  resetTimer  => s_reset_timer  
 	);
 
 

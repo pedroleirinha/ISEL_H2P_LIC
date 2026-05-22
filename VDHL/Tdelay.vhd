@@ -32,7 +32,6 @@ ARCHITECTURE Behaviour OF Tdelay IS
     
     -- Chamamos o novo divisor feito à imagem do teu original
     component CLKDIV_timer
-        generic( div: natural := 50000 ); 
         port ( 
             clk_in  : in  std_logic;
             reset   : in  std_logic;
@@ -41,7 +40,6 @@ ARCHITECTURE Behaviour OF Tdelay IS
     end component;
 
     signal pulso_500ms   : std_logic;
-    signal ce_do_contador: std_logic;
     signal q_contador    : std_logic_vector(3 downto 0);
     signal sinais_mux    : std_logic_vector(3 downto 0); 
     signal mux_out       : std_logic;
@@ -50,18 +48,15 @@ BEGIN
 
     -- Forçamos o valor do 'div' para 25_000_000 (500 ms) através do generic map
     Inst_CLKDIV: CLKDIV_timer port map(
-            clk_in  => clk_in,
-            reset   => reset, -- Garante que o divisor zera se a tecla for solta!
-            clk_out => pulso_500ms
-        );
-
-    -- O teu contador só avança quando a FSM permite e o clock div bate o tempo
-    ce_do_contador <= ce AND pulso_500ms;
-
+			clk_in  => clk_in,
+			reset   => reset, -- Garante que o divisor zera se a tecla for solta!
+			clk_out => pulso_500ms
+	  );
+	  
     Inst_Counter: Counter
         port map(
-            clk_in  => clk_in,
-            CE      => ce_do_contador,
+            clk_in  => pulso_500ms,
+            CE      => ce,
             CLEAR   => reset,        
             PL      => '0',
             initial => "0000",
