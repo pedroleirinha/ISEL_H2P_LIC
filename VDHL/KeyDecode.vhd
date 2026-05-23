@@ -28,17 +28,15 @@ ARCHITECTURE Behaviour OF KeyDecode IS
 			clk_in, Kpress, Kack, CLEAR, CE: IN std_logic;
 			time_up:                         IN std_logic;  
 			Kval, Kscan:                     OUT std_logic;
-			ce_timer, reset_timer:           OUT std_logic  
+			ceTimer, resetTimer:           	OUT std_logic  
 	  );
 	end component;
 
-
 	component Time_Delay
 	  PORT(
-			clk      : IN  std_logic;                    
-            KeyPress : IN  std_logic;                    
-            Mux_select   : IN  std_logic_vector(1 downto 0); 
-            Pulse : OUT std_logic		 
+        clk, ceTimer, resetTimer: 	IN  std_logic;                                 
+        delays: 							IN  std_logic_vector(1 downto 0); 
+        timeUp: 							OUT std_logic	 
 	  );
 	end component;
 
@@ -68,16 +66,25 @@ BEGIN
 	  time_up     => s_time_up,     
 	  Kval        => Kval,
 	  Kscan       => controlKscan,
-	  ce_timer    => s_ce_timer,    
-	  reset_timer => s_reset_timer  
+	  ceTimer	  => s_ce_timer,    
+	  resetTimer  => s_reset_timer  
 	);
-
-
+	
 	time_D: Time_Delay port map(
-	  clk        => clk_in,
-	  KeyPress   => controlKpress,  
-	  Mux_select => delay,          
-	  Pulse      => s_time_up           
+	  clk         => clk_in,
+	  ceTimer     => s_ce_timer,
+	  resetTimer  => s_reset_timer,
+	  delays 	  => delay,          
+	  timeUp      => s_time_up           
 	);
+
+
+--	timer: Tdelay port map(
+--	  clk_in => clk_in,
+--	  ce     => s_ce_timer,
+--	  reset  => s_reset_timer,
+--	  delay  => delay,             
+--	  S      => s_time_up          
+--	);
 
 END Behaviour;
