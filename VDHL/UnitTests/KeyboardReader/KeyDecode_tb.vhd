@@ -82,14 +82,22 @@ begin
 	KACK_TB 	<= '1';
 	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '0';
+	
+	wait for 50ns;
+	
 	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '1';
 	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '0';
+	
+	wait for 50ns;
+	
 	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '1';
 	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '0';
+	
+	wait for 50ns;
 	wait for CLK_PERIOD * 2;
 	KACK_TB 	<= '1';
 	wait for CLK_PERIOD * 2;

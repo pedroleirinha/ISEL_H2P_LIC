@@ -32,14 +32,11 @@ ARCHITECTURE Behaviour OF KeyDecode IS
 	  );
 	end component;
 
-
-	component Tdelay
+	component Time_Delay
 	  PORT(
-			clk_in : IN  std_logic;
-			ce     : IN  std_logic;
-			reset  : IN  std_logic;
-			delay  : IN  std_logic_vector(1 downto 0);
-			S      : OUT std_logic
+        clk, ceTimer, resetTimer: 	IN  std_logic;                                 
+        delays: 							IN  std_logic_vector(1 downto 0); 
+        timeUp: 							OUT std_logic	 
 	  );
 	end component;
 
@@ -72,15 +69,23 @@ BEGIN
 	  ceTimer	  => s_ce_timer,    
 	  resetTimer  => s_reset_timer  
 	);
-
-
-	timer: Tdelay port map(
-	  clk_in => clk_in,
-	  ce     => s_ce_timer,
-	  reset  => s_reset_timer,
-	  delay  => delay,             
-	  S      => s_time_up          
+	
+	time_D: Time_Delay port map(
+	  clk         => clk_in,
+	  ceTimer     => s_ce_timer,
+	  resetTimer  => s_reset_timer,
+	  delays 	  => delay,          
+	  timeUp      => s_time_up           
 	);
+
+
+--	timer: Tdelay port map(
+--	  clk_in => clk_in,
+--	  ce     => s_ce_timer,
+--	  reset  => s_reset_timer,
+--	  delay  => delay,             
+--	  S      => s_time_up          
+--	);
 
 
 END Behaviour;

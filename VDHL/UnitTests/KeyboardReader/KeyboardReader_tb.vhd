@@ -76,6 +76,18 @@ begin
 	ROWS_TB <= "1110";            -- linha 3 ativa
 	wait for CLK_PERIOD * 9;
 	
+	wait until TXD_TB = '0';
+	for i in 0 to 8 loop
+		TXCLK_TB	<= '1';
+		wait for CLK_PERIOD; 
+		TXCLK_TB	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
+	end loop;
+
+	
+	DELAY_TB <= "01";
+	
+	wait until TXD_TB = '0';
 	for i in 0 to 8 loop
 		TXCLK_TB	<= '1';
 		wait for CLK_PERIOD; 
@@ -83,8 +95,45 @@ begin
       wait for CLK_PERIOD; -- Aguarda um ciclo completo 
 	end loop;
 	
-	wait for CLK_PERIOD * 5;
-
+	DELAY_TB <= "10";
+	
+	wait until TXD_TB = '0';
+	for i in 0 to 8 loop
+		TXCLK_TB	<= '1';
+		wait for CLK_PERIOD; 
+		TXCLK_TB	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
+	end loop;
+	
+	DELAY_TB <= "11";
+	
+	wait until TXD_TB = '0';
+	for i in 0 to 8 loop
+		TXCLK_TB	<= '1';
+		wait for CLK_PERIOD; 
+		TXCLK_TB	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
+	end loop;
+	
+	
+	DELAY_TB <= "00";
+	
+	wait until TXD_TB = '0';
+	for i in 0 to 8 loop
+		TXCLK_TB	<= '1';
+		wait for CLK_PERIOD; 
+		TXCLK_TB	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
+	end loop;
+	
+	wait until TXD_TB = '0';
+	for i in 0 to 8 loop
+		TXCLK_TB	<= '1';
+		wait for CLK_PERIOD; 
+		TXCLK_TB	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
+	end loop;
+	
 	wait;
 	
 end process;
