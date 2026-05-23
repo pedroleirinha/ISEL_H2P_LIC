@@ -42,8 +42,8 @@ ARCHITECTURE Behaviour OF KeyDecode IS
 
 	signal controlKpress, controlKscan : std_logic;
 	signal s_time_up    : std_logic;
-   signal s_ce_timer   : std_logic;
-   signal s_reset_timer: std_logic;
+    signal s_ce_timer   : std_logic;
+    signal s_reset_timer: std_logic;
 
 BEGIN
 	
@@ -86,6 +86,5 @@ BEGIN
 --	  delay  => delay,             
 --	  S      => s_time_up          
 --	);
-
 
 END Behaviour;
