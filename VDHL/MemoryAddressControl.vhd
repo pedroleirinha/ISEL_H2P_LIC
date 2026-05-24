@@ -20,11 +20,11 @@ ARCHITECTURE Behaviour OF MemoryAddressControl IS
 		);
 	end component;
 	
-	component MUX2_1L4
+	component MUX2_1L7
 		PORT(
-			A, B: IN std_logic_vector(3 downto 0);
+			A, B: IN std_logic_vector(6 downto 0);
 			S: IN std_logic;
-			Y: OUT std_logic_vector(3 downto 0)
+			Y: OUT std_logic_vector(6 downto 0)
 		);
 	end component;
 	
@@ -50,6 +50,7 @@ ARCHITECTURE Behaviour OF MemoryAddressControl IS
 	
 	signal putIndex, getIndex, invertedPutIndex, subtractorRes: std_logic_vector(3 downto 0);
 	signal getFlag, lastActionFlag, pointersEqual, latchReset: std_logic;
+	signal muxOut, muxA, muxB: std_logic_vector(6 downto 0);
 	
 BEGIN
 
@@ -84,12 +85,17 @@ BEGIN
 		Q			=> getIndex
 	);
 	
-	muxPL: MUX2_1L4 port map(
-		A			=> getIndex,
-		B			=> putIndex,
+	muxA <= "000" & getIndex;
+	muxB <= "000" & putIndex;
+	
+	muxPL: MUX2_1L7 port map(
+		A			=> muxA,
+		B			=> muxB,
 		S			=> putGet,
-		Y			=> Q
+		Y			=> muxOut
 	);
+	
+	Q <= muxOut(3 downto 0);
 	
 	invertedPutIndex <= NOT putIndex(3) & NOT putIndex(2) & NOT putIndex(1) & NOT putIndex(0);
 	

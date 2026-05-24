@@ -61,7 +61,7 @@ BEGIN
 	);
 	
 	scan: KeyDecode port map(
-		clk_in 	=> clk_in,
+		clk_in 	=> clock,
 		Kack 		=> DAC,
 		delay		=> delay,
 		CLEAR 	=> CLEAR,

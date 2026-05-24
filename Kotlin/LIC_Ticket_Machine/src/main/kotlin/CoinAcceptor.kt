@@ -12,7 +12,10 @@ object CoinAcceptor {
     var coinsAdded = mutableListOf<Int>()
 
     fun init() {
+    }
 
+    fun checkForNewCoin(): Boolean {
+        return checkForCoin() && !coinRead
     }
 
     fun checkForCoin(): Boolean {

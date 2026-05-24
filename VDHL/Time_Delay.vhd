@@ -12,10 +12,8 @@ END Time_Delay;
 
 ARCHITECTURE Structural OF Time_Delay IS
 
-
-
 	COMPONENT CLKDIV IS
-        GENERIC ( div: natural := 50000 );
+        GENERIC ( div: natural := 50 );
         PORT ( 
             clk_in  : IN  std_logic;
             clk_out : OUT std_logic
@@ -31,12 +29,11 @@ ARCHITECTURE Structural OF Time_Delay IS
         );
 	END COMPONENT;
 	 
-	 
-	COMPONENT MUX4_2L1 IS
+	COMPONENT MUX4_2L4 IS
         PORT (
-            A: IN std_logic_vector(3 downto 0);
+            A, B, C, D: IN std_logic_vector(3 downto 0);
             S: IN std_logic_vector(1 downto 0);
-            Y: OUT std_logic
+            Y: OUT std_logic_vector(3 downto 0)
         );
 	END COMPONENT;
 
@@ -44,10 +41,9 @@ ARCHITECTURE Structural OF Time_Delay IS
 	 
 	signal clkdiv_wave     : std_logic;
 	
-	signal counter_steps  : std_logic_vector(3 downto 0); 
+	signal counter_steps,saida  : std_logic_vector(3 downto 0); 
    signal mux_inputs     : std_logic_vector(3 downto 0); 
    signal Tdelay_reached : std_logic;
-   signal mux_pl         : std_logic;
 	
 	
 BEGIN
@@ -63,27 +59,26 @@ BEGIN
 		clk_in  => clkdiv_wave,
 		CE      => ceTimer,        
 		CLEAR   => resetTimer,     
-		PL      => mux_pl,           
+		PL      => '0',           
 		initial => "0000",
 		step    => "0001",
 		Q       => counter_steps                
 	);  
 
-	 
-	mux_Delay: MUX4_2L1 port map(
-		A => mux_inputs,
-		S => delays,
-		Y => Tdelay_reached  
-	);
-	 
 	
-	mux_pl <= Tdelay_reached;
-
-
-	mux_inputs(0) <= counter_steps(0);                  
-	mux_inputs(1) <= counter_steps(1);                  
-	mux_inputs(2) <= counter_steps(0) AND counter_steps(1); 
-	mux_inputs(3) <= counter_steps(2);                  
+	mux_Delay: MUX4_2L4 port map(
+		A => "0001",
+		B => "0010",
+		C => "0011",
+		D => "0100",
+		S => delays,
+		Y => saida
+	);
+	
+	Tdelay_reached <= (saida(0) XNOR counter_steps(0)) AND 
+							(saida(1) XNOR counter_steps(1)) AND 
+							(saida(2) XNOR counter_steps(2)) AND 
+							(saida(3) XNOR counter_steps(3));               
 
 	timeUp <= Tdelay_reached;
 

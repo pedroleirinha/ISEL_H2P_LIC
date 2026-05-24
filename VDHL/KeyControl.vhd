@@ -20,7 +20,7 @@ BEGIN
    
     currState <= STATE_SCANNING when CLEAR = '1' else nextState when rising_edge(clk_in);
 
-    generateNextState: process(Kpress, Kack, time_up, currState)
+    generateNextState: process(Kpress, Kack, time_up, CE, currState)
     begin
         nextState <= currState; 
         
@@ -55,6 +55,6 @@ BEGIN
       
     
     ceTimer <= '1' when (currState = STATE_ACKNOWLEDGE AND Kpress = '1') else '0';
-    resetTimer <= '1' when (currState = STATE_CLEAN_TIMER OR CLEAR = '1') else '0';
+    resetTimer <= '1' when (currState = STATE_CLEAN_TIMER OR CLEAR = '1' or Kpress = '0') else '0';
     
 END Behaviour;
