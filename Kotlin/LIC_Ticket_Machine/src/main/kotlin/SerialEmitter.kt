@@ -85,7 +85,11 @@ fun main() {
 
     // --- TESTE 1: Enviar o carater 'A' com RS = 1 e E = 1
     val dataLCD = 0b1010000011
-    println("A enviar trama para o LCD: ${Integer.toBinaryString(dataLCD).padStart(10, '0')}")
+    println(
+        "A enviar trama para o LCD: ${
+            Integer.toBinaryString(dataLCD).padStart(SerialEmitter.serialInformationSize, '0')
+        }"
+    )
 
     SerialEmitter.send(SerialEmitter.Peripheral.LCD, dataLCD)
 

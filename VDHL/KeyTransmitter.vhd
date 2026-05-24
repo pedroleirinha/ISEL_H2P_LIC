@@ -27,26 +27,30 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 		);
 	end component;
 	
-	component MUX2_1L1
+	component MUX2_1L7
 		PORT(
-			A,B: IN std_logic;
+			A,B: IN std_logic_vector (6 downto 0);
 			S: IN std_logic;
-			Y: OUT std_logic
+			Y: OUT std_logic_vector (6 downto 0)
 		);
 	end component;
 	
 	signal InvClk, shiftClk, PL, errorZeros, shiftEnable, shiftBit, TxDFinal: std_logic;
-	signal shiftRegisterBits: std_logic_vector(6 downto 0);
+	signal shiftRegisterBits, muxOut, muxA, muxB: std_logic_vector(6 downto 0);
 	
 BEGIN
 	InvClk <= NOT CLK;
 
-	clkMux: MUX2_1L1 port map(
-		A 		=> TxClk,
-		B		=> InvClk,
+	muxA <= "000000" & TxClk;
+	muxB <= "000000" & InvClk;
+	clkMux: MUX2_1L7 port map(
+		A 		=> muxA,
+		B		=> muxB,
 		S		=> PL,
-		Y		=> shiftClk 
+		Y		=> muxOut
 	);
+	
+	shiftClk <= muxOut(0);
 	
 	shiftRegister1: ShiftRegisterL6 port map(
 		CLK 		=> shiftClk,

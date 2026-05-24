@@ -152,6 +152,80 @@ begin
 	
 	OUTPUT_TB(3) <= '1';
 	PRT_TB <= '0';
+	
+	
+	-- Segundo processo
+	
+	
+		wait until COLS_TB = "0111";  -- coluna 3 ativa
+	ROWS_TB <= "0111";            -- linha 3 ativa
+	wait for CLK_PERIOD * 7;
+	
+	-- Começa o TxCLK
+	for i in 0 to 9 loop
+		OUTPUT_TB(7)	<= '1';
+		wait for CLK_PERIOD; 
+		OUTPUT_TB(7)	<= '0';
+      wait for CLK_PERIOD; -- Aguarda um ciclo completo
+	end loop;
+	-- FIM DO TXCLK
+	
+	wait for CLK_PERIOD;
+	COINS_TB <= "011";
+	COIN_TB <= '1';
+	OUTPUT_TB(4) <= '1';
+	wait for CLK_PERIOD * 3;
+	COIN_TB <= '0';
+	OUTPUT_TB(4) <= '0';
+	wait for CLK_PERIOD;
+	COINS_TB <= "111";
+	COIN_TB <= '1';
+	OUTPUT_TB(4) <= '1';
+	wait for CLK_PERIOD * 3;
+	COIN_TB <= '0';
+	OUTPUT_TB(4) <= '0';
+	wait for CLK_PERIOD;
+	
+	OUTPUT_TB(3) <= '0';
+	
+	for i in 0 to 9 loop
+
+		 OUTPUT_TB(0) <= test_data(i);
+		 wait for CLK_PERIOD/2;
+
+		 OUTPUT_TB(1) <= '1';
+		 wait for CLK_PERIOD/2;
+
+		 OUTPUT_TB(1) <= '0';
+		 wait for CLK_PERIOD;
+
+	end loop;
+	
+	OUTPUT_TB(3) <= '1';
+	
+	wait for CLK_PERIOD ;	
+	PRT_TB <= '1';
+	wait for CLK_PERIOD ;	
+		
+	OUTPUT_TB(3) <= '0';
+	
+	for i in 0 to 9 loop
+
+		 OUTPUT_TB(0) <= test_data2(i);
+		 wait for CLK_PERIOD/2;
+
+		 OUTPUT_TB(1) <= '1';
+		 wait for CLK_PERIOD/2;
+
+		 OUTPUT_TB(1) <= '0';
+		 wait for CLK_PERIOD;
+
+	end loop;
+	
+	OUTPUT_TB(3) <= '1';
+	PRT_TB <= '0';
+	
+
 	wait;
 		
 		

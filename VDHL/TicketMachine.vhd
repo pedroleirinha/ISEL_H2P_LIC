@@ -7,7 +7,7 @@ ENTITY TicketMachine IS
 		KEYPAD_LIN:									IN std_logic_vector(3 downto 0);
       delay:					               IN std_logic_vector(1 downto 0); 
 		COINS: 										IN std_logic_vector(2 downto 0);
-		output:										IN std_logic_vector(7 downto 0);
+		--output:										IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
 		LCD_EN, LCD_RS, CoinAccepted, Prt:	OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
@@ -33,13 +33,13 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	end component;
 	
 
---	component UsbPort 
---		PORT
---		(
---			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
---			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
---		);
---	end component;
+	component UsbPort 
+		PORT
+		(
+			inputPort:  	IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+			outputPort:		OUT  STD_LOGIC_VECTOR(7 DOWNTO 0)
+		);
+	end component;
 	
 	
 	component PortExpanderLCD                           
@@ -66,7 +66,7 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 		);
 	end component;
 	
-	signal input:					STD_LOGIC_VECTOR(7 DOWNTO 0);
+	signal input, output:		STD_LOGIC_VECTOR(7 DOWNTO 0);
 	signal values: 				STD_LOGIC_VECTOR(3 DOWNTO 0);
 	signal clock: 					STD_LOGIC;
 	
@@ -132,13 +132,12 @@ BEGIN
 		HEX5    			=> HEX5
 	);
 
---	UsbPort1: UsbPort port map(
---		inputPort	=> input,
---		outputPort	=> output
---	);
+	UsbPort1: UsbPort port map(
+		inputPort	=> input,
+		outputPort	=> output
+	);
 	
-	
-	input <= TxD_o & "00" & PrtFlag & coin & coins;
+	input <= TxD_o & "00" & fnFlag & coin & coins;
 	Prt 	<= PrtFlag;
 	
 	-- Info for TicketDispenser

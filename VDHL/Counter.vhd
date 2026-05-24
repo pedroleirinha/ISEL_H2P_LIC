@@ -28,17 +28,19 @@ ARCHITECTURE Structural OF Counter IS
 		);
 	end component;
 	
-	component MUX2_1L4
+	component MUX2_1L7
 		PORT(
-			A,B: IN std_logic_vector (3 downto 0);
+			A,B: IN std_logic_vector (6 downto 0);
 			S: IN std_logic;
-			Y: OUT std_logic_vector (3 downto 0)
+			Y: OUT std_logic_vector (6 downto 0)
 		);
 	end component;
 	
 	signal flipflopsCurrentState: std_logic_vector (3 downto 0);
 	signal flipflopsNextState: std_logic_vector (3 downto 0);
 	signal addRes: std_logic_vector (3 downto 0);
+	
+	signal muxOut, muxA, muxB: std_logic_vector (6 downto 0);
 	
 BEGIN	
 
@@ -49,12 +51,17 @@ BEGIN
 		S => addRes
 	);
 	
-	muxPL: MUX2_1L4 port map(
-		A => addRes,
-		B => initial,
+	muxA <= "000" & addRes;
+	muxB <= "000" & initial;
+	
+	muxPL: MUX2_1L7 port map(
+		A => muxA,
+		B => muxB,
 		S => PL,
-		Y => flipflopsNextState
+		Y => muxOut
 	);
+	
+	flipflopsNextState <= muxOut(3 downto 0);
 	
 	registry: RegistryL4 port map(
 		clk_in => clk_in,
