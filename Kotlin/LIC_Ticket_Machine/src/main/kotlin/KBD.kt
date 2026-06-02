@@ -38,18 +38,20 @@ object KBD {
     // Retorna a tecla premida, caso ocorra antes do 'timeout' (em milissegundos),
     // ou NONE caso contrário.
     fun waitKey(timeout: Long): Char {
+        var key = NONE
         val time = getTimeInMillis() + timeout
         while (getTimeInMillis() < time) {
             val keyCode = SerialReceiver.getData()
-            val key = getKey(keyCode)
+            key = getKey(keyCode)
             if (key != NONE) {
                 println("KEY: $key pressed")
                 return key
             }
-            if (TicketMachine.hasInterruption()) return NONE
+
+            if (TicketMachine.hasInterruption()) return key
         }
         println("NO KEY PRESS")
-        return NONE
+        return key
     }
 }
 
