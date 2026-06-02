@@ -11,7 +11,7 @@ import org.example.TicketMachine.state
 
 object Maintenance {
     enum class MaintenanceState {
-        ROTATION,
+        IDLE,
         SELLING,
         SELLING_PAYMENT,
         SELLING_TICKET,
@@ -31,7 +31,7 @@ object Maintenance {
 
 
     var maintenanceOptionCounter = 0
-    var maintenanceState = MaintenanceState.ROTATION
+    var maintenanceState = MaintenanceState.IDLE
 
     fun getMaintenanceOption(): MAINTENANCEOPTIONS {
         val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
@@ -53,11 +53,11 @@ object Maintenance {
     }
 
     fun resetMaintenanceState() {
-        maintenanceState = MaintenanceState.ROTATION
+        maintenanceState = MaintenanceState.IDLE
     }
 
     fun isMaintenanceInitialState(): Boolean {
-        return state == TicketMachineState.MAINTENANCE && maintenanceState == MaintenanceState.ROTATION
+        return state == TicketMachineState.MAINTENANCE && maintenanceState == MaintenanceState.IDLE
     }
 
     fun isSellingState(): Boolean {

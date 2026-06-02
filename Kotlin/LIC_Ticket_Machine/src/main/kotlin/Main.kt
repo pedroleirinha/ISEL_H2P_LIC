@@ -1,9 +1,7 @@
 package org.example
 
 fun main() {
-
     TicketMachine.init()
-
     while (true) {
         TicketMachine.waitForKeyPressed()
 
