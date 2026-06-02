@@ -40,6 +40,7 @@ object KBD {
     fun waitKey(timeout: Long): Char {
         var key = NONE
         val time = getTimeInMillis() + timeout
+
         while (getTimeInMillis() < time) {
             val keyCode = SerialReceiver.getData()
             key = getKey(keyCode)
