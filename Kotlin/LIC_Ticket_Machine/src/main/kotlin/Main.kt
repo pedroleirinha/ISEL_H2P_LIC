@@ -11,7 +11,11 @@ fun main() {
         when {
             TicketMachine.isPaymentState() -> TicketMachine.checkForPaymentCompleted()
             TicketMachine.isTicketEmittingState() -> TicketMachine.checkForTickedCollected()
-            TicketMachine.isMaintenanceState() -> TicketMachine.printMaintenanceOptions()
+            Maintenance.isMaintenanceInitialState() -> TicketMachine.printMaintenanceOptions()
+        }
+
+        if (Maintenance.isShuttingDownState()) {
+            break
         }
 
         TicketMachine.isMaintenanceModeActive()

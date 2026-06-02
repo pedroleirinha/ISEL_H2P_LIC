@@ -69,6 +69,29 @@ object TUI {
         showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
     }
 
+    fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
+        LCD.clear()
+        showMessageCenterAlign("Maintenance")
+        showMessageLeftAlign("${option.key}-${option.string}", 1)
+    }
+
+    fun showPrintingMessage() {
+        LCD.clear()
+        showMessageLeftAlign(message = "Imprimir Ticket")
+    }
+
+    fun showShuttingDownMessage() {
+        LCD.clear()
+        showMessageCenterAlign(message = "A DESLIGAR..")
+    }
+
+    fun showAbortVendingMessage() {
+        LCD.clear()
+        showMessageCenterAlign("Vending Aborted!")
+        Time.sleep(1000)
+
+        showWelcomeMessage()
+    }
 
     fun showTicketRoundTripInformation(roundTrip: Boolean) {
         val tripIcon = "${ICONS.ARROW_UP.code}${if (roundTrip) ICONS.ARROW_DOWN.code else ""}"

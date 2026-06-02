@@ -4,18 +4,7 @@ import isel.leic.utils.Time
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.CoinAcceptor.totalAddedCoinsValue
 import org.example.KBD.NONE
-import org.example.TUI.printStation
-import org.example.TUI.showMessageLeftAlign
-import org.example.TUI.showWelcomeMessage
 
-
-enum class MAINTENANCEOPTIONS(val string: String, val key: Char) {
-    PRINT_TICKET(string = "Print_Ticket", key = '#'),
-    STATION_COUNT(string = "Station Cnt", key = 'A'),
-    COIN_COUNT(string = "Coins Cnt", key = 'B'),
-    RESET_COUNT(string = "Reset Cnt", key = 'C'),
-    SHUTDOWN(string = "ShutDown", key = 'D')
-}
 
 object TicketMachine {
     enum class TicketMachineState {
@@ -30,38 +19,28 @@ object TicketMachine {
     var roundTrip = false
     var state: TicketMachineState = TicketMachineState.PICK_STATION
 
-    var timer: Long = 0
-    var lastKey: Int = 0
+    var timer: Long = 0     // Define o tempo limite para avaliar se algo aconteceu
+    var lastKey: Int = 0    // Regista a ultima key pressionada para permitir concatenar numeros ate 16.
 
-    var consulta = false
-    var consultaBilhetes = false
-    var consultaMoedas = false
-    var maintenanceOptionCounter = 0
 
     fun hasInterruption(): Boolean {
         return CoinAcceptor.isBusy()
     }
 
     fun abortPickingProcess() {
-        Stations.destStation = null
         if (isPickingStationState()) {
+            Stations.destStation = null
             TUI.showWelcomeMessage()
         } else {
-            printMaintenanceOptions()
+            Maintenance.resetMaintenanceState()
         }
     }
-
 
     fun abortVendingProcess() {
         state = TicketMachineState.PICK_STATION
         Stations.destStation = null
         CoinAcceptor.ejectCoinsAndCleanDeposit()
-
-        LCD.clear()
-        TUI.showMessageCenterAlign("Vending Aborted!")
-        Time.sleep(1000)
-
-        TUI.showWelcomeMessage()
+        TUI.showAbortVendingMessage()
     }
 
     fun isMaintenanceModeActive(): Boolean {
@@ -73,12 +52,8 @@ object TicketMachine {
     }
 
     fun printMaintenanceOptions() {
-        val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
-        LCD.clear()
-        TUI.showMessageCenterAlign("Maintenance")
-        showMessageLeftAlign("${option.key}-${option.string}", 1)
-
-        maintenanceOptionCounter = (maintenanceOptionCounter + 1) % MAINTENANCEOPTIONS.entries.size
+        val option = Maintenance.getMaintenanceOption()
+        TUI.printMaintenanceOption(option)
     }
 
     fun init() {
@@ -90,12 +65,12 @@ object TicketMachine {
 
     fun nextStation() {
         Stations.incrementStationsCount()
-        printStation()
+        TUI.printStation()
     }
 
     fun previousStation() {
         Stations.decrementStationsCount()
-        printStation()
+        TUI.printStation()
     }
 
     fun nextStationTicketsSold() {
@@ -115,12 +90,12 @@ object TicketMachine {
 
     fun previousCoinCount() {
         CoinAcceptor.decrementCoinsCount()
-        TUI.showCoinCountNumber()
+        TUI.printCoinsCount()
     }
 
     fun toggleRoundTrip() {
         roundTrip = !roundTrip
-        printStation(roundTrip)
+        TUI.printStation(roundTrip)
     }
 
     fun isPaymentState(): Boolean {
@@ -131,17 +106,13 @@ object TicketMachine {
         return state == TicketMachineState.TICKET
     }
 
-    fun isMaintenanceState(): Boolean {
-        return state == TicketMachineState.MAINTENANCE && !consulta
-    }
-
     fun isPickingStationState(): Boolean {
         return state == TicketMachineState.PICK_STATION
     }
 
     fun checkForTickedCollected() {
         if (TicketDispenser.isTicketCollected()) {
-            showMessageLeftAlign("Ticket Collected")
+            TUI.showMessageLeftAlign("Ticket Collected")
             state = TicketMachineState.PICK_STATION
 
             TicketDispenser.emitPrintingTicketDown(
@@ -149,9 +120,8 @@ object TicketMachine {
                 origin = Stations.originStation?.code ?: 0,
                 destination = Stations.destStation?.code ?: 0
             )
-            Time.sleep(500)
-            showWelcomeMessage()
 
+            TUI.showWelcomeMessage()
             Stations.incrementDestinationStationSoldTickets()
         }
     }
@@ -165,19 +135,17 @@ object TicketMachine {
     }
 
     fun submitTicket() {
-        LCD.clear()
-        showMessageLeftAlign(message = "Imprimir Ticket")
+        TUI.showPrintingMessage()
         TicketDispenser.emitPrintingTicketUp(
             roundTrip = roundTrip,
             origin = Stations.originStation?.code ?: 0,
             destination = Stations.destStation?.code ?: 0
         )
-
     }
 
     fun sellTicket() {
         state = TicketMachineState.PAYMENT
-        printStation()
+        TUI.printStation()
     }
 
     fun checkForPaymentCompleted() {
@@ -190,7 +158,7 @@ object TicketMachine {
 
             CoinAcceptor.checkForCoin() -> {
                 CoinAcceptor.readAndAcceptCoin()
-                printStation()
+                TUI.printStation()
             }
 
             CoinAcceptor.isCoinCollectionDone() -> CoinAcceptor.coinHandshake()
@@ -198,6 +166,7 @@ object TicketMachine {
     }
 
     fun shutdownSystem() {
+        TUI.showShuttingDownMessage()
         CoinAcceptor.saveCoins()
         Stations.saveStations()
     }
@@ -207,7 +176,7 @@ object TicketMachine {
             Stations.stationCount = keyNumber
             Stations.setDestinationStation(keyNumber)
             println("Destination set to ${Stations.getCurrentStation().name}")
-            printStation()
+            TUI.printStation()
         }
     }
 
@@ -252,55 +221,12 @@ object TicketMachine {
         }
     }
 
-
     fun paymentKeyActions(key: Char) {
         when (key) {
             '*' -> toggleRoundTrip()
             '#' -> abortVendingProcess()
         }
     }
-
-    fun maintenanceKeyActions(key: Char) {
-        if (checkIfTimerIsUp()) {
-            abortPickingProcess()
-            return
-        }
-        when (key) {
-            'A' -> {
-                if (!consulta) {
-                    consulta = true
-                    consultaBilhetes = true
-                    consultaMoedas = false
-                    TUI.printStationTicketsSold()
-                } else {
-                    if (consultaMoedas) {
-                        nextCoinCount()
-                    } else {
-                        nextStationTicketsSold()
-                    }
-                }
-            }
-
-            'B' -> {
-                if (!consulta) {
-                    consulta = true
-                    consultaBilhetes = false
-                    consultaMoedas = true
-                    TUI.printCoinsCount()
-                } else {
-                    if (consultaMoedas) {
-                        previousCoinCount()
-                    } else {
-                        previousStationTicketsSold()
-                    }
-                }
-            }
-
-            'C' -> resetCounters()
-            'D' -> shutdownSystem()
-        }
-    }
-
 
     fun waitForKeyPressed() {
         val key = TUI.readKey(KEYPRESS_TIMEOUT)
@@ -315,7 +241,7 @@ object TicketMachine {
         } else if (state == TicketMachineState.PAYMENT) {
             paymentKeyActions(key)
         } else if (state == TicketMachineState.MAINTENANCE) {
-            maintenanceKeyActions(key)
+            Maintenance.maintenanceKeyActions(key)
         }
     }
 }
