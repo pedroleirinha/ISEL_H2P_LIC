@@ -1,15 +1,13 @@
 package org.example
 
-import java.io.BufferedReader
-import java.io.FileReader
-
 data class Station(
     val code: Int,
     val name: String,
-    val distance: Int,
+    val ticketsSold: Int,
     val price: Int
 )
 
+fun Station.toText() = "${price};${ticketsSold};${name}"
 
 object Stations {
 
@@ -19,8 +17,7 @@ object Stations {
     var destStation: Station? = null
 
     fun init() {
-        readStationsFromFile()
-
+        loadStations()
         originStation = stationsList[0]
     }
 
@@ -44,13 +41,28 @@ object Stations {
         stationCount = ++stationCount % stationsList.size
     }
 
-    fun readStationsFromFile() {
+    fun loadStations() {
         var stationCounter = 1
-        BufferedReader(FileReader("stations.csv"))
-            .forEachLine {
-                val info = it.split(";")
-                stationsList.add(Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt()))
-            }
+        val list = FileAccess.readStationsFromFile()
+
+        val allStations = list.split("\n")
+        for (line in allStations) {
+            if (line.isEmpty()) break
+            val info = line.split(";")
+            stationsList.add(
+                Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt())
+            )
+        }
+
         setOriginStation((stationsList.find { it.price == 0 }?.code ?: 0))
+    }
+
+    fun saveStations() {
+        var text = ""
+        stationsList.forEach {
+            text += "${it.toText()}\n"
+        }
+
+        FileAccess.writeStationsToFile(text)
     }
 }

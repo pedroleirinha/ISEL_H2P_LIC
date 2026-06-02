@@ -11,6 +11,8 @@ object HAL {
     const val ejectCoinBit = 0b01000000
     const val coinsBits = 0b00000111
 
+    const val maintenanceBit = 0b01000000
+
     const val sdxBits = 0b00000001
     const val sCLKBits = 0b00000010
     const val ticketCollectedBit = 0b00010000
@@ -168,5 +170,7 @@ object HAL {
     fun turnOffLcdSS() {
         setBits(mask = lcdSSBit) //Fica o ultimo bit OFF
     }
+
+    fun isMaintenanceMode(): Boolean = isBit(maintenanceBit)
 
 }
