@@ -2,16 +2,49 @@ package org.example
 
 import isel.leic.utils.Time
 
+data class Coin(val faceValue: Int = 0, val count: Int = 0)
+
 object CoinAcceptor {
-    val coins = arrayOf<Int>(5, 10, 20, 50, 100, 200)
-
-    fun totalAddedCoinsValue(): Int = coinsAdded.fold(0) { acc, coin -> acc + coin }
-
+    val coins = Array(6) { Coin() }
     var coinRead = false
-    var safeDeposit = mutableListOf<Int>()
-    var coinsAdded = mutableListOf<Int>()
+    var safeDepositCoins = mutableMapOf<Int, Int>()
+    var currentPaymentCoins = mutableMapOf<Int, Int>()
+    var coinCounter = 0
 
     fun init() {
+        loadCoins()
+    }
+
+    fun decrementCoinsCount() {
+        coinCounter = if (coinCounter > 0) coinCounter - 1 else coins.size - 1
+    }
+
+    fun incrementCoinsCount() {
+        coinCounter = ++coinCounter % coins.size
+    }
+
+    fun getCurrentCoin() = coins[coinCounter]
+
+    fun totalAddedCoinsValue(): Int {
+        var sum = 0
+        currentPaymentCoins.forEach { (coinValue, count) ->
+            sum += coinValue * count
+        }
+        return sum
+    }
+
+    fun totalDepositCoinsValue(): Int {
+        var sum = 0
+        safeDepositCoins.forEach { (coinValue, count) ->
+            sum += coinValue * count
+        }
+        return sum
+    }
+
+    fun resetCoinCounters() {
+        for (i in coins.indices) {
+            coins[i] = coins[i].copy(count = 0)
+        }
     }
 
     fun checkForNewCoin(): Boolean {
@@ -41,19 +74,19 @@ object CoinAcceptor {
         val coinBits = HAL.getCoinsBits()
 
         if (coinBits in 0..coins.size) {
-            return coins[coinBits]
+            return coinBits
         }
         return -1
     }
 
     fun ejectCoinsAndCleanDeposit() {
         ejectCoins()
-        coinsAdded = mutableListOf()
+        currentPaymentCoins = mutableMapOf()
     }
 
     fun activateCollectCoins() {
         collectCoin()
-        coinsAdded = mutableListOf()
+        currentPaymentCoins = mutableMapOf()
     }
 
     fun readAndAcceptCoin() {
@@ -68,8 +101,8 @@ object CoinAcceptor {
     }
 
     fun transferTicketCoinsToSafe() {
-        safeDeposit.addAll(coinsAdded)
-        coinsAdded = mutableListOf()
+        safeDepositCoins.putAll(currentPaymentCoins)
+        currentPaymentCoins = mutableMapOf()
     }
 
     fun isCoinCollectionDone(): Boolean {
@@ -77,12 +110,41 @@ object CoinAcceptor {
     }
 
     fun readCoin() {
-        val coinValue = readCoinBits()
-        coinsAdded.add(coinValue)
+        val coinBits = readCoinBits()
+
+        if (coinBits == -1) return
+        val coin = coins[coinBits]
+
+        val currentCount = currentPaymentCoins.getOrDefault(coin.faceValue, 0)
+        currentPaymentCoins[coin.faceValue] = currentCount + 1
     }
 
     fun isBusy(): Boolean {
-        return checkForCoin() || isCoinCollectionDone()
+        return checkForNewCoin() || isCoinCollectionDone()
+    }
+
+    fun loadCoins() {
+        val list = FileAccess.readCoinsFromFile()
+
+        val allCoins = list.split("\n")
+
+        var index = 0
+        for (coinInfo in allCoins) {
+            if (coinInfo.isEmpty()) break
+            val info = coinInfo.split(";")
+            coins[index++] = Coin(info[0].toInt(), info[1].toInt())
+
+        }
+    }
+
+    fun saveCoins() {
+        var text = ""
+        coins.forEach {
+            val depositCoin = safeDepositCoins[it.faceValue] ?: 0
+            text += "${it.faceValue};${it.count + depositCoin}\n"
+        }
+
+        FileAccess.writeCoinsToFile(text)
     }
 }
 
@@ -115,9 +177,12 @@ fun main() {
                 CoinAcceptor.transferTicketCoinsToSafe()
                 CoinAcceptor.activateCollectCoins()
                 println("Moedas recolhidas. Saldo resetado.")
+
+
+                CoinAcceptor.saveCoins()
             }
 
-            println("Valor total no cofre ${CoinAcceptor.safeDeposit.sum() / 100} Euro(s)")
+            println("Valor total no cofre ${CoinAcceptor.totalDepositCoinsValue() / 100} Euro(s)")
         }
 
         Time.sleep(100)

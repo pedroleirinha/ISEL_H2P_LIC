@@ -38,9 +38,59 @@ object TUI {
         showTicketPrice(getTotalTicketPrice().toDouble())
     }
 
+    fun printStationTicketsSold() {
+        val station = Stations.getCurrentStation()
+        LCD.clear()
+
+        showMessageCenterAlign(station.name)
+        showTicketStationNumber(station)
+        showMessageRightAlign("${station.ticketsSold}", 1)
+    }
+
+    fun printCoinsCount() {
+        val coin = CoinAcceptor.getCurrentCoin()
+        LCD.clear()
+
+        val newPrice: Double = (coin.faceValue.toDouble() / 100)
+        val priceText = (newPrice).toString().padEnd(4, '0')
+        showMessageCenterAlign("$priceText${ICONS.EURO.code}")
+        showCoinCountNumber()
+        showMessageRightAlign("${coin.count}", 1)
+    }
+
     fun showTicketStationNumber(station: Station) {
         val stationNumber = (station.code - 1).toString().padStart(2, '0')
         showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
+    }
+
+
+    fun showCoinCountNumber() {
+        val stationNumber = CoinAcceptor.coinCounter.toString().padStart(2, '0')
+        showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
+    }
+
+    fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
+        LCD.clear()
+        showMessageCenterAlign("Maintenance")
+        showMessageLeftAlign("${option.key}-${option.string}", 1)
+    }
+
+    fun showPrintingMessage() {
+        LCD.clear()
+        showMessageLeftAlign(message = "Imprimir Ticket")
+    }
+
+    fun showShuttingDownMessage() {
+        LCD.clear()
+        showMessageCenterAlign(message = "A DESLIGAR..")
+    }
+
+    fun showAbortVendingMessage() {
+        LCD.clear()
+        showMessageCenterAlign("Vending Aborted!")
+        Time.sleep(1000)
+
+        showWelcomeMessage()
     }
 
     fun showTicketRoundTripInformation(roundTrip: Boolean) {
@@ -126,8 +176,8 @@ object TUI {
         LCD.write(text = message)
     }
 
-    fun readKey(): Char {
-        return KBD.waitKey(timeout = 6000)
+    fun readKey(timeOut: Long): Char {
+        return KBD.waitKey(timeout = timeOut)
     }
 }
 

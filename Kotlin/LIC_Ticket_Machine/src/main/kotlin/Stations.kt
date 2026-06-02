@@ -1,15 +1,13 @@
 package org.example
 
-import java.io.BufferedReader
-import java.io.FileReader
-
 data class Station(
     val code: Int,
     val name: String,
-    val distance: Int,
+    val ticketsSold: Int,
     val price: Int
 )
 
+fun Station.toText() = "${price};${ticketsSold};${name}"
 
 object Stations {
 
@@ -19,8 +17,7 @@ object Stations {
     var destStation: Station? = null
 
     fun init() {
-        readStationsFromFile()
-
+        loadStations()
         originStation = stationsList[0]
     }
 
@@ -44,13 +41,90 @@ object Stations {
         stationCount = ++stationCount % stationsList.size
     }
 
-    fun readStationsFromFile() {
+    fun incrementDestinationStationSoldTickets() {
+        val station = stationsList[stationCount]
+        stationsList[stationCount] = station.copy(ticketsSold = station.ticketsSold + 1)
+
+        stationCount = 0
+        destStation = null
+    }
+
+    fun loadStations() {
         var stationCounter = 1
-        BufferedReader(FileReader("stations.csv"))
-            .forEachLine {
-                val info = it.split(";")
-                stationsList.add(Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt()))
-            }
+        val list = FileAccess.readStationsFromFile()
+
+        val allStations = list.split("\n")
+        for (line in allStations) {
+            if (line.isEmpty()) break
+            val info = line.split(";")
+            stationsList.add(
+                Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt())
+            )
+        }
+
         setOriginStation((stationsList.find { it.price == 0 }?.code ?: 0))
     }
+
+    fun saveStations() {
+        var text = ""
+        stationsList.forEach {
+            text += "${it.toText()}\n"
+        }
+
+        FileAccess.writeStationsToFile(text)
+    }
+}
+
+
+fun main() {
+
+    println("--- Teste do Módulo Stations (Ticket Machine) ---")
+
+    // 1. Preparar ficheiro fictício para o teste
+    //val csvContent = "120;5;Alverca\n0;0;Lisboa-Santa Apolonia\n250;2;Sintra\n180;10;Cascais"
+    //FileAccess.writeStationsToFile(csvContent)
+    println("Ficheiro 'stations.csv' criado para teste.\n")
+
+    // 2. Inicializar o objeto Stations
+    // O init() carrega as estações e define a origem
+    Stations.init()
+    println("Sistema inicializado.")
+    println("Estação de Origem: ${Stations.originStation?.name}")
+    println("Total de estações carregadas: ${Stations.stationsList.size}")
+
+    println("\n--- Navegação ---")
+    // Simula premir a tecla 'A'
+    Stations.incrementStationsCount()
+    println("Navegou para: ${Stations.getCurrentStation().name}")
+
+    Stations.incrementStationsCount()
+    println("Navegou para: ${Stations.getCurrentStation().name}")
+
+    // Simula premir a tecla 'B'
+    Stations.decrementStationsCount()
+    println("Navegou para: ${Stations.getCurrentStation().name}")
+
+    println("\n--- Teste de Seleção e Venda (Tecla #) ---")
+    // Define o destino para a estação atual
+    val currentIndex = Stations.stationCount
+    Stations.setDestinationStation(currentIndex)
+    println("Destino selecionado: ${Stations.destStation?.name}")
+
+    // Simula a conclusão da venda (incrementa bilhetes vendidos e faz reset)
+    val soldBefore = Stations.stationsList[currentIndex].ticketsSold
+    Stations.incrementDestinationStationSoldTickets()
+    println("Venda realizada para index $currentIndex.")
+
+    // Verifica se o contador aumentou e se o sistema resetou para a estação inicial (index 0)
+    println("Bilhetes vendidos anteriormente: $soldBefore")
+    println("Bilhetes vendidos agora: ${Stations.stationsList[currentIndex].ticketsSold}")
+    println("Estação após venda (reset): ${Stations.getCurrentStation().name}")
+
+    println("\n--- Teste de Persistência ---")
+    Stations.saveStations()
+    println("Dados guardados no ficheiro.")
+
+    // 4. Verificação final da string formatada
+    val finalData = FileAccess.readStationsFromFile()
+    println("Conteúdo final do ficheiro:\n$finalData")
 }
