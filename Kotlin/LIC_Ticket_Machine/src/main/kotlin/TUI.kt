@@ -32,7 +32,8 @@ object TUI {
         when (TicketMachine.state) {
             TicketMachineState.PICK_STATION -> showTicketStationNumber(station)
             TicketMachineState.PAYMENT -> showTicketRoundTripInformation(roundTrip)
-            else -> 1
+
+            else -> showTicketStationNumber(station)
         }
 
         showTicketPrice(getTotalTicketPrice().toDouble())
@@ -176,6 +177,11 @@ object TUI {
         LCD.write(text = message)
     }
 
+    fun askConfirmationShutDown() {
+        LCD.clear()
+        showMessageCenterAlign("Shutdown", 0)
+        showMessageCenterAlign("*-YES other-NO", 1)
+    }
 }
 
 

@@ -172,5 +172,5 @@ object HAL {
     }
 
     fun isMaintenanceMode(): Boolean = isBit(maintenanceBit)
-
+    fun isMaintenanceModeOff(): Boolean = !isBit(maintenanceBit)
 }

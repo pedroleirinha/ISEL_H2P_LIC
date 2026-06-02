@@ -73,7 +73,7 @@ object CoinAcceptor {
     fun readCoinBits(): Int {
         val coinBits = HAL.getCoinsBits()
 
-        if (coinBits in 0..coins.size) {
+        if (coinBits in 0 until coins.size) {
             return coinBits
         }
         return -1

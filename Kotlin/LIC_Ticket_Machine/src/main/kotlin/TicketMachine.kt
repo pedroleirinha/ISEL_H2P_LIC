@@ -30,6 +30,9 @@ object TicketMachine {
         if (isMaintenanceModeActive() && state != TicketMachineState.MAINTENANCE) {
             return true
         }
+        if (Maintenance.isMaintenanceModeInactive() && state == TicketMachineState.MAINTENANCE) {
+            return true
+        }
         return false
     }
 
@@ -50,7 +53,7 @@ object TicketMachine {
     }
 
     fun isMaintenanceModeActive(): Boolean {
-        return Maintenance.isMaintenanceBitActive()
+        return Maintenance.isMaintenanceBitActive() && state != TicketMachineState.MAINTENANCE
     }
 
     fun initMaintenanceMode() {
@@ -59,6 +62,10 @@ object TicketMachine {
         if (Maintenance.isMaintenanceInitialState()) {
             printMaintenanceOptions()
         }
+    }
+
+    fun turnOffMaintenanceMode() {
+        state = TicketMachineState.PICK_STATION
     }
 
     fun printMaintenanceOptions() {
@@ -160,13 +167,13 @@ object TicketMachine {
 
     fun checkForPaymentCompleted() {
         when {
-            isPaymentCompleted() && CoinAcceptor.isCoinCollectionDone() -> {
+            isPaymentCompleted() && !CoinAcceptor.checkForCoin() -> {
                 state = TicketMachineState.TICKET
                 submitTicket()
                 CoinAcceptor.transferTicketCoinsToSafe()
             }
 
-            CoinAcceptor.checkForCoin() -> {
+            CoinAcceptor.checkForNewCoin() -> {
                 CoinAcceptor.readAndAcceptCoin()
                 TUI.printStation()
             }
@@ -218,11 +225,6 @@ object TicketMachine {
     fun checkIfTimerIsUp(): Boolean = getTimeInMillis() > timer
 
     fun pickingStationKeyActions(key: Char) {
-        if (checkIfTimerIsUp()) {
-            abortPickingProcess()
-            return
-        }
-
         when (key) {
             '#' -> sellTicket()
             'A' -> nextStation()
@@ -244,6 +246,15 @@ object TicketMachine {
         if (key != NONE) {
             // Atualiza o timer para 5000ms (5 segundos)
             timer = getTimeInMillis() + KEYPRESS_FOLLOW_TIMEOUT
+        } else {
+            if (checkIfTimerIsUp()) {
+                if (state == TicketMachineState.PICK_STATION ||
+                    state == TicketMachineState.MAINTENANCE
+                ) {
+                    abortPickingProcess()
+                }
+            }
+            return
         }
 
         if (state == TicketMachineState.PICK_STATION) {

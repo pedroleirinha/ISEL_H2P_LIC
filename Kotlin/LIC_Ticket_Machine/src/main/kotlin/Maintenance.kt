@@ -1,8 +1,6 @@
 package org.example
 
 import org.example.TicketMachine.TicketMachineState
-import org.example.TicketMachine.abortPickingProcess
-import org.example.TicketMachine.checkIfTimerIsUp
 import org.example.TicketMachine.nextCoinCount
 import org.example.TicketMachine.nextStationTicketsSold
 import org.example.TicketMachine.previousCoinCount
@@ -13,7 +11,10 @@ import org.example.TicketMachine.state
 
 object Maintenance {
     enum class MaintenanceState {
-        ROTATION,
+        IDLE,
+        SELLING,
+        SELLING_PAYMENT,
+        SELLING_TICKET,
         TICKETS,
         COINS,
         RESET_COUNTERS,
@@ -30,7 +31,7 @@ object Maintenance {
 
 
     var maintenanceOptionCounter = 0
-    var maintenanceState = MaintenanceState.ROTATION
+    var maintenanceState = MaintenanceState.IDLE
 
     fun getMaintenanceOption(): MAINTENANCEOPTIONS {
         val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
@@ -47,13 +48,24 @@ object Maintenance {
         return HAL.isMaintenanceMode()
     }
 
+    fun isMaintenanceModeInactive(): Boolean {
+        return HAL.isMaintenanceModeOff()
+    }
 
     fun resetMaintenanceState() {
-        maintenanceState = MaintenanceState.ROTATION
+        maintenanceState = MaintenanceState.IDLE
     }
 
     fun isMaintenanceInitialState(): Boolean {
-        return state == TicketMachineState.MAINTENANCE && maintenanceState == MaintenanceState.ROTATION
+        return state == TicketMachineState.MAINTENANCE && maintenanceState == MaintenanceState.IDLE
+    }
+
+    fun isSellingState(): Boolean {
+        return maintenanceState == MaintenanceState.SELLING
+    }
+
+    fun isSellingPaymentState(): Boolean {
+        return maintenanceState == MaintenanceState.SELLING_PAYMENT
     }
 
     fun isShowTicketsState(): Boolean {
@@ -64,6 +76,10 @@ object Maintenance {
         return maintenanceState == MaintenanceState.COINS
     }
 
+    fun isSellingTicketState(): Boolean {
+        return maintenanceState == MaintenanceState.SELLING_TICKET
+    }
+
     fun isResetState(): Boolean {
         return maintenanceState == MaintenanceState.RESET_COUNTERS
     }
@@ -72,49 +88,95 @@ object Maintenance {
         return maintenanceState == MaintenanceState.SHUTTING_DOWN
     }
 
-
     fun setShowTicketsState() {
         maintenanceState = MaintenanceState.TICKETS
+        println(maintenanceState)
     }
 
     fun setShowCoinsState() {
         maintenanceState = MaintenanceState.COINS
+        println(maintenanceState)
     }
 
     fun setResetCountersState() {
         maintenanceState = MaintenanceState.RESET_COUNTERS
+        println(maintenanceState)
     }
 
     fun setShuttingDownState() {
         maintenanceState = MaintenanceState.SHUTTING_DOWN
+        println(maintenanceState)
+    }
+
+    fun setSellingTicketState() {
+        maintenanceState = MaintenanceState.SHUTTING_DOWN
+        println(maintenanceState)
+    }
+
+    fun setSellingState() {
+        maintenanceState = MaintenanceState.SELLING
+        println(maintenanceState)
     }
 
     fun maintenanceKeyActions(key: Char) {
-        if (checkIfTimerIsUp()) {
-            abortPickingProcess()
-            return
-        }
-
         if (isMaintenanceInitialState()) {
-            when (key) {
-                'A' -> {
+            when {
+                key == 'A' -> {
                     setShowTicketsState()
                     TUI.printStationTicketsSold()
                 }
 
-                'B' -> {
+                key == 'B' -> {
                     setShowCoinsState()
                     TUI.printCoinsCount()
                 }
 
-                'C' -> {
+                key == 'C' -> {
                     setResetCountersState()
                     TUI.showMessageCenterAlign("Reset? Press *", 1)
                 }
 
-                'D' -> {
+                key == 'D' -> {
                     setShuttingDownState()
-                    shutdownSystem()
+                    TUI.askConfirmationShutDown()
+                }
+
+                key == '#' -> {
+                    setSellingState()
+                    Stations.stationCount = 0
+                    TUI.printStation(true)
+                }
+
+
+            }
+        } else if (isSellingState()) {
+            when {
+                key == 'A' -> nextStationTicketsSold()
+                key == 'B' -> previousStationTicketsSold()
+                key == '#' -> {
+                    LCD.clear()
+                    TUI.showMessageCenterAlign(Stations.getCurrentStation().name, 0)
+                    TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
+                    maintenanceState = MaintenanceState.SELLING_PAYMENT
+                }
+
+                key.isDigit() -> {
+                    setSellingState()
+                    Stations.stationCount = key.digitToInt()
+                    TUI.printStation(true)
+                }
+            }
+        } else if (isSellingPaymentState()) {
+            when (key) {
+                '*' -> {
+                    TUI.showMessageCenterAlign(Stations.getCurrentStation().name, 0)
+                    TUI.showMessageCenterAlign("Collect Ticket", 1)
+                    setSellingTicketState()
+                }
+            }
+        } else if (isSellingTicketState()) {
+            when (key) {
+                '*' -> {
                 }
             }
         } else if (isShowTicketsState()) {
@@ -132,6 +194,11 @@ object Maintenance {
         } else if (isResetState()) {
             when (key) {
                 '*' -> resetCounters()
+                '#' -> resetMaintenanceState()
+            }
+        } else if (isShuttingDownState()) {
+            when (key) {
+                '*' -> shutdownSystem()
                 '#' -> resetMaintenanceState()
             }
         }
