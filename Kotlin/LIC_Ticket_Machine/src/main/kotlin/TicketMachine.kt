@@ -11,8 +11,8 @@ import org.example.TUI.showWelcomeMessage
 
 enum class MAINTENANCEOPTIONS(val string: String, val key: Char) {
     PRINT_TICKET(string = "Print_Ticket", key = '#'),
-    STATION_COUNT(string = "Station_Cnt", key = 'A'),
-    COIN_COUNT(string = "Coins Count", key = 'B'),
+    STATION_COUNT(string = "Station Cnt", key = 'A'),
+    COIN_COUNT(string = "Coins Cnt", key = 'B'),
     RESET_COUNT(string = "Reset Cnt", key = 'C'),
     SHUTDOWN(string = "ShutDown", key = 'D')
 }
@@ -25,21 +25,30 @@ object TicketMachine {
         MAINTENANCE
     }
 
-    const val KEYPRESS_TIMEOUT: Long = 5000
+    const val KEYPRESS_TIMEOUT: Long = 1000
+    const val KEYPRESS_FOLLOW_TIMEOUT: Long = 5000
     var roundTrip = false
     var state: TicketMachineState = TicketMachineState.PICK_STATION
 
     var timer: Long = 0
     var lastKey: Int = 0
 
+    var consulta = false
+    var consultaBilhetes = false
+    var consultaMoedas = false
+    var maintenanceOptionCounter = 0
+
     fun hasInterruption(): Boolean {
-        return CoinAcceptor.isBusy() || isMaintenanceModeActive()
+        return CoinAcceptor.isBusy()
     }
 
     fun abortPickingProcess() {
-        state = TicketMachineState.PICK_STATION
         Stations.destStation = null
-        TUI.showWelcomeMessage()
+        if (isPickingStationState()) {
+            TUI.showWelcomeMessage()
+        } else {
+            printMaintenanceOptions()
+        }
     }
 
 
@@ -64,12 +73,12 @@ object TicketMachine {
     }
 
     fun printMaintenanceOptions() {
-        for (option in MAINTENANCEOPTIONS.entries) {
-            LCD.clear()
-            TUI.showMessageCenterAlign("Maintenance")
-            showMessageLeftAlign("${option.key}-${option.string}", 1)
-            Time.sleep(1000)
-        }
+        val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
+        LCD.clear()
+        TUI.showMessageCenterAlign("Maintenance")
+        showMessageLeftAlign("${option.key}-${option.string}", 1)
+
+        maintenanceOptionCounter = (maintenanceOptionCounter + 1) % MAINTENANCEOPTIONS.entries.size
     }
 
     fun init() {
@@ -89,6 +98,26 @@ object TicketMachine {
         printStation()
     }
 
+    fun nextStationTicketsSold() {
+        Stations.incrementStationsCount()
+        TUI.printStationTicketsSold()
+    }
+
+    fun previousStationTicketsSold() {
+        Stations.decrementStationsCount()
+        TUI.printStationTicketsSold()
+    }
+
+    fun nextCoinCount() {
+        CoinAcceptor.incrementCoinsCount()
+        TUI.printCoinsCount()
+    }
+
+    fun previousCoinCount() {
+        CoinAcceptor.decrementCoinsCount()
+        TUI.showCoinCountNumber()
+    }
+
     fun toggleRoundTrip() {
         roundTrip = !roundTrip
         printStation(roundTrip)
@@ -103,7 +132,7 @@ object TicketMachine {
     }
 
     fun isMaintenanceState(): Boolean {
-        return state == TicketMachineState.MAINTENANCE
+        return state == TicketMachineState.MAINTENANCE && !consulta
     }
 
     fun isPickingStationState(): Boolean {
@@ -123,7 +152,7 @@ object TicketMachine {
             Time.sleep(500)
             showWelcomeMessage()
 
-            Stations.incrementTicketsSold()
+            Stations.incrementDestinationStationSoldTickets()
         }
     }
 
@@ -169,7 +198,8 @@ object TicketMachine {
     }
 
     fun shutdownSystem() {
-
+        CoinAcceptor.saveCoins()
+        Stations.saveStations()
     }
 
     fun pickStation(keyNumber: Int) {
@@ -202,40 +232,90 @@ object TicketMachine {
         return newKey
     }
 
+    fun resetCounters() {
+        CoinAcceptor.resetCoinCounters()
+    }
+
     fun checkIfTimerIsUp(): Boolean = getTimeInMillis() > timer
+
+    fun pickingStationKeyActions(key: Char) {
+        if (checkIfTimerIsUp()) {
+            abortPickingProcess()
+            return
+        }
+
+        when (key) {
+            '#' -> sellTicket()
+            'A' -> nextStation()
+            'B' -> previousStation()
+            else -> pickStation(keyNumber = checkForFollowupKey(key))
+        }
+    }
+
+
+    fun paymentKeyActions(key: Char) {
+        when (key) {
+            '*' -> toggleRoundTrip()
+            '#' -> abortVendingProcess()
+        }
+    }
+
+    fun maintenanceKeyActions(key: Char) {
+        if (checkIfTimerIsUp()) {
+            abortPickingProcess()
+            return
+        }
+        when (key) {
+            'A' -> {
+                if (!consulta) {
+                    consulta = true
+                    consultaBilhetes = true
+                    consultaMoedas = false
+                    TUI.printStationTicketsSold()
+                } else {
+                    if (consultaMoedas) {
+                        nextCoinCount()
+                    } else {
+                        nextStationTicketsSold()
+                    }
+                }
+            }
+
+            'B' -> {
+                if (!consulta) {
+                    consulta = true
+                    consultaBilhetes = false
+                    consultaMoedas = true
+                    TUI.printCoinsCount()
+                } else {
+                    if (consultaMoedas) {
+                        previousCoinCount()
+                    } else {
+                        previousStationTicketsSold()
+                    }
+                }
+            }
+
+            'C' -> resetCounters()
+            'D' -> shutdownSystem()
+        }
+    }
+
 
     fun waitForKeyPressed() {
         val key = TUI.readKey(KEYPRESS_TIMEOUT)
 
         if (key != NONE) {
             // Atualiza o timer para 5000ms (5 segundos)
-            timer = getTimeInMillis() + KEYPRESS_TIMEOUT
+            timer = getTimeInMillis() + KEYPRESS_FOLLOW_TIMEOUT
         }
 
         if (state == TicketMachineState.PICK_STATION) {
-            if (checkIfTimerIsUp()) {
-                abortPickingProcess()
-                return
-            }
-
-            when (key) {
-                '#' -> sellTicket()
-                'A' -> nextStation()
-                'B' -> previousStation()
-                else -> pickStation(keyNumber = checkForFollowupKey(key))
-            }
+            pickingStationKeyActions(key)
         } else if (state == TicketMachineState.PAYMENT) {
-            when (key) {
-                '*' -> toggleRoundTrip()
-                '#' -> abortVendingProcess()
-            }
+            paymentKeyActions(key)
         } else if (state == TicketMachineState.MAINTENANCE) {
-            when (key) {
-                // 'A' -> showTicketCounters()
-                // 'B' -> showCoinCounters()
-                // 'C' -> prepareReset()
-                'D' -> shutdownSystem()
-            }
+            maintenanceKeyActions(key)
         }
     }
 }

@@ -7,10 +7,13 @@ fun main() {
 
     while (true) {
         TicketMachine.waitForKeyPressed()
+
         when {
             TicketMachine.isPaymentState() -> TicketMachine.checkForPaymentCompleted()
             TicketMachine.isTicketEmittingState() -> TicketMachine.checkForTickedCollected()
             TicketMachine.isMaintenanceState() -> TicketMachine.printMaintenanceOptions()
         }
+
+        TicketMachine.isMaintenanceModeActive()
     }
 }

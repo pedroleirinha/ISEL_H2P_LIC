@@ -38,10 +38,37 @@ object TUI {
         showTicketPrice(getTotalTicketPrice().toDouble())
     }
 
+    fun printStationTicketsSold() {
+        val station = Stations.getCurrentStation()
+        LCD.clear()
+
+        showMessageCenterAlign(station.name)
+        showTicketStationNumber(station)
+        showMessageRightAlign("${station.ticketsSold}", 1)
+    }
+
+    fun printCoinsCount() {
+        val coin = CoinAcceptor.getCurrentCoin()
+        LCD.clear()
+
+        val newPrice: Double = (coin.faceValue.toDouble() / 100)
+        val priceText = (newPrice).toString().padEnd(4, '0')
+        showMessageCenterAlign("$priceText${ICONS.EURO.code}")
+        showCoinCountNumber()
+        showMessageRightAlign("${coin.count}", 1)
+    }
+
     fun showTicketStationNumber(station: Station) {
         val stationNumber = (station.code - 1).toString().padStart(2, '0')
         showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
     }
+
+
+    fun showCoinCountNumber() {
+        val stationNumber = CoinAcceptor.coinCounter.toString().padStart(2, '0')
+        showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
+    }
+
 
     fun showTicketRoundTripInformation(roundTrip: Boolean) {
         val tripIcon = "${ICONS.ARROW_UP.code}${if (roundTrip) ICONS.ARROW_DOWN.code else ""}"

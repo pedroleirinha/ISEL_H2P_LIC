@@ -9,10 +9,21 @@ object CoinAcceptor {
     var coinRead = false
     var safeDepositCoins = mutableMapOf<Int, Int>()
     var currentPaymentCoins = mutableMapOf<Int, Int>()
+    var coinCounter = 0
 
     fun init() {
         loadCoins()
     }
+
+    fun decrementCoinsCount() {
+        coinCounter = if (coinCounter > 0) coinCounter - 1 else coins.size - 1
+    }
+
+    fun incrementCoinsCount() {
+        coinCounter = ++coinCounter % coins.size
+    }
+
+    fun getCurrentCoin() = coins[coinCounter]
 
     fun totalAddedCoinsValue(): Int {
         var sum = 0
@@ -28,6 +39,12 @@ object CoinAcceptor {
             sum += coinValue * count
         }
         return sum
+    }
+
+    fun resetCoinCounters() {
+        for (i in coins.indices) {
+            coins[i] = coins[i].copy(count = 0)
+        }
     }
 
     fun checkForNewCoin(): Boolean {

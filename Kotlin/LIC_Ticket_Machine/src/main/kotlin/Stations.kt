@@ -41,7 +41,7 @@ object Stations {
         stationCount = ++stationCount % stationsList.size
     }
 
-    fun incrementTicketsSold() {
+    fun incrementDestinationStationSoldTickets() {
         val station = stationsList[stationCount]
         stationsList[stationCount] = station.copy(ticketsSold = station.ticketsSold + 1)
 
@@ -112,7 +112,7 @@ fun main() {
 
     // Simula a conclusão da venda (incrementa bilhetes vendidos e faz reset)
     val soldBefore = Stations.stationsList[currentIndex].ticketsSold
-    Stations.incrementTicketsSold()
+    Stations.incrementDestinationStationSoldTickets()
     println("Venda realizada para index $currentIndex.")
 
     // Verifica se o contador aumentou e se o sistema resetou para a estação inicial (index 0)
