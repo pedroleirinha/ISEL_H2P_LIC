@@ -177,6 +177,7 @@ object Maintenance {
         } else if (isSellingTicketState()) {
             when (key) {
                 '*' -> {
+                    resetMaintenanceState()
                 }
             }
         } else if (isShowTicketsState()) {
