@@ -176,9 +176,6 @@ object TUI {
         LCD.write(text = message)
     }
 
-    fun readKey(timeOut: Long): Char {
-        return KBD.waitKey(timeout = timeOut)
-    }
 }
 
 

@@ -24,7 +24,13 @@ object TicketMachine {
 
 
     fun hasInterruption(): Boolean {
-        return CoinAcceptor.isBusy()
+        if (CoinAcceptor.isBusy()) {
+            return true
+        }
+        if (isMaintenanceModeActive() && state != TicketMachineState.MAINTENANCE) {
+            return true
+        }
+        return false
     }
 
     fun abortPickingProcess() {
@@ -44,11 +50,15 @@ object TicketMachine {
     }
 
     fun isMaintenanceModeActive(): Boolean {
-        if (HAL.isMaintenanceMode()) {
-            state = TicketMachineState.MAINTENANCE
-            return true
+        return Maintenance.isMaintenanceBitActive()
+    }
+
+    fun initMaintenanceMode() {
+        state = TicketMachineState.MAINTENANCE
+
+        if (Maintenance.isMaintenanceInitialState()) {
+            printMaintenanceOptions()
         }
-        return false
     }
 
     fun printMaintenanceOptions() {
@@ -229,7 +239,7 @@ object TicketMachine {
     }
 
     fun waitForKeyPressed() {
-        val key = TUI.readKey(KEYPRESS_TIMEOUT)
+        val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
         if (key != NONE) {
             // Atualiza o timer para 5000ms (5 segundos)

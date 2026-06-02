@@ -1,6 +1,5 @@
 package org.example
 
-
 fun main() {
 
     TicketMachine.init()
@@ -11,13 +10,11 @@ fun main() {
         when {
             TicketMachine.isPaymentState() -> TicketMachine.checkForPaymentCompleted()
             TicketMachine.isTicketEmittingState() -> TicketMachine.checkForTickedCollected()
-            Maintenance.isMaintenanceInitialState() -> TicketMachine.printMaintenanceOptions()
+            TicketMachine.isMaintenanceModeActive() -> TicketMachine.initMaintenanceMode()
         }
 
         if (Maintenance.isShuttingDownState()) {
             break
         }
-
-        TicketMachine.isMaintenanceModeActive()
     }
 }

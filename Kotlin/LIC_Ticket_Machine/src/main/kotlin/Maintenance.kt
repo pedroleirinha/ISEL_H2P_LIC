@@ -43,6 +43,10 @@ object Maintenance {
         maintenanceOptionCounter = (maintenanceOptionCounter + 1) % MAINTENANCEOPTIONS.entries.size
     }
 
+    fun isMaintenanceBitActive(): Boolean {
+        return HAL.isMaintenanceMode()
+    }
+
 
     fun resetMaintenanceState() {
         maintenanceState = MaintenanceState.ROTATION
