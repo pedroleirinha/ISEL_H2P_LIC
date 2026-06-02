@@ -122,6 +122,8 @@ object TicketMachine {
             )
             Time.sleep(500)
             showWelcomeMessage()
+
+            Stations.incrementTicketsSold()
         }
     }
 
