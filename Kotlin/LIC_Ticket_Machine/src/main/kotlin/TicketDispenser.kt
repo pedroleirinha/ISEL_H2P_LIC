@@ -32,7 +32,9 @@ object TicketDispenser {
 
     fun isTicketCollected(): Boolean {
         val bit = HAL.isTicketCollectedBitOn()
+
         val state = !bit && lastBit
+
         lastBit = bit
 
         return state

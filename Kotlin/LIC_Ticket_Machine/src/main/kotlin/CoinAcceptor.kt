@@ -73,7 +73,7 @@ object CoinAcceptor {
     }
 
     fun isCoinCollectionDone(): Boolean {
-        return !checkForCoin() && coinRead
+        return !checkForCoin()  && coinRead
     }
 
     fun readCoin() {
@@ -82,7 +82,7 @@ object CoinAcceptor {
     }
 
     fun isBusy(): Boolean {
-        return checkForCoin() || isCoinCollectionDone()
+        return checkForNewCoin() || isCoinCollectionDone()
     }
 }
 

@@ -1,6 +1,7 @@
 package org.example
 
 import isel.leic.utils.Time
+import isel.leic.utils.Time.getTimeInMillis
 import org.example.CoinAcceptor.totalAddedCoinsValue
 import org.example.KBD.NONE
 import org.example.TUI.printStation
@@ -17,8 +18,31 @@ object TicketMachine {
     var roundTrip = false
     var state: TicketMachineState = TicketMachineState.PICK_STATION
 
+    var timer: Long = 0
+    var lastKey: Int = 0
+
     fun hasInterruption(): Boolean {
         return CoinAcceptor.isBusy()
+    }
+
+    fun abortPickingProcess() {
+        state = TicketMachineState.PICK_STATION
+        Stations.destStation = null
+        TUI.showWelcomeMessage()
+    }
+
+
+    fun abortVendingProcess() {
+        state = TicketMachineState.PICK_STATION
+        Stations.destStation = null
+        CoinAcceptor.ejectCoinsAndCleanDeposit()
+
+        LCD.clear()
+        TUI.showMessageCenterAlign("Vending Aborted!")
+        Time.sleep(1000)
+
+        TUI.showWelcomeMessage()
+
     }
 
     fun init() {
@@ -95,9 +119,8 @@ object TicketMachine {
     }
 
     fun checkForPaymentCompleted() {
-
         when {
-            isPaymentCompleted() -> {
+            isPaymentCompleted() && CoinAcceptor.isCoinCollectionDone() -> {
                 state = TicketMachineState.TICKET
                 submitTicket()
                 CoinAcceptor.transferTicketCoinsToSafe()
@@ -112,9 +135,8 @@ object TicketMachine {
         }
     }
 
-    fun pickStation(key: Char) {
-        if (key.isDigit()) {
-            val keyNumber = key.digitToInt()
+    fun pickStation(keyNumber: Int) {
+        if (keyNumber < Stations.stationsList.size) {
             Stations.stationCount = keyNumber
             Stations.setDestinationStation(keyNumber)
             println("Destination set to ${Stations.getCurrentStation().name}")
@@ -122,17 +144,58 @@ object TicketMachine {
         }
     }
 
-    fun waitForKeyPressed() {
-        val key = TUI.readKey()
+    fun checkForFollowupKey(key: Char): Int {
+        var newKey = lastKey
+        if (key.isDigit()) {
 
-        if (key == NONE) return
+            val newAccumulatedValueKey = "$lastKey$key".toInt()
+
+            // Se premir dentro do intervalo de 5 segundos, acumula
+            if (!checkIfTimerIsUp() && newAccumulatedValueKey < 16) {
+                newKey = newAccumulatedValueKey
+            } else {
+                // Se o tempo expirou, o dígito atual é o início de uma nova sequência
+                newKey = key.digitToInt()
+            }
+
+            lastKey = newKey
+
+            println("Valor acumulado: $newKey")
+        }
+        return newKey
+    }
+
+    fun checkIfTimerIsUp(): Boolean = getTimeInMillis() > timer
+
+    fun waitForKeyPressed() {
+        val key = TUI.readKey(5000)
+
+        if (key != NONE) {
+            // Atualiza o timer para 5000ms (5 segundos)
+            timer = getTimeInMillis() + 5000
+        }
 
         if (state == TicketMachineState.PICK_STATION) {
+            if (checkIfTimerIsUp()) {
+                abortPickingProcess()
+                return
+            }
+
             when (key) {
                 '#' -> sellTicket()
                 'A' -> nextStation()
                 'B' -> previousStation()
-                else -> pickStation(key)
+                else -> pickStation(keyNumber = checkForFollowupKey(key))
+            }
+        }
+
+        if (key == NONE) {
+            return
+        }
+
+        if (state != TicketMachineState.PICK_STATION) {
+            when (key) {
+                '#' -> abortVendingProcess()
             }
         }
 

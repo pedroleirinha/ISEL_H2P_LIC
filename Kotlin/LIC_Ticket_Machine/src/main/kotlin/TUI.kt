@@ -126,8 +126,8 @@ object TUI {
         LCD.write(text = message)
     }
 
-    fun readKey(): Char {
-        return KBD.waitKey(timeout = 6000)
+    fun readKey(timeOut: Long): Char {
+        return KBD.waitKey(timeout = timeOut)
     }
 }
 
