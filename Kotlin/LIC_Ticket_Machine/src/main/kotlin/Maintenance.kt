@@ -1,25 +1,17 @@
 package org.example
 
-import org.example.TicketMachine.TicketMachineState
+import org.example.KBD.NONE
+import org.example.TicketMachine.isMaintenanceModeActive
 import org.example.TicketMachine.nextCoinCount
 import org.example.TicketMachine.nextStationTicketsSold
 import org.example.TicketMachine.previousCoinCount
 import org.example.TicketMachine.previousStationTicketsSold
+import org.example.TicketMachine.printMaintenanceOptions
 import org.example.TicketMachine.resetCounters
 import org.example.TicketMachine.shutdownSystem
-import org.example.TicketMachine.state
+import org.example.TicketMachine.waitForKeyPressed
 
 object Maintenance {
-    enum class MaintenanceState {
-        IDLE,
-        SELLING,
-        SELLING_PAYMENT,
-        SELLING_TICKET,
-        TICKETS,
-        COINS,
-        RESET_COUNTERS,
-        SHUTTING_DOWN,
-    }
 
     enum class MAINTENANCEOPTIONS(val string: String, val key: Char) {
         PRINT_TICKET(string = "Print_Ticket", key = '#'),
@@ -31,7 +23,6 @@ object Maintenance {
 
 
     var maintenanceOptionCounter = 0
-    var maintenanceState = MaintenanceState.IDLE
 
     fun getMaintenanceOption(): MAINTENANCEOPTIONS {
         val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
@@ -52,156 +43,132 @@ object Maintenance {
         return HAL.isMaintenanceModeOff()
     }
 
-    fun resetMaintenanceState() {
-        maintenanceState = MaintenanceState.IDLE
-    }
+    fun maintenanceRoutine() {
 
-    fun isMaintenanceInitialState(): Boolean {
-        return state == TicketMachineState.MAINTENANCE && maintenanceState == MaintenanceState.IDLE
-    }
+        while (isMaintenanceModeActive()) {
 
-    fun isSellingState(): Boolean {
-        return maintenanceState == MaintenanceState.SELLING
-    }
+            printMaintenanceOptions()
+            val key = waitForKeyPressed()
 
-    fun isSellingPaymentState(): Boolean {
-        return maintenanceState == MaintenanceState.SELLING_PAYMENT
-    }
+            when (key) {
+                'A' -> stationTicketCount()
+                'B' -> coinsDepositCount()
+                'C' -> resetCoinsCounters()
+                'D' -> shutdownRequest()
 
-    fun isShowTicketsState(): Boolean {
-        return maintenanceState == MaintenanceState.TICKETS
-    }
-
-    fun isShowCoinsState(): Boolean {
-        return maintenanceState == MaintenanceState.COINS
-    }
-
-    fun isSellingTicketState(): Boolean {
-        return maintenanceState == MaintenanceState.SELLING_TICKET
-    }
-
-    fun isResetState(): Boolean {
-        return maintenanceState == MaintenanceState.RESET_COUNTERS
-    }
-
-    fun isShuttingDownState(): Boolean {
-        return maintenanceState == MaintenanceState.SHUTTING_DOWN
-    }
-
-    fun setShowTicketsState() {
-        maintenanceState = MaintenanceState.TICKETS
-        println(maintenanceState)
-    }
-
-    fun setShowCoinsState() {
-        maintenanceState = MaintenanceState.COINS
-        println(maintenanceState)
-    }
-
-    fun setResetCountersState() {
-        maintenanceState = MaintenanceState.RESET_COUNTERS
-        println(maintenanceState)
-    }
-
-    fun setShuttingDownState() {
-        maintenanceState = MaintenanceState.SHUTTING_DOWN
-        println(maintenanceState)
-    }
-
-    fun setSellingTicketState() {
-        maintenanceState = MaintenanceState.SHUTTING_DOWN
-        println(maintenanceState)
-    }
-
-    fun setSellingState() {
-        maintenanceState = MaintenanceState.SELLING
-        println(maintenanceState)
-    }
-
-    fun maintenanceKeyActions(key: Char) {
-        if (isMaintenanceInitialState()) {
-            when {
-                key == 'A' -> {
-                    setShowTicketsState()
-                    TUI.printStationTicketsSold()
-                }
-
-                key == 'B' -> {
-                    setShowCoinsState()
-                    TUI.printCoinsCount()
-                }
-
-                key == 'C' -> {
-                    setResetCountersState()
-                    TUI.showMessageCenterAlign("Reset? Press *", 1)
-                }
-
-                key == 'D' -> {
-                    setShuttingDownState()
-                    TUI.askConfirmationShutDown()
-                }
-
-                key == '#' -> {
-                    setSellingState()
+                '#' -> {
+                    maintenanceSellingProcess()
                     Stations.stationCount = 0
-                    TUI.printStation(true)
+                    TUI.printStation()
                 }
-
-
             }
-        } else if (isSellingState()) {
+        }
+
+        TUI.showWelcomeMessage()
+
+    }
+
+    fun maintenanceSellingProcess() {
+        Stations.stationCount = 0
+        TUI.printStationCount()
+
+        do {
+            val key = waitForKeyPressed()
+
             when {
                 key == 'A' -> nextStationTicketsSold()
                 key == 'B' -> previousStationTicketsSold()
-                key == '#' -> {
-                    LCD.clear()
-                    TUI.showMessageCenterAlign(Stations.getCurrentStation().name, 0)
-                    TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
-                    maintenanceState = MaintenanceState.SELLING_PAYMENT
-                }
-
                 key.isDigit() -> {
-                    setSellingState()
                     Stations.stationCount = key.digitToInt()
-                    TUI.printStation(true)
+                    TUI.printStationCount()
                 }
             }
-        } else if (isSellingPaymentState()) {
+
+        } while (key != '#')
+
+        maintenancePaymentProcess()
+    }
+
+    fun maintenancePaymentProcess() {
+        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
+
+        do {
+            val key = waitForKeyPressed()
+
             when (key) {
                 '*' -> {
                     TUI.showMessageCenterAlign(Stations.getCurrentStation().name, 0)
                     TUI.showMessageCenterAlign("Collect Ticket", 1)
-                    setSellingTicketState()
                 }
             }
-        } else if (isSellingTicketState()) {
+
+        } while (key != '#')
+
+        maintenancePrintingTicketProcess()
+    }
+
+
+    fun maintenancePrintingTicketProcess() {
+        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
+
+        do {
+            val key = waitForKeyPressed()
+
+        } while (key != '*')
+
+    }
+
+
+    fun shutdownRequest() {
+        TUI.askConfirmationShutDown()
+        do {
+            val key = waitForKeyPressed()
+
             when (key) {
-                '*' -> {
-                    resetMaintenanceState()
-                }
+                '*' -> shutdownSystem()
             }
-        } else if (isShowTicketsState()) {
+
+        } while (key != NONE && key != '#')
+
+    }
+
+    fun resetCoinsCounters() {
+        TUI.showMessageCenterAlign("Reset? Press *", 1)
+        do {
+            val key = waitForKeyPressed()
+
+            when (key) {
+                '*' -> resetCounters()
+            }
+
+        } while (key != NONE && key != '#')
+    }
+
+    fun stationTicketCount() {
+        LCD.clear()
+        TUI.printStationTicketsSold()
+        do {
+            val key = waitForKeyPressed()
+
             when (key) {
                 'A' -> nextStationTicketsSold()
                 'B' -> previousStationTicketsSold()
-                '#' -> resetMaintenanceState()
             }
-        } else if (isShowCoinsState()) {
+
+        } while (key != NONE && key != '#')
+    }
+
+    fun coinsDepositCount() {
+        LCD.clear()
+        TUI.printCoinsCount()
+        do {
+            val key = waitForKeyPressed()
+
             when (key) {
                 'A' -> nextCoinCount()
                 'B' -> previousCoinCount()
-                '#' -> resetMaintenanceState()
             }
-        } else if (isResetState()) {
-            when (key) {
-                '*' -> resetCounters()
-                '#' -> resetMaintenanceState()
-            }
-        } else if (isShuttingDownState()) {
-            when (key) {
-                '*' -> shutdownSystem()
-                '#' -> resetMaintenanceState()
-            }
-        }
+
+        } while (key != NONE && key != '#')
     }
 }

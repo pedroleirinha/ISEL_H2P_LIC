@@ -2,7 +2,6 @@ package org.example
 
 import isel.leic.utils.Time
 import org.example.CoinAcceptor.totalAddedCoinsValue
-import org.example.TicketMachine.TicketMachineState
 import org.example.TicketMachine.getTotalTicketPrice
 import java.util.*
 import kotlin.math.max
@@ -27,7 +26,7 @@ object TUI {
 
     fun updateStationNumber(priceText: String) {
         LCD.cursor(1, 0)
-        LCD.write(priceText.padEnd(4, ' '))
+        updateDisplay(priceText.padEnd(4, ' '), 1, 0)
     }
 
     fun updateStationName(stationName: String) {
@@ -36,7 +35,17 @@ object TUI {
 
     fun updateTicketPrice(priceText: String) {
         LCD.cursor(1, LCD.COLS - priceText.length)
-        LCD.write(priceText)
+        updateDisplay(priceText, 1, LCD.COLS - priceText.length)
+    }
+
+    fun updateTicketCount(ticketCountText: String) {
+        LCD.cursor(1, LCD.COLS - ticketCountText.length)
+        updateDisplay(ticketCountText, 1, LCD.COLS - ticketCountText.length)
+    }
+
+    fun updateCoinsCount(coinCountText: String) {
+        LCD.cursor(1, LCD.COLS - coinCountText.length)
+        updateDisplay(coinCountText, 1, LCD.COLS - coinCountText.length)
     }
 
     fun updateDisplay(message: String, line: Int, pos: Int) {
@@ -53,19 +62,17 @@ object TUI {
         }
     }
 
-    fun printStation(roundTrip: Boolean = false) {
+    fun printStation() {
         val station = Stations.getCurrentStation()
-
         updateStationName(station.name)
-
-        when (TicketMachine.state) {
-            TicketMachineState.PICK_STATION -> showTicketStationNumber(station)
-            TicketMachineState.PAYMENT -> showTicketRoundTripInformation(roundTrip)
-
-            else -> showTicketStationNumber(station)
-        }
-
+        showTicketStationNumber(station)
         showTicketPrice(getTotalTicketPrice().toDouble())
+    }
+
+
+    fun printStationCount() {
+        val station = Stations.getCurrentStation()
+        updateStationName(station.name)
     }
 
     fun printStationTicketsSold() {
@@ -73,7 +80,7 @@ object TUI {
 
         showMessageCenterAlign(station.name)
         showTicketStationNumber(station)
-        showMessageRightAlign("${station.ticketsSold}", 1)
+        updateTicketCount("${station.ticketsSold}")
     }
 
     fun printCoinsCount() {
@@ -83,7 +90,7 @@ object TUI {
         val priceText = (newPrice).toString().padEnd(4, '0')
         showMessageCenterAlign("$priceText${ICONS.EURO.code}")
         showCoinCountNumber()
-        showMessageRightAlign("${coin.count}", 1)
+        updateCoinsCount("${coin.count}")
     }
 
     fun showTicketStationNumber(station: Station) {
@@ -104,6 +111,7 @@ object TUI {
 
     fun showPrintingMessage() {
         showMessageLeftAlign(message = "Imprimir Ticket")
+        showMessageLeftAlign(" ".repeat(16), 1)
     }
 
     fun showShuttingDownMessage() {
@@ -195,9 +203,9 @@ object TUI {
         val halfMessage = message.length / 2.0
         val startPos = (LCD.COLS / 2) - (halfMessage.roundToInt())
 
-        LCD.cursor(line, startPos)
+        LCD.cursor(line, 0)
 
-        updateDisplay(message.padEnd(startPos, ' ').padEnd(startPos, ' '), line, startPos)
+        updateDisplay(message.padStart(LCD.COLS - startPos, ' ').padEnd(LCD.COLS, ' '), line, 0)
     }
 
     fun askConfirmationShutDown() {
