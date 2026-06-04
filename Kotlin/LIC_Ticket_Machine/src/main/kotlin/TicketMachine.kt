@@ -8,6 +8,7 @@ import org.example.KBD.NONE
 
 object TicketMachine {
     enum class TicketMachineState {
+        IDLE,
         PICK_STATION,
         PAYMENT,
         TICKET,
@@ -17,7 +18,7 @@ object TicketMachine {
     const val KEYPRESS_TIMEOUT: Long = 1000
     const val KEYPRESS_FOLLOW_TIMEOUT: Long = 5000
     var roundTrip = false
-    var state: TicketMachineState = TicketMachineState.PICK_STATION
+    var state: TicketMachineState = TicketMachineState.IDLE
 
     var timer: Long = 0     // Define o tempo limite para avaliar se algo aconteceu
     var lastKey: Int = 0    // Regista a ultima key pressionada para permitir concatenar numeros ate 16.
@@ -225,6 +226,8 @@ object TicketMachine {
     fun checkIfTimerIsUp(): Boolean = getTimeInMillis() > timer
 
     fun pickingStationKeyActions(key: Char) {
+        state = TicketMachineState.PICK_STATION
+
         when (key) {
             '#' -> sellTicket()
             'A' -> nextStation()
@@ -257,7 +260,10 @@ object TicketMachine {
             return
         }
 
-        if (state == TicketMachineState.PICK_STATION) {
+        if (state == TicketMachineState.IDLE) {
+            LCD.clear()
+        }
+        if (state == TicketMachineState.IDLE || state == TicketMachineState.PICK_STATION) {
             pickingStationKeyActions(key)
         } else if (state == TicketMachineState.PAYMENT) {
             paymentKeyActions(key)

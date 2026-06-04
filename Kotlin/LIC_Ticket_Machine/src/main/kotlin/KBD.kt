@@ -51,7 +51,6 @@ object KBD {
 
             if (TicketMachine.hasInterruption()) return key
         }
-        println("NO KEY PRESS")
         return key
     }
 }

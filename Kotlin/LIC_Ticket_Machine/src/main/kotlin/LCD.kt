@@ -43,7 +43,6 @@ object LCD {
     // Envia a sequência de iniciação para comunicação a 8 bits.
     fun init() {
         SerialEmitter.init()
-        println("INICIALIZACAO DO LCD\n\n")
         Time.sleep(15)
         writeCMD(lcdCommandBits)
         Time.sleep(5)
@@ -51,15 +50,11 @@ object LCD {
         Time.sleep(1)
         writeCMD(lcdCommandBits)
         Time.sleep(10)
-        println("FIM DA INICIALIZACAO DO LCD\n\n")
-        println("CONFIGS DO LCD\n\n")
         writeCMD(lcdFunctionSetBits) //FUNCTION SET
         writeCMD(lcdDisplaySetBits) //DISPLAY OFF
         writeCMD(lcdEntryModeSetBits) //Define o ENTRY MODE para incrementar automaticamente.
         Time.sleep(100)
         clear()
-        println("FIM DAS CONFIGS DO LCD\n\n")
-
         drawCustomIcons()
     }
 
