@@ -30,6 +30,8 @@ object TicketDispenser {
         activatePrintingTicket(roundTrip, origin, destination, PRT_OFF)
     }
 
+    fun isTicketCollectedBitUp() = HAL.isTicketCollectedBitOn()
+
     fun isTicketCollected(): Boolean {
         val bit = HAL.isTicketCollectedBitOn()
 

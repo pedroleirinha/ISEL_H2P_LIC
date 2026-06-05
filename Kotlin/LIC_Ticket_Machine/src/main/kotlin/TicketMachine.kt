@@ -1,7 +1,6 @@
 package org.example
 
 import isel.leic.utils.Time.getTimeInMillis
-import org.example.CoinAcceptor.totalAddedCoinsValue
 import org.example.KBD.NONE
 import org.example.TUI.showTicketPrice
 
@@ -10,9 +9,11 @@ object TicketMachine {
 
     const val KEYPRESS_TIMEOUT: Long = 1000
     const val KEYPRESS_FOLLOW_TIMEOUT: Long = 5000
+    const val INACTIVE_KEYPRESS_TIMEOUT: Long = 10000
     var roundTrip = false
 
-    var timer: Long = 0     // Define o tempo limite para avaliar se algo aconteceu
+    var inactiveTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
+    var followUpTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
     var lastKey: Int = 0    // Regista a ultima key pressionada para permitir concatenar numeros ate 16.
 
 
@@ -21,16 +22,6 @@ object TicketMachine {
             return true
         }
         return false
-    }
-
-    fun abortPickingProcess() {
-        if (!isMaintenanceModeActive()) {
-            Stations.destStation = null
-            TUI.showWelcomeMessage()
-        } else {
-            Maintenance.maintenanceOptionCounter = 0
-            printMaintenanceOptions()
-        }
     }
 
     fun abortVendingProcess() {
@@ -93,12 +84,19 @@ object TicketMachine {
         return Stations.getCurrentStation().price * if (roundTrip) 2 else 1
     }
 
-    fun isPaymentCompleted(): Boolean {
-        return totalAddedCoinsValue() >= getTotalTicketPrice()
-    }
-
     fun submitTicket() {
         TicketDispenser.emitPrintingTicketUp(
+            roundTrip = roundTrip,
+            origin = Stations.originStation?.code ?: 0,
+            destination = Stations.destStation?.code ?: 0
+        )
+    }
+
+    fun finishTicketCollectionProcess() {
+        TUI.showMessageCenterAlign("Thank You!", 0)
+        TUI.showMessageCenterAlign("Have a nice Trip", 1)
+
+        TicketDispenser.emitPrintingTicketDown(
             roundTrip = roundTrip,
             origin = Stations.originStation?.code ?: 0,
             destination = Stations.destStation?.code ?: 0
@@ -109,6 +107,7 @@ object TicketMachine {
         TUI.showShuttingDownMessage()
         CoinAcceptor.saveCoins()
         Stations.saveStations()
+        println("Data stored. Shutting Down..")
     }
 
     fun pickStation(keyNumber: Int) {
@@ -127,7 +126,7 @@ object TicketMachine {
             val newAccumulatedValueKey = "$lastKey$key".toInt()
 
             // Se premir dentro do intervalo de 5 segundos, acumula
-            if (!checkIfTimerIsUp() && newAccumulatedValueKey < 16) {
+            if (!checkIfTimerIsUp(followUpTimer) && newAccumulatedValueKey < 16) {
                 newKey = newAccumulatedValueKey
             } else {
                 // Se o tempo expirou, o dígito atual é o início de uma nova sequência de numeros
@@ -142,32 +141,52 @@ object TicketMachine {
     }
 
     fun resetCounters() {
+        println("Contadores limpos")
         CoinAcceptor.resetCoinCounters()
     }
 
-    fun waitForKeyPressed(): Char {
+    fun startInactiveTimer() {
+        inactiveTimer = getTimeInMillis() + INACTIVE_KEYPRESS_TIMEOUT
+    }
+
+    fun startFollowUpTimer() {
+        followUpTimer = getTimeInMillis() + KEYPRESS_FOLLOW_TIMEOUT
+    }
+
+    fun waitForKeyPressedWithAbort(): Char {
         val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
         if (key != NONE) {
             // Atualiza o timer para 5000ms (5 segundos)
-            timer = getTimeInMillis() + KEYPRESS_FOLLOW_TIMEOUT
-        } else {
-            if (checkIfTimerIsUp()) {
-                abortPickingProcess()
-                firstKey = true
-            }
-            return NONE
+            startFollowUpTimer()
+            startInactiveTimer()
+        } else if (checkIfTimerIsUp(followUpTimer)) {
+            firstKey = true
         }
         return key
     }
 
-    fun checkIfTimerIsUp(): Boolean = getTimeInMillis() > timer
+    fun waitForKeyPressed(): Char {
+        val key = KBD.waitKey(KEYPRESS_TIMEOUT)
+        return key
+    }
 
+    fun checkIfTimerIsUp(timeRef: Long): Boolean = getTimeInMillis() > timeRef
+
+    fun inactiveTimeout(): Boolean {
+        if (checkIfTimerIsUp(inactiveTimer)) {
+            startInactiveTimer()
+            println("Inative timeout")
+            return true
+        }
+        return false
+    }
 
     var firstKey = true
     fun pickStationRoutine() {
+        TUI.showWelcomeMessage()
         do {
-            val key = waitForKeyPressed()
+            val key = waitForKeyPressedWithAbort()
             if (key != NONE) {
                 if (firstKey) {
                     LCD.clear()
@@ -180,7 +199,7 @@ object TicketMachine {
                 }
             }
 
-            if (isMaintenanceModeActive()) return
+            if (isMaintenanceModeActive() || inactiveTimeout()) return
         } while (key != '#')
 
         TUI.showTicketRoundTripInformation(roundTrip)
@@ -188,18 +207,21 @@ object TicketMachine {
     }
 
     fun paymentRoutine() {
-        while (!(isPaymentCompleted() && !CoinAcceptor.checkForCoin())) {
-            val key = waitForKeyPressed()
+        while (!CoinAcceptor.isPaymentProcessedCompleted(ticketPrice = getTotalTicketPrice())) {
+            val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
             when (key) {
                 '*' -> {
                     toggleRoundTrip()
                     TUI.showTicketRoundTripInformation(roundTrip)
+                    showTicketPrice(getTotalTicketPrice().toDouble())
                 }
 
-                '#' -> abortVendingProcess()
+                '#' -> {
+                    abortVendingProcess()
+                    return
+                }
             }
-
 
             when {
                 CoinAcceptor.checkForNewCoin() -> {
@@ -221,8 +243,8 @@ object TicketMachine {
         TUI.showPrintingMessage()
         submitTicket()
 
-        while (!TicketDispenser.isTicketCollected()) {
-            val key = waitForKeyPressed()
+        while (!TicketDispenser.isTicketCollectedBitUp()) {
+            val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
             when (key) {
                 '#' -> abortVendingProcess()
@@ -230,13 +252,12 @@ object TicketMachine {
             if (isMaintenanceModeActive()) return
         }
 
-        TUI.showMessageLeftAlign("Ticket Collected")
+        finishTicketCollectionProcess()
 
-        TicketDispenser.emitPrintingTicketDown(
-            roundTrip = roundTrip,
-            origin = Stations.originStation?.code ?: 0,
-            destination = Stations.destStation?.code ?: 0
-        )
+        while (!TicketDispenser.isTicketCollected()) {
+            if (isMaintenanceModeActive()) return
+        }
+
 
         Stations.incrementDestinationStationSoldTickets()
         TUI.showWelcomeMessage()

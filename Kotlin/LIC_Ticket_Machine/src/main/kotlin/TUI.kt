@@ -110,8 +110,7 @@ object TUI {
     }
 
     fun showPrintingMessage() {
-        showMessageLeftAlign(message = "Imprimir Ticket")
-        showMessageLeftAlign(" ".repeat(16), 1)
+        showMessageLeftAlign(message = "Processing..", 1)
     }
 
     fun showShuttingDownMessage() {

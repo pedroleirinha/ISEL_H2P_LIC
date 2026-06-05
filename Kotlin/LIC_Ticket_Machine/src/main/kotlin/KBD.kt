@@ -30,8 +30,6 @@ object KBD {
 
         val row = key.slice(rowKeyIndices).toInt(2)
         val col = key.slice(colKeyIndices).toInt(2)
-
-        println("Coluna: $col; Linha: $row")
         return teclas[row][col]
     }
 
@@ -45,7 +43,6 @@ object KBD {
             val keyCode = SerialReceiver.getData()
             key = getKey(keyCode)
             if (key != NONE) {
-                println("KEY: $key pressed")
                 return key
             }
 

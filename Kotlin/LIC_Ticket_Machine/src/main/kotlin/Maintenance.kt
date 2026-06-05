@@ -1,6 +1,11 @@
 package org.example
 
-import org.example.KBD.NONE
+import isel.leic.utils.Time.getTimeInMillis
+import org.example.TicketMachine.INACTIVE_KEYPRESS_TIMEOUT
+import org.example.TicketMachine.KEYPRESS_TIMEOUT
+import org.example.TicketMachine.abortVendingProcess
+import org.example.TicketMachine.finishTicketCollectionProcess
+import org.example.TicketMachine.inactiveTimeout
 import org.example.TicketMachine.isMaintenanceModeActive
 import org.example.TicketMachine.nextCoinCount
 import org.example.TicketMachine.nextStationTicketsSold
@@ -9,7 +14,7 @@ import org.example.TicketMachine.previousStationTicketsSold
 import org.example.TicketMachine.printMaintenanceOptions
 import org.example.TicketMachine.resetCounters
 import org.example.TicketMachine.shutdownSystem
-import org.example.TicketMachine.waitForKeyPressed
+import org.example.TicketMachine.waitForKeyPressedWithAbort
 
 object Maintenance {
 
@@ -21,13 +26,13 @@ object Maintenance {
         SHUTDOWN(string = "ShutDown", key = 'D')
     }
 
-
+    const val CAROUSEL_TIME_REF: Long = 1000
+    var carouselTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
     var maintenanceOptionCounter = 0
 
     fun getMaintenanceOption(): MAINTENANCEOPTIONS {
         val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
         incrementMaintenanceOptions()
-
         return option
     }
 
@@ -43,12 +48,18 @@ object Maintenance {
         return HAL.isMaintenanceModeOff()
     }
 
-    fun maintenanceRoutine() {
+    fun startCarouselTimer() {
+        carouselTimer = getTimeInMillis() + CAROUSEL_TIME_REF
+    }
 
+    fun maintenanceRoutine() {
         while (isMaintenanceModeActive()) {
 
-            printMaintenanceOptions()
-            val key = waitForKeyPressed()
+            if (TicketMachine.checkIfTimerIsUp(carouselTimer)) {
+                printMaintenanceOptions()
+                startCarouselTimer()
+            }
+            val key = TicketMachine.waitForKeyPressed()
 
             when (key) {
                 'A' -> stationTicketCount()
@@ -57,9 +68,8 @@ object Maintenance {
                 'D' -> shutdownRequest()
 
                 '#' -> {
+                    LCD.clear()
                     maintenanceSellingProcess()
-                    Stations.stationCount = 0
-                    TUI.printStation()
                 }
             }
         }
@@ -70,21 +80,22 @@ object Maintenance {
 
     fun maintenanceSellingProcess() {
         Stations.stationCount = 0
-        TUI.printStationCount()
+        TUI.printStation()
 
         do {
-            val key = waitForKeyPressed()
-
+            val key = waitForKeyPressedWithAbort()
             when {
                 key == 'A' -> nextStationTicketsSold()
                 key == 'B' -> previousStationTicketsSold()
                 key.isDigit() -> {
                     Stations.stationCount = key.digitToInt()
-                    TUI.printStationCount()
+                    TUI.printStation()
                 }
             }
 
-        } while (key != '#')
+            if (inactiveTimeout()) return
+
+        } while (key != '#' && isMaintenanceModeActive())
 
         maintenancePaymentProcess()
     }
@@ -93,7 +104,7 @@ object Maintenance {
         TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
 
         do {
-            val key = waitForKeyPressed()
+            val key = waitForKeyPressedWithAbort()
 
             when (key) {
                 '*' -> {
@@ -102,73 +113,80 @@ object Maintenance {
                 }
             }
 
-        } while (key != '#')
+        } while (key != '*' && isMaintenanceModeActive())
 
         maintenancePrintingTicketProcess()
     }
 
 
     fun maintenancePrintingTicketProcess() {
-        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
+        while (!TicketDispenser.isTicketCollectedBitUp() && isMaintenanceModeActive()) {
+            val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
-        do {
-            val key = waitForKeyPressed()
+            when (key) {
+                '#' -> abortVendingProcess()
+            }
+        }
 
-        } while (key != '*')
+        finishTicketCollectionProcess()
 
+        while (!TicketDispenser.isTicketCollected() && isMaintenanceModeActive()) {
+
+        }
     }
 
 
     fun shutdownRequest() {
         TUI.askConfirmationShutDown()
         do {
-            val key = waitForKeyPressed()
+            val key = waitForKeyPressedWithAbort()
 
             when (key) {
                 '*' -> shutdownSystem()
             }
 
-        } while (key != NONE && key != '#')
+        } while (key != '*')
 
     }
 
     fun resetCoinsCounters() {
+
         TUI.showMessageCenterAlign("Reset? Press *", 1)
         do {
-            val key = waitForKeyPressed()
+            val key = waitForKeyPressedWithAbort()
 
             when (key) {
                 '*' -> resetCounters()
             }
-
-        } while (key != NONE && key != '#')
+            if (inactiveTimeout()) return
+        } while (key != '#')
     }
 
     fun stationTicketCount() {
         LCD.clear()
         TUI.printStationTicketsSold()
         do {
-            val key = waitForKeyPressed()
+            val key = waitForKeyPressedWithAbort()
 
             when (key) {
                 'A' -> nextStationTicketsSold()
                 'B' -> previousStationTicketsSold()
             }
-
-        } while (key != NONE && key != '#')
+            if (inactiveTimeout()) return
+        } while (key != '#')
     }
 
     fun coinsDepositCount() {
         LCD.clear()
         TUI.printCoinsCount()
         do {
-            val key = waitForKeyPressed()
+            val key = waitForKeyPressedWithAbort()
 
             when (key) {
                 'A' -> nextCoinCount()
                 'B' -> previousCoinCount()
             }
-
-        } while (key != NONE && key != '#')
+            if (inactiveTimeout()) return
+        } while (key != '#')
     }
 }
