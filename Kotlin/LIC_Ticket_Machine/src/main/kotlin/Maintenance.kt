@@ -1,7 +1,6 @@
 package org.example
 
 import isel.leic.utils.Time.getTimeInMillis
-import org.example.TicketMachine.INACTIVE_KEYPRESS_TIMEOUT
 import org.example.TicketMachine.KEYPRESS_TIMEOUT
 import org.example.TicketMachine.abortVendingProcess
 import org.example.TicketMachine.finishTicketCollectionProcess

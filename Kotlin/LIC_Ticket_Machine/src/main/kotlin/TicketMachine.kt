@@ -28,6 +28,7 @@ object TicketMachine {
         Stations.destStation = null
         CoinAcceptor.ejectCoinsAndCleanDeposit()
         TUI.showAbortVendingMessage()
+        firstKey = true
     }
 
     fun isMaintenanceModeActive(): Boolean {
