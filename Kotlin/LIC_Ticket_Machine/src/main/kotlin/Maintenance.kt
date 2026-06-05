@@ -1,25 +1,22 @@
 package org.example
 
-import org.example.TicketMachine.TicketMachineState
+import isel.leic.utils.Time.getTimeInMillis
+import org.example.TicketMachine.INACTIVE_KEYPRESS_TIMEOUT
+import org.example.TicketMachine.KEYPRESS_TIMEOUT
+import org.example.TicketMachine.abortVendingProcess
+import org.example.TicketMachine.finishTicketCollectionProcess
+import org.example.TicketMachine.inactiveTimeout
+import org.example.TicketMachine.isMaintenanceModeActive
 import org.example.TicketMachine.nextCoinCount
 import org.example.TicketMachine.nextStationTicketsSold
 import org.example.TicketMachine.previousCoinCount
 import org.example.TicketMachine.previousStationTicketsSold
+import org.example.TicketMachine.printMaintenanceOptions
 import org.example.TicketMachine.resetCounters
 import org.example.TicketMachine.shutdownSystem
-import org.example.TicketMachine.state
+import org.example.TicketMachine.waitForKeyPressedWithAbort
 
 object Maintenance {
-    enum class MaintenanceState {
-        IDLE,
-        SELLING,
-        SELLING_PAYMENT,
-        SELLING_TICKET,
-        TICKETS,
-        COINS,
-        RESET_COUNTERS,
-        SHUTTING_DOWN,
-    }
 
     enum class MAINTENANCEOPTIONS(val string: String, val key: Char) {
         PRINT_TICKET(string = "Print_Ticket", key = '#'),
@@ -29,14 +26,13 @@ object Maintenance {
         SHUTDOWN(string = "ShutDown", key = 'D')
     }
 
-
+    const val CAROUSEL_TIME_REF: Long = 1000
+    var carouselTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
     var maintenanceOptionCounter = 0
-    var maintenanceState = MaintenanceState.IDLE
 
     fun getMaintenanceOption(): MAINTENANCEOPTIONS {
         val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
         incrementMaintenanceOptions()
-
         return option
     }
 
@@ -52,156 +48,145 @@ object Maintenance {
         return HAL.isMaintenanceModeOff()
     }
 
-    fun resetMaintenanceState() {
-        maintenanceState = MaintenanceState.IDLE
+    fun startCarouselTimer() {
+        carouselTimer = getTimeInMillis() + CAROUSEL_TIME_REF
     }
 
-    fun isMaintenanceInitialState(): Boolean {
-        return state == TicketMachineState.MAINTENANCE && maintenanceState == MaintenanceState.IDLE
-    }
+    fun maintenanceRoutine() {
+        while (isMaintenanceModeActive()) {
 
-    fun isSellingState(): Boolean {
-        return maintenanceState == MaintenanceState.SELLING
-    }
-
-    fun isSellingPaymentState(): Boolean {
-        return maintenanceState == MaintenanceState.SELLING_PAYMENT
-    }
-
-    fun isShowTicketsState(): Boolean {
-        return maintenanceState == MaintenanceState.TICKETS
-    }
-
-    fun isShowCoinsState(): Boolean {
-        return maintenanceState == MaintenanceState.COINS
-    }
-
-    fun isSellingTicketState(): Boolean {
-        return maintenanceState == MaintenanceState.SELLING_TICKET
-    }
-
-    fun isResetState(): Boolean {
-        return maintenanceState == MaintenanceState.RESET_COUNTERS
-    }
-
-    fun isShuttingDownState(): Boolean {
-        return maintenanceState == MaintenanceState.SHUTTING_DOWN
-    }
-
-    fun setShowTicketsState() {
-        maintenanceState = MaintenanceState.TICKETS
-        println(maintenanceState)
-    }
-
-    fun setShowCoinsState() {
-        maintenanceState = MaintenanceState.COINS
-        println(maintenanceState)
-    }
-
-    fun setResetCountersState() {
-        maintenanceState = MaintenanceState.RESET_COUNTERS
-        println(maintenanceState)
-    }
-
-    fun setShuttingDownState() {
-        maintenanceState = MaintenanceState.SHUTTING_DOWN
-        println(maintenanceState)
-    }
-
-    fun setSellingTicketState() {
-        maintenanceState = MaintenanceState.SHUTTING_DOWN
-        println(maintenanceState)
-    }
-
-    fun setSellingState() {
-        maintenanceState = MaintenanceState.SELLING
-        println(maintenanceState)
-    }
-
-    fun maintenanceKeyActions(key: Char) {
-        if (isMaintenanceInitialState()) {
-            when {
-                key == 'A' -> {
-                    setShowTicketsState()
-                    TUI.printStationTicketsSold()
-                }
-
-                key == 'B' -> {
-                    setShowCoinsState()
-                    TUI.printCoinsCount()
-                }
-
-                key == 'C' -> {
-                    setResetCountersState()
-                    TUI.showMessageCenterAlign("Reset? Press *", 1)
-                }
-
-                key == 'D' -> {
-                    setShuttingDownState()
-                    TUI.askConfirmationShutDown()
-                }
-
-                key == '#' -> {
-                    setSellingState()
-                    Stations.stationCount = 0
-                    TUI.printStation(true)
-                }
-
-
+            if (TicketMachine.checkIfTimerIsUp(carouselTimer)) {
+                printMaintenanceOptions()
+                startCarouselTimer()
             }
-        } else if (isSellingState()) {
+            val key = TicketMachine.waitForKeyPressed()
+
+            when (key) {
+                'A' -> stationTicketCount()
+                'B' -> coinsDepositCount()
+                'C' -> resetCoinsCounters()
+                'D' -> shutdownRequest()
+
+                '#' -> {
+                    LCD.clear()
+                    maintenanceSellingProcess()
+                }
+            }
+        }
+
+        TUI.showWelcomeMessage()
+
+    }
+
+    fun maintenanceSellingProcess() {
+        Stations.stationCount = 0
+        TUI.printStation()
+
+        do {
+            val key = waitForKeyPressedWithAbort()
             when {
                 key == 'A' -> nextStationTicketsSold()
                 key == 'B' -> previousStationTicketsSold()
-                key == '#' -> {
-                    LCD.clear()
-                    TUI.showMessageCenterAlign(Stations.getCurrentStation().name, 0)
-                    TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
-                    maintenanceState = MaintenanceState.SELLING_PAYMENT
-                }
-
                 key.isDigit() -> {
-                    setSellingState()
                     Stations.stationCount = key.digitToInt()
-                    TUI.printStation(true)
+                    TUI.printStation()
                 }
             }
-        } else if (isSellingPaymentState()) {
+
+            if (inactiveTimeout()) return
+
+        } while (key != '#' && isMaintenanceModeActive())
+
+        maintenancePaymentProcess()
+    }
+
+    fun maintenancePaymentProcess() {
+        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
+
+        do {
+            val key = waitForKeyPressedWithAbort()
+
             when (key) {
                 '*' -> {
                     TUI.showMessageCenterAlign(Stations.getCurrentStation().name, 0)
                     TUI.showMessageCenterAlign("Collect Ticket", 1)
-                    setSellingTicketState()
                 }
             }
-        } else if (isSellingTicketState()) {
+
+        } while (key != '*' && isMaintenanceModeActive())
+
+        maintenancePrintingTicketProcess()
+    }
+
+
+    fun maintenancePrintingTicketProcess() {
+        while (!TicketDispenser.isTicketCollectedBitUp() && isMaintenanceModeActive()) {
+            val key = KBD.waitKey(KEYPRESS_TIMEOUT)
+
             when (key) {
-                '*' -> {
-                    resetMaintenanceState()
-                }
+                '#' -> abortVendingProcess()
             }
-        } else if (isShowTicketsState()) {
+        }
+
+        finishTicketCollectionProcess()
+
+        while (!TicketDispenser.isTicketCollected() && isMaintenanceModeActive()) {
+
+        }
+    }
+
+
+    fun shutdownRequest() {
+        TUI.askConfirmationShutDown()
+        do {
+            val key = waitForKeyPressedWithAbort()
+
+            when (key) {
+                '*' -> shutdownSystem()
+            }
+
+        } while (key != '*')
+
+    }
+
+    fun resetCoinsCounters() {
+
+        TUI.showMessageCenterAlign("Reset? Press *", 1)
+        do {
+            val key = waitForKeyPressedWithAbort()
+
+            when (key) {
+                '*' -> resetCounters()
+            }
+            if (inactiveTimeout()) return
+        } while (key != '#')
+    }
+
+    fun stationTicketCount() {
+        LCD.clear()
+        TUI.printStationTicketsSold()
+        do {
+            val key = waitForKeyPressedWithAbort()
+
             when (key) {
                 'A' -> nextStationTicketsSold()
                 'B' -> previousStationTicketsSold()
-                '#' -> resetMaintenanceState()
             }
-        } else if (isShowCoinsState()) {
+            if (inactiveTimeout()) return
+        } while (key != '#')
+    }
+
+    fun coinsDepositCount() {
+        LCD.clear()
+        TUI.printCoinsCount()
+        do {
+            val key = waitForKeyPressedWithAbort()
+
             when (key) {
                 'A' -> nextCoinCount()
                 'B' -> previousCoinCount()
-                '#' -> resetMaintenanceState()
             }
-        } else if (isResetState()) {
-            when (key) {
-                '*' -> resetCounters()
-                '#' -> resetMaintenanceState()
-            }
-        } else if (isShuttingDownState()) {
-            when (key) {
-                '*' -> shutdownSystem()
-                '#' -> resetMaintenanceState()
-            }
-        }
+            if (inactiveTimeout()) return
+        } while (key != '#')
     }
 }

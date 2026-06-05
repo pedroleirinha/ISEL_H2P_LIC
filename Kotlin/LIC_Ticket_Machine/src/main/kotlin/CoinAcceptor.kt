@@ -79,6 +79,14 @@ object CoinAcceptor {
         return -1
     }
 
+    fun isPaymentCompleted(ticketPrice: Int): Boolean {
+        return totalAddedCoinsValue() >= ticketPrice
+    }
+
+    fun isPaymentProcessedCompleted(ticketPrice: Int): Boolean {
+        return isPaymentCompleted(ticketPrice) && !checkForCoin()
+    }
+
     fun ejectCoinsAndCleanDeposit() {
         ejectCoins()
         currentPaymentCoins = mutableMapOf()
