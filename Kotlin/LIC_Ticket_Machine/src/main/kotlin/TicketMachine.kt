@@ -3,6 +3,7 @@ package org.example
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.KBD.NONE
 import org.example.TUI.showTicketPrice
+import org.example.TUI.showWelcomeMessage
 
 
 object TicketMachine {
@@ -28,6 +29,7 @@ object TicketMachine {
         Stations.destStation = null
         CoinAcceptor.ejectCoinsAndCleanDeposit()
         TUI.showAbortVendingMessage()
+        showWelcomeMessage()
         firstKey = true
     }
 

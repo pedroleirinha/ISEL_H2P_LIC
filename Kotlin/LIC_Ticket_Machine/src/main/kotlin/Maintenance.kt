@@ -100,15 +100,15 @@ object Maintenance {
     }
 
     fun maintenancePaymentProcess() {
-        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
+        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1, clearLine = true)
 
         do {
             val key = waitForKeyPressedWithAbort()
 
             when (key) {
                 '*' -> {
-                    TUI.showMessageCenterAlign(Stations.getCurrentStation().name, 0)
-                    TUI.showMessageCenterAlign("Collect Ticket", 1)
+                    TUI.updateStationName(Stations.getCurrentStation().name)
+                    TUI.showMessageCenterAlign("Collect Ticket", 1, clearLine = true)
                 }
             }
 
@@ -123,7 +123,10 @@ object Maintenance {
             val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
             when (key) {
-                '#' -> abortVendingProcess()
+                '#' -> {
+                    TUI.showAbortVendingMessage()
+                    return
+                }
             }
         }
 
@@ -136,6 +139,7 @@ object Maintenance {
 
 
     fun shutdownRequest() {
+        LCD.clear()
         TUI.askConfirmationShutDown()
         do {
             val key = waitForKeyPressedWithAbort()
@@ -149,8 +153,8 @@ object Maintenance {
     }
 
     fun resetCoinsCounters() {
-
-        TUI.showMessageCenterAlign("Reset? Press *", 1)
+        LCD.clear()
+        TUI.showMessageCenterAlign("Reset? Press *", 1, clearLine = true)
         do {
             val key = waitForKeyPressedWithAbort()
 

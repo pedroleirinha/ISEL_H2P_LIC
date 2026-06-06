@@ -65,6 +65,7 @@ object LCD {
 
     // Escreve uma string na posição corrente.
     fun write(text: String) {
+        println("wrote $text")
         text.map { write(c = it) }
     }
 

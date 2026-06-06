@@ -59,20 +59,14 @@ object TUI {
         return true
     }
 
-    fun updateDisplay(message: String, line: Int, pos: Int, clearLine: Boolean = false) {
+    fun updateDisplay(message: String, line: Int, pos: Int) {
         if (!checkIfSameTextOnDisplay(message, line, pos)) {
-            println("NOT SAME")
-            updateDisplayPartially(line, column = pos, text = message, clearLine = clearLine)
+            updateDisplayPartially(line, column = pos, text = message)
         }
     }
 
-    fun updateDisplayPartially(line: Int, column: Int, text: String, clearLine: Boolean = false) {
-        LCD.cursor(line, column)
-        LCD.write(text)
-
-        val targetBuffer = if (clearLine) {
-            StringBuilder(" ".repeat(LCD.COLS))
-        } else if (line == 0) bufferLine1 else bufferLine2
+    fun updateDisplayPartially(line: Int, column: Int, text: String) {
+        val targetBuffer = if (line == 0) bufferLine1 else bufferLine2
 
         for (i in text.indices) {
             val bufferIndex = column + i
@@ -81,13 +75,8 @@ object TUI {
             }
         }
 
-        if (clearLine) {
-            LCD.cursor(line, 0)
-            LCD.write(targetBuffer.toString())
-        } else {
-            LCD.cursor(line, column)
-            LCD.write(text)
-        }
+        LCD.cursor(line, column)
+        LCD.write(text)
     }
 
     fun printStation() {
@@ -97,16 +86,10 @@ object TUI {
         showTicketPrice(getTotalTicketPrice().toDouble())
     }
 
-
-    fun printStationCount() {
-        val station = Stations.getCurrentStation()
-        updateStationName(station.name)
-    }
-
     fun printStationTicketsSold() {
         val station = Stations.getCurrentStation()
 
-        showMessageCenterAlign(station.name)
+        updateStationName(station.name)
         showTicketStationNumber(station)
         updateTicketCount("${station.ticketsSold}")
     }
@@ -116,7 +99,7 @@ object TUI {
 
         val newPrice: Double = (coin.faceValue.toDouble() / 100)
         val priceText = (newPrice).toString().padEnd(4, '0')
-        showMessageCenterAlign("$priceText${ICONS.EURO.code}")
+        showMessageCenterAlign("$priceText${ICONS.EURO.code}", clearLine = true)
         showCoinCountNumber()
         updateCoinsCount("${coin.count}")
     }
@@ -133,8 +116,8 @@ object TUI {
     }
 
     fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
-        showMessageCenterAlign("Maintenance")
-        showMessageLeftAlign("${option.key}-${option.string}", line = 1, clearLine = true)
+        showMessageCenterAlign("Maintenance", clearLine = true)
+        showMessageLeftAlign("${option.key}-${option.string}", line = 1, true)
     }
 
     fun showPrintingMessage() {
@@ -147,9 +130,8 @@ object TUI {
 
     fun showAbortVendingMessage() {
         showMessageCenterAlign("Vending Aborted!", clearLine = true)
+        showMessageCenterAlign(" ", line = 1, clearLine = true)
         Time.sleep(1000)
-
-        showWelcomeMessage()
     }
 
     fun showTicketRoundTripInformation(roundTrip: Boolean) {
@@ -176,12 +158,6 @@ object TUI {
         } while (key != '*' && key != '#')
 
         return key == '*'
-    }
-
-    fun showStation() {
-        showMessageLeftAlign(message = "Destino:")
-        showMessageRightAlign(message = "A${ICONS.ARROW_UP} e B${ICONS.ARROW_DOWN}")
-        showMessageCenterAlign(message = Stations.getCurrentStation().name, 1)
     }
 
     fun startUpLcd() {
@@ -212,30 +188,46 @@ object TUI {
 
     fun showWelcomeMessage() {
         showMessageCenterAlign(message = "Ticket To Ride", clearLine = true)
-        showMessageCenterAlign(message = getCurrentDateTimeString(), line = 1, clearLine = true)
+        showMessageCenterAlign(message = getCurrentDateTimeString(), line = 1)
     }
 
     fun showMessageRightAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
         val startPos = LCD.COLS - message.length
-        LCD.cursor(line, startPos)
-        updateDisplay(message, line, startPos, clearLine)
+
+        if (clearLine) {
+            val displayMessage = message.padStart(startPos + message.length, ' ')
+            LCD.cursor(line, 0)
+            updateDisplay(displayMessage, line, 0)
+        } else {
+            LCD.cursor(line, startPos)
+            updateDisplay(message, line, startPos)
+        }
     }
 
     fun showMessageLeftAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
+        val displayMessage = if (clearLine) message.padEnd(LCD.COLS, ' ') else message
         LCD.cursor(line, 0)
-        updateDisplay(message, line, 0, clearLine)
+        updateDisplay(displayMessage, line, 0)
     }
 
     fun showMessageCenterAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
         val halfMessage = message.length / 2.0
         val startPos = (LCD.COLS / 2) - (halfMessage.roundToInt())
-        LCD.cursor(line, 0)
-        updateDisplay(message, line, startPos, clearLine)
+
+        if (clearLine) {
+            val displayMessage = message.padStart(startPos + message.length, ' ').padEnd(LCD.COLS, ' ')
+            LCD.cursor(line, 0)
+            updateDisplay(displayMessage, line, 0)
+        } else {
+            LCD.cursor(line, startPos)
+            updateDisplay(message, line, startPos)
+        }
+
     }
 
     fun askConfirmationShutDown() {
         showMessageCenterAlign("Shutdown", 0, clearLine = true)
-        showMessageCenterAlign("*-YES other-NO", 1)
+        showMessageCenterAlign("*-YES other-NO", 1, clearLine = true)
     }
 }
 
