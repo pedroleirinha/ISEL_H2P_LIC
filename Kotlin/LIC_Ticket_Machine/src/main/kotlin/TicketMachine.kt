@@ -151,6 +151,7 @@ object TicketMachine {
     }
 
     fun startInactiveTimer() {
+        println("Inactive timer started")
         inactiveTimer = getTimeInMillis() + INACTIVE_KEYPRESS_TIMEOUT
     }
 
@@ -257,6 +258,7 @@ object TicketMachine {
         }
 
         finishTicketCollectionProcess()
+        Time.sleep(1000)
 
         while (!TicketDispenser.isTicketCollected()) {
             if (isMaintenanceModeActive()) return

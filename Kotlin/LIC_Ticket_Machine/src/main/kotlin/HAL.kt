@@ -23,7 +23,7 @@ object HAL {
     const val lcdSerialBits = 0b00000111
     const val lcdCommandBits = 0b00110000
     const val lcdFunctionSetBits = 0b00111000
-    const val lcdDisplaySetBits = 0b00001111
+    const val lcdDisplaySetBits = 0b00001100
     const val lcdEntryModeSetBits = 0b00000110
     const val lcdClearSetBits = 0b00000001
     const val lcdHomeSetBits = 0b00000010

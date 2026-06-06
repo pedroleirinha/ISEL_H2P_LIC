@@ -53,6 +53,7 @@ object Maintenance {
     fun maintenanceRoutine() {
         CoinAcceptor.coinCounter = 0
         Stations.stationCount = 0
+        startCarouselTimer()
 
         while (isMaintenanceModeActive()) {
 
@@ -61,7 +62,6 @@ object Maintenance {
                 startCarouselTimer()
             }
             val key = TicketMachine.waitForKeyPressed()
-
             when (key) {
                 'A' -> stationTicketCount()
                 'B' -> coinsDepositCount()
@@ -81,6 +81,7 @@ object Maintenance {
 
     fun maintenanceSellingProcess() {
         Stations.stationCount = 0
+        TicketMachine.startInactiveTimer()
         TUI.printStation()
 
         do {
@@ -141,6 +142,7 @@ object Maintenance {
 
 
     fun shutdownRequest() {
+        TicketMachine.startInactiveTimer()
         TUI.askConfirmationShutDown()
         do {
             val key = waitForKeyPressedWithAbort()
@@ -154,6 +156,7 @@ object Maintenance {
     }
 
     fun resetCoinsCounters() {
+        TicketMachine.startInactiveTimer()
         TUI.showMessageCenterAlign("Reset? Press *", 1, clearLine = true)
         do {
             val key = waitForKeyPressedWithAbort()
@@ -167,6 +170,7 @@ object Maintenance {
 
     fun stationTicketCount() {
         LCD.clear()
+        TicketMachine.startInactiveTimer()
         TUI.printStationTicketsSold()
         do {
             val key = waitForKeyPressedWithAbort()
@@ -181,6 +185,7 @@ object Maintenance {
 
     fun coinsDepositCount() {
         LCD.clear()
+        TicketMachine.startInactiveTimer()
         TUI.printCoinsCount()
         do {
             val key = waitForKeyPressedWithAbort()
