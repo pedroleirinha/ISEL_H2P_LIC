@@ -2,7 +2,6 @@ package org.example
 
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.TicketMachine.KEYPRESS_TIMEOUT
-import org.example.TicketMachine.abortVendingProcess
 import org.example.TicketMachine.finishTicketCollectionProcess
 import org.example.TicketMachine.inactiveTimeout
 import org.example.TicketMachine.isMaintenanceModeActive
@@ -52,6 +51,9 @@ object Maintenance {
     }
 
     fun maintenanceRoutine() {
+        CoinAcceptor.coinCounter = 0
+        Stations.stationCount = 0
+
         while (isMaintenanceModeActive()) {
 
             if (TicketMachine.checkIfTimerIsUp(carouselTimer)) {
@@ -139,7 +141,6 @@ object Maintenance {
 
 
     fun shutdownRequest() {
-        LCD.clear()
         TUI.askConfirmationShutDown()
         do {
             val key = waitForKeyPressedWithAbort()
@@ -153,7 +154,6 @@ object Maintenance {
     }
 
     fun resetCoinsCounters() {
-        LCD.clear()
         TUI.showMessageCenterAlign("Reset? Press *", 1, clearLine = true)
         do {
             val key = waitForKeyPressedWithAbort()

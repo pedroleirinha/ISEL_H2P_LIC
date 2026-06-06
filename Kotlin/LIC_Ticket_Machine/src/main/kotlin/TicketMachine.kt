@@ -1,5 +1,6 @@
 package org.example
 
+import isel.leic.utils.Time
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.KBD.NONE
 import org.example.TUI.showTicketPrice
@@ -111,6 +112,7 @@ object TicketMachine {
         CoinAcceptor.saveCoins()
         Stations.saveStations()
         println("Data stored. Shutting Down..")
+        Time.sleep(1000)
     }
 
     fun pickStation(keyNumber: Int) {
@@ -242,7 +244,6 @@ object TicketMachine {
     }
 
     fun ticketRoutine() {
-        CoinAcceptor.transferTicketCoinsToSafe()
         TUI.showPrintingMessage()
         submitTicket()
 
@@ -261,7 +262,7 @@ object TicketMachine {
             if (isMaintenanceModeActive()) return
         }
 
-
+        CoinAcceptor.transferTicketCoinsToSafe()
         Stations.incrementDestinationStationSoldTickets()
         TUI.showWelcomeMessage()
     }

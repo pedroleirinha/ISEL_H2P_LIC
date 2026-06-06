@@ -1,5 +1,5 @@
 225;1;Lisboa
-200;3;Madrid
+200;4;Madrid
 175;0;Paris
 150;0;London
 125;0;Roma
@@ -7,11 +7,11 @@
 0;1;Moskva
 100;0;Bruxelles
 125;0;Amsterdam
-150;0;Kyiv
+150;1;Kyiv
 175;0;Athina
 200;0;Wien
 225;0;Warszawa
 250;0;Kobenhavn
-275;0;Stockholm
+275;1;Stockholm
 300;0;Constantinople
 

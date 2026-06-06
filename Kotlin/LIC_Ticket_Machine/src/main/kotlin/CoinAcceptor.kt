@@ -7,7 +7,7 @@ data class Coin(val faceValue: Int = 0, val count: Int = 0)
 object CoinAcceptor {
     val coins = Array(6) { Coin() }
     var coinRead = false
-    var safeDepositCoins = mutableMapOf<Int, Int>()
+
     var currentPaymentCoins = mutableMapOf<Int, Int>()
     var coinCounter = 0
 
@@ -28,14 +28,6 @@ object CoinAcceptor {
     fun totalAddedCoinsValue(): Int {
         var sum = 0
         currentPaymentCoins.forEach { (coinValue, count) ->
-            sum += coinValue * count
-        }
-        return sum
-    }
-
-    fun totalDepositCoinsValue(): Int {
-        var sum = 0
-        safeDepositCoins.forEach { (coinValue, count) ->
             sum += coinValue * count
         }
         return sum
@@ -109,7 +101,9 @@ object CoinAcceptor {
     }
 
     fun transferTicketCoinsToSafe() {
-        safeDepositCoins.putAll(currentPaymentCoins)
+        for (i in coins.indices) {
+            coins[i] = coins[i].copy(count = (currentPaymentCoins[coins[i].faceValue] ?: 0) + coins[i].count)
+        }
         currentPaymentCoins = mutableMapOf()
     }
 
@@ -148,8 +142,7 @@ object CoinAcceptor {
     fun saveCoins() {
         var text = ""
         coins.forEach {
-            val depositCoin = safeDepositCoins[it.faceValue] ?: 0
-            text += "${it.faceValue};${it.count + depositCoin}\n"
+            text += "${it.faceValue};${it.count}\n"
         }
 
         FileAccess.writeCoinsToFile(text)
@@ -189,8 +182,6 @@ fun main() {
 
                 CoinAcceptor.saveCoins()
             }
-
-            println("Valor total no cofre ${CoinAcceptor.totalDepositCoinsValue() / 100} Euro(s)")
         }
 
         Time.sleep(100)
