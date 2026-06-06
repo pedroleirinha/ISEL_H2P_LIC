@@ -15,8 +15,8 @@ enum class ICONS(val code: Char) {
 }
 
 object TUI {
-    var bufferLine1 = " ".repeat(LCD.COLS)
-    var bufferLine2 = " ".repeat(LCD.COLS)
+    var bufferLine1 = StringBuilder(" ".repeat(LCD.COLS))
+    var bufferLine2 = StringBuilder(" ".repeat(LCD.COLS))
 
     fun init() {
         HAL.init()
@@ -30,7 +30,7 @@ object TUI {
     }
 
     fun updateStationName(stationName: String) {
-        showMessageCenterAlign(stationName, 0)
+        showMessageCenterAlign(stationName, line = 0, clearLine = true)
     }
 
     fun updateTicketPrice(priceText: String) {
@@ -48,18 +48,35 @@ object TUI {
         updateDisplay(coinCountText, 1, LCD.COLS - coinCountText.length)
     }
 
-    fun updateDisplay(message: String, line: Int, pos: Int) {
-        if (line == 0) {
-            if (message != bufferLine1) {
-                bufferLine1 = message
-                LCD.write(message)
-            }
-        } else if (line == 1) {
-            if (message != bufferLine2) {
-                bufferLine2 = message
-                LCD.write(message)
+    fun checkIfSameTextOnDisplay(message: String, line: Int, pos: Int): Boolean {
+        val targetBuffer = if (line == 0) bufferLine1 else bufferLine2
+        for (i in message.indices) {
+            val bufferIndex = pos + i
+            if (bufferIndex < LCD.COLS && targetBuffer[bufferIndex] != message[i]) {
+                return false
             }
         }
+        return true
+    }
+
+    fun updateDisplay(message: String, line: Int, pos: Int) {
+        if (!checkIfSameTextOnDisplay(message, line, pos)) {
+            updateDisplayPartially(line, column = pos, text = message)
+        }
+    }
+
+    fun updateDisplayPartially(line: Int, column: Int, text: String) {
+        val targetBuffer = if (line == 0) bufferLine1 else bufferLine2
+
+        for (i in text.indices) {
+            val bufferIndex = column + i
+            if (bufferIndex < 16) {
+                targetBuffer.setCharAt(bufferIndex, text[i])
+            }
+        }
+
+        LCD.cursor(line, column)
+        LCD.write(text)
     }
 
     fun printStation() {
@@ -69,16 +86,10 @@ object TUI {
         showTicketPrice(getTotalTicketPrice().toDouble())
     }
 
-
-    fun printStationCount() {
-        val station = Stations.getCurrentStation()
-        updateStationName(station.name)
-    }
-
     fun printStationTicketsSold() {
         val station = Stations.getCurrentStation()
 
-        showMessageCenterAlign(station.name)
+        updateStationName(station.name)
         showTicketStationNumber(station)
         updateTicketCount("${station.ticketsSold}")
     }
@@ -88,7 +99,7 @@ object TUI {
 
         val newPrice: Double = (coin.faceValue.toDouble() / 100)
         val priceText = (newPrice).toString().padEnd(4, '0')
-        showMessageCenterAlign("$priceText${ICONS.EURO.code}")
+        showMessageCenterAlign("$priceText${ICONS.EURO.code}", clearLine = true)
         showCoinCountNumber()
         updateCoinsCount("${coin.count}")
     }
@@ -105,23 +116,22 @@ object TUI {
     }
 
     fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
-        showMessageCenterAlign("Maintenance")
-        showMessageLeftAlign("${option.key}-${option.string}", 1)
+        showMessageCenterAlign("Maintenance", clearLine = true)
+        showMessageLeftAlign("${option.key}-${option.string}", line = 1, true)
     }
 
     fun showPrintingMessage() {
-        showMessageLeftAlign(message = "Processing..", 1)
+        showMessageLeftAlign(message = "Processing..", 1, clearLine = true)
     }
 
     fun showShuttingDownMessage() {
-        showMessageCenterAlign(message = "A DESLIGAR..")
+        showMessageCenterAlign(message = "A DESLIGAR..", line = 0, clearLine = true)
     }
 
     fun showAbortVendingMessage() {
-        showMessageCenterAlign("Vending Aborted!")
+        showMessageCenterAlign("Vending Aborted!", clearLine = true)
+        showMessageCenterAlign(" ", line = 1, clearLine = true)
         Time.sleep(1000)
-
-        showWelcomeMessage()
     }
 
     fun showTicketRoundTripInformation(roundTrip: Boolean) {
@@ -148,12 +158,6 @@ object TUI {
         } while (key != '*' && key != '#')
 
         return key == '*'
-    }
-
-    fun showStation() {
-        showMessageLeftAlign(message = "Destino:")
-        showMessageRightAlign(message = "A${ICONS.ARROW_UP} e B${ICONS.ARROW_DOWN}")
-        showMessageCenterAlign(message = Stations.getCurrentStation().name, 1)
     }
 
     fun startUpLcd() {
@@ -183,67 +187,85 @@ object TUI {
     }
 
     fun showWelcomeMessage() {
-        showMessageCenterAlign(message = "Ticket To Ride")
+        showMessageCenterAlign(message = "Ticket To Ride", clearLine = true)
         showMessageCenterAlign(message = getCurrentDateTimeString(), line = 1)
     }
 
-    fun showMessageRightAlign(message: String, line: Int = 0) {
+    fun showMessageRightAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
         val startPos = LCD.COLS - message.length
-        LCD.cursor(line, startPos)
-        updateDisplay(message.padStart(16, ' '), line, startPos)
+
+        if (clearLine) {
+            val displayMessage = message.padStart(startPos + message.length, ' ')
+            LCD.cursor(line, 0)
+            updateDisplay(displayMessage, line, 0)
+        } else {
+            LCD.cursor(line, startPos)
+            updateDisplay(message, line, startPos)
+        }
     }
 
-    fun showMessageLeftAlign(message: String, line: Int = 0) {
+    fun showMessageLeftAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
+        val displayMessage = if (clearLine) message.padEnd(LCD.COLS, ' ') else message
         LCD.cursor(line, 0)
-        updateDisplay(message.padEnd(16, ' '), line, 0)
+        updateDisplay(displayMessage, line, 0)
     }
 
-    fun showMessageCenterAlign(message: String, line: Int = 0) {
+    fun showMessageCenterAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
         val halfMessage = message.length / 2.0
         val startPos = (LCD.COLS / 2) - (halfMessage.roundToInt())
 
-        LCD.cursor(line, 0)
+        if (clearLine) {
+            val displayMessage = message.padStart(startPos + message.length, ' ').padEnd(LCD.COLS, ' ')
+            LCD.cursor(line, 0)
+            updateDisplay(displayMessage, line, 0)
+        } else {
+            LCD.cursor(line, startPos)
+            updateDisplay(message, line, startPos)
+        }
 
-        updateDisplay(message.padStart(LCD.COLS - startPos, ' ').padEnd(LCD.COLS, ' '), line, 0)
     }
 
     fun askConfirmationShutDown() {
-        showMessageCenterAlign("Shutdown", 0)
-        showMessageCenterAlign("*-YES other-NO", 1)
+        showMessageCenterAlign("Shutdown", 0, clearLine = true)
+        showMessageCenterAlign("*-YES other-NO", 1, clearLine = true)
     }
 }
 
 
 fun main() {
-    println(" <- TUI -> ")
-    TUI.init()
+    println(" <- TUI Test (Partial Updates) -> ")
+    TUI.init() // Inicializa o hardware e os buffers de software internos
 
     println("A verificar ecrã de boas-vindas...")
+    TUI.showWelcomeMessage() // Desenho inicial completo
     Time.sleep(3000)
 
-    LCD.clear()
-    TUI.showMessageLeftAlign("Esquerda", 0)
-    TUI.showMessageCenterAlign("Centro", 1)
+    // Os métodos showMessage devem agora usar LCD.cursor(line, 0) internamente.
+    println("Demo: Alinhamentos (Mantendo o ecrã ativo)")
+    TUI.showMessageLeftAlign("Esquerda", 0)   // Atualiza apenas a Linha 0
+    TUI.showMessageCenterAlign("Centro", 1)    // Atualiza apenas a Linha 1
     Time.sleep(2000)
 
-    LCD.clear()
+    // a linha 1 ("Centro") mantém-se visível até ser sobrescrita pelo preço.
     TUI.showMessageRightAlign("Direita", 0)
+
     TUI.showTicketPrice(150.0)
     Time.sleep(3000)
 
     println("Responda no teclado: Pagar Bilhete? (* para Sim, # para Não)")
-    TUI.askQuestion("Pagar Bilhete")
+    TUI.askQuestion("Pagar Bilhete") // Escreve a pergunta sem limpar o preço se não necessário
     val resposta = TUI.yesOrNoAnwser()
 
-    LCD.clear()
+    // posicionamos o cursor na linha de ação (ex: Linha 1).
     if (resposta) {
-        TUI.showMessageCenterAlign("A processar...", 0)
-        TUI.showWelcomeMessageV2()
+        TUI.showMessageCenterAlign("A processar...", 1)
+        Time.sleep(1000)
+        TUI.showWelcomeMessageV2() // Atualiza apenas os campos que mudaram na V2
     } else {
-        TUI.showMessageCenterAlign("Cancelado", 0)
+        TUI.showMessageCenterAlign("Cancelado", 1)
     }
 
     Time.sleep(3000)
-    TUI.showWelcomeMessage() // Volta ao estado inicial
+    TUI.showWelcomeMessage() // Regressa ao estado IDLE de forma fluida
     println("Teste do TUI concluído.")
 }
