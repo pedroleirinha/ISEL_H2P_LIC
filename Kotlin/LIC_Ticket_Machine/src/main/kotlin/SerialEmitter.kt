@@ -28,7 +28,7 @@ object SerialEmitter {
         } else {
             HAL.clearTDSerialBits() // LIMPA OS 3 BITS QUE VAO SER USADOS
         }
-        Integer.toBinaryString(data).padStart(serialInformationSize, '0')
+        data.numToBinStringPadded(serialInformationSize)
             .reversed()
             .mapIndexed { index, it ->
 
@@ -87,7 +87,7 @@ fun main() {
     val dataLCD = 0b1010000011
     println(
         "A enviar trama para o LCD: ${
-            Integer.toBinaryString(dataLCD).padStart(SerialEmitter.serialInformationSize, '0')
+            dataLCD.numToBinStringPadded(SerialEmitter.serialInformationSize)
         }"
     )
 

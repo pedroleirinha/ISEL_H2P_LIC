@@ -8,14 +8,15 @@ object TicketDispenser {
     const val PRT_ON = 1
     const val PRT_OFF = 0
 
+
     fun init() {
         SerialEmitter.init()
     }
 
     fun activatePrintingTicket(roundTrip: Boolean, origin: Int, destination: Int, prt: Int) {
         val roundTripBit = if (roundTrip) "1" else "0"
-        val originBits = Integer.toBinaryString(origin).padStart(stationsBitsSize, '0')
-        val destinationBits = Integer.toBinaryString(destination).padStart(stationsBitsSize, '0')
+        val originBits = origin.numToBinStringPadded(stationsBitsSize)
+        val destinationBits = destination.numToBinStringPadded(stationsBitsSize)
 
         val data = "${prt}${originBits}${destinationBits}${roundTripBit}".toInt(2)
 

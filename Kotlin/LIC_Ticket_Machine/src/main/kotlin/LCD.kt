@@ -8,7 +8,7 @@ import org.example.HAL.lcdFunctionSetBits
 
 // Escreve no LCD usando a interface a 8 bits.
 object LCD {
-
+    const val LCD_INSTRUCTION_LENGTH = 8
     // Dimensão do display.
     const val LINES = 2
     const val COLS = 16
@@ -17,7 +17,7 @@ object LCD {
     private fun writeByteSerial(rs: Boolean, data: Int) {
         val rsBit = if (rs) 1 else 0
 
-        val extendedData = Integer.toBinaryString(data).padStart(8, '0')
+        val extendedData = data.numToBinStringPadded(LCD_INSTRUCTION_LENGTH)
 
         var dataFullEnabled = "1${extendedData}${rsBit}".toInt(2)
         SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
@@ -72,10 +72,9 @@ object LCD {
     // Envia comando para posicionar cursor ('line': 0..LINES-1, 'column': 0..COLS-1)
     fun cursor(line: Int, column: Int) {
         if (line in 0..<LINES && column in 0..<COLS) {
-            val lineBits = Integer.toBinaryString(line)
+            val lineBits = line.numToBinString()
 
-            val columnBits = Integer.toBinaryString(column % COLS)
-                .padStart(4, '0')
+            val columnBits = (column % COLS).numToBinStringPadded(4)
             val cursorCommand = "1${lineBits}00${columnBits}".toInt(2) //USES DDRAM
 
             writeCMD(data = cursorCommand)
@@ -106,6 +105,14 @@ object LCD {
         }
     }
 
+    fun drawHourGlass() {
+        val data = intArrayOf(0x1F, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x1F, 0x00)
+        writeCMD(0x60)
+        data.forEach {
+            writeDATA(it)
+        }
+    }
+
     fun drawEuro() {
         val data = arrayOf(6, 9, 30, 8, 30, 9, 6, 0)
         writeCMD(0x58)
@@ -119,6 +126,7 @@ object LCD {
         drawArrowDown()
         drawSmile()
         drawEuro()
+        drawHourGlass()
     }
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)

@@ -16,12 +16,12 @@ import org.example.TicketMachine.waitForKeyPressedWithAbort
 
 object Maintenance {
 
-    enum class MAINTENANCEOPTIONS(val string: String, val key: Char) {
-        PRINT_TICKET(string = "Print_Ticket", key = '#'),
-        STATION_COUNT(string = "Station Cnt", key = 'A'),
-        COIN_COUNT(string = "Coins Cnt", key = 'B'),
-        RESET_COUNT(string = "Reset Cnt", key = 'C'),
-        SHUTDOWN(string = "ShutDown", key = 'D')
+    enum class MAINTENANCEOPTIONS(val title: String, val key: Char) {
+        STATION_COUNT(title = "Station Cnt", key = 'A'),
+        COIN_COUNT(title = "Coins Cnt", key = 'B'),
+        RESET_COUNT(title = "Reset Cnt", key = 'C'),
+        SHUTDOWN(title = "ShutDown", key = 'D'),
+        PRINT_TICKET(title = "Print_Ticket", key = '#'),
     }
 
     const val CAROUSEL_TIME_REF: Long = 1000

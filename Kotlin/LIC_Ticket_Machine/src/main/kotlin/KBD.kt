@@ -26,7 +26,7 @@ object KBD {
     fun getKey(keyBits: Int): Char {
         if (keyBits == -1) return NONE
 
-        val key = Integer.toBinaryString(keyBits).padStart(keyBitsSize, '0')
+        val key = keyBits.numToBinStringPadded(keyBitsSize)
 
         val row = key.slice(rowKeyIndices).toInt(2)
         val col = key.slice(colKeyIndices).toInt(2)

@@ -12,6 +12,7 @@ enum class ICONS(val code: Char) {
     ARROW_DOWN(1.toChar()),
     EURO(3.toChar()),
     SMILE(2.toChar()),
+    HOUR_GLASS(4.toChar()),
 }
 
 object TUI {
@@ -117,11 +118,11 @@ object TUI {
 
     fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
         showMessageCenterAlign("Maintenance", clearLine = true)
-        showMessageLeftAlign("${option.key}-${option.string}", line = 1, true)
+        showMessageLeftAlign("${option.key}-${option.title}", line = 1, true)
     }
 
     fun showPrintingMessage() {
-        showMessageLeftAlign(message = "Processing..", 1, clearLine = true)
+        showMessageLeftAlign(message = "A Imprimir.. ${ICONS.HOUR_GLASS.code}", 1, clearLine = true)
     }
 
     fun showShuttingDownMessage() {

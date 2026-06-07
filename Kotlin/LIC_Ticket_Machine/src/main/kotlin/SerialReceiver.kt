@@ -45,7 +45,7 @@ object SerialReceiver {
             emitTxClkCycle()
             if (checkLastTransmissionBit()) {
                 emitTxClkCycle() // Ultimo ciclo para repor o '1' no TxD
-                return Integer.toBinaryString(bits).toInt(2)
+                return bits.numToBinString().toInt(2)
             }
         }
 
@@ -118,7 +118,7 @@ fun main() {
             val keyCode = SerialReceiver.receiveKeyInSerie(4)
 
             if (keyCode != -1) {
-                println("Tecla recebida com sucesso! Codigo: ${Integer.toBinaryString(keyCode).padStart(4, '0')}")
+                println("Tecla recebida com sucesso! Codigo: ${keyCode.numToBinStringPadded(keyBitsSize)}")
             } else {
                 println("Desalinhamento detetado. A realinhar...")
             }
