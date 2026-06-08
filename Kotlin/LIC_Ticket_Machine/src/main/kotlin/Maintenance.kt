@@ -51,11 +51,11 @@ object Maintenance {
     }
 
     fun maintenanceRoutine() {
-        CoinAcceptor.coinCounter = 0
-        Stations.stationCount = 0
         startCarouselTimer()
 
         while (isMaintenanceModeActive()) {
+            CoinAcceptor.coinCounter = 0
+            Stations.stationCount = 0
 
             if (TicketMachine.checkIfTimerIsUp(carouselTimer)) {
                 printMaintenanceOptions()

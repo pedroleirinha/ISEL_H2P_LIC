@@ -9,7 +9,7 @@ import org.example.TUI.showWelcomeMessage
 
 object TicketMachine {
 
-    const val KEYPRESS_TIMEOUT: Long = 1000
+    const val KEYPRESS_TIMEOUT: Long = 5000
     const val KEYPRESS_FOLLOW_TIMEOUT: Long = 5000
     const val INACTIVE_KEYPRESS_TIMEOUT: Long = 10000
     var roundTrip = false
@@ -20,7 +20,7 @@ object TicketMachine {
 
 
     fun hasInterruption(): Boolean {
-        if (CoinAcceptor.isBusy()) {
+        if (CoinAcceptor.isBusy() || TicketDispenser.isTicketCollectedBitUp() || isMaintenanceModeActive()) {
             return true
         }
         return false
@@ -194,14 +194,14 @@ object TicketMachine {
         do {
             val key = waitForKeyPressedWithAbort()
             if (key != NONE) {
-                if (firstKey) {
+                if (firstKey && (key.isDigit() || key == 'A' || key == 'B')) {
                     LCD.clear()
                     firstKey = false
                 }
-                when (key) {
-                    'A' -> nextStation()
-                    'B' -> previousStation()
-                    else -> pickStation(keyNumber = checkForFollowupKey(key))
+                when {
+                    key == 'A' -> nextStation()
+                    key == 'B' -> previousStation()
+                    key.isDigit() -> pickStation(keyNumber = checkForFollowupKey(key))
                 }
             }
 
@@ -258,7 +258,6 @@ object TicketMachine {
         }
 
         finishTicketCollectionProcess()
-        Time.sleep(1000)
 
         while (!TicketDispenser.isTicketCollected()) {
             if (isMaintenanceModeActive()) return

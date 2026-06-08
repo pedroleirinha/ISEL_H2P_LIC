@@ -46,7 +46,9 @@ object KBD {
                 return key
             }
 
-            if (TicketMachine.hasInterruption()) return key
+            if (TicketMachine.hasInterruption()) {
+                return key
+            }
         }
         return key
     }
