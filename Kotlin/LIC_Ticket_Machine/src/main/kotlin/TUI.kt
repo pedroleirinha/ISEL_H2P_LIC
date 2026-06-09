@@ -27,7 +27,8 @@ object TUI {
 
     fun updateStationNumber(priceText: String) {
         LCD.cursor(1, 0)
-        updateDisplay(priceText.padEnd(4, ' '), 1, 0)
+        //updateDisplay(priceText.padEnd(4, ' '), 1, 0)
+        showMessageLeftAlign(priceText.padEnd(4, ' '), 1)
     }
 
     fun updateStationName(stationName: String) {
@@ -36,17 +37,20 @@ object TUI {
 
     fun updateTicketPrice(priceText: String) {
         LCD.cursor(1, LCD.COLS - priceText.length)
-        updateDisplay(priceText, 1, LCD.COLS - priceText.length)
+        //updateDisplay(priceText, 1, LCD.COLS - priceText.length)
+        showMessageRightAlign(priceText, 1)
     }
 
     fun updateTicketCount(ticketCountText: String) {
         LCD.cursor(1, LCD.COLS - ticketCountText.length)
-        updateDisplay(ticketCountText, 1, LCD.COLS - ticketCountText.length)
+        //updateDisplay(ticketCountText, 1, LCD.COLS - ticketCountText.length)
+        showMessageRightAlign(ticketCountText, 1)
     }
 
     fun updateCoinsCount(coinCountText: String) {
         LCD.cursor(1, LCD.COLS - coinCountText.length)
-        updateDisplay(coinCountText, 1, LCD.COLS - coinCountText.length)
+        showMessageRightAlign(coinCountText, 1)
+        //updateDisplay(coinCountText, 1, LCD.COLS - coinCountText.length)
     }
 
     fun checkIfSameTextOnDisplay(message: String, line: Int, pos: Int): Boolean {
@@ -82,6 +86,7 @@ object TUI {
 
     fun printStation() {
         val station = Stations.getCurrentStation()
+        LCD.clear()
         updateStationName(station.name)
         showTicketStationNumber(station)
         showTicketPrice(getTotalTicketPrice().toDouble())
@@ -89,6 +94,7 @@ object TUI {
 
     fun printStationTicketsSold() {
         val station = Stations.getCurrentStation()
+        LCD.clear()
 
         updateStationName(station.name)
         showTicketStationNumber(station)
@@ -98,11 +104,15 @@ object TUI {
     fun printCoinsCount() {
         val coin = CoinAcceptor.getCurrentCoin()
 
+        LCD.clear()
+
         val newPrice: Double = (coin.faceValue.toDouble() / 100)
         val priceText = (newPrice).toString().padEnd(4, '0')
+
         showMessageCenterAlign("$priceText${ICONS.EURO.code}")
         showCoinCountNumber()
         updateCoinsCount("${coin.count}")
+
     }
 
     fun showTicketStationNumber(station: Station) {
@@ -113,7 +123,7 @@ object TUI {
 
     fun showCoinCountNumber() {
         val stationNumber = CoinAcceptor.coinCounter.toString().padStart(2, '0')
-        showMessageLeftAlign("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
+        showMessageLeftAlignPartial("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
     }
 
     fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
@@ -256,7 +266,7 @@ object TUI {
         showMessageCenterAlignPartial("Reset? Press *", 1, clearLine = true)
     }
 
-    fun askConfirmationToPrintTicket(){
+    fun askConfirmationToPrintTicket() {
         showMessageCenterAlignPartial("${ICONS.ARROW_UP.code} *- to Print", 1, clearLine = true)
     }
 }
