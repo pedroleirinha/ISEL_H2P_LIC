@@ -16,7 +16,7 @@ object TicketMachine {
 
     var inactiveTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
     var followUpTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
-    var lastKey: Int = 0    // Regista a ultima key pressionada para permitir concatenar numeros ate 16.
+    var lastKey: Int = 0        // Regista a ultima key pressionada para permitir concatenar numeros ate 16.
 
 
     fun hasInterruption(): Boolean {
@@ -192,7 +192,7 @@ object TicketMachine {
 
     var firstKey = true
     fun pickStationRoutine() {
-        TUI.showWelcomeMessage()
+        showWelcomeMessage()
         do {
             val key = waitForKeyPressedWithAbort()
             if (key != NONE) {

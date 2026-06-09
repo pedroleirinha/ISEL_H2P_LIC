@@ -108,7 +108,7 @@ object Maintenance {
     }
 
     fun maintenancePaymentProcess() {
-        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1, clearLine = true)
+        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
 
         do {
             val key = waitForKeyPressedWithAbort()
@@ -116,7 +116,7 @@ object Maintenance {
             when (key) {
                 '*' -> {
                     TUI.updateStationName(Stations.getCurrentStation().name)
-                    TUI.showMessageCenterAlign("Collect Ticket", 1, clearLine = true)
+                    TUI.showMessageCenterAlign("Collect Ticket", 1)
                 }
             }
 
@@ -162,7 +162,7 @@ object Maintenance {
 
     fun resetCoinsCounters() {
         TicketMachine.startInactiveTimer()
-        TUI.showMessageCenterAlign("Reset? Press *", 1, clearLine = true)
+        TUI.showMessageCenterAlign("Reset? Press *", 1)
         do {
             val key = waitForKeyPressedWithAbort()
 

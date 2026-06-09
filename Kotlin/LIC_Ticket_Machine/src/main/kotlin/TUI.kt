@@ -31,7 +31,7 @@ object TUI {
     }
 
     fun updateStationName(stationName: String) {
-        showMessageCenterAlign(stationName, line = 0, clearLine = true)
+        showMessageCenterAlignPartial(stationName, line = 0, clearLine = true)
     }
 
     fun updateTicketPrice(priceText: String) {
@@ -100,7 +100,7 @@ object TUI {
 
         val newPrice: Double = (coin.faceValue.toDouble() / 100)
         val priceText = (newPrice).toString().padEnd(4, '0')
-        showMessageCenterAlign("$priceText${ICONS.EURO.code}", clearLine = true)
+        showMessageCenterAlign("$priceText${ICONS.EURO.code}")
         showCoinCountNumber()
         updateCoinsCount("${coin.count}")
     }
@@ -117,21 +117,22 @@ object TUI {
     }
 
     fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
-        showMessageCenterAlign("Maintenance", clearLine = true)
-        showMessageLeftAlign("${option.key}-${option.title}", line = 1, true)
+        LCD.clear()
+        showMessageCenterAlign("Maintenance")
+        showMessageLeftAlign("${option.key}-${option.title}", line = 1)
     }
 
     fun showPrintingMessage() {
-        showMessageLeftAlign(message = "A Imprimir.. ${ICONS.HOUR_GLASS.code}", 1, clearLine = true)
+        showMessageLeftAlign(message = "A Imprimir.. ${ICONS.HOUR_GLASS.code}", 1)
     }
 
     fun showShuttingDownMessage() {
-        showMessageCenterAlign(message = "A DESLIGAR..", line = 0, clearLine = true)
+        showMessageCenterAlign(message = "A DESLIGAR..", line = 0)
     }
 
     fun showAbortVendingMessage() {
-        showMessageCenterAlign("Vending Aborted!", clearLine = true)
-        showMessageCenterAlign(" ", line = 1, clearLine = true)
+        showMessageCenterAlign("Vending Aborted!")
+        showMessageCenterAlign(" ", line = 1)
         Time.sleep(1000)
     }
 
@@ -188,11 +189,11 @@ object TUI {
     }
 
     fun showWelcomeMessage() {
-        showMessageCenterAlign(message = "Ticket To Ride", clearLine = true)
-        showMessageCenterAlign(message = getCurrentDateTimeString(), line = 1)
+        showMessageCenterAlignPartial(message = "Ticket To Ride", clearLine = true)
+        showMessageCenterAlignPartial(message = getCurrentDateTimeString(), line = 1, clearLine = true)
     }
 
-    fun showMessageRightAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
+    fun showMessageRightAlignPartial(message: String, line: Int = 0, clearLine: Boolean = false) {
         val startPos = LCD.COLS - message.length
 
         if (clearLine) {
@@ -205,13 +206,13 @@ object TUI {
         }
     }
 
-    fun showMessageLeftAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
+    fun showMessageLeftAlignPartial(message: String, line: Int = 0, clearLine: Boolean = false) {
         val displayMessage = if (clearLine) message.padEnd(LCD.COLS, ' ') else message
         LCD.cursor(line, 0)
         updateDisplay(displayMessage, line, 0)
     }
 
-    fun showMessageCenterAlign(message: String, line: Int = 0, clearLine: Boolean = false) {
+    fun showMessageCenterAlignPartial(message: String, line: Int = 0, clearLine: Boolean = false) {
         val halfMessage = message.length / 2.0
         val startPos = (LCD.COLS / 2) - (halfMessage.roundToInt())
 
@@ -226,9 +227,27 @@ object TUI {
 
     }
 
+    fun showMessageRightAlign(message: String, line: Int = 0) {
+        val startPos = LCD.COLS - message.length
+        LCD.cursor(line, startPos)
+        LCD.write(text = message)
+    }
+
+    fun showMessageLeftAlign(message: String, line: Int = 0) {
+        LCD.cursor(line, 0)
+        LCD.write(text = message)
+    }
+
+    fun showMessageCenterAlign(message: String, line: Int = 0) {
+        val halfMessage = message.length / 2.0
+        val startPos = (LCD.COLS / 2) - (halfMessage.roundToInt())
+        LCD.cursor(line, startPos)
+        LCD.write(text = message)
+    }
+
     fun askConfirmationShutDown() {
-        showMessageCenterAlign("Shutdown", 0, clearLine = true)
-        showMessageCenterAlign("*-YES other-NO", 1, clearLine = true)
+        showMessageCenterAlign("Shutdown", 0)
+        showMessageCenterAlign("*-YES other-NO", 1)
     }
 }
 
