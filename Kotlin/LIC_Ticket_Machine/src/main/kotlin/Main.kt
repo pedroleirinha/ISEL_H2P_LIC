@@ -1,7 +1,5 @@
 package org.example
 
-import isel.leic.UsbPort
-
 fun main() {
     TicketMachine.init()
     while (TicketMachine.isAppRunning()) {
@@ -15,12 +13,14 @@ fun main() {
             }
         }
     }
+    println("SYSTEM DOWN")
 
 }
 
 fun Int.numToBinStringPadded(length: Int, padChar: Char = '0'): String {
     return Integer.toBinaryString(this).padStart(length, padChar)
 }
+
 fun Int.numToBinString(): String {
     return Integer.toBinaryString(this)
 }

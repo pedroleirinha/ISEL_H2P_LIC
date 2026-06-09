@@ -3,7 +3,7 @@ package org.example
 import isel.leic.utils.Time
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.KBD.NONE
-import org.example.TUI.showTicketPrice
+import org.example.TicketMachineView.showTicketPrice
 import org.example.TUI.showWelcomeMessage
 
 
@@ -31,7 +31,7 @@ object TicketMachine {
     fun abortVendingProcess() {
         Stations.destStation = null
         CoinAcceptor.ejectCoinsAndCleanDeposit()
-        TUI.showAbortVendingMessage()
+        TicketMachineView.showAbortVendingMessage()
         showWelcomeMessage()
         firstKey = true
     }
@@ -42,7 +42,7 @@ object TicketMachine {
 
     fun printMaintenanceOptions() {
         val option = Maintenance.getMaintenanceOption()
-        TUI.printMaintenanceOption(option)
+        TicketMachineView.printMaintenanceOption(option)
     }
 
     fun init() {
@@ -56,32 +56,32 @@ object TicketMachine {
 
     fun nextStation() {
         Stations.incrementStationsCount()
-        TUI.printStation()
+        TicketMachineView.printStation()
     }
 
     fun previousStation() {
         Stations.decrementStationsCount()
-        TUI.printStation()
+        TicketMachineView.printStation()
     }
 
     fun nextStationTicketsSold() {
         Stations.incrementStationsCount()
-        TUI.printStationTicketsSold()
+        TicketMachineView.printStationTicketsSold()
     }
 
     fun previousStationTicketsSold() {
         Stations.decrementStationsCount()
-        TUI.printStationTicketsSold()
+        TicketMachineView.printStationTicketsSold()
     }
 
     fun nextCoinCount() {
         CoinAcceptor.incrementCoinsCount()
-        TUI.printCoinsCount()
+        TicketMachineView.printCoinsCount()
     }
 
     fun previousCoinCount() {
         CoinAcceptor.decrementCoinsCount()
-        TUI.printCoinsCount()
+        TicketMachineView.printCoinsCount()
     }
 
     fun toggleRoundTrip() {
@@ -103,8 +103,7 @@ object TicketMachine {
 
     fun finishTicketCollectionProcess() {
         TUI.clearScreen()
-        TUI.showMessageCenterAlign("Thank You!", 0)
-        TUI.showMessageCenterAlign("Have a nice Trip", 1)
+        TicketMachineView.finishCollectTicketMessage()
 
         println(Stations.originStation?.name + ": " + Stations.destStation?.name)
         TicketDispenser.emitPrintingTicketDown(
@@ -115,7 +114,7 @@ object TicketMachine {
     }
 
     fun shutdownSystem() {
-        TUI.showShuttingDownMessage()
+        TicketMachineView.showShuttingDownMessage()
         CoinAcceptor.saveCoins()
         Stations.saveStations()
         println("Data stored. Shutting Down..")
@@ -128,7 +127,7 @@ object TicketMachine {
             Stations.stationCount = keyNumber
             Stations.setDestinationStation(keyNumber)
             println("Destination set to ${Stations.getCurrentStation().name}")
-            TUI.printStation()
+            TicketMachineView.printStation()
         }
     }
 
@@ -210,6 +209,7 @@ object TicketMachine {
                 when {
                     key == 'A' -> nextStation()
                     key == 'B' -> previousStation()
+                    key == '#' -> TicketMachineView.printStation()
                     key.isDigit() -> pickStation(keyNumber = checkForFollowupKey(key))
                 }
             }
@@ -217,7 +217,7 @@ object TicketMachine {
             if (isMaintenanceModeActive() || inactiveTimeout()) return
         } while (key != '#' || (Stations.getCurrentStation().price == 0))
 
-        TUI.showTicketRoundTripInformation(roundTrip)
+        TicketMachineView.showTicketRoundTripInformation(roundTrip)
         paymentRoutine()
     }
 
@@ -228,7 +228,7 @@ object TicketMachine {
             when (key) {
                 '*' -> {
                     toggleRoundTrip()
-                    TUI.showTicketRoundTripInformation(roundTrip)
+                    TicketMachineView.showTicketRoundTripInformation(roundTrip)
                     showTicketPrice(getTotalTicketPrice().toDouble())
                 }
 
@@ -254,7 +254,7 @@ object TicketMachine {
     }
 
     fun ticketRoutine() {
-        TUI.showPrintingMessage()
+        TicketMachineView.showPrintingMessage()
         submitTicket()
 
         while (!TicketDispenser.isTicketCollectedBitUp()) {
@@ -274,7 +274,7 @@ object TicketMachine {
 
         CoinAcceptor.transferTicketCoinsToSafe()
         Stations.incrementDestinationStationSoldTickets()
-        TUI.showWelcomeMessage()
+        showWelcomeMessage()
     }
 }
 

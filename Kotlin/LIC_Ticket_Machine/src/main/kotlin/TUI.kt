@@ -20,37 +20,8 @@ object TUI {
     var bufferLine2 = StringBuilder(" ".repeat(LCD.COLS))
 
     fun init() {
-        HAL.init()
         KBD.init()
         startUpLcd()
-    }
-
-    fun updateStationNumber(priceText: String) {
-        LCD.cursor(1, 0)
-        //updateDisplay(priceText.padEnd(4, ' '), 1, 0)
-        showMessageLeftAlign(priceText.padEnd(4, ' '), 1)
-    }
-
-    fun updateStationName(stationName: String) {
-        showMessageCenterAlignPartial(stationName, line = 0, clearLine = true)
-    }
-
-    fun updateTicketPrice(priceText: String) {
-        LCD.cursor(1, LCD.COLS - priceText.length)
-        //updateDisplay(priceText, 1, LCD.COLS - priceText.length)
-        showMessageRightAlign(priceText, 1)
-    }
-
-    fun updateTicketCount(ticketCountText: String) {
-        LCD.cursor(1, LCD.COLS - ticketCountText.length)
-        //updateDisplay(ticketCountText, 1, LCD.COLS - ticketCountText.length)
-        showMessageRightAlign(ticketCountText, 1)
-    }
-
-    fun updateCoinsCount(coinCountText: String) {
-        LCD.cursor(1, LCD.COLS - coinCountText.length)
-        showMessageRightAlign(coinCountText, 1)
-        //updateDisplay(coinCountText, 1, LCD.COLS - coinCountText.length)
     }
 
     fun checkIfSameTextOnDisplay(message: String, line: Int, pos: Int): Boolean {
@@ -82,80 +53,6 @@ object TUI {
 
         LCD.cursor(line, column)
         LCD.write(text)
-    }
-
-    fun printStation() {
-        val station = Stations.getCurrentStation()
-        clearScreen()
-        updateStationName(station.name)
-        showTicketStationNumber(station)
-        showTicketPrice(getTotalTicketPrice().toDouble())
-    }
-
-    fun printStationTicketsSold() {
-        val station = Stations.getCurrentStation()
-        clearScreen()
-
-        updateStationName(station.name)
-        showTicketStationNumber(station)
-        updateTicketCount("${station.ticketsSold}")
-    }
-
-    fun printCoinsCount() {
-        val coin = CoinAcceptor.getCurrentCoin()
-
-        clearScreen()
-
-        val newPrice: Double = (coin.faceValue.toDouble() / 100)
-        val priceText = (newPrice).toString().padEnd(4, '0')
-
-        showMessageCenterAlign("$priceText${ICONS.EURO.code}")
-        showCoinCountNumber()
-        updateCoinsCount("${coin.count}")
-
-    }
-
-    fun showTicketStationNumber(station: Station) {
-        val stationNumber = (station.code).toString().padStart(2, '0')
-        updateStationNumber("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}")
-    }
-
-    fun showCoinCountNumber() {
-        val stationNumber = CoinAcceptor.coinCounter.toString().padStart(2, '0')
-        showMessageLeftAlignPartial("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
-    }
-
-    fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
-        clearScreen()
-        showMessageCenterAlign("Maintenance")
-        showMessageLeftAlign("${option.key}-${option.title}", line = 1)
-    }
-
-    fun showPrintingMessage() {
-        showMessageLeftAlign(message = "A Imprimir.. ${ICONS.HOUR_GLASS.code}".padEnd(LCD.COLS, ' '), 1)
-    }
-
-    fun showShuttingDownMessage() {
-        showMessageCenterAlign(message = "A DESLIGAR..", line = 0)
-    }
-
-    fun showAbortVendingMessage() {
-        clearScreen()
-        showMessageCenterAlign("Vending Aborted!")
-        showMessageCenterAlign(" ", line = 1)
-        Time.sleep(500)
-    }
-
-    fun showTicketRoundTripInformation(roundTrip: Boolean) {
-        val tripIcon = "${ICONS.ARROW_UP.code}${if (roundTrip) ICONS.ARROW_DOWN.code else ""}"
-        updateStationNumber(tripIcon)
-    }
-
-    fun showTicketPrice(price: Double) {
-        val newPrice = max((price - totalAddedCoinsValue()) / 100, 0.0)
-        val priceText = (newPrice).toString().padEnd(4, '0')
-
-        updateTicketPrice("$priceText${ICONS.EURO.code}")
     }
 
     fun askQuestion(message: String) {
@@ -255,20 +152,6 @@ object TUI {
         LCD.write(text = message)
     }
 
-    fun askConfirmationShutDown() {
-        clearScreen()
-        showMessageCenterAlign("Shutdown", 0)
-        showMessageCenterAlign("*-YES other-NO", 1)
-    }
-
-    fun askConfirmationResetCoins() {
-        showMessageCenterAlignPartial("Reset? Press *", 1, clearLine = true)
-    }
-
-    fun askConfirmationToPrintTicket() {
-        showMessageCenterAlignPartial("${ICONS.ARROW_UP.code} *- to Print", 1, clearLine = true)
-    }
-
     fun clearScreen(){
         LCD.clear()
         bufferLine1 = StringBuilder(" ".repeat(LCD.COLS))
@@ -294,7 +177,6 @@ fun main() {
     // a linha 1 ("Centro") mantém-se visível até ser sobrescrita pelo preço.
     TUI.showMessageRightAlign("Direita", 0)
 
-    TUI.showTicketPrice(150.0)
     Time.sleep(3000)
 
     println("Responda no teclado: Pagar Bilhete? (* para Sim, # para Não)")

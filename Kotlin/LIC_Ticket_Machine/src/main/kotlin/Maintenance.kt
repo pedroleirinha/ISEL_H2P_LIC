@@ -89,7 +89,7 @@ object Maintenance {
     fun maintenanceSellingProcess() {
         Stations.stationCount = 0
         TicketMachine.startInactiveTimer()
-        TUI.printStation()
+        TicketMachineView.printStation()
 
         do {
             val key = waitForKeyPressedWithAbort()
@@ -98,7 +98,7 @@ object Maintenance {
                 key == 'B' -> previousStation()
                 key.isDigit() -> {
                     Stations.stationCount = key.digitToInt()
-                    TUI.printStation()
+                    TicketMachineView.printStation()
                 }
             }
 
@@ -110,18 +110,17 @@ object Maintenance {
     }
 
     fun maintenancePaymentProcess() {
-        TUI.askConfirmationToPrintTicket()
+        TicketMachineView.askConfirmationToPrintTicket()
 
         do {
             val key = waitForKeyPressedWithAbort()
 
             when (key) {
                 '*' -> {
-                    TUI.updateStationName(Stations.getCurrentStation().name)
-                    TUI.showMessageCenterAlign("Collect Ticket", 1)
+                    TicketMachineView.printMaintenanceCollectPrint()
                 }
                 '#' -> {
-                    TUI.showAbortVendingMessage()
+                    TicketMachineView.showAbortVendingMessage()
                     return
                 }
             }
@@ -139,7 +138,7 @@ object Maintenance {
 
             when (key) {
                 '#' -> {
-                    TUI.showAbortVendingMessage()
+                    TicketMachineView.showAbortVendingMessage()
                     return
                 }
             }
@@ -155,7 +154,7 @@ object Maintenance {
     fun shutdownRequest() {
         TicketMachine.startInactiveTimer()
 
-        TUI.askConfirmationShutDown()
+        TicketMachineView.askConfirmationShutDown()
         do {
             val key = waitForKeyPressedWithAbort()
 
@@ -170,7 +169,7 @@ object Maintenance {
 
     fun resetCoinsCounters() {
         TicketMachine.startInactiveTimer()
-        TUI.askConfirmationResetCoins()
+        TicketMachineView.askConfirmationResetCoins()
         do {
             val key = waitForKeyPressedWithAbort()
 
@@ -183,7 +182,7 @@ object Maintenance {
 
     fun stationTicketCount() {
         TicketMachine.startInactiveTimer()
-        TUI.printStationTicketsSold()
+        TicketMachineView.printStationTicketsSold()
         do {
             val key = waitForKeyPressedWithAbort()
 
@@ -197,7 +196,7 @@ object Maintenance {
 
     fun coinsDepositCount() {
         TicketMachine.startInactiveTimer()
-        TUI.printCoinsCount()
+        TicketMachineView.printCoinsCount()
         do {
             val key = waitForKeyPressedWithAbort()
 
