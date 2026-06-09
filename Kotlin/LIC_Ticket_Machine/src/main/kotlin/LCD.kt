@@ -27,8 +27,6 @@ object LCD {
     private fun writeByteSerial(rs: Boolean, data: Int) {
         val rsBit = if (rs) 1 else 0
 
-        val rsBit2 = 512
-
         val extendedData = data.numToBinStringPadded(LCD_INSTRUCTION_LENGTH)
 
         var dataFullEnabled = "1${extendedData}${rsBit}".toInt(2)
@@ -92,9 +90,6 @@ object LCD {
             writeCMD(data = cursorCommand)
         }
     }
-
-
-
 
     fun drawArrowUp() {
         val data = arrayOf(4, 14, 21, 4, 4, 4, 4, 0)

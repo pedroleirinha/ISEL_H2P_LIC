@@ -86,7 +86,7 @@ object TUI {
 
     fun printStation() {
         val station = Stations.getCurrentStation()
-        LCD.clear()
+        clearScreen()
         updateStationName(station.name)
         showTicketStationNumber(station)
         showTicketPrice(getTotalTicketPrice().toDouble())
@@ -94,7 +94,7 @@ object TUI {
 
     fun printStationTicketsSold() {
         val station = Stations.getCurrentStation()
-        LCD.clear()
+        clearScreen()
 
         updateStationName(station.name)
         showTicketStationNumber(station)
@@ -104,7 +104,7 @@ object TUI {
     fun printCoinsCount() {
         val coin = CoinAcceptor.getCurrentCoin()
 
-        LCD.clear()
+        clearScreen()
 
         val newPrice: Double = (coin.faceValue.toDouble() / 100)
         val priceText = (newPrice).toString().padEnd(4, '0')
@@ -116,10 +116,9 @@ object TUI {
     }
 
     fun showTicketStationNumber(station: Station) {
-        val stationNumber = (station.code - 1).toString().padStart(2, '0')
+        val stationNumber = (station.code).toString().padStart(2, '0')
         updateStationNumber("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}")
     }
-
 
     fun showCoinCountNumber() {
         val stationNumber = CoinAcceptor.coinCounter.toString().padStart(2, '0')
@@ -127,7 +126,7 @@ object TUI {
     }
 
     fun printMaintenanceOption(option: Maintenance.MAINTENANCEOPTIONS) {
-        LCD.clear()
+        clearScreen()
         showMessageCenterAlign("Maintenance")
         showMessageLeftAlign("${option.key}-${option.title}", line = 1)
     }
@@ -141,7 +140,7 @@ object TUI {
     }
 
     fun showAbortVendingMessage() {
-        LCD.clear()
+        clearScreen()
         showMessageCenterAlign("Vending Aborted!")
         showMessageCenterAlign(" ", line = 1)
         Time.sleep(500)
@@ -257,7 +256,7 @@ object TUI {
     }
 
     fun askConfirmationShutDown() {
-        LCD.clear()
+        clearScreen()
         showMessageCenterAlign("Shutdown", 0)
         showMessageCenterAlign("*-YES other-NO", 1)
     }
@@ -268,6 +267,12 @@ object TUI {
 
     fun askConfirmationToPrintTicket() {
         showMessageCenterAlignPartial("${ICONS.ARROW_UP.code} *- to Print", 1, clearLine = true)
+    }
+
+    fun clearScreen(){
+        LCD.clear()
+        bufferLine1 = StringBuilder(" ".repeat(LCD.COLS))
+        bufferLine2 = StringBuilder(" ".repeat(LCD.COLS))
     }
 }
 

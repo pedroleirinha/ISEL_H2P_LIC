@@ -13,11 +13,13 @@ object TicketMachine {
     const val KEYPRESS_FOLLOW_TIMEOUT: Long = 5000
     const val INACTIVE_KEYPRESS_TIMEOUT: Long = 10000
     var roundTrip = false
+    var shutdown = false
 
     var inactiveTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
     var followUpTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
     var lastKey: Int = 0        // Regista a ultima key pressionada para permitir concatenar numeros ate 16.
 
+    fun isAppRunning() = !shutdown
 
     fun hasInterruption(): Boolean {
         if (CoinAcceptor.isBusy() || TicketDispenser.isTicketCollectedBitUp() || isMaintenanceModeActive()) {
@@ -48,6 +50,8 @@ object TicketMachine {
         Stations.init()
         TicketDispenser.init()
         CoinAcceptor.init()
+
+        shutdown = Stations.originStation == null
     }
 
     fun nextStation() {
@@ -98,6 +102,7 @@ object TicketMachine {
     }
 
     fun finishTicketCollectionProcess() {
+        TUI.clearScreen()
         TUI.showMessageCenterAlign("Thank You!", 0)
         TUI.showMessageCenterAlign("Have a nice Trip", 1)
 
@@ -115,6 +120,7 @@ object TicketMachine {
         Stations.saveStations()
         println("Data stored. Shutting Down..")
         Time.sleep(1000)
+        shutdown = true
     }
 
     fun pickStation(keyNumber: Int) {
@@ -198,7 +204,7 @@ object TicketMachine {
             val key = waitForKeyPressedWithAbort()
             if (key != NONE) {
                 if (firstKey && (key.isDigit() || key == 'A' || key == 'B')) {
-                    LCD.clear()
+                    TUI.clearScreen()
                     firstKey = false
                 }
                 when {
@@ -209,7 +215,7 @@ object TicketMachine {
             }
 
             if (isMaintenanceModeActive() || inactiveTimeout()) return
-        } while (key != '#')
+        } while (key != '#' || (Stations.getCurrentStation().price == 0))
 
         TUI.showTicketRoundTripInformation(roundTrip)
         paymentRoutine()

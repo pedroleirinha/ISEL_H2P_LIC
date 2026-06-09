@@ -35,10 +35,16 @@ object Stations {
 
     fun decrementStationsCount() {
         stationCount = if (stationCount > 0) stationCount - 1 else stationsList.size - 1
+        if (getCurrentStation().code == originStation?.code) {
+            stationCount = if (stationCount > 0) stationCount - 1 else stationsList.size - 1
+        }
     }
 
     fun incrementStationsCount() {
         stationCount = ++stationCount % stationsList.size
+        if (getCurrentStation().code == originStation?.code) {
+            stationCount = ++stationCount % stationsList.size
+        }
     }
 
     fun incrementDestinationStationSoldTickets() {
@@ -56,15 +62,17 @@ object Stations {
     }
 
     fun loadStations() {
-        var stationCounter = 1
+        var stationCounter = 0
         val list = FileAccess.readStationsFromFile()
 
         val allStations = list.split("\n")
         for (line in allStations) {
             if (line.isEmpty()) break
             val info = line.split(";")
+            val price = info[0].toInt()
+
             stationsList.add(
-                Station(stationCounter++, info[2], info[1].toInt(), info[0].toInt())
+                Station(stationCounter++, info[2], info[1].toInt(), price)
             )
         }
 

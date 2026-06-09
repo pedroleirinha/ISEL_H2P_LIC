@@ -1,8 +1,10 @@
 package org.example
 
+import isel.leic.UsbPort
+
 fun main() {
     TicketMachine.init()
-    while (true) {
+    while (TicketMachine.isAppRunning()) {
         when {
             TicketMachine.isMaintenanceModeActive() -> {
                 Maintenance.maintenanceRoutine()
@@ -13,6 +15,7 @@ fun main() {
             }
         }
     }
+
 }
 
 fun Int.numToBinStringPadded(length: Int, padChar: Char = '0'): String {

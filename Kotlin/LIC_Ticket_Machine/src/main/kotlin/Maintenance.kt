@@ -2,13 +2,16 @@ package org.example
 
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.HAL.isBit
+import org.example.TUI
 import org.example.TicketMachine.KEYPRESS_TIMEOUT
 import org.example.TicketMachine.finishTicketCollectionProcess
 import org.example.TicketMachine.inactiveTimeout
 import org.example.TicketMachine.isMaintenanceModeActive
 import org.example.TicketMachine.nextCoinCount
+import org.example.TicketMachine.nextStation
 import org.example.TicketMachine.nextStationTicketsSold
 import org.example.TicketMachine.previousCoinCount
+import org.example.TicketMachine.previousStation
 import org.example.TicketMachine.previousStationTicketsSold
 import org.example.TicketMachine.printMaintenanceOptions
 import org.example.TicketMachine.resetCounters
@@ -58,7 +61,7 @@ object Maintenance {
     fun maintenanceRoutine() {
         startCarouselTimer()
 
-        while (isMaintenanceModeActive()) {
+        while (isMaintenanceModeActive() && TicketMachine.isAppRunning()) {
             CoinAcceptor.coinCounter = 0
             Stations.stationCount = 0
 
@@ -74,7 +77,6 @@ object Maintenance {
                 'D' -> shutdownRequest()
 
                 '#' -> {
-                    LCD.clear()
                     maintenanceSellingProcess()
                 }
             }
@@ -92,8 +94,8 @@ object Maintenance {
         do {
             val key = waitForKeyPressedWithAbort()
             when {
-                key == 'A' -> nextStationTicketsSold()
-                key == 'B' -> previousStationTicketsSold()
+                key == 'A' -> nextStation()
+                key == 'B' -> previousStation()
                 key.isDigit() -> {
                     Stations.stationCount = key.digitToInt()
                     TUI.printStation()
@@ -118,6 +120,10 @@ object Maintenance {
                     TUI.updateStationName(Stations.getCurrentStation().name)
                     TUI.showMessageCenterAlign("Collect Ticket", 1)
                 }
+                '#' -> {
+                    TUI.showAbortVendingMessage()
+                    return
+                }
             }
 
         } while (key != '*' && isMaintenanceModeActive())
@@ -126,6 +132,8 @@ object Maintenance {
     }
 
     fun maintenancePrintingTicketProcess() {
+        TicketMachine.submitTicket()
+
         while (!TicketDispenser.isTicketCollectedBitUp() && isMaintenanceModeActive()) {
             val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
@@ -170,11 +178,10 @@ object Maintenance {
                 '*' -> resetCounters()
             }
             if (inactiveTimeout()) return
-        } while (key != '#')
+        } while (key != '#' && isMaintenanceModeActive())
     }
 
     fun stationTicketCount() {
-        LCD.clear()
         TicketMachine.startInactiveTimer()
         TUI.printStationTicketsSold()
         do {
@@ -185,11 +192,10 @@ object Maintenance {
                 'B' -> previousStationTicketsSold()
             }
             if (inactiveTimeout()) return
-        } while (key != '#')
+        } while (key != '#' && isMaintenanceModeActive())
     }
 
     fun coinsDepositCount() {
-        LCD.clear()
         TicketMachine.startInactiveTimer()
         TUI.printCoinsCount()
         do {
@@ -200,6 +206,6 @@ object Maintenance {
                 'B' -> previousCoinCount()
             }
             if (inactiveTimeout()) return
-        } while (key != '#')
+        } while (key != '#' && isMaintenanceModeActive())
     }
 }
