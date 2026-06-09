@@ -125,7 +125,6 @@ object Maintenance {
         maintenancePrintingTicketProcess()
     }
 
-
     fun maintenancePrintingTicketProcess() {
         while (!TicketDispenser.isTicketCollectedBitUp() && isMaintenanceModeActive()) {
             val key = KBD.waitKey(KEYPRESS_TIMEOUT)
@@ -145,15 +144,16 @@ object Maintenance {
         }
     }
 
-
     fun shutdownRequest() {
         TicketMachine.startInactiveTimer()
+
         TUI.askConfirmationShutDown()
         do {
             val key = waitForKeyPressedWithAbort()
 
-            when (key) {
-                '*' -> shutdownSystem()
+            when {
+                key == '*' -> shutdownSystem()
+                key != KBD.NONE -> break
             }
 
         } while (key != '*')
@@ -162,7 +162,7 @@ object Maintenance {
 
     fun resetCoinsCounters() {
         TicketMachine.startInactiveTimer()
-        TUI.showMessageCenterAlign("Reset? Press *", 1)
+        TUI.askConfirmationResetCoins()
         do {
             val key = waitForKeyPressedWithAbort()
 

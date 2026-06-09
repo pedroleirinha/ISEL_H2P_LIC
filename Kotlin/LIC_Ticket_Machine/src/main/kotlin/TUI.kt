@@ -246,8 +246,13 @@ object TUI {
     }
 
     fun askConfirmationShutDown() {
+        LCD.clear()
         showMessageCenterAlign("Shutdown", 0)
         showMessageCenterAlign("*-YES other-NO", 1)
+    }
+
+    fun askConfirmationResetCoins() {
+        TUI.showMessageCenterAlignPartial("Reset? Press *", 1, clearLine = true)
     }
 }
 
