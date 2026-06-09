@@ -18,7 +18,7 @@ object Stations {
 
     fun init() {
         loadStations()
-        originStation = stationsList[0]
+
     }
 
     fun getCurrentStation(): Station {
@@ -49,6 +49,12 @@ object Stations {
         destStation = null
     }
 
+    fun resetStationsTicketCounters() {
+        for (i in stationsList.indices) {
+            stationsList[i] = stationsList[i].copy(ticketsSold = 0)
+        }
+    }
+
     fun loadStations() {
         var stationCounter = 1
         val list = FileAccess.readStationsFromFile()
@@ -62,7 +68,7 @@ object Stations {
             )
         }
 
-        setOriginStation((stationsList.find { it.price == 0 }?.code ?: 0))
+        originStation = stationsList.find { it.price == 0 }
     }
 
     fun saveStations() {

@@ -123,7 +123,7 @@ object TUI {
     }
 
     fun showPrintingMessage() {
-        showMessageLeftAlign(message = "A Imprimir.. ${ICONS.HOUR_GLASS.code}", 1)
+        showMessageLeftAlign(message = "A Imprimir.. ${ICONS.HOUR_GLASS.code}".padEnd(LCD.COLS, ' '), 1)
     }
 
     fun showShuttingDownMessage() {
@@ -131,9 +131,10 @@ object TUI {
     }
 
     fun showAbortVendingMessage() {
+        LCD.clear()
         showMessageCenterAlign("Vending Aborted!")
         showMessageCenterAlign(" ", line = 1)
-        Time.sleep(1000)
+        Time.sleep(500)
     }
 
     fun showTicketRoundTripInformation(roundTrip: Boolean) {
@@ -252,7 +253,11 @@ object TUI {
     }
 
     fun askConfirmationResetCoins() {
-        TUI.showMessageCenterAlignPartial("Reset? Press *", 1, clearLine = true)
+        showMessageCenterAlignPartial("Reset? Press *", 1, clearLine = true)
+    }
+
+    fun askConfirmationToPrintTicket(){
+        showMessageCenterAlignPartial("${ICONS.ARROW_UP.code} *- to Print", 1, clearLine = true)
     }
 }
 

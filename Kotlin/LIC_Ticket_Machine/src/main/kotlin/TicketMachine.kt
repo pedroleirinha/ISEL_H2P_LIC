@@ -150,6 +150,7 @@ object TicketMachine {
     fun resetCounters() {
         println("Contadores limpos")
         CoinAcceptor.resetCoinCounters()
+        Stations.resetStationsTicketCounters()
     }
 
     fun startInactiveTimer() {

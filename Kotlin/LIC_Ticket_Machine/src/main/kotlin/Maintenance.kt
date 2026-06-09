@@ -108,7 +108,7 @@ object Maintenance {
     }
 
     fun maintenancePaymentProcess() {
-        TUI.showMessageCenterAlign("${ICONS.ARROW_UP.code} *- to Print", 1)
+        TUI.askConfirmationToPrintTicket()
 
         do {
             val key = waitForKeyPressedWithAbort()
