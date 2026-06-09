@@ -13,7 +13,7 @@ END Time_Delay;
 ARCHITECTURE Structural OF Time_Delay IS
 
 	COMPONENT CLKDIV IS
-        GENERIC ( div: natural := 50 );
+        GENERIC ( div: natural := 500 ); --12500000
         PORT ( 
             clk_in  : IN  std_logic;
             clk_out : OUT std_logic

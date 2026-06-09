@@ -1,18 +1,61 @@
 package org.example
 
 import isel.leic.utils.Time
+import org.example.HAL.clrBits
+import org.example.HAL.isBit
+import org.example.HAL.readBits
+import org.example.HAL.setBits
 
 data class Coin(val faceValue: Int = 0, val count: Int = 0)
 
 object CoinAcceptor {
     val coins = Array(6) { Coin() }
     var coinRead = false
+    const val coinBit = 0b00001000
+    const val acceptCoinBit = 0b00010000
+    const val collectCoinBit = 0b01000000
+    const val ejectCoinBit = 0b01000000
+    const val coinsBits = 0b00000111
 
     var currentPaymentCoins = mutableMapOf<Int, Int>()
     var coinCounter = 0
 
     fun init() {
         loadCoins()
+    }
+
+    /* COIN ACCEPTOR */
+
+    fun isCoinBitOn(): Boolean {
+        return isBit(coinBit)
+    }
+
+    fun setAcceptCoinBit() {
+        setBits(acceptCoinBit)
+    }
+
+    fun clearAcceptCoinBit() {
+        clrBits(acceptCoinBit)
+    }
+
+    fun setCollectCoinBit() {
+        setBits(collectCoinBit)
+    }
+
+    fun clearCollectCoinBit() {
+        clrBits(collectCoinBit)
+    }
+
+    fun setEjectCoinBit() {
+        setBits(ejectCoinBit)
+    }
+
+    fun clearEjectCoinBit() {
+        clrBits(ejectCoinBit)
+    }
+
+    fun getCoinsBits(): Int {
+        return readBits(coinsBits)
     }
 
     fun decrementCoinsCount() {
@@ -44,26 +87,26 @@ object CoinAcceptor {
     }
 
     fun checkForCoin(): Boolean {
-        return HAL.isCoinBitOn()
+        return isCoinBitOn()
     }
 
     fun acceptCoin() {
-        HAL.setAcceptCoinBit()
-        HAL.clearAcceptCoinBit()
+        setAcceptCoinBit()
+        clearAcceptCoinBit()
     }
 
     fun collectCoin() {
-        HAL.setCollectCoinBit()
-        HAL.clearCollectCoinBit()
+        setCollectCoinBit()
+        clearCollectCoinBit()
     }
 
     fun ejectCoins() {
-        HAL.setEjectCoinBit()
-        HAL.clearEjectCoinBit()
+        setEjectCoinBit()
+        clearEjectCoinBit()
     }
 
     fun readCoinBits(): Int {
-        val coinBits = HAL.getCoinsBits()
+        val coinBits = getCoinsBits()
 
         if (coinBits in 0 until coins.size) {
             return coinBits

@@ -43,6 +43,7 @@ BEGIN
 
 	muxA <= "000000" & TxClk;
 	muxB <= "000000" & InvClk;
+	
 	clkMux: MUX2_1L7 port map(
 		A 		=> muxA,
 		B		=> muxB,

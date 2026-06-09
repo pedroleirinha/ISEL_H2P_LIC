@@ -4,11 +4,12 @@ use ieee.std_logic_1164.all;
 ENTITY KeyDecode IS
 	PORT(
 		clk_in, Kack, CLEAR: 	IN std_logic;
-		delay:               	IN std_logic_vector(1 downto 0); 
+		delay:               	IN std_logic_vector(1 downto 0);
 		rows: 						IN std_logic_vector(3 downto 0);
 		cols: 						OUT std_logic_vector(3 downto 0);
 		K: 							OUT std_logic_vector (3 downto 0);
-		Kval:							OUT std_logic
+		Kval:							OUT std_logic;
+		Kpress:						OUT std_logic
 	);
 END KeyDecode;
 
@@ -42,8 +43,8 @@ ARCHITECTURE Behaviour OF KeyDecode IS
 
 	signal controlKpress, controlKscan : std_logic;
 	signal s_time_up    : std_logic;
-    signal s_ce_timer   : std_logic;
-    signal s_reset_timer: std_logic;
+   signal s_ce_timer   : std_logic;
+   signal s_reset_timer: std_logic;
 
 BEGIN
 	
@@ -78,13 +79,6 @@ BEGIN
 	  timeUp      => s_time_up           
 	);
 
-
---	timer: Tdelay port map(
---	  clk_in => clk_in,
---	  ce     => s_ce_timer,
---	  reset  => s_reset_timer,
---	  delay  => delay,             
---	  S      => s_time_up          
---	);
+	Kpress 	<= controlKpress;
 
 END Behaviour;

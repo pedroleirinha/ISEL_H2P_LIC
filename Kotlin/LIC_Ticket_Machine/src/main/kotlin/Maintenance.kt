@@ -1,6 +1,7 @@
 package org.example
 
 import isel.leic.utils.Time.getTimeInMillis
+import org.example.HAL.isBit
 import org.example.TicketMachine.KEYPRESS_TIMEOUT
 import org.example.TicketMachine.finishTicketCollectionProcess
 import org.example.TicketMachine.inactiveTimeout
@@ -15,6 +16,7 @@ import org.example.TicketMachine.shutdownSystem
 import org.example.TicketMachine.waitForKeyPressedWithAbort
 
 object Maintenance {
+    const val maintenanceBit = 0b01000000
 
     enum class MAINTENANCEOPTIONS(val title: String, val key: Char) {
         STATION_COUNT(title = "Station Cnt", key = 'A'),
@@ -28,6 +30,9 @@ object Maintenance {
     var carouselTimer: Long = getTimeInMillis()     // Define o tempo limite para avaliar se algo aconteceu
     var maintenanceOptionCounter = 0
 
+    fun isMaintenanceMode(): Boolean = isBit(maintenanceBit)
+    fun isMaintenanceModeOff(): Boolean = !isBit(maintenanceBit)
+
     fun getMaintenanceOption(): MAINTENANCEOPTIONS {
         val option = MAINTENANCEOPTIONS.entries[maintenanceOptionCounter]
         incrementMaintenanceOptions()
@@ -39,11 +44,11 @@ object Maintenance {
     }
 
     fun isMaintenanceBitActive(): Boolean {
-        return HAL.isMaintenanceMode()
+        return isMaintenanceMode()
     }
 
     fun isMaintenanceModeInactive(): Boolean {
-        return HAL.isMaintenanceModeOff()
+        return isMaintenanceModeOff()
     }
 
     fun startCarouselTimer() {

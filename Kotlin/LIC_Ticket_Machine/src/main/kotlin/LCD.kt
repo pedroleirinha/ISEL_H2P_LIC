@@ -1,13 +1,23 @@
 package org.example
 
 import isel.leic.utils.Time
-import org.example.HAL.lcdCommandBits
-import org.example.HAL.lcdDisplaySetBits
-import org.example.HAL.lcdEntryModeSetBits
-import org.example.HAL.lcdFunctionSetBits
+import org.example.HAL.clrBits
+import org.example.HAL.setBits
 
 // Escreve no LCD usando a interface a 8 bits.
 object LCD {
+
+    const val sdxBits = 0b00000001
+    const val sCLKBits = 0b00000010
+    const val lcdSSBit = 0b00000100
+    const val lcdSerialBits = 0b00000111
+    const val lcdCommandBits = 0b00110000
+    const val lcdFunctionSetBits = 0b00111000
+    const val lcdDisplaySetBits = 0b00001100
+    const val lcdEntryModeSetBits = 0b00000110
+    const val lcdClearSetBits = 0b00000001
+    const val lcdHomeSetBits = 0b00000010
+
     const val LCD_INSTRUCTION_LENGTH = 8
     // Dimensão do display.
     const val LINES = 2
@@ -16,6 +26,8 @@ object LCD {
     // Escreve um byte de comando/dados no LCD em série
     private fun writeByteSerial(rs: Boolean, data: Int) {
         val rsBit = if (rs) 1 else 0
+
+        val rsBit2 = 512
 
         val extendedData = data.numToBinStringPadded(LCD_INSTRUCTION_LENGTH)
 
@@ -81,6 +93,9 @@ object LCD {
         }
     }
 
+
+
+
     fun drawArrowUp() {
         val data = arrayOf(4, 14, 21, 4, 4, 4, 4, 0)
         writeCMD(0x40)
@@ -131,9 +146,9 @@ object LCD {
 
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
     fun clear() {
-        writeCMD(data = HAL.lcdClearSetBits)  // Clears Display
+        writeCMD(data = lcdClearSetBits)  // Clears Display
         Time.sleep(1)
-        writeCMD(data = HAL.lcdHomeSetBits)  // Return Home
+        writeCMD(data = lcdHomeSetBits)  // Return Home
     }
 }
 

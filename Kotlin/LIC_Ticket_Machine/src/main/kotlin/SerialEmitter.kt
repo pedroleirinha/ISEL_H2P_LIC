@@ -1,6 +1,14 @@
 package org.example
 
 import isel.leic.utils.Time
+import org.example.HAL.clrBits
+import org.example.HAL.setBits
+import org.example.LCD.lcdSSBit
+import org.example.LCD.lcdSerialBits
+import org.example.LCD.sCLKBits
+import org.example.LCD.sdxBits
+import org.example.TicketDispenser.tdSSBit
+import org.example.TicketDispenser.ticketSerialBits
 
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialEmitter {
@@ -11,9 +19,9 @@ object SerialEmitter {
 
     // Inicia a classe
     fun init() {
-        HAL.turnOffLcdSS()
-        HAL.turnOffTdSS()
-        HAL.clearSCKLBit()
+        turnOffLcdSS()
+        turnOffTdSS()
+        clearSCKLBit()
     }
 
     fun sendInSerie(data: Int, addr: Peripheral) {
@@ -24,30 +32,30 @@ object SerialEmitter {
        *
        * */
         if (addr == Peripheral.LCD) {
-            HAL.clearLCDSerialBits() // LIMPA OS 3 BITS QUE VAO SER USADOS
+            clearLCDSerialBits() // LIMPA OS 3 BITS QUE VAO SER USADOS
         } else {
-            HAL.clearTDSerialBits() // LIMPA OS 3 BITS QUE VAO SER USADOS
+            clearTDSerialBits() // LIMPA OS 3 BITS QUE VAO SER USADOS
         }
         data.numToBinStringPadded(serialInformationSize)
             .reversed()
             .mapIndexed { index, it ->
 
                 if (it.digitToInt() == 1) {
-                    HAL.setSDXBit() //Fica o ultimo bit ON
+                    setSDXBit() //Fica o ultimo bit ON
                 } else {
-                    HAL.clearSDXBit() //Fica o ultimo bit OFF
+                    clearSDXBit() //Fica o ultimo bit OFF
                 }
 
-                HAL.setSCKLBit()
-                HAL.clearSCKLBit()
+                setSCKLBit()
+                clearSCKLBit()
             }
 
         if (addr == Peripheral.LCD) {
-            HAL.clearLCDSerialBits()
-            HAL.turnOffLcdSS()
+            clearLCDSerialBits()
+            turnOffLcdSS()
         } else {
-            HAL.clearTDSerialBits()
-            HAL.turnOffTdSS()
+            clearTDSerialBits()
+            turnOffTdSS()
         }
     }
 
@@ -69,6 +77,40 @@ object SerialEmitter {
             Peripheral.TICKET -> sendToTD(data)
         }
     }
+
+    /* LCD */
+    private fun clearLCDSerialBits() {
+        clrBits(lcdSerialBits)
+    }
+
+    private fun turnOffLcdSS() {
+        setBits(mask = lcdSSBit) //Fica o ultimo bit OFF
+    }
+
+    private fun setSDXBit() {
+        setBits(mask = sdxBits) //Fica o ultimo bit ON
+    }
+
+    private fun clearSDXBit() {
+        clrBits(mask = sdxBits) //Fica o ultimo bit OFF
+    }
+
+    private fun setSCKLBit() {
+        setBits(mask = sCLKBits) //Fica o ultimo bit ON
+    }
+
+    private fun clearSCKLBit() {
+        clrBits(mask = sCLKBits) //Fica o ultimo bit OFF
+    }
+
+    private fun clearTDSerialBits() {
+        clrBits(ticketSerialBits) // LIMPA OS 3 BITS QUE VAO SER USADOS
+    }
+
+    private fun turnOffTdSS() {
+        setBits(mask = tdSSBit) //Fica o ultimo bit OFF
+    }
+
 
     // Retorna informação se o periférico está ocupado
     fun isBusy(): Boolean {

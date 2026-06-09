@@ -9,7 +9,7 @@ import org.example.TUI.showWelcomeMessage
 
 object TicketMachine {
 
-    const val KEYPRESS_TIMEOUT: Long = 5000
+    const val KEYPRESS_TIMEOUT: Long = 500
     const val KEYPRESS_FOLLOW_TIMEOUT: Long = 5000
     const val INACTIVE_KEYPRESS_TIMEOUT: Long = 10000
     var roundTrip = false
@@ -89,6 +89,7 @@ object TicketMachine {
     }
 
     fun submitTicket() {
+        println(Stations.originStation?.name + ": " + Stations.destStation?.name)
         TicketDispenser.emitPrintingTicketUp(
             roundTrip = roundTrip,
             origin = Stations.originStation?.code ?: 0,
@@ -100,6 +101,7 @@ object TicketMachine {
         TUI.showMessageCenterAlign("Thank You!", 0)
         TUI.showMessageCenterAlign("Have a nice Trip", 1)
 
+        println(Stations.originStation?.name + ": " + Stations.destStation?.name)
         TicketDispenser.emitPrintingTicketDown(
             roundTrip = roundTrip,
             origin = Stations.originStation?.code ?: 0,

@@ -1,11 +1,16 @@
 package org.example
 
 import isel.leic.utils.Time
+import org.example.HAL.clrBits
+import org.example.HAL.isBit
+import org.example.HAL.setBits
 import org.example.KBD.keyBitsSize
 
 // Envia tramas para os diferentes módulos Serial Receiver .
 object SerialReceiver {
     const val numberBitsForKeyTransmission = 7
+    const val txCLKBit = 0b10000000
+    const val txDBit = 0b10000000
 
     // Inicia a classe
     fun init() {
@@ -55,12 +60,29 @@ object SerialReceiver {
         return -1
     }
 
+    /* SERIAL RECEIVER */
+    private fun isTxDBitOn(): Boolean {
+        return isBit(txDBit)
+    }
+
+    private fun getTxDBit(): Int {
+        return if (isBit(txDBit)) 1 else 0
+    }
+
+    private fun setTxCLK() {
+        setBits(mask = txCLKBit)
+    }
+
+    private fun clearTxCLK() {
+        clrBits(mask = txCLKBit)
+    }
+
     fun emitTxClkUp() {
-        HAL.setTxCLK()
+        setTxCLK()
     }
 
     fun emitTxClkDown() {
-        HAL.clearTxCLK()
+        clearTxCLK()
     }
 
     fun emitTxClkCycle() {
@@ -69,7 +91,7 @@ object SerialReceiver {
     }
 
     fun retrieveTxD(): Boolean {
-        val bit = HAL.getTxDBit()
+        val bit = getTxDBit()
         return bit == 1
     }
 
@@ -83,7 +105,7 @@ object SerialReceiver {
 
         for (i in 0 until bitsToReceive) {
             emitTxClkUp()
-            val txD = HAL.getTxDBit()
+            val txD = getTxDBit()
             bits += txD
 
             emitTxClkDown()
@@ -96,7 +118,7 @@ object SerialReceiver {
     // Retorna informação se o periférico está ocupado
     // É suposto indicar se a emissão foi concluida verificando o bit final no inputport
     fun isBusy(): Boolean {
-        return !HAL.isTxDBitOn()
+        return !isTxDBitOn()
     }
 }
 

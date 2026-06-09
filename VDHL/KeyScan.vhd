@@ -67,6 +67,8 @@ BEGIN
 	);
 	
 	Kpress <= NOT muxKpress;
+	
+	
 	cols <= decodeOutputs;
 	K <= countValues;
 
