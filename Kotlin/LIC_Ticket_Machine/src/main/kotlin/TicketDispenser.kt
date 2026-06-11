@@ -1,13 +1,10 @@
 package org.example
 
 import isel.leic.utils.Time
-import org.example.HAL.clrBits
 import org.example.HAL.isBit
-import org.example.HAL.setBits
 
 object TicketDispenser {
     var lastBit = false
-    const val stationsBitsSize = 4
     const val PRT_ON = 1
     const val PRT_OFF = 0
 
@@ -15,20 +12,15 @@ object TicketDispenser {
     const val ticketSerialBits = 0b00001111
     const val tdSSBit = 0b00001000
 
-    fun isTicketCollectedBitOn(): Boolean {
-        return isBit(ticketCollectedBit)
-    }
+    fun isTicketCollectedBitOn() = isBit(ticketCollectedBit)
 
     fun init() {
         SerialEmitter.init()
     }
 
     fun activatePrintingTicket(roundTrip: Boolean, origin: Int, destination: Int, prt: Int) {
-        val roundTripBit = if (roundTrip) "1" else "0"
-        val originBits = origin.numToBinStringPadded(stationsBitsSize)
-        val destinationBits = destination.numToBinStringPadded(stationsBitsSize)
-
-        val data = "${prt}${originBits}${destinationBits}${roundTripBit}".toInt(2)
+        val roundTripBit = if (roundTrip) 1 else 0
+        val data = (prt shl 9) or (origin shl 5) or (destination shl 1) or roundTripBit
 
         SerialEmitter.send(SerialEmitter.Peripheral.TICKET, data)
     }

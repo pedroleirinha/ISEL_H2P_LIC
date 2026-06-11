@@ -5,6 +5,7 @@ import org.example.HAL.clrBits
 import org.example.HAL.isBit
 import org.example.HAL.readBits
 import org.example.HAL.setBits
+import org.example.TicketMachine.getTotalTicketPrice
 
 data class Coin(val faceValue: Int = 0, val count: Int = 0)
 
@@ -118,7 +119,7 @@ object CoinAcceptor {
         return totalAddedCoinsValue() >= ticketPrice
     }
 
-    fun isPaymentProcessedCompleted(ticketPrice: Int): Boolean {
+    fun isPaymentProcessedCompleted(ticketPrice: Int = getTotalTicketPrice()): Boolean {
         return isPaymentCompleted(ticketPrice) && !checkForCoin()
     }
 

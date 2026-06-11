@@ -38,8 +38,7 @@ object SerialEmitter {
         }
         data.numToBinStringPadded(serialInformationSize)
             .reversed()
-            .mapIndexed { index, it ->
-
+            .forEach {
                 if (it.digitToInt() == 1) {
                     setSDXBit() //Fica o ultimo bit ON
                 } else {
@@ -80,7 +79,7 @@ object SerialEmitter {
 
     /* LCD */
     private fun clearLCDSerialBits() {
-        clrBits(lcdSerialBits)
+        clrBits(mask = lcdSerialBits)
     }
 
     private fun turnOffLcdSS() {
@@ -104,7 +103,7 @@ object SerialEmitter {
     }
 
     private fun clearTDSerialBits() {
-        clrBits(ticketSerialBits) // LIMPA OS 3 BITS QUE VAO SER USADOS
+        clrBits(mask = ticketSerialBits) // LIMPA OS 3 BITS QUE VAO SER USADOS
     }
 
     private fun turnOffTdSS() {

@@ -16,8 +16,6 @@ object LCD {
     const val lcdClearSetBits = 0b00000001
     const val lcdHomeSetBits = 0b00000010
 
-    const val LCD_INSTRUCTION_LENGTH = 8
-
     // Dimensão do display.
     const val LINES = 2
     const val COLS = 16
@@ -75,17 +73,16 @@ object LCD {
 
     // Escreve uma string na posição corrente.
     fun write(text: String) {
-        println("wrote $text")
         text.map { write(c = it) }
     }
 
     // Envia comando para posicionar cursor ('line': 0..LINES-1, 'column': 0..COLS-1)
     fun cursor(line: Int, column: Int) {
         if (line in 0..<LINES && column in 0..<COLS) {
-            val lineBits = line.numToBinString()
+            val lastBit = 0b10000000
 
-            val columnBits = (column % COLS).numToBinStringPadded(4)
-            val cursorCommand = "1${lineBits}00${columnBits}".toInt(2)
+            val columnBits = column % COLS
+            val cursorCommand = lastBit or (line shl 6) or columnBits
 
             writeCMD(data = cursorCommand)
         }

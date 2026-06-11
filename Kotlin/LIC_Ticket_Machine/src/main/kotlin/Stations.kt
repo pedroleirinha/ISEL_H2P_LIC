@@ -34,17 +34,17 @@ object Stations {
     }
 
     fun decrementStationsCount() {
-        stationCount = if (stationCount > 0) stationCount - 1 else stationsList.size - 1
-        if (getCurrentStation().code == originStation?.code) {
+        val start = stationCount
+        do {
             stationCount = if (stationCount > 0) stationCount - 1 else stationsList.size - 1
-        }
+        } while (getCurrentStation().code == originStation?.code && stationCount != start)
     }
 
     fun incrementStationsCount() {
-        stationCount = ++stationCount % stationsList.size
-        if (getCurrentStation().code == originStation?.code) {
+        val start = stationCount
+        do {
             stationCount = ++stationCount % stationsList.size
-        }
+        } while (getCurrentStation().code == originStation?.code && stationCount != start)
     }
 
     fun incrementDestinationStationSoldTickets() {

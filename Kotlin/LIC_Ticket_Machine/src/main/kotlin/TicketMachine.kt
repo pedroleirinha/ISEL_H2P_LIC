@@ -3,8 +3,8 @@ package org.example
 import isel.leic.utils.Time
 import isel.leic.utils.Time.getTimeInMillis
 import org.example.KBD.NONE
-import org.example.TicketMachineView.showTicketPrice
 import org.example.TUI.showWelcomeMessage
+import org.example.TicketMachineView.showTicketPrice
 
 
 object TicketMachine {
@@ -21,24 +21,18 @@ object TicketMachine {
 
     fun isAppRunning() = !shutdown
 
-    fun hasInterruption(): Boolean {
-        if (CoinAcceptor.isBusy() || TicketDispenser.isTicketCollectedBitUp() || isMaintenanceModeActive()) {
-            return true
-        }
-        return false
-    }
+    fun hasInterruption() =
+        CoinAcceptor.isBusy() || TicketDispenser.isTicketCollectedBitUp() || isMaintenanceModeActive()
+
 
     fun abortVendingProcess() {
         Stations.destStation = null
         CoinAcceptor.ejectCoinsAndCleanDeposit()
         TicketMachineView.showAbortVendingMessage()
         showWelcomeMessage()
-        firstKey = true
     }
 
-    fun isMaintenanceModeActive(): Boolean {
-        return Maintenance.isMaintenanceBitActive()
-    }
+    fun isMaintenanceModeActive() = Maintenance.isMaintenanceBitActive()
 
     fun printMaintenanceOptions() {
         val option = Maintenance.getMaintenanceOption()
@@ -177,7 +171,7 @@ object TicketMachine {
             startFollowUpTimer()
             startInactiveTimer()
         } else if (checkIfTimerIsUp(followUpTimer)) {
-            firstKey = true
+
         }
         return key
     }
@@ -198,16 +192,11 @@ object TicketMachine {
         return false
     }
 
-    var firstKey = true
     fun pickStationRoutine() {
         showWelcomeMessage()
         do {
             val key = waitForKeyPressedWithAbort()
             if (key != NONE) {
-                if (firstKey && (key.isDigit() || key == 'A' || key == 'B')) {
-                    TUI.clearScreen()
-                    firstKey = false
-                }
                 when {
                     key == 'A' -> nextStation()
                     key == 'B' -> previousStation()
@@ -224,7 +213,7 @@ object TicketMachine {
     }
 
     fun paymentRoutine() {
-        while (!CoinAcceptor.isPaymentProcessedCompleted(ticketPrice = getTotalTicketPrice())) {
+        while (!CoinAcceptor.isPaymentProcessedCompleted()) {
             val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
             when (key) {
@@ -263,7 +252,10 @@ object TicketMachine {
             val key = KBD.waitKey(KEYPRESS_TIMEOUT)
 
             when (key) {
-                '#' -> abortVendingProcess()
+                '#' -> {
+                    abortVendingProcess()
+                    return
+                }
             }
             if (isMaintenanceModeActive()) return
         }

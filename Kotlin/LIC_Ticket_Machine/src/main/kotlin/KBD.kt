@@ -7,8 +7,8 @@ import isel.leic.utils.Time.getTimeInMillis
 object KBD {
     const val NONE = '_'
     const val keyBitsSize = 4
-    val rowKeyIndices = 2..3
-    val colKeyIndices = 0..1
+    const val colsMask = 0b1100
+    const val rowsMask = 0b0011
 
     val teclas = arrayOf(
         arrayOf('1', '2', '3', 'A'),
@@ -26,10 +26,9 @@ object KBD {
     fun getKey(keyBits: Int): Char {
         if (keyBits == -1) return NONE
 
-        val key = keyBits.numToBinStringPadded(keyBitsSize)
+        val row = keyBits and rowsMask
+        val col = (keyBits and colsMask) shr 2
 
-        val row = key.slice(rowKeyIndices).toInt(2)
-        val col = key.slice(colKeyIndices).toInt(2)
         return teclas[row][col]
     }
 
@@ -42,11 +41,8 @@ object KBD {
         while (getTimeInMillis() < time) {
             val keyCode = SerialReceiver.getData()
             key = getKey(keyCode)
-            if (key != NONE) {
-                return key
-            }
 
-            if (TicketMachine.hasInterruption()) {
+            if (key != NONE || TicketMachine.hasInterruption()) {
                 return key
             }
         }
