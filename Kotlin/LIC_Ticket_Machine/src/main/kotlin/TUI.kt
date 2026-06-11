@@ -1,10 +1,7 @@
 package org.example
 
 import isel.leic.utils.Time
-import org.example.CoinAcceptor.totalAddedCoinsValue
-import org.example.TicketMachine.getTotalTicketPrice
 import java.util.*
-import kotlin.math.max
 import kotlin.math.roundToInt
 
 enum class ICONS(val code: Char) {

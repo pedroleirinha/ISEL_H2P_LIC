@@ -1,8 +1,6 @@
 package org.example
 
 import isel.leic.utils.Time
-import org.example.HAL.clrBits
-import org.example.HAL.setBits
 
 // Escreve no LCD usando a interface a 8 bits.
 object LCD {
@@ -19,20 +17,22 @@ object LCD {
     const val lcdHomeSetBits = 0b00000010
 
     const val LCD_INSTRUCTION_LENGTH = 8
+
     // Dimensão do display.
     const val LINES = 2
     const val COLS = 16
 
     // Escreve um byte de comando/dados no LCD em série
     private fun writeByteSerial(rs: Boolean, data: Int) {
-        val rsBit = if (rs) 1 else 0
+        val enableMask = 0b1000000000
+        val RSMask = 0b0000000001
 
-        val extendedData = data.numToBinStringPadded(LCD_INSTRUCTION_LENGTH)
+        val shiftedData = data shl 1
+        val dataWithRSMask = if (rs) shiftedData or RSMask else shiftedData
+        val dataWithEnableMask = dataWithRSMask or enableMask
 
-        var dataFullEnabled = "1${extendedData}${rsBit}".toInt(2)
-        SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
-        dataFullEnabled = "0${extendedData}${rsBit}".toInt(2)
-        SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataFullEnabled)
+        SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataWithEnableMask)
+        SerialEmitter.send(addr = SerialEmitter.Peripheral.LCD, dataWithRSMask)
     }
 
     // Escreve um byte de comando/dados no LCD
@@ -85,7 +85,7 @@ object LCD {
             val lineBits = line.numToBinString()
 
             val columnBits = (column % COLS).numToBinStringPadded(4)
-            val cursorCommand = "1${lineBits}00${columnBits}".toInt(2) //USES DDRAM
+            val cursorCommand = "1${lineBits}00${columnBits}".toInt(2)
 
             writeCMD(data = cursorCommand)
         }
@@ -142,7 +142,6 @@ object LCD {
     // Envia comando para limpar o ecrã e posicionar o cursor em (0,0)
     fun clear() {
         writeCMD(data = lcdClearSetBits)  // Clears Display
-        Time.sleep(1)
         writeCMD(data = lcdHomeSetBits)  // Return Home
     }
 }

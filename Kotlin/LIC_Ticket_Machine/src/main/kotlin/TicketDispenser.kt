@@ -14,14 +14,10 @@ object TicketDispenser {
     const val ticketCollectedBit = 0b00010000
     const val ticketSerialBits = 0b00001111
     const val tdSSBit = 0b00001000
-    const val sdxBits = 0b00000001
-    const val sCLKBits = 0b00000010
 
     fun isTicketCollectedBitOn(): Boolean {
         return isBit(ticketCollectedBit)
     }
-
-
 
     fun init() {
         SerialEmitter.init()

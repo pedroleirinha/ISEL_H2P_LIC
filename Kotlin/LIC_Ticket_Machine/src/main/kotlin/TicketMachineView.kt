@@ -21,6 +21,13 @@ object TicketMachineView {
         showMessageRightAlign(priceText, 1)
     }
 
+    fun showAllCountersResetMessege() {
+        clearScreen()
+        showMessageCenterAlign("All Counters")
+        showMessageCenterAlign("are cleared!", line = 1)
+        Time.sleep(1500)
+    }
+
     fun printStation() {
         val station = Stations.getCurrentStation()
         clearScreen()
@@ -79,7 +86,7 @@ object TicketMachineView {
         showMessageLeftAlignPartial("$stationNumber${ICONS.ARROW_UP.code}${ICONS.ARROW_DOWN.code}", 1)
     }
 
-    fun finishCollectTicketMessage(){
+    fun finishCollectTicketMessage() {
         showMessageCenterAlign("Thank You!", 0)
         showMessageCenterAlign("Have a nice Trip", 1)
     }
@@ -105,7 +112,7 @@ object TicketMachineView {
         showMessageLeftAlign("${option.key}-${option.title}", line = 1)
     }
 
-    fun printMaintenanceCollectPrint(){
+    fun printMaintenanceCollectPrint() {
         updateStationName(Stations.getCurrentStation().name)
         showMessageCenterAlign("Collect Ticket", 1)
     }

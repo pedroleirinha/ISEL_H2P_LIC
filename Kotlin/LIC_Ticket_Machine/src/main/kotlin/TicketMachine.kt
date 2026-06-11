@@ -56,11 +56,13 @@ object TicketMachine {
 
     fun nextStation() {
         Stations.incrementStationsCount()
+        Stations.setDestinationStation(Stations.stationCount)
         TicketMachineView.printStation()
     }
 
     fun previousStation() {
         Stations.decrementStationsCount()
+        Stations.setDestinationStation(Stations.stationCount)
         TicketMachineView.printStation()
     }
 

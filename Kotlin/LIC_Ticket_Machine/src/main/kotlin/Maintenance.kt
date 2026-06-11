@@ -174,7 +174,11 @@ object Maintenance {
             val key = waitForKeyPressedWithAbort()
 
             when (key) {
-                '*' -> resetCounters()
+                '*' -> {
+                    resetCounters()
+                    TicketMachineView.showAllCountersResetMessege()
+                    return
+                }
             }
             if (inactiveTimeout()) return
         } while (key != '#' && isMaintenanceModeActive())
