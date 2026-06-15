@@ -59,7 +59,7 @@ fun main() {
     do {
         key = KBD.waitKey(5000)
 
-        // 4. Verifica se uma tecla foi efetivamente premida
+        //Verifica se uma tecla foi efetivamente premida
         if (key != KBD.NONE) {
             println("Tecla detetada: $key")
         } else {

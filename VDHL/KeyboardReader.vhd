@@ -8,19 +8,14 @@ ENTITY KeyboardReader IS
 		delay:					         IN std_logic_vector(1 downto 0); 
 		cols: 								OUT std_logic_vector(3 downto 0);
 		K: 									OUT std_logic_vector (3 downto 0);
-		Kval, TxD, KbFree:				OUT std_logic;
-		
-		putIndex, getIndex: 				OUT std_logic_vector(3 downto 0);
-		Wreg_out, DAC_out:				OUT std_logic;
-		emptySignal_out, inv_fullSignal:	OUT std_logic;
-		DAV, CTS, Kpress:					OUT std_logic
-		
+		Kval, TxD, KbFree:				OUT std_logic
 	);
 END KeyboardReader;
 
 ARCHITECTURE Behaviour OF KeyboardReader IS
 
 	component CLKDIV	
+		GENERIC ( div: natural := 100000 ); --50000 -> 1kHz | 100000 -> 500Hz
 		port ( 
 			clk_in: in std_logic;
 			clk_out: out std_logic
@@ -34,9 +29,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 			delay:					   IN std_logic_vector(1 downto 0);
 			cols: 						OUT std_logic_vector(3 downto 0);
 			K: 							OUT std_logic_vector (3 downto 0);
-			Kval:							OUT std_logic;
-			
-			Kpress:						OUT std_logic
+			Kval:							OUT std_logic
 		);
 	end component;
 
@@ -45,10 +38,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 			clk_in, DAV, CTS, CLEAR: 	IN std_logic;
 			D: 								IN std_logic_vector(3 downto 0);
 			Q: 								OUT std_logic_vector (3 downto 0);
-			Wreg, DAC:						OUT std_logic;
-			
-		   putIndex, getIndex: 			OUT std_logic_vector(3 downto 0);
-			emptySignal_out, fullSignal_out:	OUT std_logic
+			Wreg, DAC:						OUT std_logic
 		);
 	end component;
 	
@@ -60,9 +50,7 @@ ARCHITECTURE Behaviour OF KeyboardReader IS
 		);
 	end component;
 	
-	signal DAC, Wreg, KbFreeSignal, Kvalue, clock: std_logic;
-	signal fullSignal2: std_logic;
-	
+	signal DAC, Wreg, KbFreeSignal, Kvalue, clock: std_logic;	
 	signal bufferD, ringQ: std_logic_vector(3 downto 0);
 	
 BEGIN
@@ -74,16 +62,14 @@ BEGIN
 	);
 	
 	scan: KeyDecode port map(
-		clk_in 	=> clock,
+		clk_in 	=> clk_in,
 		Kack 		=> DAC,
 		delay		=> delay,
 		CLEAR 	=> CLEAR,
 		rows 		=> rows,		
 		cols 		=> cols,	
 		K 			=> bufferD,		
-		Kval 		=>	Kvalue,
-		
-		Kpress   => Kpress
+		Kval 		=>	Kvalue
 	);	
 	
 	transmitter: KeyTransmitter port map(
@@ -99,36 +85,19 @@ BEGIN
 	KbFree 	<= KbFreeSignal;
 		
    ringBuffer1: RingBuffer port map(
-		clk_in 	=> clk_in,
-		
-		--clk_in 	=> clock, -- 2026.05.26
-		
-		
+		clk_in 	=> clk_in,		
 		DAV 		=> Kvalue,
 		CTS 		=> KbFreeSignal,
 		CLEAR 	=> CLEAR,
 		D 			=> bufferD,
 		Q 			=> ringQ,
 		Wreg 		=>	Wreg,
-		DAC		=> DAC,
-		
-		putIndex    => putIndex,
-		getIndex    => getIndex,
-		emptySignal_out => emptySignal_out,
-		fullSignal_out  => fullSignal2
+		DAC		=> DAC
 	);
 	
-	inv_fullSignal <= not (fullSignal2);
-	
-	
-	Wreg_out <= Wreg;
-	DAC_out  <= DAC;
 	
 	K 		<= bufferD;
 	Kval 	<= Kvalue;
-	
-	DAV   <= Kvalue;
-	CTS   <= KbFreeSignal;
 
 
 END Behaviour;

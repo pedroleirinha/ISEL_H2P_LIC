@@ -15,9 +15,9 @@ ARCHITECTURE Behaviour OF KeyScan IS
 	component Counter
 		PORT(	
 			clk_in, CE, CLEAR, PL: IN std_logic;
-			initial, step: IN std_logic_vector (3 downto 0);
+			initial, step, TcValue: IN std_logic_vector (3 downto 0);
 			Q: OUT std_logic_vector (3 downto 0);
-			Z: OUT std_logic
+			Z, TC: OUT std_logic
 		);
 	end component;
 	
@@ -37,7 +37,7 @@ ARCHITECTURE Behaviour OF KeyScan IS
 	end component;
 	
 	signal countValues: std_logic_vector (3 downto 0);
-	signal zeros, muxKpress: std_logic;
+	signal muxKpress: std_logic;
 	signal decodeOutputs: std_logic_vector (3 downto 0);
 	
 
@@ -48,10 +48,10 @@ BEGIN
 		CE 		=> Kscan, 
 		CLEAR		=> CLEAR, 
 		PL			=> '0', 
+		TcValue	=> "1111",
 		initial	=> "0000",
 		step		=> "0001",
-		Q			=> countValues,
-		Z			=> zeros
+		Q			=> countValues
 	);
 	
 	muxPL: MUX4_2L1 port map(

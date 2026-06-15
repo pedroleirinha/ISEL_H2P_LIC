@@ -10,7 +10,7 @@ import org.example.TicketMachine.getTotalTicketPrice
 data class Coin(val faceValue: Int = 0, val count: Int = 0)
 
 object CoinAcceptor {
-    val coins = Array(6) { Coin() }
+    var coins = Array(0) { Coin() }
     var coinRead = false
     const val coinBit = 0b00001000
     const val acceptCoinBit = 0b00010000
@@ -170,26 +170,11 @@ object CoinAcceptor {
     }
 
     fun loadCoins() {
-        val list = FileAccess.readCoinsFromFile()
-
-        val allCoins = list.split("\n")
-
-        var index = 0
-        for (coinInfo in allCoins) {
-            if (coinInfo.isEmpty()) break
-            val info = coinInfo.split(";")
-            coins[index++] = Coin(info[0].toInt(), info[1].toInt())
-
-        }
+        coins = DatabaseAccess().loadCoins()
     }
 
     fun saveCoins() {
-        var text = ""
-        coins.forEach {
-            text += "${it.faceValue};${it.count}\n"
-        }
-
-        FileAccess.writeCoinsToFile(text)
+        DatabaseAccess().saveCoins(coins)
     }
 }
 

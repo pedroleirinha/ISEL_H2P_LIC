@@ -6,12 +6,7 @@ ENTITY RingBuffer IS
 		clk_in, DAV, CTS, CLEAR: 	IN std_logic;
 		D: 								IN std_logic_vector(3 downto 0);
 		Q: 								OUT std_logic_vector (3 downto 0);
-		Wreg, DAC:						OUT std_logic;
-		
-		putIndex, getIndex: 			OUT std_logic_vector(3 downto 0);
-		
-		emptySignal_out, fullSignal_out:	OUT std_logic
-		
+		Wreg, DAC:						OUT std_logic		
 		
 	);
 END RingBuffer;
@@ -22,8 +17,7 @@ ARCHITECTURE Behaviour OF RingBuffer IS
 		PORT(
 			clk_in, putGet, CLEAR, incPut, incGet: IN std_logic;
 			Q:		 											OUT std_logic_vector(3 downto 0);
-			full, empty:									OUT std_logic;
-			putIndex_out, getIndex_out:				OUT std_logic_vector(3 downto 0)
+			full, empty:									OUT std_logic
 		);
 	END component;
 	
@@ -71,9 +65,7 @@ BEGIN
 		incGet	=>		incGet,
 		Q			=>		ramAddr,
 		full		=>		fullSignal,
-		empty		=>		emptySignal,
-		putIndex_out => putIndex,
-		getIndex_out => getIndex
+		empty		=>		emptySignal
 	
 	);
 	
@@ -83,10 +75,6 @@ BEGIN
 		din		=>		D,
 		dout		=>		Q
 	);
-	
-
-	emptySignal_out  <= emptySignal;
-	fullSignal_out   <= fullSignal;
 	
 
 END Behaviour;

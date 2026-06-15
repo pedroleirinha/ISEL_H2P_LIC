@@ -53,41 +53,34 @@ begin
 	LOAD_TB	<= '0';
 	wait for CLK_PERIOD;
 
-	TXCLK_TB	<= '1';
+	TXCLK_TB	<= '1';		-- 1
 	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
 	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
+	TXCLK_TB	<= '1';		-- 2
 	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
 	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
+	TXCLK_TB	<= '1';		-- 3
 	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
 	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
+	TXCLK_TB	<= '1';		-- 4
 	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
 	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
+	TXCLK_TB	<= '1';		-- 5
+	wait for CLK_PERIOD; 
+	TXCLK_TB	<= '0';
+	wait for CLK_PERIOD;
+	TXCLK_TB	<= '1';		-- 6
 	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
 	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
+	TXCLK_TB	<= '1';		-- 7
 	wait for CLK_PERIOD; 
 	TXCLK_TB	<= '0';
-	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '0';
-	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '0';
-	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '1';
-	wait for CLK_PERIOD; 
-	TXCLK_TB	<= '0';
+
 	wait;
 	
 end process;

@@ -112,17 +112,17 @@ object LCD {
         }
     }
 
-    fun drawHourGlass() {
-        val data = intArrayOf(0x1F, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x1F, 0x00)
-        writeCMD(0x60)
+    fun drawEuro() {
+        val data = arrayOf(6, 9, 30, 8, 30, 9, 6, 0)
+        writeCMD(0x58)
         data.forEach {
             writeDATA(it)
         }
     }
 
-    fun drawEuro() {
-        val data = arrayOf(6, 9, 30, 8, 30, 9, 6, 0)
-        writeCMD(0x58)
+    fun drawHourGlass() {
+        val data = intArrayOf(0x1F, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x1F, 0x00)
+        writeCMD(0x60)
         data.forEach {
             writeDATA(it)
         }

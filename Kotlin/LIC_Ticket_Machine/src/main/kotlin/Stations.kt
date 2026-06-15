@@ -18,7 +18,6 @@ object Stations {
 
     fun init() {
         loadStations()
-
     }
 
     fun getCurrentStation(): Station {
@@ -37,15 +36,17 @@ object Stations {
         val start = stationCount
         do {
             stationCount = if (stationCount > 0) stationCount - 1 else stationsList.size - 1
-        } while (getCurrentStation().code == originStation?.code && stationCount != start)
+        } while (isOriginStation(getCurrentStation()) && stationCount != start)
     }
 
     fun incrementStationsCount() {
         val start = stationCount
         do {
             stationCount = ++stationCount % stationsList.size
-        } while (getCurrentStation().code == originStation?.code && stationCount != start)
+        } while (isOriginStation(getCurrentStation()) && stationCount != start)
     }
+
+    fun isOriginStation(station: Station) = station.code == originStation?.code
 
     fun incrementDestinationStationSoldTickets() {
         val station = stationsList[stationCount]
@@ -62,30 +63,12 @@ object Stations {
     }
 
     fun loadStations() {
-        var stationCounter = 0
-        val list = FileAccess.readStationsFromFile()
-
-        val allStations = list.split("\n")
-        for (line in allStations) {
-            if (line.isEmpty()) break
-            val info = line.split(";")
-            val price = info[0].toInt()
-
-            stationsList.add(
-                Station(stationCounter++, info[2], info[1].toInt(), price)
-            )
-        }
-
+        stationsList.addAll(DatabaseAccess().loadStations())
         originStation = stationsList.find { it.price == 0 }
     }
 
     fun saveStations() {
-        var text = ""
-        stationsList.forEach {
-            text += "${it.toText()}\n"
-        }
-
-        FileAccess.writeStationsToFile(text)
+        DatabaseAccess().saveStations(stationsList)
     }
 }
 
@@ -139,6 +122,6 @@ fun main() {
     println("Dados guardados no ficheiro.")
 
     // 4. Verificação final da string formatada
-    val finalData = FileAccess.readStationsFromFile()
+    val finalData = DatabaseAccess().loadStations()
     println("Conteúdo final do ficheiro:\n$finalData")
 }

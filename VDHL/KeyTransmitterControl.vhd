@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 ENTITY KeyTransmitterControl IS
 	PORT(
 		clk_in, Load, CLEAR, CE, zeros: IN std_logic;
-		kbFree, shiftEnable, PL: OUT std_logic
+		kbFree, counterEnable, PL, muxBit, counterReset: OUT std_logic
 	);
 END KeyTransmitterControl;
 
@@ -15,18 +15,20 @@ ARCHITECTURE Behaviour OF KeyTransmitterControl IS
 	signal currState, nextState: STATE_TYPE;
 BEGIN
 
-	currState <= STATE_IDLE when CLEAR = '1' else nextState when rising_edge(clk_in);
+	currState		<= STATE_IDLE when CLEAR = '1' else nextState when rising_edge(clk_in);
 	
-	kbFree		<= '1' when  currState = STATE_IDLE else '0';
-	PL 			<= '1' when  currState = STATE_LOADING else '0';
-	shiftEnable	<= '1' when  currState = STATE_TRANSMITTING AND zeros = '0' else '0';
+	kbFree			<= '1' when  currState = STATE_IDLE else '0';
+	PL 				<= '1' when  currState = STATE_LOADING else '0';
+	counterEnable	<= '1' when  currState = STATE_TRANSMITTING else '0';
+	counterReset 	<= '1' when  currState = STATE_LOADING else '0';
+	muxBit			<= '1' when  currState = STATE_LOADING OR currState = STATE_TRANSMITTING  else '0';
+	
 	
 
 generateNextState:
 	process(Load, zeros, currState)
 	begin
 	  nextState <= currState;
-	  --shiftEnable	<= '0';
 	  
 	  case currState is
 			when STATE_IDLE 					=> 	if(Load = '0') then
@@ -42,7 +44,6 @@ generateNextState:
 															end if;
 															
 			WHEN STATE_TRANSMITTING       =>  	if(zeros = '0') then 
-																	--shiftEnable <= '1';
 																	nextState <= STATE_TRANSMITTING;
 															else
 																	nextState <= STATE_END_TRANSMISSION;

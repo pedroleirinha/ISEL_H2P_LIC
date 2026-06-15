@@ -22,10 +22,10 @@ ARCHITECTURE Structural OF Time_Delay IS
 	 
 	COMPONENT Counter IS
         PORT (
-            clk_in, CE, CLEAR, PL: IN std_logic;
-            initial, step: IN std_logic_vector (3 downto 0);
-            Q: OUT std_logic_vector (3 downto 0);
-            Z: OUT std_logic
+				clk_in, CE, CLEAR, PL: IN std_logic;
+				initial, step, TcValue: IN std_logic_vector (3 downto 0);
+				Q: OUT std_logic_vector (3 downto 0);
+				Z, TC: OUT std_logic
         );
 	END COMPONENT;
 	 
@@ -39,12 +39,8 @@ ARCHITECTURE Structural OF Time_Delay IS
 
 	 
 	 
-	signal clkdiv_wave     : std_logic;
-	
-	signal counter_steps,saida  : std_logic_vector(3 downto 0); 
-   signal mux_inputs     : std_logic_vector(3 downto 0); 
-   signal Tdelay_reached : std_logic;
-	
+	signal Tdelay_reached, clkdiv_wave: std_logic;	
+	signal counter_steps, saida  : std_logic_vector(3 downto 0);
 	
 BEGIN
 
@@ -56,13 +52,15 @@ BEGIN
 	);
 
 	contador_Delay: Counter port map(
-		clk_in  => clkdiv_wave,
+		clk_in  => clk,
 		CE      => ceTimer,        
 		CLEAR   => resetTimer,     
-		PL      => '0',           
+		PL      => '0',          
+		TcValue => saida,
 		initial => "0000",
 		step    => "0001",
-		Q       => counter_steps                
+		Q       => counter_steps,
+		TC		  => Tdelay_reached
 	);  
 
 	
@@ -74,11 +72,7 @@ BEGIN
 		S => delays,
 		Y => saida
 	);
-	
-	Tdelay_reached <= (saida(0) XNOR counter_steps(0)) AND 
-							(saida(1) XNOR counter_steps(1)) AND 
-							(saida(2) XNOR counter_steps(2)) AND 
-							(saida(3) XNOR counter_steps(3));               
+	         
 
 	timeUp <= Tdelay_reached;
 

@@ -62,9 +62,9 @@ begin
 	wait for CLK_PERIOD * 5;
 	ROWS_TB <= "1111";
 	
-	wait for CLK_PERIOD * 6;
+	wait for CLK_PERIOD * 15;
 	
-	for i in 0 to 8 loop
+	for i in 0 to 6 loop
 		TXCLK_TB	<= '1';
 		wait for CLK_PERIOD; 
 		TXCLK_TB	<= '0';
@@ -74,65 +74,26 @@ begin
 	
 	wait until COLS_TB = "1101";  -- coluna 3 ativa
 	ROWS_TB <= "1110";            -- linha 3 ativa
-	wait for CLK_PERIOD * 9;
 	
-	wait until TXD_TB = '0';
-	for i in 0 to 8 loop
-		TXCLK_TB	<= '1';
-		wait for CLK_PERIOD; 
-		TXCLK_TB	<= '0';
-      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
-	end loop;
-
-	
-	DELAY_TB <= "01";
-	
-	wait until TXD_TB = '0';
-	for i in 0 to 8 loop
-		TXCLK_TB	<= '1';
-		wait for CLK_PERIOD; 
-		TXCLK_TB	<= '0';
-      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
-	end loop;
-	
-	DELAY_TB <= "10";
-	
-	wait until TXD_TB = '0';
-	for i in 0 to 8 loop
-		TXCLK_TB	<= '1';
-		wait for CLK_PERIOD; 
-		TXCLK_TB	<= '0';
-      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
-	end loop;
-	
-	DELAY_TB <= "11";
-	
-	wait until TXD_TB = '0';
-	for i in 0 to 8 loop
-		TXCLK_TB	<= '1';
-		wait for CLK_PERIOD; 
-		TXCLK_TB	<= '0';
-      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
-	end loop;
-	
-	
+	wait for CLK_PERIOD;
+		
 	DELAY_TB <= "00";
 	
-	wait until TXD_TB = '0';
-	for i in 0 to 8 loop
-		TXCLK_TB	<= '1';
-		wait for CLK_PERIOD; 
-		TXCLK_TB	<= '0';
-      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
+	wait for CLK_PERIOD * 50;
+	ROWS_TB <= "1111";
+	wait for CLK_PERIOD * 2;
+	for j in 0 to 10 loop
+		
+		for i in 0 to 6 loop
+			TXCLK_TB	<= '1';
+			wait for CLK_PERIOD; 
+			TXCLK_TB	<= '0';
+			wait for CLK_PERIOD; -- Aguarda um ciclo completo 
+		end loop;
+		wait for CLK_PERIOD * 5; 
 	end loop;
 	
-	wait until TXD_TB = '0';
-	for i in 0 to 8 loop
-		TXCLK_TB	<= '1';
-		wait for CLK_PERIOD; 
-		TXCLK_TB	<= '0';
-      wait for CLK_PERIOD; -- Aguarda um ciclo completo 
-	end loop;
+	
 	
 	wait;
 	

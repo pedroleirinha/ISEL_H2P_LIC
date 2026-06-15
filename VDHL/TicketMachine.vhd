@@ -8,23 +8,11 @@ ENTITY TicketMachine IS
       delay:					               IN std_logic_vector(1 downto 0); 
 		COINS: 										IN std_logic_vector(2 downto 0);
 
-		
-		
+		output:		 								IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
 		LCD_EN, LCD_RS, CoinAccepted, Prt:	OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
-		K: 											OUT std_logic_vector(3 downto 0);
-		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
-		state:										OUT std_logic_vector(7 downto 0);
-		s_time_up:  								OUT std_logic;
-		
-		putIndex, getIndex: 						OUT std_logic_vector(3 downto 0);
-		Wreg, DAC, DAV, CTS:						OUT std_logic;
-		emptySignal, fullSignal:	   		OUT std_logic;
-		Kval:								 			OUT std_logic;
-		Kpress:										OUT std_logic;
-		
-		rows:											out std_logic_vector(3 downto 0)
+		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0)
 	);
 	
 END TicketMachine;
@@ -39,12 +27,7 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 			rows: 								IN std_logic_vector(3 downto 0);
 			cols: 								OUT std_logic_vector(3 downto 0);
 			K: 									OUT std_logic_vector (3 downto 0);
-			TxD, Kval:							OUT std_logic;
-			
-			putIndex, getIndex: 				OUT std_logic_vector(3 downto 0);
-			Wreg_out, DAC_out, DAV, CTS:	OUT std_logic;
-			emptySignal_out, inv_fullSignal:	   OUT std_logic;
-			Kpress:                       OUT std_logic
+			TxD, Kval:							OUT std_logic
 		);
 	end component;
 	
@@ -82,9 +65,8 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 		);
 	end component;
 	
-	signal input, output:		STD_LOGIC_VECTOR(7 DOWNTO 0);
+	signal input:		STD_LOGIC_VECTOR(7 DOWNTO 0);
 	signal values: 				STD_LOGIC_VECTOR(3 DOWNTO 0);
-	signal clock: 					STD_LOGIC;
 	
 	
 	-- Signals for LCD
@@ -100,34 +82,11 @@ ARCHITECTURE Behaviour OF TicketMachine IS
 	signal fnFlag, roundtripFlag, PrtFlag, collectFlag: STD_LOGIC;
 	
 	-- Signals for CoinAcceptor
-	signal coinAccepted2, coinsCollected, ejectCoins: STD_LOGIC;
-	
-
-	component Time_Delay
-	  PORT(
-        clk, ceTimer, resetTimer: 	IN  std_logic;                                 
-        delays: 							IN  std_logic_vector(1 downto 0); 
-        timeUp: 							OUT std_logic	 
-	  );
-	end component;
-
-	
+	signal coinsCollected, ejectCoins: STD_LOGIC;
+		
 	
 BEGIN
-
---##################
-
-	time_D: Time_Delay port map(
-	  clk         => clock_50,
-	  ceTimer     => '1',
-	  resetTimer  => '0',
-	  delays 	  => delay,          
-	  timeUp      => s_time_up           
-	);
---##################
-
-
-		
+	
 	peLcd: PortExpanderLCD port map(
 		SCLK 	=> SCLK,
 		CLEAR	=> CLEAR,
@@ -152,22 +111,9 @@ BEGIN
 		rows 		=> KEYPAD_LIN,		
 		cols 		=> KEYPAD_COL,	
 		K 			=> values,		
-		TxD		=> TxD_o,
-		Kval     => Kval,
-		
-		
-		putIndex => putIndex,
-		getIndex => getIndex,
-		Wreg_out => Wreg,
-		 DAC_out => DAC,
-			  DAV => DAV,
-			  CTS => CTS,
-	emptySignal_out => emptySignal,
-	 inv_fullSignal	=> fullSignal,
-	     Kpress => Kpress
+		TxD		=> TxD_o
 	);
 	
-	rows <= KEYPAD_LIN;
 	
 	ticketDispenser: TICKET_DISPENSER port map(
 		Prt 				=> PrtFlag,
@@ -184,15 +130,13 @@ BEGIN
 		HEX5    			=> HEX5
 	);
 
-	UsbPort1: UsbPort port map(
-		inputPort	=> input,
-		outputPort	=> output
-	);
+--	UsbPort1: UsbPort port map(
+--		inputPort	=> input,
+--		outputPort	=> output
+--	);
 	
 	input <= TxD_o & Manut &"0" & fnFlag & coin & coins;
-	Prt 	<= PrtFlag;
-	
-	state <= input;
+	Prt 	<= PrtFlag;	
 	
 	-- Info for TicketDispenser
 	PrtFlag			<= QTD(9);
@@ -203,11 +147,11 @@ BEGIN
 		
 
 	-- Info for CoinAcceptor
-	coinAccepted2 	<= output(4);
+	CoinAccepted   <= output(4);
 	coinsCollected <= output(6);
 	ejectCoins		<= output(5);
 	
-	CoinAccepted <= coinAccepted2;
+	
 	
 	-- Info for KeyTransmitter
 	TxClk_i 	<= output(7);
@@ -223,7 +167,5 @@ BEGIN
 	LCD_EN <= QLCD(9);
 	LCD_DATA <= QLCD(8 downto 1);
 	LCD_RS <= QLCD(0);
-	
-	K <= values;
 
 END Behaviour;

@@ -7,29 +7,27 @@ end entity;
 architecture TicketMachine_tb_arch of TicketMachine_tb is
 
 	component TicketMachine 				PORT(
-		CLK, CLEAR, CollectTicket, Coin:		IN std_logic;
+		CLOCK_50, CLEAR, CollectTicket, Coin, Manut:		IN std_logic;
 		KEYPAD_LIN:									IN std_logic_vector(3 downto 0);
       delay:					               IN std_logic_vector(1 downto 0); 
 		COINS: 										IN std_logic_vector(2 downto 0);
-		output:										IN std_logic_vector(7 downto 0);
+
+		output:		 								IN std_logic_vector(7 downto 0);
 		LCD_DATA:		 							OUT std_logic_vector(7 downto 0);
 		LCD_EN, LCD_RS, CoinAccepted, Prt:	OUT std_logic; 
 		KEYPAD_COL: 								OUT std_logic_vector(3 downto 0);
-		K: 											OUT std_logic_vector(3 downto 0);
-		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0);
-		state:										OUT std_logic_vector(7 downto 0)
+		HEX0, HEX1, HEX2, HEX3, HEX4, HEX5: OUT STD_LOGIC_VECTOR(7 downto 0)
 	);
 	end component;
 
 	-- UUT signals
 	signal CLK_TB : std_logic := '0';
 	signal COINS_TB: std_logic_vector(2 downto 0);
-	signal LCD_RS_TB, LCD_EN_TB, CLEAR_TB, COLLECT_TICKET_TB, COIN_TB, COIN_ACCEPT_TB, PRT_TB: std_logic;
+	signal LCD_RS_TB, LCD_EN_TB, CLEAR_TB, MANUT_TB, COLLECT_TICKET_TB, COIN_TB, COIN_ACCEPT_TB, PRT_TB: std_logic;
 	signal HEX0_TB, HEX1_TB, HEX2_TB, HEX3_TB, HEX4_TB, HEX5_TB: STD_LOGIC_VECTOR(7 downto 0);
 
-	signal STATE_TB: std_logic_vector(7 downto 0);
 	signal DELAY_TB: std_logic_vector(1 downto 0);
-	signal COLS_TB, K_TB, ROWS_TB  : std_logic_vector(3 downto 0);
+	signal COLS_TB, ROWS_TB  : std_logic_vector(3 downto 0);
 	signal LCD_DATA_TB, OUTPUT_TB  : std_logic_vector(7 downto 0);
 
 	constant MCLK_PERIOD : time := 20 ns;
@@ -40,11 +38,10 @@ begin
 
 	CLK_TB <= not CLK_TB after MCLK_HALF_PERIOD;		
 	UUT: TicketMachine port map(	
-		CLK				=> CLK_TB,
+		CLOCK_50			=> CLK_TB,
 		KEYPAD_LIN	 	=> ROWS_TB,
 		CLEAR				=> CLEAR_TB,
 		KEYPAD_COL		=> COLS_TB,
-		K					=> K_TB, 
 		delay				=> DELAY_TB,
 		LCD_DATA			=> LCD_DATA_TB,
 		LCD_EN			=> LCD_EN_TB,
@@ -53,8 +50,8 @@ begin
 		Coin				=> COIN_TB,
 		COINS				=> COINS_TB,
 		output			=> OUTPUT_TB,
-		state				=> STATE_TB,
 		coinAccepted	=> COIN_ACCEPT_TB,
+		Manut				=> MANUT_TB,
 		Prt				=> PRT_TB,
 		HEX0				=> HEX0_TB,
 		HEX1				=> HEX1_TB,
@@ -71,6 +68,7 @@ begin
 	COLLECT_TICKET_TB	<= '0';
 	DELAY_TB	<= "00";
 	PRT_TB	<= '0';
+	MANUT_TB	<= '0';
 	COINS_TB <= "000";
 	OUTPUT_TB<= "00001000";
 	CLEAR_TB <= '1';

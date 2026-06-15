@@ -85,7 +85,8 @@ BEGIN
 
     Kscan <= '1' when (currState = STATE_SCANNING_00 AND Kpress = '0') else '0';	 
     Kval  <= '1' when (currState = STATE_READING_01) else '0';
-	 resetTimer <= '1' when (currState = STATE_READING_01 or (currState = STATE_ACKNOWLEDGE_10 and Kpress = '0') ) else '0';
+	 --resetTimer <= '1' when (currState = STATE_READING_01 or (currState = STATE_ACKNOWLEDGE_10 and Kpress = '0') ) else '0';
+	 resetTimer <= '1' when (currState = STATE_READING_01 ) else '0';
 	 ceTimer <= '1' when (currState = STATE_ACKNOWLEDGE_10 and Kpress = '1' and Kack = '0') else '0';
 	 
 	 

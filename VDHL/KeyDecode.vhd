@@ -8,8 +8,7 @@ ENTITY KeyDecode IS
 		rows: 						IN std_logic_vector(3 downto 0);
 		cols: 						OUT std_logic_vector(3 downto 0);
 		K: 							OUT std_logic_vector (3 downto 0);
-		Kval:							OUT std_logic;
-		Kpress:						OUT std_logic
+		Kval:							OUT std_logic
 	);
 END KeyDecode;
 
@@ -41,11 +40,8 @@ ARCHITECTURE Behaviour OF KeyDecode IS
 	  );
 	end component;
 
-	signal controlKpress, controlKscan : std_logic;
-	signal s_time_up    : std_logic;
-   signal s_ce_timer   : std_logic;
-   signal s_reset_timer: std_logic;
-
+	signal controlKpress, controlKscan, s_ce_timer, s_time_up, s_reset_timer, reset_timer : std_logic;
+	
 BEGIN
 	
 	scan: KeyScan port map(
@@ -71,14 +67,14 @@ BEGIN
 	  resetTimer  => s_reset_timer  
 	);
 	
+	reset_timer <= s_reset_timer OR CLEAR;
+	
 	time_D: Time_Delay port map(
 	  clk         => clk_in,
 	  ceTimer     => s_ce_timer,
-	  resetTimer  => s_reset_timer,
+	  resetTimer  => reset_timer,
 	  delays 	  => delay,          
 	  timeUp      => s_time_up           
 	);
-
-	Kpress 	<= controlKpress;
 
 END Behaviour;

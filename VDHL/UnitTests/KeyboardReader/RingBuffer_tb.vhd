@@ -47,8 +47,8 @@ begin
 	wait for CLK_PERIOD;
 	CLEAR_TB 	<= '0';
 	
-	
-	D_TB			<= "0110";
+	 
+	D_TB			<= "0110";  -- 1
 	-- Write Cycle
 	wait for CLK_PERIOD;	
 	DAV_TB 		<= '1';
@@ -57,7 +57,7 @@ begin
 	wait for CLK_PERIOD * 5;
 	
 		
-	D_TB			<= "1111";
+	D_TB			<= "1111";	-- 2
 	-- Write Cycle
 	wait for CLK_PERIOD;	
 	DAV_TB 		<= '1';
@@ -66,7 +66,7 @@ begin
 	wait for CLK_PERIOD * 5;
 	
 		
-	D_TB			<= "0010";
+	D_TB			<= "0010";	-- 3
 	-- Write Cycle
 	wait for CLK_PERIOD;	
 	DAV_TB 		<= '1';
@@ -75,13 +75,154 @@ begin
 	wait for CLK_PERIOD * 5;
 	
 		
-	D_TB			<= "0000";
+	D_TB			<= "0000";	-- 4
 	-- Write Cycle
 	wait for CLK_PERIOD;	
 	DAV_TB 		<= '1';
 	wait for CLK_PERIOD * 5;
 	DAV_TB 		<= '0';
 	wait for CLK_PERIOD * 5;
+	
+	D_TB			<= "0110";	-- 5
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "1111";	-- 6
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0010";	-- 7
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0000";	-- 8
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+	D_TB			<= "0110";	-- 9
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "1111";	-- 10
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0010";	-- 11
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0000";	-- 12
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+	D_TB			<= "0110";	-- 13
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "1111";	-- 14
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0010";	-- 15
+	-- Write Cycle	
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0000";	-- 16
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+	D_TB			<= "0110";	-- 17
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "1111";	-- 18
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0010";	-- 19
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
+		
+	D_TB			<= "0000";	-- 20
+	-- Write Cycle
+	wait for CLK_PERIOD;	
+	DAV_TB 		<= '1';
+	wait for CLK_PERIOD * 5;
+	DAV_TB 		<= '0';
+	wait for CLK_PERIOD * 5;
+	
 	
 	-- Read Cycle	
 	CTS_TB 		<= '1';

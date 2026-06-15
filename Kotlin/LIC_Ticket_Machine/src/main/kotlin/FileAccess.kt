@@ -4,24 +4,47 @@ import java.io.BufferedReader
 import java.io.FileReader
 import java.io.PrintWriter
 
-object FileAccess {
-    const val stationsFileName = "stations.csv"
-    const val coinsFileName = "coins.csv"
 
-    fun readCoinsFromFile(): String {
-        return readFromFile(coinsFileName)
-    }
+interface DateAccessInterface {
+    fun loadStations(): List<Station>
+    fun saveStations(stations: List<Station>)
+    fun loadCoins(): Array<Coin>
+    fun saveCoins(coins: Array<Coin>)
+}
 
-    fun readStationsFromFile(): String {
-        return readFromFile(stationsFileName)
-    }
-
-    fun writeCoinsToFile(info: String) {
-        writeToFile(coinsFileName, info)
-    }
+class FileAccess : DateAccessInterface {
+    val stationsFileName = "stations.csv"
+    val coinsFileName = "coins.csv"
 
     fun writeStationsToFile(info: String) {
         writeToFile(stationsFileName, info)
+    }
+
+    override fun loadStations(): List<Station> {
+        var stationCounter = 0
+        val list = readFromFile(stationsFileName)
+        val stationsList = mutableListOf<Station>()
+
+        val allStations = list.split("\n")
+        for (line in allStations) {
+            if (line.isEmpty()) break
+            val info = line.split(";")
+            val price = info[0].toInt()
+
+            stationsList.add(
+                Station(stationCounter++, info[2], info[1].toInt(), price)
+            )
+        }
+        return stationsList
+    }
+
+    override fun saveStations(stations: List<Station>) {
+        var text = ""
+        stations.forEach {
+            text += "${it.toText()}\n"
+        }
+
+        writeStationsToFile(text)
     }
 
     fun readFromFile(fileName: String): String {
@@ -42,39 +65,30 @@ object FileAccess {
         }
         pw.close()
     }
-}
 
-fun main() {
-    println("--- Teste de Acesso a Ficheiros (Ticket Machine) ---")
+    override fun loadCoins(): Array<Coin> {
+        val list = readFromFile(coinsFileName)
+        val coins = Array(6) { Coin() }
 
-    val sampleCoins = "200;10\n100;20\n50;50\n20;100"
-    val sampleStations = "1.25;0;Alverca\n2.10;5;Rossio\n3.40;2;Sintra"
+        val allCoins = list.split("\n")
 
-    try {
-        // 2. Teste de Escrita
-        println("A escrever dados nos ficheiros...")
-        FileAccess.writeCoinsToFile(sampleCoins)
-        FileAccess.writeStationsToFile(sampleStations)
-        println("Escrita concluída com sucesso.")
+        var index = 0
+        for (coinInfo in allCoins) {
+            if (coinInfo.isEmpty()) break
+            val info = coinInfo.split(";")
+            coins[index++] = Coin(info[0].toInt(), info[1].toInt())
 
-        println("-------------------------------------------")
-
-        // 3. Teste de Leitura
-        println("A ler dados do ficheiro de moedas:")
-        val readCoins = FileAccess.readCoinsFromFile()
-        println(readCoins)
-
-        println("A ler dados do ficheiro de estações:")
-        val readStations = FileAccess.readStationsFromFile()
-        println(readStations)
-
-        if (readCoins.trim() == sampleCoins.trim()) {
-            println("Sucesso: Os dados de moedas coincidem!")
-        } else {
-            println("Aviso: Existem diferenças nos dados de moedas.")
         }
 
-    } catch (e: Exception) {
-        println("Erro durante o teste: ${e.message}")
+        return coins
+    }
+
+    override fun saveCoins(coins: Array<Coin>) {
+        var text = ""
+        coins.forEach {
+            text += "${it.faceValue};${it.count}\n"
+        }
+
+        writeToFile(coinsFileName, text)
     }
 }

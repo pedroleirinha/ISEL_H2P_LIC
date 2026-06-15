@@ -10,20 +10,11 @@ ENTITY KeyTransmitter IS
 END KeyTransmitter;
 
 ARCHITECTURE Behaviour OF KeyTransmitter IS
-	
-	component ShiftRegisterL6
-		PORT(
-			CLK, CE, PL, CLEAR: 	IN std_logic;
-			D: 						IN std_logic_vector(6 downto 0);
-			Q, zeros:				OUT std_logic;
-			state:					OUT std_logic_vector(6 downto 0)
-		);
-	end component;
-	
+		
 	component KeyTransmitterControl
 		PORT(
 			clk_in, Load, CLEAR, CE, zeros: IN std_logic;
-			kbFree, shiftEnable, PL: OUT std_logic
+			kbFree, counterEnable, PL, muxBit, counterReset: OUT std_logic
 		);
 	end component;
 	
@@ -35,51 +26,108 @@ ARCHITECTURE Behaviour OF KeyTransmitter IS
 		);
 	end component;
 	
-	signal InvClk, shiftClk, PL, errorZeros, shiftEnable, shiftBit, TxDFinal: std_logic;
-	signal shiftRegisterBits, muxOut, muxA, muxB: std_logic_vector(6 downto 0);
+	COMPONENT Counter IS
+        PORT (
+			clk_in, CE, CLEAR, PL: IN std_logic;
+			initial, step, TcValue: IN std_logic_vector (3 downto 0);
+			Q: OUT std_logic_vector (3 downto 0);
+			Z, TC: OUT std_logic
+        );
+	END COMPONENT;
+	
+	COMPONENT RegistryL4 IS
+		PORT(
+			D: 							IN std_logic_vector (3 downto 0);
+			clk_in, CE, CLEAR, SET: IN std_logic;
+			Q: 							OUT std_logic_vector (3 downto 0)
+		);
+	END COMPONENT;
+	
+	component MUX8_4L1
+		PORT(
+			A: IN std_logic;
+			B: IN std_logic;
+			C: IN std_logic;
+			D: IN std_logic;
+			E: IN std_logic;
+			F: IN std_logic;
+			G: IN std_logic;
+			H: IN std_logic;
+			S: IN std_logic_vector(3 downto 0);
+			Y: OUT std_logic
+		);
+	end component;
+	
+	signal PL, counterFinished, counterEnable, TxdBit, TxDFinal, muxBit, counterReset, Reset: std_logic;
+	signal muxOut, muxA, muxB: std_logic_vector(6 downto 0);
+	signal counter_steps, key: std_logic_vector(3 downto 0);
 	
 BEGIN
-	InvClk <= NOT CLK;
 
-	muxA <= "000000" & TxClk;
-	muxB <= "000000" & InvClk;
+	registry: RegistryL4 port map(
+		clk_in => CLK,
+		CLEAR  => CLEAR,
+		SET	=> '0',
+		D 		=> D,
+		CE 	=> PL,
+		Q 		=> key
+	);
+
+	mux: MUX8_4L1 port map(
+		A => '0',
+		B => '1',
+		C => key(3),
+		D => key(2),
+		E => key(1),
+		F => key(0),
+		G => '0',
+		H => '1',
+		S => counter_steps,
+		Y => TxdBit
+	);
 	
-	clkMux: MUX2_1L7 port map(
+	muxA <= "000000" & '1';
+	muxB <= "000000" & TxdBit;
+	
+	
+	holdregister: MUX2_1L7 port map(
 		A 		=> muxA,
 		B		=> muxB,
-		S		=> PL,
+		S		=> muxBit,
 		Y		=> muxOut
 	);
 	
-	shiftClk <= muxOut(0);
+	TxDFinal <= muxOut(0);
+		
+	Reset <= counterReset OR CLEAR;
 	
-	shiftRegister1: ShiftRegisterL6 port map(
-		CLK 		=> shiftClk,
-		CE 		=> shiftEnable,
-		PL 		=> PL,			
-		CLEAR		=> CLEAR,
-		D			=>	shiftRegisterBits,
-		Q 			=> shiftBit,
-		zeros		=> errorZeros
-	);
-	
-	
-	shiftRegisterBits <= '0' & D(3 downto 0) & '1' & '0';
+	contador_Delay: Counter port map(
+		clk_in  => TxCLK,
+		CE      => counterEnable,        
+		TcValue => "0111",
+		CLEAR   => Reset,     
+		PL      => '0',           
+		initial => "0000",
+		step    => "0001",
+		Q       => counter_steps,
+		TC		  => counterFinished
+	);  
 
-	
 	control: KeyTransmitterControl port map(
-		clk_in 		=> CLK,
-		CE 			=> '1',
-		Load 			=> Load,
-		zeros			=> errorZeros,
-		CLEAR			=> CLEAR,
-		kbFree 		=> KbFree,
-		shiftEnable	=> shiftEnable,
-		PL				=> PL
+		clk_in 			=> CLK,
+		CE 				=> '1',
+		Load 				=> Load,
+		zeros				=> counterFinished,
+		CLEAR				=> CLEAR,
+		kbFree 			=> KbFree,
+		counterEnable	=> counterEnable,
+		PL					=> PL,
+		muxBit			=> muxBit,
+		counterReset	=> counterReset
 	);
 		
 	
-	TxD <= shiftBit;
+	TxD <= TxDFinal;
 	
 	
 

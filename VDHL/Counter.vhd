@@ -3,10 +3,10 @@ use ieee.std_logic_1164.all;
 
 ENTITY Counter IS
 	PORT(
-		clk_in, CE, CLEAR, PL: IN std_logic;
-		initial, step: IN std_logic_vector (3 downto 0);
-		Q: OUT std_logic_vector (3 downto 0);
-		Z: OUT std_logic
+		clk_in, CE, CLEAR, PL: 	IN std_logic;
+		initial, step, TcValue: IN std_logic_vector (3 downto 0);
+		Q: 							OUT std_logic_vector (3 downto 0);
+		Z, TC: 						OUT std_logic
 	);
 END Counter;
 
@@ -72,8 +72,14 @@ BEGIN
 		Q => flipflopsCurrentState
 	);
 	
+
+	TC <= (TcValue(0) XNOR flipflopsCurrentState(0)) AND 
+			(TcValue(1) XNOR flipflopsCurrentState(1)) AND 
+			(TcValue(2) XNOR flipflopsCurrentState(2)) AND 
+			(TcValue(3) XNOR flipflopsCurrentState(3));      
+	
 	Q <= flipflopsCurrentState;
-	Z <= (flipflopsCurrentState(0) AND NOT flipflopsCurrentState(1) AND NOT flipflopsCurrentState(2) AND NOT flipflopsCurrentState(3));
+	Z <= (NOT flipflopsCurrentState(0) AND NOT flipflopsCurrentState(1) AND NOT flipflopsCurrentState(2) AND NOT flipflopsCurrentState(3));
 	
 	
 END Structural;
