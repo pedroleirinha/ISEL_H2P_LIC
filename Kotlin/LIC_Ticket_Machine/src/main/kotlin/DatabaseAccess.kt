@@ -48,7 +48,7 @@ class DatabaseAccess : DateAccessInterface {
 
         stations.forEach { station ->
             preparedStatement.setInt(1, station.ticketsSold)
-            preparedStatement.setInt(2, station.code)
+            preparedStatement.setInt(2, station.code + 1)
             preparedStatement.executeUpdate()
         }
     }
@@ -56,14 +56,13 @@ class DatabaseAccess : DateAccessInterface {
     override fun saveCoins(coins: Array<Coin>) {
         if (connection == null) return
 
-        // SQL para atualizar a contagem de moedas no inventário
         val sql = "UPDATE coins SET count = ? WHERE id = ?"
         val preparedStatement = connection!!.prepareStatement(sql)
 
         for (id in coins.indices) {
             val coin = coins[id]
-            preparedStatement.setDouble(1, coin.count.toDouble())
-            preparedStatement.setInt(2, id)
+            preparedStatement.setInt(1, coin.count)
+            preparedStatement.setInt(2, id + 1)
             preparedStatement.executeUpdate()
         }
     }

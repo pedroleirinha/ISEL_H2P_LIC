@@ -16,9 +16,6 @@ class FileAccess : DateAccessInterface {
     val stationsFileName = "stations.csv"
     val coinsFileName = "coins.csv"
 
-    fun writeStationsToFile(info: String) {
-        writeToFile(stationsFileName, info)
-    }
 
     override fun loadStations(): List<Station> {
         var stationCounter = 0
@@ -43,8 +40,7 @@ class FileAccess : DateAccessInterface {
         stations.forEach {
             text += "${it.toText()}\n"
         }
-
-        writeStationsToFile(text)
+        writeToFile(stationsFileName, text)
     }
 
     fun readFromFile(fileName: String): String {
