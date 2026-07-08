@@ -25,7 +25,7 @@ object TicketMachine {
         CoinAcceptor.isBusy() || TicketDispenser.isTicketCollectedBitUp() || isMaintenanceModeActive()
 
 
-    fun abortVendingProcess() {
+    fun     abortVendingProcess() {
         Stations.destStation = null
         CoinAcceptor.ejectCoinsAndCleanDeposit()
         TicketMachineView.showAbortVendingMessage()

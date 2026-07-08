@@ -12,6 +12,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation(files("libs/ticketMachine.jar"))
+    implementation("org.postgresql:postgresql:42.7.3")
 }
 
 kotlin {

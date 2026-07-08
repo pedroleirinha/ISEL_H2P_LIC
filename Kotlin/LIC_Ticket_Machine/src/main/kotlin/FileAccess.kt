@@ -4,7 +4,6 @@ import java.io.BufferedReader
 import java.io.FileReader
 import java.io.PrintWriter
 
-
 interface DateAccessInterface {
     fun loadStations(): List<Station>
     fun saveStations(stations: List<Station>)
